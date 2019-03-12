@@ -1,0 +1,22 @@
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+  *{
+    font-family: 'Didact Gothic', sans-serif;
+  }
+  .form_materialize:focus-within {
+    label { @apply .text-primary; }
+    input { @apply .border-primary; }
+  }
+
+  .label_input {
+    @apply .font-hairline .text-xs .text-grey-darker;
+  }
+
+  .field_input {
+    @apply .appearance-none .block .w-full .text-grey-darker .border-b .py-3 .h-8;
+  }
+
+  .field_input:focus {
+    @apply outline-none;
+  }

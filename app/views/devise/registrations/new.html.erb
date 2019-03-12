@@ -27,3 +27,95 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<div class="flex flex-wraper justify-center">
+  <div class="shadow-md rounded px-6 py-6 bg-white">
+    <form class="w-full max-w-md">
+      <div class="flex flex-wrap -mx-3 mb-5">
+        <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 form_materialize">
+          <label class="label_input" for="grid-first-name">
+            Nombre</label>
+          <input class="field_input" type="text" onclick="">
+
+        </div>
+        <div class="w-full md:w-1/2 px-3 form_materialize">
+          <label class="label_input" for="grid-last-name">
+            Apellido
+          </label>
+          <input class="field_input" id="grid-last-name" type="text" >
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-5">
+        <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 form_materialize">
+          <label class="label_input" for="grid-first-name">
+            Fecha de nacimiento
+          </label>
+          <input class="field_input" id="grid-first-name" type="date" placeholder="Jane">
+        </div>
+        <div class="w-full md:w-1/2 px-3 form_materialize">
+          <label class="label_input" for="grid-last-name">
+            Identificación
+          </label>
+          <input class="field_input" type="number" >
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-5">
+        <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 form_materialize">
+          <label class="label_input" for="grid-first-name">
+            Telefono
+          </label>
+          <input class="field_input" type="number" >
+        </div>
+        <div class="w-full md:w-1/2 px-3 ">
+          <label class="label_input" for="grid-state">
+            Empresa de afiliación
+          </label>
+          <div class="relative">
+            <select class="block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8" id="grid-state">
+              <option class="bg-primary">New Mexico</option>
+              <option>Missouri</option>
+              <option>Texas</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-5">
+        <div class="w-full px-3 form_materialize">
+          <label class="label_input" for="grid-password">
+            Dirección
+          </label>
+          <input class="field_input" id="grid-password" type="text" >
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-5">
+        <div class="w-full px-3 form_materialize">
+          <label class="label_input" for="grid-password">
+            Correo
+          </label>
+          <input class="field_input rounded-t" type="email" placeholder="example@gmail.com">
+        </div>
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="w-full px-3 form_materialize">
+          <label class="label_input" for="grid-password">
+            Contraseña
+          </label>
+          <input class="field_input rounded-t" type="password">
+        </div>
+      </div>
+      <div class="flex mb-6">
+        <label class="label_input">
+          <input class="mr-2 leading-tight" type="checkbox">
+          <span class="text-sm">
+            Recuerdame
+          </span>
+        </label>
+      </div>
+      <div class="md:flex md:items-center justify-center">
+        <button class="shadow bg-primary hover:bg-secondary focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
+          Registrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

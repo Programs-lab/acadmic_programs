@@ -4,14 +4,15 @@
     <title>Gastromed</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application'%>
+    <%= stylesheet_pack_tag 'application' %>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container mx-auto">
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">
         <%= value %>
@@ -20,11 +21,11 @@
 
     <%= yield :top_content %>
 
-    <div class="container">
+    <div class="container mx-auto">
         <h1><%= yield :header %></h1>
       <%= yield %>
     </div>
 
-</div>
+  </div>
   </body>
 </html>

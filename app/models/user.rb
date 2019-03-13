@@ -9,6 +9,7 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :timeoutable, reconfirmable: true
+  
   enum role: [:patient, :doctor, :admin]         
   has_one_attached :avatar
 

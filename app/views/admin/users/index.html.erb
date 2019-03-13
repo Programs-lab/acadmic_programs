@@ -1,0 +1,48 @@
+<div class="form-padding">
+<div class="row">
+<div class="col s12" id="admin">
+   <div class="card material-table card-default">
+      <div class="table-header">
+<p id="notice"><%= notice %></p>
+
+<h5>Appoinments</h5>
+<div class="actions" data-turbolinks="false">
+    <a class="waves-effect waves-light btn btn-floating btn-large cyan darken-2" href="<%= new_appoinment_path %>" id="newpost">
+      <i class="large material-icons">add</i>
+    </a>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Appointment date</th>
+      <th>Doctor</th>
+      <th>Appointment type</th>
+      <th>Summary</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @appoinments.each do |appoinment| %>
+      <tr>
+        <td><%= appoinment.appointment_date %></td>
+        <td><%= appoinment.doctor %></td>
+        <td><%= appoinment.appointment_type %></td>
+        <td><%= appoinment.summary %></td>
+        <td><%= appoinment.user %></td>
+        <td><%= link_to 'Show', appoinment %></td>
+        <td><%= link_to 'Edit', edit_appoinment_path(appoinment) %></td>
+        <td><%= link_to 'Destroy', appoinment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+</div>
+</div>
+</div>
+

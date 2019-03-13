@@ -12,7 +12,8 @@
   </head>
 
   <body>
-    <div class="container mx-auto">
+    <%= render partial: 'shared/nav_bar' %>
+
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>">
         <%= value %>
@@ -21,11 +22,10 @@
 
     <%= yield :top_content %>
 
-    <div class="container mx-auto">
-        <h1><%= yield :header %></h1>
+    <div class="flex-grow">
       <%= yield %>
     </div>
 
-  </div>
+    <%= render partial: 'shared/footer' %>
   </body>
 </html>

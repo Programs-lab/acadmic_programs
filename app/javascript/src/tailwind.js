@@ -48,7 +48,7 @@ let colors = {
 
   'primary': '#55b6d0',
   'secondary': '#008fb2',
-  'third': 'c6c6c6',
+  'third': '#c6c6c6',
 
   'black': '#22292f',
   'grey-darkest': '#3d4852',
@@ -545,6 +545,7 @@ module.exports = {
     '10': '2.5rem',
     '12': '3rem',
     '16': '4rem',
+    '18': '5rem',
     '24': '6rem',
     '32': '8rem',
     '48': '12rem',

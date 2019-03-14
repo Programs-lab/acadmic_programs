@@ -1,0 +1,43 @@
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+  *{
+    font-family: 'Didact Gothic', sans-serif;
+  }
+  .focus_form:focus-within {
+    label { @apply .text-primary; }
+    input { @apply .border-primary; }
+  }
+
+  .invalid_form:focus-within {
+    label { @apply .text-red-light; }
+    input { @apply .border-red-light; }
+  }
+
+  .label_input {
+    @apply .font-hairline .text-xs .text-grey-darker;
+  }
+
+  .field_input {
+    @apply .appearance-none .block .w-full .text-grey-darker .border-b .py-3 .h-8;
+  }
+
+  .field_input:focus {
+    @apply outline-none;
+  }
+
+
+  #footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;    /* Height of the footer */
+   }
+
+   hr.style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }

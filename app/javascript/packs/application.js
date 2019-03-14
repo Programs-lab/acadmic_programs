@@ -17,3 +17,4 @@
 
 console.log('Hello World from Webpacker')
 require('./hello_vue');
+import 'application.scss';

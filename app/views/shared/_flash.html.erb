@@ -1,0 +1,16 @@
+<div class="container mx-auto mt-6">
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>" role="alert">
+      <div class="flex">
+        <%= icon('fa', icon_alert[key], class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest w-1/2">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm"><%= value %></p>
+        </div>
+        <div class="w-full flex justify-end items-center">
+          <%= icon('fa', "times", class: 'text-grey-darker fa-sm cursor-pointer') %>
+        </div>
+      </div>
+    </div>
+<% end %>
+</div>

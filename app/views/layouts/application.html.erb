@@ -13,13 +13,7 @@
 
   <body>
     <%= render partial: 'shared/nav_bar' %>
-
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>">
-        <%= value %>
-      </div>
-    <% end %>
-
+    <%= render partial: 'shared/flash' %>
     <%= yield :top_content %>
 
     <div class="flex-grow">

@@ -9,6 +9,12 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :timeoutable, reconfirmable: true
+  
+  enum role: [:patient, :doctor, :admin]         
+  has_one_attached :avatar
 
- has_one_attached :avatar
+ def set_default_role
+   self.role ||= :admin
+ end
+
 end

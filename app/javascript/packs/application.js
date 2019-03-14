@@ -17,4 +17,5 @@
 
 console.log('Hello World from Webpacker')
 require('./hello_vue');
+require('./sign_up');
 import 'application.scss';

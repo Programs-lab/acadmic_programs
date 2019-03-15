@@ -1,7 +1,9 @@
-class UsersController < ApplicationController
-
+class Admin::UsersController < ApplicationController
+  before_action :authenticate_user!
   def index
-    @users = User.where("id NOT IN (?)", current_user.id) # don't display the current user in the users list; go to account management to edit current user details
+    @users = User.where("id NOT IN (?)", current_user.id)
+    authorize @users
+     # don't display the current user in the users list; go to account management to edit current user details
   end
 
   def new

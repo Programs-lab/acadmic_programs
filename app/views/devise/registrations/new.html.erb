@@ -1,6 +1,6 @@
 <div id= "sign_up_form" class="flex flex-wraper justify-center my-32">
   <div class="md:shadow-md rounded px-6 py-6 bg-white">
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "w-full max-w-md") do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {'v-cloak' => true},  class: "w-full max-w-md") do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
     <div class="flex flex-wrap justify-center mt-1 mb-6 border-b border-grey-dark pb-4">
       <span class="">Formulario de Registro</span>
@@ -48,7 +48,7 @@
           Empresa de afiliación
         </label>
         <div class="relative">
-          <select class="block appearance-none w-full border-b text-grey-darker py-3 focus:outline-none bg-white focus:border-grey h-8" id="grid-state">
+          <select class="block appearance-none w-full border-b text-grey-darker py-3 focus:outline-none bg-white focus:border-grey h-8 " id="grid-state">
             <option class="bg-primary">Nueva EPS</option>
             <option>Missouri</option>
             <option>Texas</option>
@@ -61,7 +61,7 @@
         <%= f.label "Ocupación", class: 'label_input' %>
         <%= f.text_field :occupation, class: 'field_input rounded-t' %>
       </div>
-      <div class="w-full md:w-1/2 px-3 ">
+      <div class="w-full md:w-1/2 px-3 focus_form">
         <%= f.label "Fecha de nacimiento", class: 'label_input' %>
         <datepicker input-class="field_input rounded-t" :language="es" v-model="birthdateValue"></datepicker>
         <%= f.hidden_field :birthdate, {"v-model" => "birthdateValue"} %>

@@ -11,6 +11,8 @@
 
   }
 
+  [v-cloak] { display:none; }
+
   .invalid_form:focus-within {
     label { @apply .text-red-light; }
     input { @apply .border-red-light; }
@@ -24,18 +26,18 @@
 
   .label_input {
     @apply .font-hairline .text-xs .text-grey-darker;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
+    -webkit-transition: all 0.22s ease-in-out;
+    -moz-transition: all 0.22s ease-in-out;
+    -ms-transition: all 0.22s ease-in-out;
+    -o-transition: all 0.22s ease-in-out;
   }
 
   .field_input {
     @apply .appearance-none .block .w-full .text-grey-darker .border-b .py-3 .h-8;
-    -webkit-transition: all 0.30s ease-in-out;
-    -moz-transition: all 0.30s ease-in-out;
-    -ms-transition: all 0.30s ease-in-out;
-    -o-transition: all 0.30s ease-in-out;
+    -webkit-transition: all 0.22s ease-in-out;
+    -moz-transition: all 0.22s ease-in-out;
+    -ms-transition: all 0.22s ease-in-out;
+    -o-transition: all 0.22s ease-in-out;
   }
 
   .field_input:focus {

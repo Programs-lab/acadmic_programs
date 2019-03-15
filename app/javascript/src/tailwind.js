@@ -963,6 +963,8 @@ module.exports = {
       // center: true,
       // padding: '1rem',
     }),
+    // Other plugins...
+   require('tailwindcss-tables')()
   ],
 
 

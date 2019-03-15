@@ -16,5 +16,6 @@
 // const imagePath = (name) => images(name, true)
 
 console.log('Hello World from Webpacker')
-require('./hello_vue');
 import 'application.scss';
+require('./hello_vue');
+require('./shared');

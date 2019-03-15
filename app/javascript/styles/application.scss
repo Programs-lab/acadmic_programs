@@ -47,7 +47,7 @@
   }
 
   .btn-primary{
-    @apply .shadow .bg-primary .text-white .py-2 .px-4 .rounded;
+    @apply .shadow .bg-primary .text-white .py-2 .px-4 .rounded .no-underline;
   }
 
   .btn-primary:hover{
@@ -57,6 +57,28 @@
   .btn-primary:focus{
     @apply .shadow-outline .outline-none;
   }
+
+  .list-group{
+    @apply .bg-white .shadow .rounded;
+  }
+
+  .list-group-item{
+    @apply .cursor-pointer .text-grey-darkest .py-3 .border-b .border-grey-light .no-underline .rounded-t;
+  }
+
+  .active{
+    @apply .text-white .bg-secondary;
+  }
+
+  .list-group-item:hover{
+    @apply .bg-grey-lighter;
+  }
+
+  [v-cloak] {
+    display: none;
+  }
+
+
 
   #footer {
     position: fixed;

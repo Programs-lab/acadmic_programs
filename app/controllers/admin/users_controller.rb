@@ -8,15 +8,17 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     if @user.save
       redirect_to users_path
     else
       render :action => 'new'
     end
+    authorize @user
   end
 
   def edit
@@ -39,6 +41,20 @@ class Admin::UsersController < ApplicationController
     if @user.destroy
       redirect_to users_path
     end
+  end
+
+  def user_params
+    params.require(:annual_budget).permit(
+      :first_name,
+      :last_name,
+      :id_type,
+      :id_number,
+      :phone_number,
+      :occupation,
+      :birthdate,
+      :address,
+      :email
+      )
   end
 
 end

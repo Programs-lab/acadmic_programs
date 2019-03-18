@@ -17,8 +17,13 @@
     <%= yield :top_content %>
 
     <div class="flex-grow">
+      <div class="container flex flex-wrap items-start mx-auto mt-6 pt-10">
+      <div class="w-full md:w-1/4 pr-0 md:pr-2">
+        <%= render "shared/menu" %>
+      </div>
       <%= yield %>
     </div>
+  </div>
 
     <%= render partial: 'shared/footer' %>
   </body>

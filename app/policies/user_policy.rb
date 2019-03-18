@@ -10,6 +10,10 @@ class UserPolicy
     bt_administration_g
   end
 
+  def new?
+    bt_administration_g
+  end
+
   private
 
   def bt_administration_g # Belongs to administration group

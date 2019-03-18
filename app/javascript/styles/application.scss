@@ -74,6 +74,18 @@
 
   .btn-primary:focus{
     @apply .shadow-outline .outline-none;
+  } 
+
+  .btn-secondary{
+    @apply text-grey-darkest .border .border-grey-light .py-2 .px-4 .rounded;
+  }
+
+  .btn-secondary:hover{
+    @apply .border-secondary;
+  }
+
+  .btn-secondary:focus{
+    @apply .shadow-outline .outline-none;
   }
 
   .list-group{
@@ -81,7 +93,7 @@
   }
 
   .list-group-item{
-    @apply .cursor-pointer .text-grey-darkest .py-3 .border-b .border-grey-light .no-underline .rounded-t;
+    @apply .cursor-pointer .text-grey-darkest .py-3 .border-b .border-grey-light .no-underline;
   }
 
   .active{
@@ -90,6 +102,10 @@
 
   .list-group-item:hover{
     @apply .bg-grey-lighter;
+  }
+
+  .active:hover{
+    @apply .bg-secondary;
   }
 
   [v-cloak] {

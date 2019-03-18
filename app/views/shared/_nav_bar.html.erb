@@ -1,13 +1,45 @@
-<nav class="flex items-center flex-wrap shadow">
+<nav id="nav_bar"  class="flex items-center flex-wrap shadow ">
   <div class="container mx-auto flex">
     <div class="w-1/2 flex items-center m-0">
       <div class="w-48 flex-no-shrink text-white justify-start">
-        <img src="/logo_complete.png" weight="25%" alt="">
+        <%= link_to pages_home_path do %>
+          <img src="/logo_complete.png" weight="25%" alt="">
+        <% end %>
       </div>
     </div>
-    <div class="w-1/2 flex items-center justify-end">
-      <button href="#" class="bg-primary text-white px-5 py-2 no-underline hover:bg-secondary rounded focus:outline-none">Registrarse</button>
-      
+    <div class="w-1/2 flex items-center justify-end relative">
+      <%= link_to 'Registrarse', new_user_registration_path, class: 'btn-primary' %>
+
+      <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show = !show">
+          <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
+      </button>
+      <%#= link_to 'Iniciar sesion', new_user_session_path, class: 'btn-primary' %>
+      <div v-show="show" class="bg-white rounded shadow w-48" style="position: absolute; top: 57px; right: 0;" v-cloak>
+
+      <%= link_to(new_user_registration_path, class: "no-underline text-g-d2 text-base", 'data-turbolinks' => false) do %>
+        <div class="flex px-4 py-4 border-r border-l border-b border-g-l4 no-select hover:bg-grey-lighter text-left">
+          <div class="w-6 text-center" style="font-size: 0.8rem;">
+            <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+          </div>
+          <div class="ml-3">Registrarse</div>
+        </div>
+      <% end %>
+
+      <%= link_to(new_user_session_path, class: "no-underline text-g-d2 text-base", 'data-turbolinks' => false) do %>
+        <div class="flex px-4 py-4 border-r border-l border-b border-g-l4 no-select hover:bg-grey-lighter text-left">
+          <div class="w-6 text-center" style="font-size: 0.8rem;">
+            <%= icon('fas','sign-in-alt', class: 'text-grey-dark fa-lg mr-4') %>
+          </div>
+          <div class="ml-3">Ingresar</div>
+        </div>
+      <% end %>
+
+      <%= link_to(pages_home_path, class: "no-underline", 'data-turbolinks' => false) do %>
+        <div class="bg-blue-lighter text-black text-base px-4 py-4 no-select border-r border-b border-g-l4 border-l rounded-b hover:border-lg-l4 text-center font-semibold">
+          Programar una cita
+        </div>
+      <% end %>
+      </div>
     </div>
   </div>
 </nav>

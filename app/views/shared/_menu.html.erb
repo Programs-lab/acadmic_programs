@@ -1,4 +1,5 @@
-<div id="side-menu" class="list-group">
+<div class="w-full md:w-1/4 pr-0 md:pr-2">
+  <div id="side-menu" class="list-group">
    <!-- Option -->
  <% if policy(User).index? %>
   <%= link_to(admin_users_path, class: "no-underline") do %>
@@ -74,4 +75,6 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>

@@ -11,12 +11,12 @@ document.addEventListener('turbolinks:load', () => {
   var app = new Vue({
     el: '#sign_up_form',
     data: {
-      emailValue: '',
-      firstNameValue: '',
-      lastNameValue: '',
+      emailValue: document.getElementById("sign_up_form").getAttribute('email'),
+      firstNameValue: document.getElementById("sign_up_form").getAttribute('firstName'),
+      lastNameValue: document.getElementById("sign_up_form").getAttribute('lastName'),
       passwordValue: '',
       passwordConfirmationValue: '',
-      birthdateValue: '',
+      birthdateValue: document.getElementById("sign_up_form").getAttribute('birthdate'),
       en: en,
       es: es
     },
@@ -44,7 +44,7 @@ document.addEventListener('turbolinks:load', () => {
       fieldClass(element, invalid){
          var el = document.getElementById(element)
         if(invalid){
-          el.classList.replace('focus_form', 'invalid_form')  
+          el.classList.replace('focus_form', 'invalid_form')
         }
         else {
           el.classList.replace('invalid_form', 'focus_form')  

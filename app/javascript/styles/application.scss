@@ -65,7 +65,7 @@
   }
 
   .btn-primary{
-    @apply .shadow .bg-primary .text-white .py-2 .px-4 .rounded .no-underline;
+    @apply .shadow .bg-primary .text-white .py-1 .px-4 .rounded .no-underline;
   }
 
   .btn-primary:hover{
@@ -77,7 +77,7 @@
   } 
 
   .btn-secondary{
-    @apply text-grey-darkest .border .border-grey-light .py-2 .px-4 .rounded;
+    @apply text-grey-darkest .border .border-grey-light .py-1 .px-4 .rounded;
   }
 
   .btn-secondary:hover{
@@ -93,7 +93,7 @@
   }
 
   .list-group-item{
-    @apply .cursor-pointer .text-grey-darkest .py-3 .border-b .border-grey-light .no-underline;
+    @apply .cursor-pointer .text-grey-darkest .py-3 .border-b .border-grey-light .no-underline .rounded;
   }
 
   .active{

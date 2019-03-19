@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user, only: [:edit, :update, :destroy]
   def index
     @users = User.where("id NOT IN (?)", current_user.id)
     authorize @users
@@ -43,8 +44,12 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:annual_budget).permit(
+    params.require(:user).permit(
       :first_name,
       :last_name,
       :id_type,

@@ -14,6 +14,10 @@ class UserPolicy
     bt_administration_g
   end
 
+  def create?
+    bt_administration_g
+  end
+
   private
 
   def bt_administration_g # Belongs to administration group

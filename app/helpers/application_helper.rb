@@ -20,4 +20,10 @@ module ApplicationHelper
     end
   end
 
+  def roles_names(user)
+    if user.patient?
+      "Paciente"
+    end
+  end
+
 end

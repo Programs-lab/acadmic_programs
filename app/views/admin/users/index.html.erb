@@ -37,6 +37,7 @@
           <th scope="col">Fecha de Nacimiento</th>
           <th scope="col">Numero telefonico</th>
           <th scope="col">Ocupación</th>
+          <th scope="col">Rol</th>
         </tr>
       </thead>
       <tbody>
@@ -52,9 +53,11 @@
           <td><%= user.birthdate %></td>
           <td><%= user.phone_number %></td>
           <td><%= user.occupation %></td>
+          <td><%= roles_names(user) %></td>
         </tr>
+       <% end %>
       </tbody>
     </table>
-    <% end %>
+
   </div>
 <% end %>

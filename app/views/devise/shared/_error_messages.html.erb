@@ -1,5 +1,5 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation">
+  <div id="error_explanation " class="w-full">
     <% resource.errors.full_messages.each do |message| %>
       <%= render partial: 'shared/flash', locals: {flash: {"danger" => message}}%>
     <% end %>

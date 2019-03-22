@@ -14,6 +14,7 @@
           <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
       </button>
       <%#= link_to 'Iniciar sesion', new_user_session_path, class: 'btn-primary' %>
+      <transition name="menu-popover">
       <div v-show="show" class="bg-white rounded shadow w-48" style="position: absolute; top: 57px; right: 0;" v-cloak>
 
       <%= link_to(new_user_registration_path, class: "no-underline text-g-d2 text-base", 'data-turbolinks' => false) do %>
@@ -40,6 +41,7 @@
         </div>
       <% end %>
       </div>
+      <transition>
     </div>
   </div>
 </nav>

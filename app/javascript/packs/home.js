@@ -61,7 +61,13 @@ document.addEventListener('turbolinks:load', () => {
           'modal-content': !this.modal,
           'modal-content-transition': this.modal,
         }
-      }
+      },
+      classAnimatedContent: function () {
+        return {
+          'animated slideOutUp': !this.modal,
+          'animated slideInDown': this.modal,
+        }
+      },
     }
   })
 })

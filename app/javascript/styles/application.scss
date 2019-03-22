@@ -132,6 +132,7 @@
     margin: 20% auto; /* 15% from the top and centered */
     padding: 20px;
     width: 80%;
+    animation-duration: 0.2s;
   }
 
   .transition-modal-enter-active, .transition-modal-leave-active {
@@ -143,6 +144,22 @@
   }
 
   // End Modal
+
+  .menu-popover-enter, .menu-popover-enter-to{
+    opacity: 0;
+    transform: rotateY(50deg);
+  }
+  .menu-popover-enter-to, .menu-popover-leave{
+    opacity: 1;
+    transform: rotateY(0deg);
+  }
+  .menu-popover-enter-active {
+    transition: opacity, transform 200ms ease-out;
+  }
+  .menu-popover-leave-active {
+    transform: rotateY(90deg);
+    transition: opacity, transform 200ms ease-out;
+  }
 
   #footer {
     position: fixed;

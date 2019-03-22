@@ -85,10 +85,10 @@
         </div>
 
         <!-- The Modal -->
-        <transition name="transition-modal">
-          <div id="myModal" class="modal" v-if="modal">
+        <transition name="transition-modal" >
+          <div id="myModal" class="modal" v-show="modal">
             <!-- Modal content -->
-            <div class="modal-content bg-white shadow border border-g-l5 py-4 rounded shadow">
+            <div :class="classAnimatedContent" class="modal-content bg-white shadow border border-g-l5 py-4 rounded shadow" leave-active-class="animated bounceOutRight">
               <div class="flex flex-wrap modal-title items-center border-b border-grey-light pb-2">
                 <div class="flex w-1/2 justify-start">
                   <p>Titulo del modal</p>

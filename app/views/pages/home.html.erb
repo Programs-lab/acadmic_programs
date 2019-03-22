@@ -2,7 +2,7 @@
   <div class="w-full md:w-1/4 pr-0 md:pr-2">
     <%=  render partial: 'shared/menu'%>
   </div>
-  <div class="w-full md:w-3/4 pl-0 md:pl-2">
+  <div id="home_page" class="w-full md:w-3/4 pl-0 md:pl-2">
     <div id="side-menu" class="bg-white shadow border border-g-l5 py-4 rounded">
 
       <div class="flex px-4">
@@ -78,6 +78,89 @@
           </tbody>
         </table>
       </div>
+      <!-- Trigger/Open The Modal -->
+      <div class="flex flex-wrap px-4">
+        <div class="flex w-full">
+          <button id="myBtn" class="btn-primary" @click="btnModal()">Open Modal</button>
+        </div>
+
+        <!-- The Modal -->
+        <transition name="transition-modal">
+          <div id="myModal" class="modal" v-if="modal">
+            <!-- Modal content -->
+            <div class="modal-content bg-white shadow border border-g-l5 py-4 rounded shadow">
+              <div class="flex flex-wrap modal-title items-center border-b border-grey-light pb-2">
+                <div class="flex w-1/2 justify-start">
+                  <p>Titulo del modal</p>
+                </div>
+                <div class="flex w-1/2 justify-end">
+                  <span class="close text-grey font-medium text-2xl cursor-pointer" @click="btnModal()">&times;</span>
+                </div>
+              </div>
+              <div class="flex flex-wrap modal-title items-center my-6">
+                <div class="flex w-1/2 justify-start">
+                  CONTENIDO
+                </div>
+              </div>
+              <div class="flex flex-wrap modal-title justify-end border-t border-grey-light pt-2">
+                <div class="flex justify-between">
+                  <button type="button" name="button" class="rounded bg-white border border-grey-ligth hover:bg-red-light hover:text-white px-4 py-2 shadow mx-1">Cancelar</button>
+                  <button type="button" name="button" class="btn-primary mx-1">Aceptar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <transition>
+      </div>
+      <div class="flex flex-wrap justify-center" id="collapse">
+        <% 10.times.each_with_index do |index, value| %>
+        <div id="transform_collapse_<%= index %>" class="flex flex-wrap px-4 custom2">
+          <div class="shadow bg-white border border-grey-light w-full h-12 cursor-pointer" v-on:click="close(<%= index %>)">
+            <span >collapse</span>
+          </div>
+          <div v-show="show[<%= index %>]" class="shadow bg-white border border-grey-light w-full px-2 pt-2 border-t-0 element">
+            <!-- table heading -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <% end %>
+      </div>
+
     </div>
   </div>
 </div>

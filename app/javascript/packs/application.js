@@ -19,3 +19,5 @@ console.log('Hello World from Webpacker')
 import 'application.scss';
 require('./hello_vue');
 require('./shared');
+require('./home');
+require('./flash');

@@ -78,7 +78,71 @@
     display: none;
   }
 
+  // Begin collapse style
 
+  .custom2{
+    width: 95%;
+  }
+
+  .element-t{
+    padding: 0 18px;
+    max-height: 230px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+  }
+
+  .element{
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+  }
+
+  .transform_collapse{
+    transform: scale(1.07);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .transform_collapse_2{
+    transform: scale(1);
+    transition: all 0.2s ease-in-out;
+  }
+
+  // End collapse style
+
+  // Begin modal
+  .modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    margin: 20% auto; /* 15% from the top and centered */
+    padding: 20px;
+    width: 80%;
+  }
+
+  .transition-modal-enter-active, .transition-modal-leave-active {
+    transition: opacity .5s;
+  }
+
+  .transition-modal-enter, .transition-modal-leave-to {
+    opacity: 0;
+  }
+
+  // End Modal
 
   #footer {
     position: fixed;

@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   
   namespace :admin do
-    resources :users # Have the admin manage them here.
+    resources :users do 
+      post '/invitar', to: 'users#invite', as: :invite
+      post '/habilitar', to: 'users#enable', as: :enable
+      post '/deshabilitar', to: 'users#disable', as: :disable
+    end
   end
   
   root 'pages#home' 

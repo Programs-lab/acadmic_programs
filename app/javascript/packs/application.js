@@ -18,4 +18,5 @@ import 'application.scss';
 console.log('Hello World from Webpacker')
 require('./hello_vue');
 require('./sign_up');
+require('./user_form');
 require('./shared');

@@ -2,7 +2,9 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   before_create :set_default_role
-  devise :database_authenticatable,
+  before_validation :generate_password, on: :admin
+  devise :invitable,
+         :database_authenticatable,
          :registerable,
          :recoverable,
          :rememberable,
@@ -16,6 +18,11 @@ class User < ApplicationRecord
 
  def set_default_role
    self.role ||= :patient
+ end
+
+ def generate_password
+  generated_password = Devise.friendly_token.first(8)
+  self.password = generated_password
  end
 
 end

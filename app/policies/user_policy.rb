@@ -18,6 +18,14 @@ class UserPolicy
     bt_administration_g
   end
 
+  def enable?
+    bt_administration_g
+  end
+
+  def disable?
+    bt_administration_g
+  end
+
   private
 
   def bt_administration_g # Belongs to administration group

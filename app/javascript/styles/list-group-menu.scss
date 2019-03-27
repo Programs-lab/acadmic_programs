@@ -1,0 +1,11 @@
+.list-group{
+  @apply .bg-white .shadow .rounded;
+}
+
+.list-group-item{
+  @apply .cursor-pointer .text-grey-darkest .py-3 .border-b .border-grey-light .no-underline .rounded-t;
+}
+
+.list-group-item:hover{
+  @apply .bg-grey-lighter;
+}

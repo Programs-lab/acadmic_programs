@@ -12,8 +12,17 @@ document.addEventListener('turbolinks:load', () => {
     },
     methods: {
       close() {
-          this.alert =! this.alert;
-          document.getElementById('flash2').parentNode.removeChild(document.getElementById('flash2'));
+          setTimeout(
+            ()  => document.getElementById('flash2').parentNode.removeChild(document.getElementById('flash2')), 500);
+          return this.alert =! this.alert;
+      }
+    },
+    computed: {
+      animatedFlash: function () {
+        return {
+          'animated fadeOut': this.alert,
+          '': !this.alert,
+        }
       }
     }
   })

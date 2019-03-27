@@ -3,7 +3,7 @@
     <%=  render partial: 'shared/menu'%>
   </div>
   <div id="home_page" class="w-full md:w-3/4 pl-0 md:pl-2">
-    <div id="side-menu" class="bg-white shadow border border-g-l5 py-4 rounded">
+    <div id="side-menu" class="card">
 
       <div class="flex px-4">
         <div class="w-2/3">
@@ -81,37 +81,38 @@
       <!-- Trigger/Open The Modal -->
       <div class="flex flex-wrap px-4">
         <div class="flex w-full">
-          <button id="myBtn" class="btn-primary" @click="btnModal()">Open Modal</button>
+          <button id="myBtn" class="btn btn-primary" @click="btnModal()">Open Modal</button>
         </div>
 
         <!-- The Modal -->
         <transition name="transition-modal" >
           <div id="myModal" class="modal" v-show="modal">
             <!-- Modal content -->
-            <div :class="classAnimatedContent" class="modal-content bg-white shadow border border-g-l5 py-4 rounded shadow" leave-active-class="animated bounceOutRight">
-              <div class="flex flex-wrap modal-title items-center border-b border-grey-light pb-2">
+            <div :class="classAnimatedContent" class="card modal-content" leave-active-class="animated bounceOutRight">
+              <div class="row modal-title">
                 <div class="flex w-1/2 justify-start">
                   <p>Titulo del modal</p>
                 </div>
                 <div class="flex w-1/2 justify-end">
-                  <span class="close text-grey font-medium text-2xl cursor-pointer" @click="btnModal()">&times;</span>
+                  <span class="times" @click="btnModal()">&times;</span>
                 </div>
               </div>
-              <div class="flex flex-wrap modal-title items-center my-6">
-                <div class="flex w-1/2 justify-start">
+              <div class="row my-6">
+                <div class="flex w-full justify-start">
                   CONTENIDO
                 </div>
               </div>
-              <div class="flex flex-wrap modal-title justify-end border-t border-grey-light pt-2">
+              <div class="row modal-footer">
                 <div class="flex justify-between">
-                  <button type="button" name="button" class="rounded bg-white border border-grey-ligth hover:bg-red-light hover:text-white px-4 py-2 shadow mx-1">Cancelar</button>
-                  <button type="button" name="button" class="btn-primary mx-1">Aceptar</button>
+                  <button type="button" name="button" class="btn btn-red-light mx-1"  @click="btnModal()">Cancelar</button>
+                  <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
                 </div>
               </div>
             </div>
           </div>
-        <transition>
+        </transition>
       </div>
+
       <div class="flex flex-wrap justify-center" id="collapse">
         <% 10.times.each_with_index do |index, value| %>
         <div id="transform_collapse_<%= index %>" class="flex flex-wrap px-4 custom2">

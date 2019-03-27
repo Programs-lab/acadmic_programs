@@ -1,0 +1,19 @@
+.alert-danger{
+  @apply .bg-red-lightest .border-red-light .text-red-light;
+}
+
+.alert-info{
+  @apply .bg-blue-lightest .border-blue-light .text-blue-light;
+}
+
+.alert-success, .alert-notice{
+  @apply .bg-teal-lightest .border-teal-light .text-teal-light;
+}
+
+.alert-warning, .alert-alert{
+  @apply .bg-yellow-lightest .border-yellow-dark .text-yellow-dark;
+}
+
+.alert{
+  @apply .border-t-4 .rounded-b .px-4 .py-3 .shadow-md;
+}

@@ -18,6 +18,14 @@ class UserPolicy
     bt_administration_g
   end
 
+  def update?
+    bt_administration_g
+  end
+
+  def invite?
+    bt_administration_g
+  end
+
   def enable?
     bt_administration_g
   end

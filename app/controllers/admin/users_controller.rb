@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:edit, :update, :destroy, :enable, :disable, :invite]
   def index
-    @users = User.where.not(id: current_user.id, disabled: true)
+    @users = User.where.not(id: current_user.id)
     #@users = User.where("id NOT IN (?)", current_user.id)
     authorize @users
      # don't display the current user in the users list; go to account management to edit current user details
@@ -15,20 +15,21 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    authorize @user
     @user.skip_confirmation! 
     if @user.save(context: :admin)
       @user.invite!
       redirect_to admin_users_path, notice: 'El usuario fue creado exitosamente.'
     else
       redirect_to new_admin_user_path, alert: 'No fue posible concretar el registro, por favor revise los campos nuevamente'
-    end
-    authorize @user
+    end    
   end
 
   def edit
   end
 
   def update
+    authorize @user
     if @user.update(user_params)
       redirect_to admin_users_path, notice: 'El usuario fue actualizado exitosamente.'
     else
@@ -38,6 +39,7 @@ class Admin::UsersController < ApplicationController
 
 
   def invite
+    authorize @user
     @user.invite!
     redirect_to edit_admin_user_path(@user.id), notice: "Se ha enviado una invitacion a #{@user.email} y expirará en 24 horas"
   end
@@ -46,8 +48,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
+    authorize @user
     if @user.destroy
-      redirect_to admin_users_path, notice: 'El usuario eliminado correctamente.'
+      redirect_to admin_users_path, notice: 'El usuario fue eliminado correctamente.'
     end
   end
 

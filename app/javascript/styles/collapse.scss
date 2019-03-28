@@ -1,0 +1,31 @@
+.custom2{
+  width: 95%;
+}
+
+.element-t{
+  padding: 0 18px;
+  max-height: 230px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+
+.element{
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+
+.transform_collapse{
+  transform: scale(1.07);
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.transform_collapse_2{
+  transform: scale(1);
+  transition: all 0.2s ease-in-out;
+}

@@ -1,9 +1,22 @@
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
+@import 'button';
+@import 'form';
+@import 'flash';
+@import 'list-group-menu';
+@import 'collapse';
+@import 'modal';
+@import 'dropdown';
+@import 'card';
+
   *{
     font-family: 'Didact Gothic', sans-serif;
   }
+
+  .row{
+    @apply .flex .flex-wrap;
+    
   .focus_form:focus-within {
     label { @apply .text-primary; }
     input { @apply .border-primary; }
@@ -119,19 +132,14 @@
     display: none;
   }
 
-
+  .times{
+    @apply .text-grey .font-medium .text-2xl .cursor-pointer;
+  }
 
   #footer {
     position: fixed;
     width: 100%;
     bottom: 0;
     left: 0;
-    right: 0;    /* Height of the footer */
-   }
-
-   hr.style-six {
-    border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    right: 0;
   }

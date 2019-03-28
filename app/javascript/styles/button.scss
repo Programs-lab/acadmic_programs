@@ -1,0 +1,23 @@
+.btn{
+  @apply .shadow .py-2 .px-4 .rounded .no-underline
+}
+
+.btn:focus{
+  @apply .outline-none
+}
+
+.btn-primary{
+  @apply .bg-primary .text-white;
+}
+
+.btn-primary:hover{
+  @apply .bg-secondary;
+}
+
+.btn-red-light{
+  @apply .bg-white .text-black .border .border-grey-light;
+}
+
+.btn-red-light:hover{
+  @apply .bg-red-light .text-white;
+}

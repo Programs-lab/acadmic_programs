@@ -20,3 +20,5 @@ require('./hello_vue');
 require('./sign_up');
 require('./user_form');
 require('./shared');
+require('./home');
+require('./flash');

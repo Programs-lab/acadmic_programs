@@ -1,0 +1,21 @@
+.focus_form:focus-within {
+  label { @apply .text-primary; }
+  input { @apply .border-primary; }
+}
+
+.invalid_form:focus-within {
+  label { @apply .text-red-light; }
+  input { @apply .border-red-light; }
+}
+
+.label_input {
+  @apply .font-hairline .text-xs .text-grey-darker;
+}
+
+.field_input {
+  @apply .appearance-none .block .w-full .text-grey-darker .border-b .py-3 .h-8;
+}
+
+.field_input:focus {
+  @apply outline-none;
+}

@@ -7,17 +7,14 @@ import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
 Vue.use(TurbolinksAdapter)
 Vue.use(Vuelidate)
 document.addEventListener('turbolinks:load', () => {
-  if(document.getElementById('sign_up_form')) {
+  if(document.getElementById('user_form')) {
   var app = new Vue({
-    el: '#sign_up_form',
+    el: '#user_form',
     data: {
-      emailValue: document.getElementById("sign_up_form").getAttribute('email'),
-      firstNameValue: document.getElementById("sign_up_form").getAttribute('firstName'),
-      lastNameValue: document.getElementById("sign_up_form").getAttribute('lastName'),
-      passwordValue: '',
-      passwordConfirmationValue: '',
-      birthdateValue: document.getElementById("sign_up_form").getAttribute('birthdate'),
-      pato: document.getElementById("sign_up_form").getAttribute('pato'),
+      emailValue: document.getElementById("user_form").getAttribute('email'),
+      firstNameValue: document.getElementById("user_form").getAttribute('firstName'),
+      lastNameValue: document.getElementById("user_form").getAttribute('lastName'),
+      birthdateValue: document.getElementById("user_form").getAttribute('birthdate'),
       en: en,
       es: es
     },
@@ -33,13 +30,6 @@ document.addEventListener('turbolinks:load', () => {
       lastNameValue: {
         required
       },
-      passwordValue: {
-        required,
-        minLength: minLength(8)
-      },
-      passwordConfirmationValue: {
-        sameAsPassword: sameAs('passwordValue')
-      }
     },
     methods: {
       fieldClass(element, invalid){
@@ -50,6 +40,22 @@ document.addEventListener('turbolinks:load', () => {
         else {
           el.classList.replace('invalid_form', 'focus_form')  
         }
+      },
+      disabledButton(){
+        var button = document.getElementById('submit_button') 
+        if(this.$v.$anyError || this.$v.$invalid) {
+          button.classList.add("disabled")
+        }
+        else
+          button.classList.remove("disabled")
+      }
+    },
+    mounted: function() {
+      this.disabledButton()
+    },
+    computed: { 
+      disabled: function() {
+        this.disabledButton()
       }
     },
     components: {

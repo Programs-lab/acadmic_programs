@@ -88,6 +88,13 @@
     @apply .shadow-outline .outline-none;
   }
 
+  .disabled{
+    @apply .bg-third .cursor-not-allowed;
+  }
+  .disabled:hover{
+    @apply .bg-third;
+  }
+
   .list-group{
     @apply .bg-white .shadow .rounded;
   }

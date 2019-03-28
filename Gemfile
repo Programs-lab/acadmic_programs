@@ -27,6 +27,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'font-awesome-sass', '~> 5.6.1'
 gem "pundit"
+gem 'devise_invitable', '~> 2.0.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -43,7 +44,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "pry"
+  gem "pry-byebug"
   gem "rspec-rails", "~> 3.7"
   gem "factory_bot_rails", "~> 4.8"
   gem "faker", "~> 1.8"

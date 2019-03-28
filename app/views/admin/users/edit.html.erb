@@ -1,0 +1,10 @@
+<%= render 'shared/card' do%>
+<div class="flex flex-wrap px-4">
+  <div class="flex felx-wrap mb-4">
+    <div class="w-full">
+      <h3>Editar Usuario: <%= "#{@user.first_name} #{@user.last_name}" %></h3>
+    </div>
+  </div>
+  <%= render 'form', user: @user %>
+</div>
+<% end %>

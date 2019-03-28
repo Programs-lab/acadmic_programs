@@ -1,0 +1,63 @@
+<%= render  'shared/card' do %>
+  <div class="flex px-4">
+    <div class="w-2/3">
+    </div>
+    <div class="w-1/3 text-right">
+      <%= link_to('Crear un usuario', new_admin_user_path, class: "btn-primary") %>
+    </div>
+  </div>
+
+  <div class="my-8 flex px-4">
+    <div class="w-1/2">
+      <h4 class="font-semibold text-g-d4 text-lg">
+        Usuarios
+        <br><span class="font-medium text-sm text-g-d2">Listado de usuarios</span>
+      </h4>
+    </div>
+    <div class="w-1/2 text-right">
+      <form class="w-full max-w-sm">
+        <div class="flex items-center border-b border-b-2 border-g-l3 py-2">
+          <input class="appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Nombre del médico">
+          <button class="flex-no-shrink bg-white hover:bg-b-d border-b-d text-b-d text-sm border hover:text-white py-1 px-2 rounded" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="px-0 md:px-4 overflow-auto">
+    <!-- table heading -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Fecha de Nacimiento</th>
+          <th scope="col">Numero telefonico</th>
+          <th scope="col">Ocupación</th>
+          <th scope="col">Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td>
+          <%= link_to(edit_admin_user_path(user.id), class: 'btn-secondary no-underline') do %>
+            <%= icon('fas', 'pencil-alt', 'editar') %>
+          <% end %>
+          </td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.birthdate %></td>
+          <td><%= user.phone_number %></td>
+          <td><%= user.occupation %></td>
+          <td><%= roles_names(user) %></td>
+        </tr>
+       <% end %>
+      </tbody>
+    </table>
+
+  </div>
+<% end %>

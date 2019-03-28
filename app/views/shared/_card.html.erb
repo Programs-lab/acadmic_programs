@@ -1,14 +1,19 @@
-<div class="w-full md:w-3/4 pl-0 md:pl-2">
+<div class="justify-center w-3/4">
+  <div class="w-full pl-0 md:pl-2">
   <div class="bg-white shadow border border-g-l5 py-4 rounded">
 
     <div class="flex px-4">
       <div class="w-2/3">
-        <button class="bg-g-l5 text-g-d3 hover:bg-b-d2 hover:text-white border border-g-l3 py-2 px-4 rounded">
-          <i class="fas fa-angle-left"></i>
-          Volver
-        </button>
+        <% has_return = nil if local_assigns[:has_return].nil? %>
+        <% return_path = request.referer if local_assigns[:return_path].nil? %>
+        <% unless local_assigns[:has_return].nil? %>
+          <%= link_to( return_path, class: 'btn-secondary no-underline') do %>
+          <%= icon('fas', 'angle-left', 'Volver') %>
+        <% end %>
+      <% end %> 
       </div>
     </div>
     <%= yield %>
   </div>
+</div>  
 </div>

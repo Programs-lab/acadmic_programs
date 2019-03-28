@@ -1,7 +1,23 @@
-<div id="side-menu" class="list-group">
+<div class="w-full md:w-1/4 pr-0 md:pr-2">
+  <div id="side-menu" class="list-group">
+   <!-- Option -->
+ <% if policy(User).index? %>
+  <%= link_to(admin_users_path, class: "no-underline") do %>
+    <div class="list-group-item rounded-t <%= is_users_path %> ">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','user-md', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Usuarios</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+<!-- Option -->
   <%= link_to(pages_home_path, class: "no-underline") do %>
-    <!-- Option -->
-    <div class="list-group-item active">
+    <div class="list-group-item <%= is_doctors_path %>">
       <div class="flex">
         <div class="w-1/4 text-center">
           <%= icon('fas','user-md', class: 'fa-lg') %>
@@ -19,7 +35,7 @@
         <%= icon('fas','user-tie', class: 'fa-lg') %>
       </div>
       <div class="text-left w-3/4">
-        <span>Secretarias</span>
+        <span>Funcionarios</span>
       </div>
     </div>
   </div>
@@ -59,4 +75,6 @@
       </div>
     </div>
   </div>
+</div>
+
 </div>

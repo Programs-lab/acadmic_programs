@@ -16,10 +16,116 @@
 
   .row{
     @apply .flex .flex-wrap;
+    
+  .focus_form:focus-within {
+    label { @apply .text-primary; }
+    input { @apply .border-primary; }
+    box-shadow: 0 0 5px primary;
+
+  }
+
+  [v-cloak] { display:none; }
+
+  .invalid_form:focus-within {
+    label { @apply .text-red-light; }
+    input { @apply .border-red-light; }
+    box-shadow: 0 0 5px red-light;
+  }
+
+  .invalid_form {
+    label { @apply .text-red-light; }
+    input { @apply .border-red-light; }
+  }
+
+  .label_input {
+    @apply .font-hairline .text-xs .text-grey-darker;
+    -webkit-transition: all 0.22s ease-in-out;
+    -moz-transition: all 0.22s ease-in-out;
+    -ms-transition: all 0.22s ease-in-out;
+    -o-transition: all 0.22s ease-in-out;
+  }
+
+  .field_input {
+    @apply .appearance-none .block .w-full .text-grey-darker .border-b .py-3 .h-8;
+    -webkit-transition: all 0.22s ease-in-out;
+    -moz-transition: all 0.22s ease-in-out;
+    -ms-transition: all 0.22s ease-in-out;
+    -o-transition: all 0.22s ease-in-out;
+  }
+
+  .field_input:focus {
+    @apply outline-none;
+  }
+
+  .alert-danger{
+    @apply .bg-red-lightest .border-red-light .text-red-light;
+  }
+
+  .alert-info{
+    @apply .bg-blue-lightest .border-blue-light .text-blue-light;
+  }
+
+  .alert-success, .alert-notice{
+    @apply .bg-teal-lightest .border-teal-light .text-teal-light;
+  }
+
+  .alert-warning, .alert-alert{
+    @apply .bg-yellow-lightest .border-yellow-dark .text-yellow-dark;
+  }
+
+  .alert{
+    @apply .border-t-4 .rounded-b .px-4 .py-3 .shadow-md;
+  }
+
+  .btn-primary{
+    @apply .shadow .bg-primary .text-white .py-1 .px-4 .rounded .no-underline;
+  }
+
+  .btn-primary:hover{
+    @apply .bg-secondary;
+  }
+
+  .btn-primary:focus{
+    @apply .shadow-outline .outline-none;
+  } 
+
+  .btn-secondary{
+    @apply text-grey-darkest .border .border-grey-light .py-1 .px-4 .rounded;
+  }
+
+  .btn-secondary:hover{
+    @apply .border-secondary;
+  }
+
+  .btn-secondary:focus{
+    @apply .shadow-outline .outline-none;
+  }
+
+  .disabled{
+    @apply .bg-third .cursor-not-allowed;
+  }
+  .disabled:hover{
+    @apply .bg-third;
+  }
+
+  .list-group{
+    @apply .bg-white .shadow .rounded;
+  }
+
+  .list-group-item{
+    @apply .cursor-pointer .text-grey-darkest .py-3 .border-b .border-grey-light .no-underline .rounded;
   }
 
   .active{
     @apply .text-white .bg-secondary;
+  }
+
+  .list-group-item:hover{
+    @apply .bg-grey-lighter;
+  }
+
+  .active:hover{
+    @apply .bg-secondary;
   }
 
   [v-cloak] {

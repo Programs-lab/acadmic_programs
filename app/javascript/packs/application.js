@@ -14,10 +14,11 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
-console.log('Hello World from Webpacker')
 import 'application.scss';
+console.log('Hello World from Webpacker')
 require('./hello_vue');
+require('./sign_up');
+require('./user_form');
 require('./shared');
 require('./home');
 require('./flash');

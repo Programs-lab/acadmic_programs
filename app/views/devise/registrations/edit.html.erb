@@ -1,55 +1,79 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= render "devise/shared/error_messages", resource: resource %>
+<%= render 'shared/card' do%>
+<div class="flex flex-wrap px-4">
+  <div class="flex felx-wrap mb-4">
+    <div class="w-full">
+      <h3>Editar perfil</h3>
+  </div>
+</div>
+<div class="flex flex-wrap w-full">
+<div class="w-full px-4 shadow rounded-b py-4 border-t-4 border-primary">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: "w-full max-w-md") do |f| %>
 
-  <div class="field">
+  <div class="flex flex-wrap -mx-3 mb-5">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
     <% if resource.avatar.attached? %>
-      <%= image_tag resource.avatar.variant(resize:"100x100!") %>
+      <%= image_tag resource.avatar.variant(resize:"300x300!") %>
     <% else %>
       <%= image_tag gravatar_image_url(current_user.email, size: 40), height:20, width: 20 %>
     <% end %>
+    </div>
   </div>
 
-  <div>
-    <%= f.file_field :avatar, autofocus: true, autocomplete: "email" %>
+  
+  <div class="flex flex-wrap -mx-3 mb-5">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+      <%= f.file_field :avatar, autofocus: true, class: "field_input rounded-t" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="flex flex-wrap -mx-3 mb-5">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+      <%= f.label :email, class: 'label_input' %><br />
+      <%= f.email_field :email, class: 'field_input rounded-t' %>
+    </div>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+  <div class="flex flex-wrap -mx-3 mb-5">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+      <%= f.label :password, class: 'label_input' %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, class: 'field_input rounded-t' %>
+      <% if @minimum_password_length %>
+        <br />
+        <em><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </div>
+  </div>  
+
+  <div class="flex flex-wrap -mx-3 mb-5">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+      <%= f.label :password_confirmation, class: 'label_input' %>
+      <%= f.password_field :password_confirmation, class: 'field_input rounded-t' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="flex flex-wrap -mx-3 mb-5">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+      <%= f.label :current_password, class: 'label_input'%> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.password_field :current_password, class: 'field_input rounded-t' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+  <div class="md:flex md:items-center justify-end mt-6">
+    <div class="flex justify-end w-1/2">
+      <div class="justify-between w-auto">
+        <%= link_to("Cancelar", admin_users_path, class: "btn-secondary no-underline") %>
+        <%= f.submit "Actualzar", class: "btn-primary" %>
+      </div>
+    </div>
 <% end %>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+    </div>
+  </div>
+</div>
+<% end %>

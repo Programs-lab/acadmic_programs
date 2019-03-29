@@ -130,12 +130,51 @@
       <div class="justify-start w-1/2">
         <div class="justify-between w-auto">
           <% if user.disabled %>
-            <%= link_to "Habilitar", admin_user_enable_path(@user.id), method: :post, class: 'btn-secondary no-underline' %>
+            <a id="myBtn" class="btn btn-secondary" @click="btnModal()">Habilitar</a>
           <% else %>
-            <%= link_to "Deshabilitar", admin_user_disable_path(@user.id), method: :post, class: 'btn-secondary no-underline' %>
+            <a id="myBtn" class="btn btn-secondary" @click="btnModal()">Deshabilitar</a>
           <% end %>
         </div>
       </div>
+
+      <div class="flex flex-wrap px-4">
+        <!-- The Modal -->
+        <transition name="transition-modal" >
+          <div id="myModal" class="modal" v-show="modal" v-cloak>
+            <!-- Modal content -->
+            <div :class="classAnimatedContent" class="card modal-content" leave-active-class="animated bounceOutRight">
+              <div class="row modal-title">
+                <div class="flex w-1/2 justify-start">
+                  <p>Titulo del modal</p>
+                </div>
+                <div class="flex w-1/2 justify-end">
+                  <span class="times" @click="btnModal()">&times;</span>
+                </div>
+              </div>
+              <div class="row my-6">
+                <div class="flex w-full justify-start">
+                  Esta seguro que desea <%= user.disabled ? "habilitar" : "deshabilitar" %> al usuario <%= "#{@user.first_name} #{@user.last_name}?" %> Esto afectara el acceso del usuario a la plataforma
+                </div>
+              </div>
+              <div class="row modal-footer">
+
+                <div class="flex justify-between">
+                  <a  name="button" class="btn btn-red-light mx-1"  @click="btnModal()">Cancelar</a>
+                  <% if user.disabled %>
+                    <%= link_to "Habilitar", admin_user_enable_path(@user.id), method: :post, class: 'btn btn-primary' %>
+                  <% else %>
+                    <%= link_to "Deshabilitar", admin_user_disable_path(@user.id), method: :post, class: 'btn btn-primary' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
+
+
+
+
     <% end %>
     <div class="flex justify-end w-1/2">
       <div class="justify-between w-auto">

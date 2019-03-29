@@ -22,3 +22,4 @@ require('./user_form');
 require('./shared');
 require('./home');
 require('./flash');
+require('./components/modal');

@@ -103,7 +103,18 @@
           </div>
         </transition>
       </div>
-
+      <modal-vue>
+        <template v-slot:title>
+          <h1>Hola</h1>
+        </template>
+        <template v-slot:content>
+          CONTENIDO
+        </template>
+        <template v-slot:footer>
+          <button type="button" name="button" class="btn btn-red-light mx-1"  @click="btnModal()">Cancelar</button>
+          <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
+        </template>
+      </modal-vue>
       <div class="flex flex-wrap justify-center" id="collapse">
         <% 10.times.each_with_index do |index, value| %>
         <div id="transform_collapse_<%= index %>" class="flex flex-wrap px-4 custom2">

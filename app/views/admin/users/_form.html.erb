@@ -99,8 +99,8 @@
 
   <% unless @user.new_record? %>
 
-      <div class="w-full md:w-1/2 px-3 py-4 mb-5 md:mb-0 ">
-        <%= link_to(admin_user_invite_path(@user.id), method: :post, class: "btn-secondary no-underline field_input", disabled: @user.disabled) do %>
+      <div class="w-full md:w-1/2 px-3 py-4 mb-5 md:mb-0 items-center">
+        <%= link_to(admin_user_invite_path(@user.id), method: :post, class: "flex w-full btn btn-secondary", disabled: @user.disabled) do %>
           <%= icon('fas', 'paper-plane', 'enviar invitacion', class: "mr-2") %>
         <% end %>
         <% if user.invitation_sent_at.present? %>
@@ -177,10 +177,14 @@
 
     <% end %>
     <div class="flex justify-end w-1/2">
-      <div class="justify-between w-auto">
-        <%= link_to("Cancelar", admin_users_path, class: "btn-secondary no-underline") %>
+      <div class="flex justify-between w-full">
+        <div class="flex justify-end w-3/4">
+         <%= link_to("Cancelar", admin_users_path, class: "btn btn-secondary no-underline") %>
         {{disabled}}
-        <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ':disabled' => "$v.$anyError || $v.$invalid" %>
+        </div>
+        <div class="flex justify-end w-32">
+         <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ':disabled' => "$v.$anyError || $v.$invalid" %>
+        </div>
       </div>
     </div>
   </div>

@@ -16,13 +16,17 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
 
- def set_default_role
-   self.role ||= :patient                            
- end
+  def active_for_authentication?
+    super and !self.disabled?
+  end
 
- def generate_password
-  generated_password =  Devise.friendly_token.first(8)
-  self.password = generated_password
- end
+  def set_default_role
+    self.role ||= :patient                            
+  end
+
+  def generate_password
+    generated_password =  Devise.friendly_token.first(8)
+    self.password = generated_password
+  end
 
 end

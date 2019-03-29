@@ -141,7 +141,7 @@
       <div class="justify-between w-auto">
         <%= link_to("Cancelar", admin_users_path, class: "btn-secondary no-underline") %>
         {{disabled}}
-        <%= f.submit "Registrar", id: "submit_button", class: "btn-primary", ':disabled' => "$v.$anyError || $v.$invalid" %>
+        <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ':disabled' => "$v.$anyError || $v.$invalid" %>
       </div>
     </div>
   </div>

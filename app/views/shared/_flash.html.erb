@@ -2,7 +2,7 @@
 <% flash.each do |key, value| %>
   <div id="flash">
     <% unless key.to_s == 'timedout'%>
-      <div id="flash2" v-if="close" :class="animatedFlash" class="alert alert-<%= key %>" role="alert">
+      <div id="flash2" v-if="close" :class="animatedFlash" class="alert alert-<%= key %>" role="alert" v-cloak>
         <div class="flex">
           <%= icon('fa', icon_alert[key], class: 'mr-3 fa-2x') %>
           <div class="text-teal-darkest w-1/2">

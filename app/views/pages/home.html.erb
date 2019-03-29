@@ -3,32 +3,14 @@
     <div class="w-2/3">
     </div>
     <div class="w-1/3 text-right">
-      <a class="btn-primary">
+      <a class="btn btn-primary">
         <!-- <i class="fas fa-plus fa-lg"></i> -->
         Crear un médico
       </a>
     </div>
   </div>
-  <div id="home_page" class="w-full md:w-3/4 pl-0 md:pl-2">
-    <div id="side-menu" class="card">
-
-  <div class="my-8 flex px-4">
-    <div class="w-1/2">
-      <h4 class="font-semibold text-g-d4 text-lg">
-        Médicos
-        <br><span class="font-medium text-sm text-g-d2">Listado de médicos</span>
-      </h4>
-    </div>
-    <div class="w-1/2 text-right">
-      <form class="w-full max-w-sm">
-        <div class="flex items-center border-b border-b-2 border-g-l3 py-2">
-          <input class="appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Nombre del médico">
-          <button class="flex-no-shrink bg-white hover:bg-b-d border-b-d text-b-d text-sm border hover:text-white py-1 px-2 rounded" type="button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-
+  <div id="home_page" class="w-full">
+    <div id="side-menu" class="">
       <div class="my-8 flex px-4">
         <div class="w-1/2">
           <h4 class="font-semibold text-g-d4 text-lg">
@@ -95,7 +77,7 @@
 
         <!-- The Modal -->
         <transition name="transition-modal" >
-          <div id="myModal" class="modal" v-show="modal">
+          <div id="myModal" class="modal" v-show="modal" v-cloak>
             <!-- Modal content -->
             <div :class="classAnimatedContent" class="card modal-content" leave-active-class="animated bounceOutRight">
               <div class="row modal-title">
@@ -172,44 +154,4 @@
       </div>
     </div>
   </div>
-
-  <div class="px-0 md:px-4 overflow-auto">
-    <!-- table heading -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>  
 <% end %>

@@ -21,3 +21,15 @@
 .btn-red-light:hover{
   @apply .bg-red-light .text-white;
 }
+
+.btn-secondary{
+  @apply text-grey-darkest .border .border-grey-light .py-1 .px-4 .rounded;
+}
+
+.btn-secondary:hover{
+  @apply .border-secondary;
+}
+
+.btn-secondary:focus{
+  @apply .shadow-outline .outline-none;
+}

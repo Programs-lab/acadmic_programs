@@ -103,7 +103,74 @@
           </div>
         </transition>
       </div>
+      <modal-vue>
+        <template v-slot:title>
+          <h1>Hola</h1>
+        </template>
+        <template v-slot:content>
+          CONTENIDO
+        </template>
+        <template v-slot:footer>
+          <button type="button" name="button" class="btn btn-red-light mx-1"  @click="btnModal()">Cancelar</button>
+          <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
+        </template>
+      </modal-vue>
+      <!-- <div class="flex flex-wrap" style="position: absolute; width: 15%;">
+        <button type="button" class="btn btn-secondary w-full bg-white" v-click-outside="close" v-on:click="show =! show">
+            <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
+            dropdown
+        </button>
+        <transition name="menu-popover" >
+          <div id="" v-show="show" class="dropdown w-full" v-cloak>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
 
+          <%= link_to(new_user_session_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','sign-in-alt', class: 'text-grey-dark fa-lg mr-4') %>
+            </div>
+            <div class="ml-3">Ingresar</div>
+          <% end %>
+
+          <%= link_to("Programar una cita", pages_home_path, class: "dropdown-item dropdown-item-blue bg-blue-lighter font-semibold", 'data-turbolinks' => false)%>
+          </div>
+        </transition>
+      </div> -->
+      <dropdown-vue>
+        <template v-slot:items>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+        </template>
+      </dropdown-vue>
+      <div class="my-12">
+
+      </div>
       <div class="flex flex-wrap justify-center" id="collapse">
         <% 10.times.each_with_index do |index, value| %>
         <div id="transform_collapse_<%= index %>" class="flex flex-wrap px-4 custom2">

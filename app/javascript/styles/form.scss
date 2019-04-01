@@ -1,6 +1,6 @@
 .focus_form:focus-within {
   label { @apply .text-primary; }
-  input { @apply .border-primary; }
+  input { @apply .border-primary .border-b-2; }
 }
 
 .invalid_form:focus-within {
@@ -49,4 +49,13 @@
 
 .field_input:focus {
   @apply outline-none;
+}
+
+.disabled_form{
+  .label_input {
+    @apply .font-hairline .text-xs .text-grey-light;
+  }
+  .field_input {
+    @apply .appearance-none .block .w-full .text-grey-light .cursor-not-allowed;
+  }
 }

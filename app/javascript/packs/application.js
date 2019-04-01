@@ -23,3 +23,4 @@ require('./shared');
 require('./home');
 require('./flash');
 require('./components/modal');
+require('./components/dropdown');

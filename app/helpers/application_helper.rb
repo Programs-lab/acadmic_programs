@@ -26,4 +26,12 @@ module ApplicationHelper
     end
   end
 
+  def disabled(user_disabled)
+     user_disabled ? 'disabled_form' : ''
+  end
+
+  def disabled_button(user_disabled)
+     user_disabled ? 'disabled' : ''
+  end
+
 end

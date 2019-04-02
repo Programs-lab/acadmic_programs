@@ -103,7 +103,12 @@
           </div>
         </transition>
       </div>
-      <modal-vue>
+
+
+      <modal-vue style_button="btn btn-secondary cursor-pointer" >
+        <template v-slot:name_button>
+          Open Modal
+        </template>
         <template v-slot:title>
           <h1>Hola</h1>
         </template>
@@ -115,6 +120,9 @@
           <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
         </template>
       </modal-vue>
+
+
+
       <!-- <div class="flex flex-wrap" style="position: absolute; width: 15%;">
         <button type="button" class="btn btn-secondary w-full bg-white" v-click-outside="close" v-on:click="show =! show">
             <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>

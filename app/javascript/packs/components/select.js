@@ -1,7 +1,7 @@
 import Vue from 'vue/dist/vue.esm'
 import vClickOutside from 'v-click-outside'
 
-Vue.component('dropdown-vue', {
+Vue.component('select-vue', {
   data: function(){
     return{ show: false }
   },
@@ -17,7 +17,7 @@ Vue.component('dropdown-vue', {
     classAnimatedContent: function () {
       return {
         'animated fadeOut': !this.show,
-        'animated fadeIn': this.show,
+        'animated slideInDown': this.show,
       }
     },
   },

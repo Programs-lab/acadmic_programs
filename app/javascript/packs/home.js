@@ -17,13 +17,13 @@ document.addEventListener('turbolinks:load', () => {
           if(a.scrollHeight == 0){
             Vue.set(this.show, i, this.show[i] =! this.show[i]);
             setTimeout(function(){a.style.maxHeight = a.scrollHeight + "px"}, 30)
-            document.getElementById(`transform_collapse_${i}`).classList.remove('transform_collapse_2');
             document.getElementById(`transform_collapse_${i}`).classList.add('transform_collapse');
           }else{
             a.style.maxHeight = null;
             setTimeout(() => Vue.set(this.show, i, this.show[i] =! this.show[i]), 200)
             document.getElementById(`transform_collapse_${i}`).classList.remove('transform_collapse');
             document.getElementById(`transform_collapse_${i}`).classList.add('transform_collapse_2');
+            setTimeout(() => document.getElementById(`transform_collapse_${i}`).classList.remove('transform_collapse_2'), 200)
           }
       },
       btnModal(){

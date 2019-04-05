@@ -29,6 +29,19 @@
     </div>
   <% end %>
   <!-- Option -->
+  <%= link_to(companies_path, class: "no-underline") do %>
+    <div class="list-group-item <%= is_companies_path %>">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','building', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Empresas</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <!-- Option -->
   <div class="list-group-item">
     <div class="flex">
       <div class="w-1/4 text-center">

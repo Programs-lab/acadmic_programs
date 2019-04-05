@@ -1,4 +1,4 @@
-class UserPolicy
+class CompanyPolicy
   attr_reader :user, :resource
 
   def initialize(user, resource)

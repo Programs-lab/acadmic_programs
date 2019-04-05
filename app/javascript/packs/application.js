@@ -22,5 +22,6 @@ require('./user_form');
 require('./shared');
 require('./home');
 require('./flash');
+require('./companies');
 require('./components/modal');
 require('./components/dropdown');

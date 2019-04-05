@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.esm'
-
+import Ripple from 'vue-ripple-directive'
+Vue.directive('ripple', Ripple);
 Vue.component('modal-vue', {
   props: ['style_button'],
 
@@ -22,7 +23,7 @@ Vue.component('modal-vue', {
   template: `
   <div class="flex flex-wrap">
     <div class="flex w-full">
-      <a id="myBtn" :class="style_button" @click="btnModal()">
+      <a id="myBtn" :class="style_button" v-ripple = "'rgba(0, 0, 0, 0.10)'" @click="btnModal()">
        <slot name="name_button"></slot>
       </a>
     </div>
@@ -44,7 +45,7 @@ Vue.component('modal-vue', {
           </div>
           <div class="row modal-footer">
             <div class="flex justify-between">
-              <button type="button" name="button" class="btn btn-red-light mx-1"  @click="btnModal()">Cancelar</button>
+              <button type="button" name="button" class="btn btn-red-light mx-1" @click="btnModal()">Cancelar</button>
               <slot name="footer"></slot>
             </div>
           </div>

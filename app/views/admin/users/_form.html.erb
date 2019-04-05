@@ -100,7 +100,7 @@
   <% unless @user.new_record? %>
 
       <div class="w-full md:w-1/2 px-3 py-4 mb-5 md:mb-0 items-center">
-        <%= link_to(admin_user_invite_path(@user.id), method: :post, class: "flex w-full btn btn-secondary #{disabled_button(user.disabled)}", disabled: @user.disabled) do %>
+        <%= link_to(admin_user_invite_path(@user.id), method: :post, class: "flex w-full btn btn-secondary #{disabled_button(user.disabled)}", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'", disabled: @user.disabled) do %>
           <%= icon('fas', 'paper-plane', 'enviar invitacion', class: "mr-2") %>
         <% end %>
         <% if user.invitation_sent_at.present? %>
@@ -144,9 +144,9 @@
         </template>
         <template v-slot:footer>
           <% if user.disabled %>
-            <%= link_to "Habilitar", admin_user_enable_path(@user.id), method: :post, class: 'btn btn-primary' %>
+            <%= link_to "Habilitar", admin_user_enable_path(@user.id), method: :post, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'"%>
           <% else %>
-            <%= link_to "Deshabilitar", admin_user_disable_path(@user.id), method: :post, class: 'btn btn-primary' %>
+            <%= link_to "Deshabilitar", admin_user_disable_path(@user.id), method: :post, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'" %>
           <% end %>
         </template>
       </modal-vue>
@@ -156,7 +156,7 @@
     <div class="flex justify-end w-1/2">
       <div class="flex justify-between w-full">
         <div class="flex justify-end w-3/4">
-         <%= link_to("Cancelar", admin_users_path, class: "btn btn-secondary no-underline") %>
+         <%= link_to("Cancelar", admin_users_path, class: "btn btn-secondary no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
         </div>
         <div class="flex justify-end w-32">
          <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ":class"=>"disabled", ':disabled' => "$v.$anyError || $v.$invalid" %>

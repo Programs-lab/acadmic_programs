@@ -1,4 +1,6 @@
 import Vue from 'vue/dist/vue.esm'
+import Ripple from 'vue-ripple-directive'
+Vue.directive('ripple', Ripple);
 Vue.component('modal-vue', {
   props: ['style_button','i'],
   methods: {
@@ -19,9 +21,6 @@ Vue.component('modal-vue', {
   },
   template: `
   <div class="flex flex-wrap">
-    <div class="flex w-full">
-       <slot name="name_button"></slot>
-    </div>
     <transition name="transition-modal" >
       <div id="myModal" class="modal" v-show="show" v-cloak>
         <div :class="classAnimatedContent" class="card modal-content" leave-active-class="animated bounceOutRight">

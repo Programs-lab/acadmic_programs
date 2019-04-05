@@ -6039,6 +6039,13 @@ vue-loader@^15.7.0:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-ripple-directive@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vue-ripple-directive/-/vue-ripple-directive-2.0.1.tgz#817ae4bc2874cbf01d8a018c8e8d97c8cadb6355"
+  integrity sha512-jXZEX6uZpo89wxmdcw02uFpsMBpm1pxjQ60uqghNLQ8H8ju9eon2vE0+vvSWJ1WGCOTEfxGDR4InabJJu5f1GA==
+  dependencies:
+    vue "^2.2.1"
+
 vue-style-loader@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.2.tgz#dedf349806f25ceb4e64f3ad7c0a44fba735fcf8"
@@ -6062,6 +6069,11 @@ vue-turbolinks@^2.0.4:
   resolved "https://registry.yarnpkg.com/vue-turbolinks/-/vue-turbolinks-2.0.4.tgz#a64102b9641b2fc523570b84964620ea7b51aabb"
   dependencies:
     vue "^2.2.4"
+
+vue@^2.2.1:
+  version "2.6.10"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
+  integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
 
 vue@^2.2.4, vue@^2.6.8:
   version "2.6.8"

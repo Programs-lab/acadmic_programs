@@ -10,6 +10,10 @@ class UserPolicy
     bt_administration_g
   end
 
+  def new?
+    bt_administration_g
+  end
+
   def create?
     bt_administration_g
   end
@@ -18,7 +22,15 @@ class UserPolicy
     bt_administration_g
   end
 
-  def destroy?
+  def invite?
+    bt_administration_g
+  end
+
+  def enable?
+    bt_administration_g
+  end
+
+  def disable?
     bt_administration_g
   end
 

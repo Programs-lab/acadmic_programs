@@ -23,6 +23,10 @@ module ApplicationHelper
   def roles_names(user)
     if user.patient?
       "Paciente"
+    elsif user.doctor?
+      "Doctro"
+    else
+      "Administrador"
     end
   end
 

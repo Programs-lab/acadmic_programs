@@ -1,6 +1,7 @@
 import Vue from 'vue/dist/vue.esm'
 import vClickOutside from 'v-click-outside'
-
+import Ripple from 'vue-ripple-directive'
+Vue.directive('ripple', Ripple);
 Vue.component('dropdown-vue', {
   data: function(){
     return{ show: false }
@@ -23,7 +24,7 @@ Vue.component('dropdown-vue', {
   },
   template: `
   <div class="flex flex-wrap" style="position: absolute; width: 15%;" v-click-outside="close">
-    <button type="button" class="btn btn-secondary w-full bg-white" v-click-outside="close" @click="btnModal">
+    <button type="button" class="btn btn-secondary w-full bg-white" v-ripple = "'rgba(0, 0, 0, 0.10)'" v-click-outside="close" @click="btnModal">
         <slot name="bnt-img"></slot>
         dropdown
     </button>

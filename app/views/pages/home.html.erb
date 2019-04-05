@@ -176,50 +176,55 @@
           <% end %>
         </template>
       </dropdown-vue>
-      <div class="flex flex-wrap justify-center" id="collapse">
+      <div class="my-32">
+
+      </div>
+      <div class="flex flex-wrap justify-center">
         <% 10.times.each_with_index do |index, value| %>
-        <div id="transform_collapse_<%= index %>" class="flex flex-wrap px-4 custom2">
-          <div class="shadow bg-white border border-grey-light w-full h-12 cursor-pointer" v-on:click="close(<%= index %>)">
-            <span >collapse</span>
-          </div>
-          <div v-show="show[<%= index %>]" class="shadow bg-white border border-grey-light w-full px-2 pt-2 border-t-0 element">
-            <!-- table heading -->
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
+        <div id="collapse_<%= index %>" class="collapse">
+          <div class="row w-full shadow-md">
+            <div class="collapse-title">
+              <div class="flex w-full justify-start px-4 items-center" v-on:click="close(<%= index %>)">
+                <div class="flex w-24 justify-between">
+                  <%= icon('fas','building', class: 'fa-md') %>
+                  <span>Company</span>
+                </div>
+              </div>
+              <div class="flex w-16 justify-end items-center px-4">
+                <modal-vue>
+                  <template v-slot:name_button>
+                    <%= icon('fas','edit', class: 'fa-md', "v-on:click" => "close_collapse(#{index})" )%>
+                  </template>
+                  <template v-slot:title>
+                    <h1>Hola</h1>
+                  </template>
+                  <template v-slot:content>
+                    CONTENIDO
+                  </template>
+                  <template v-slot:footer>
+                    <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
+                  </template>
+                </modal-vue>
+              </div>
+            </div>
+            <div v-show="show[<%= index %>]" class="collapse-content">
+              <!-- table heading -->
+                <%= form_for("#", html: {'v-cloak' => true},  class: "") do |f| %>
+                <div class="row w-full my-5 mx-3 items-center">
+                  <% 4.times.each_with_index do |index, value| %>
+                  <div class="row w-full mx-3 mb-5 justify-center items-center">
+                    <div id= "firstNameField" class="flex w-1/2 px-3 mb-5 md:mb-0 focus_form">
+                      <span>Consulta</span>
+                    </div>
+                    <div id= "lasttNameField" class="row w-1/2 px-3 focus_form">
+                      <%= f.label :Costo, class: 'label_input' %>
+                      <%= f.text_field :"1", class: 'field_input rounded-t', value: "$ 3000"%>
+                    </div>
+                  </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>

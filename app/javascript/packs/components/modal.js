@@ -2,13 +2,10 @@ import Vue from 'vue/dist/vue.esm'
 import Ripple from 'vue-ripple-directive'
 Vue.directive('ripple', Ripple);
 Vue.component('modal-vue', {
-  props: ['style_button'],
-  data: function(){
-    return{ show: false }
-  },
+  props: ['style_button','i'],
   methods: {
     btnModal(){
-      this.show =! this.show
+      this.$parent.modalId(this.i);
     }
   },
   computed: {
@@ -18,14 +15,12 @@ Vue.component('modal-vue', {
         'animated slideInDown': this.show,
       }
     },
+    show: function (){
+      return this.$parent.modal2[this.i];
+    }
   },
   template: `
   <div class="flex flex-wrap">
-    <div class="flex w-full">
-      <a id="myBtn" :class="style_button" v-ripple = "'rgba(0, 0, 0, 0.10)'" @click="btnModal()">
-       <slot name="name_button"></slot>
-      </a>
-    </div>
     <transition name="transition-modal" >
       <div id="myModal" class="modal" v-show="show" v-cloak>
         <div :class="classAnimatedContent" class="card modal-content" leave-active-class="animated bounceOutRight">

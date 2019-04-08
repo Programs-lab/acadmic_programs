@@ -43,10 +43,9 @@ Vue.component('modal-vue', {
             </div>
           </div>
           <div class="row modal-footer">
-            <div class="flex justify-between">
-              <button type="button" name="button" class="btn btn-red-light mx-1" @click="btnModal()">Cancelar</button>
+            
               <slot name="footer"></slot>
-            </div>
+            
           </div>
         </div>
       </div>

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
     resources :companies, path: 'empresas', only: [:index, :create, :update, :destroy]
+    get 'companies/procedure_companies_update', to: 'companies#update_procedure_companies'
+    resources :procedure_types, path: 'tipos_de_estudio', only: [:index, :create, :update, :destroy]
   
   root 'pages#home' 
   get 'pages/home'

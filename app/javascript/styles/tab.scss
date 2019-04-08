@@ -1,0 +1,15 @@
+.tab-item{
+  @apply .bg-white .inline-block .py-2 .px-4 .text-blue .font-semibold .no-underline;
+
+  &:hover{
+  @apply text-blue-darker;
+  }
+}
+
+.tab-active {
+  @apply .border-l .border-t .border-r .rounded-t .text-blue-dark .-mb-px;
+}
+
+.tab{
+  @apply .list-reset .flex .border-b;
+}

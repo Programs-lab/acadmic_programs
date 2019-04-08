@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
   end
 
   create_table "appointment_reports", force: :cascade do |t|
-    t.bigint "appointment_id", null: false
-    t.bigint "medical_record_id", null: false
+    t.bigint "appointments_id", null: false
+    t.bigint "medical_records_id", null: false
     t.text "diagnosis"
     t.text "medical_order"
     t.text "medical_disability"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
     t.text "examination_request"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appointment_id"], name: "index_appointment_reports_on_appointment_id"
-    t.index ["medical_record_id"], name: "index_appointment_reports_on_medical_record_id"
+    t.index ["appointments_id"], name: "index_appointment_reports_on_appointments_id"
+    t.index ["medical_records_id"], name: "index_appointment_reports_on_medical_records_id"
   end
 
   create_table "appointments", force: :cascade do |t|
@@ -55,8 +55,6 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
     t.bigint "doctor_id", null: false
     t.datetime "appointment_datetime"
     t.bigint "procedure_type_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
     t.index ["procedure_type_id"], name: "index_appointments_on_procedure_type_id"
@@ -64,14 +62,10 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
 
   create_table "companies", force: :cascade do |t|
     t.string "company_name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "medical_records", force: :cascade do |t|
     t.bigint "patient_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["patient_id"], name: "index_medical_records_on_patient_id"
   end
 
@@ -79,8 +73,6 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
     t.decimal "cost", default: "0.0", null: false
     t.bigint "company_id", null: false
     t.bigint "procedure_type_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_procedure_companies_on_company_id"
     t.index ["procedure_type_id"], name: "index_procedure_companies_on_procedure_type_id"
   end
@@ -88,8 +80,6 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
   create_table "procedure_types", force: :cascade do |t|
     t.string "procedure_type_name", null: false
     t.decimal "cost", default: "0.0", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -139,21 +129,21 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
   end
 
   create_table "working_days", force: :cascade do |t|
-    t.bigint "working_week_id", null: false
+    t.bigint "working_weeks_id", null: false
     t.date "working_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["working_week_id"], name: "index_working_days_on_working_week_id"
+    t.index ["working_weeks_id"], name: "index_working_days_on_working_weeks_id"
   end
 
   create_table "working_hours", force: :cascade do |t|
-    t.bigint "working_day_id", null: false
+    t.bigint "working_days_id", null: false
     t.datetime "initial_hour", null: false
     t.datetime "end_hour", null: false
     t.boolean "remember", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["working_day_id"], name: "index_working_hours_on_working_day_id"
+    t.index ["working_days_id"], name: "index_working_hours_on_working_days_id"
   end
 
   create_table "working_weeks", force: :cascade do |t|
@@ -166,11 +156,11 @@ ActiveRecord::Schema.define(version: 2019_04_02_225548) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "appointment_reports", "appointments"
-  add_foreign_key "appointment_reports", "medical_records"
+  add_foreign_key "appointment_reports", "appointments", column: "appointments_id"
+  add_foreign_key "appointment_reports", "medical_records", column: "medical_records_id"
   add_foreign_key "appointments", "procedure_types"
   add_foreign_key "procedure_companies", "companies"
   add_foreign_key "procedure_companies", "procedure_types"
-  add_foreign_key "working_days", "working_weeks"
-  add_foreign_key "working_hours", "working_days"
+  add_foreign_key "working_days", "working_weeks", column: "working_weeks_id"
+  add_foreign_key "working_hours", "working_days", column: "working_days_id"
 end

@@ -20,6 +20,12 @@ module ApplicationHelper
     end
   end
 
+  def is_medical_record_path
+    case request.params[:controller]
+    when 'pages' then 'active'
+    end
+  end
+
   def roles_names(user)
     if user.patient?
       "Paciente"

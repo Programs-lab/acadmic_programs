@@ -22,6 +22,7 @@ require('./user_form');
 require('./shared');
 require('./home');
 require('./flash');
+require('./tab');
 require('./components/modal');
 require('./components/dropdown');
 require('./components/collapse');

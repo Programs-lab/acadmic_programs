@@ -28,6 +28,19 @@
       </div>
     </div>
   <% end %>
+
+  <%= link_to(pages_medical_record_path, class: "no-underline") do %>
+    <div class="list-group-item <%= is_medical_record_path %>">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','user-md', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>medical record</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <!-- Option -->
   <div class="list-group-item">
     <div class="flex">

@@ -8,11 +8,10 @@
 }
 
 .collapse-content{
-  padding: 0 18px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
-  @apply .bg-white .w-full .px-2 .pt-2;
+  @apply .bg-white .w-full .mx-4 .my-4 .mt-4;
 }
 
 .transform_collapse{

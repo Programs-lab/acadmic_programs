@@ -52,58 +52,58 @@
       <div id="tab">
         <ul class="tab">
           <li class="mr-1">
-            <a class="tab-item tab-active"  id="diagnostico" @click="tabMethod('diagnostico')">
+            <a class="tab-item" id="diagnostico" @click="tabMethod">
               <%= icon('fas','file-alt', class: 'fa-md')%>
               Diagnostico
             </a>
           </li>
           <li class="mr-1">
-            <a class="tab-item" id="orden" @click="tabMethod('orden')">
+            <a class="tab-item" id="orden" @click="tabMethod">
               <%= icon('fas','list', class: 'fa-md')%>
               Ord Medica
             </a>
           </li>
           <li class="mr-1">
-            <a class="tab-item" id="solucion" @click="tabMethod('solucion')">
+            <a class="tab-item" id="solucion" @click="tabMethod">
               <%= icon('fas','file', class: 'fa-md')%>
               Sol Examen
             </a>
           </li>
           <li class="mr-1">
-            <a class="tab-item" id="referencias" @click="tabMethod('referencias')">
+            <a class="tab-item" id="referencias" @click="tabMethod">
               <%= icon('fas','address-book', class: 'fa-md')%>
               Referencias
             </a>
           </li>
           <li class="mr-1">
-            <a class="tab-item" id="incapacidad" @click="tabMethod('incapacidad')">
+            <a class="tab-item" id="incapacidad" @click="tabMethod">
               <%= icon('fas','wheelchair', class: 'fa-md')%>
               Incapacidad
             </a>
           </li>
           <li class="mr-1">
-            <a class="tab-item" id="carga" @click="tabMethod('carga')">
+            <a class="tab-item" id="carga" @click="tabMethod">
               <%= icon('fas','upload', class: 'fa-md')%>
               Carga Archivos
             </a>
           </li>
         </ul>
-        <div v-show="tabItems['diagnostico']" id="diagnostico" class="flex" >
+        <div v-show="tabItems['diagnostico']" class="flex" >
           diagnostico
         </div>
-        <div v-show="tabItems['orden']" id="orden" class="flex" >
+        <div v-show="tabItems['orden']" class="flex" >
           orden
         </div>
-        <div v-show="tabItems['solucion']" id="solucion" class="flex" >
+        <div v-show="tabItems['solucion']" class="flex" >
           solucion
         </div>
-        <div v-show="tabItems['referencias']" id="referencias" class="flex" >
+        <div v-show="tabItems['referencias']" class="flex" >
           referencias
         </div>
-        <div v-show="tabItems['incapacidad']" id="incapacidad" class="flex" >
+        <div v-show="tabItems['incapacidad']" class="flex" >
           incapacidad
         </div>
-        <div v-show="tabItems['carga']" id="carga" class="flex">
+        <div v-show="tabItems['carga']" class="flex">
           carga
         </div>
       </div>

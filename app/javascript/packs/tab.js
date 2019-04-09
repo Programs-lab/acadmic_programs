@@ -11,19 +11,14 @@ document.addEventListener('turbolinks:load', () => {
       tabItems: {}
     },
     methods: {
-      tabMethod(key){
-        for (let items in this.tabItems) {
-          Vue.set(this.tabItems, items , false);
-        }
-        Vue.set(this.tabItems, key , true);
-      }
-    },
-    computed: {
-      classTabActive: function () {
-        return {
-          '': !this.modal,
-          'tab-active': this.modal,
-        }
+      tabMethod(){
+        var nodeOldActive = document.getElementsByClassName('tab-active')[0]
+        var keyOldActive = nodeOldActive.attributes.id.value
+        var keyNewActive = event.currentTarget.attributes.id.value
+        Vue.set(this.tabItems, keyOldActive, false)
+        Vue.set(this.tabItems, keyNewActive , true)
+        nodeOldActive.classList.remove('tab-active')
+        document.getElementById(keyNewActive).classList.add('tab-active')
       }
     },
     mounted: function () {
@@ -31,6 +26,7 @@ document.addEventListener('turbolinks:load', () => {
         var items = document.getElementsByClassName("tab-item")
         var keyItemActive = items[0].attributes.id.value
         Vue.set(this.tabItems, keyItemActive ,true);
+        document.getElementById(keyItemActive).classList.add('tab-active')
       })
     }
   })

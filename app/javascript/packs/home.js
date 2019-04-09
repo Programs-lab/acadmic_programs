@@ -8,10 +8,17 @@ document.addEventListener('turbolinks:load', () => {
   var app = new Vue({
     el: '#home_page',
     data: {
+      show: false,
       show: [],
-      modal: false
+      modal: false,
+      modal1: [],
+      modal2: {},
     },
     methods: {
+      modalId(i){
+        Vue.set(this.modal2, i , !this.modal2[i]);
+      }
+      ,
       close(i) {
           var a = document.getElementsByClassName('collapse-content')[i];
           if(a.scrollHeight == 0){

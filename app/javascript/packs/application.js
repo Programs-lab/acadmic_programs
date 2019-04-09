@@ -33,3 +33,4 @@ require('./procedure_types');
 
 require('./components/modal');
 require('./components/dropdown');
+require('./components/collapse');

@@ -1,0 +1,175 @@
+<%= render  'shared/card' do %>
+  <div class="flex px-4">
+    <div class="w-2/3">
+    </div>
+    <div class="w-1/3 text-right">
+    </div>
+  </div>
+  <div id="" class="w-full px-4">
+    <div class="my-4 flex">
+      <div class="w-1/2">
+        <h4 class="font-semibold text-g-d4 text-lg">
+          Paciente
+          <br><span class="font-medium text-sm text-g-d2">Datos del paciente</span>
+        </h4>
+      </div>
+    </div>
+    <div class="divider">
+    </div>
+    <div class="row items-center">
+      <div class="flex w-1/3 justify-center">
+        <img class="img-circle" src="https://www.abeautifulsite.net/uploads/2019/03/cory-nh.jpg?thumbnail=256&key=8a001ba9c3a05010834d053723c48b3cd12c119fc141da08f5a40562d52d1ca0" style="border-radius: 50%; width: 80%; height: 80%;">
+      </div>
+      <div class="flex w-2/3 justify-center">
+          <!-- table heading -->
+          <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">Nombre</th>
+                <td>Mark</td>
+              </tr>
+              <tr>
+                <th scope="row">Telefono</th>
+                <td>3208597898</td>
+              </tr>
+              <tr>
+                <th scope="row">Dirrecion</th>
+                <td>742 Avenida Simpreviva</td>
+              </tr>
+              <tr>
+                <th scope="row">Edad</th>
+                <td>19</td>
+              </tr>
+              <tr>
+                <th scope="row">Afiliado a</th>
+                <td>EPS Sanitas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div id="tab">
+        <ul class="tab">
+          <li class="mr-1">
+            <a class="tab-item" id="diagnostico" @click="tabMethod">
+              <%= icon('fas','file-alt', class: 'fa-md')%>
+              Diagnostico
+            </a>
+          </li>
+          <li class="mr-1">
+            <a class="tab-item" id="orden" @click="tabMethod">
+              <%= icon('fas','list', class: 'fa-md')%>
+              Ord Medica
+            </a>
+          </li>
+          <li class="mr-1">
+            <a class="tab-item" id="solucion" @click="tabMethod">
+              <%= icon('fas','file', class: 'fa-md')%>
+              Sol Examen
+            </a>
+          </li>
+          <li class="mr-1">
+            <a class="tab-item" id="referencias" @click="tabMethod">
+              <%= icon('fas','address-book', class: 'fa-md')%>
+              Referencias
+            </a>
+          </li>
+          <li class="mr-1">
+            <a class="tab-item" id="incapacidad" @click="tabMethod">
+              <%= icon('fas','wheelchair', class: 'fa-md')%>
+              Incapacidad
+            </a>
+          </li>
+          <li class="mr-1">
+            <a class="tab-item" id="carga" @click="tabMethod">
+              <%= icon('fas','upload', class: 'fa-md')%>
+              Carga Archivos
+            </a>
+          </li>
+        </ul>
+        <div v-show="tabItems['diagnostico']" class="flex py-4" >
+          <textarea>
+          </textarea>
+        </div>
+        <div v-show="tabItems['orden']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Posologia</th>
+                  <th scope="col">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tbody>
+            </table>
+          </textarea>
+        </div>
+        <div v-show="tabItems['solucion']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row" width="40%">Examen a realizar</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Datos clinicos</th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </textarea>
+        </div>
+        <div v-show="tabItems['referencias']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row" width="40%">Especialidad a referenciar</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Datos clinicos</th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </textarea>
+        </div>
+        <div v-show="tabItems['incapacidad']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row" width="40%">Fecha de inicio de incapacidad</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Dias de incapacidad</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Diagnostico</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Recomendaciones/observaciones</th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </textarea>
+        </div>
+        <div v-show="tabItems['carga']" class="flex py-4">
+          carga tu archivo
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

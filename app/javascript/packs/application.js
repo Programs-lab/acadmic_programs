@@ -26,11 +26,11 @@ require('./shared');
 require('./home');
 require('./flash');
 require('./companies');
-require('./companies');
 require('./procedure_types');
 
 //components
 
+require('./tab');
 require('./components/modal');
 require('./components/dropdown');
 require('./components/collapse');

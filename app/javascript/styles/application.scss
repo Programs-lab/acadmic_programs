@@ -9,6 +9,8 @@
 @import 'modal';
 @import 'dropdown';
 @import 'card';
+@import 'tab';
+@import 'froala-editor';
 
   *{
     font-family: 'Didact Gothic', sans-serif;
@@ -48,6 +50,10 @@
 
   .table > tbody > tr > td {
     vertical-align: middle;
+  }
+
+  .divider {
+    @apply .border .border-grey-light .my-6;
   }
 
   #footer {

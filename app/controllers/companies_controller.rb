@@ -33,10 +33,18 @@ class CompaniesController < ApplicationController
   end
 
   def update_procedure_companies
-    update_procdure_companies(params)
+    Company.update_procdure_companies(procedure_company_params)
+    redirect_to companies_path, notice: 'Los costos de los estudios han sido actualizado'
   end
 
   private
+
+  def procedure_company_params
+    ids = ProcedureCompany.pluck(:id) 
+    params_hash = {}
+    ids.map { |pr| params_hash[pr] = {cost: params[pr.to_s]}  }
+    params_hash
+  end
 
   def set_company
     @company = Company.find(params[:id] || params[:company_id])

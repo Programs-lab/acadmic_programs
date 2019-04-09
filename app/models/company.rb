@@ -4,8 +4,7 @@ class Company < ApplicationRecord
   after_create :create_procedure_companies
 
   def self.update_procdure_companies(params)
-    binding.pry
-    ProcedureCompany.update(params.keys, params.values.map{|v| {cost: v}})
+    ProcedureCompany.update(params.keys, params.values)
   end
 
   def create_procedure_companies

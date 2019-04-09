@@ -88,23 +88,86 @@
             </a>
           </li>
         </ul>
-        <div v-show="tabItems['diagnostico']" class="flex" >
-          diagnostico
+        <div v-show="tabItems['diagnostico']" class="flex py-4" >
+          <textarea>
+          </textarea>
         </div>
-        <div v-show="tabItems['orden']" class="flex" >
-          orden
+        <div v-show="tabItems['orden']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Posologia</th>
+                  <th scope="col">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tbody>
+            </table>
+          </textarea>
         </div>
-        <div v-show="tabItems['solucion']" class="flex" >
-          solucion
+        <div v-show="tabItems['solucion']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row" width="40%">Examen a realizar</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Datos clinicos</th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </textarea>
         </div>
-        <div v-show="tabItems['referencias']" class="flex" >
-          referencias
+        <div v-show="tabItems['referencias']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row" width="40%">Especialidad a referenciar</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Datos clinicos</th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </textarea>
         </div>
-        <div v-show="tabItems['incapacidad']" class="flex" >
-          incapacidad
+        <div v-show="tabItems['incapacidad']" class="flex py-4" >
+          <textarea>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row" width="40%">Fecha de inicio de incapacidad</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Dias de incapacidad</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Diagnostico</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <th scope="row">Recomendaciones/observaciones</th>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </textarea>
         </div>
-        <div v-show="tabItems['carga']" class="flex">
-          carga
+        <div v-show="tabItems['carga']" class="flex py-4">
+          carga tu archivo
         </div>
       </div>
     </div>

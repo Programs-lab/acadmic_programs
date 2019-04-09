@@ -26,6 +26,19 @@ module ApplicationHelper
     end
   end
 
+
+  def is_companies_path
+    case request.params[:controller]
+    when 'companies' then 'active'
+    end
+  end
+
+  def is_procedure_type_path
+    case request.params[:controller]
+    when 'procedure_types' then 'active'
+    end
+  end
+
   def roles_names(user)
     if user.patient?
       "Paciente"

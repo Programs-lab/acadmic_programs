@@ -1,0 +1,130 @@
+<%= render  'shared/card' do %>
+<div id=companies_index>
+
+  <div class="my-8 flex px-4 items-center">
+    <div class="flex w-1/2">
+      <h4 class="font-semibold text-g-d4 text-lg">
+        Empresas
+        <br><span class="font-medium text-sm text-g-d2">Listado de empresas</span>
+      </h4>
+    </div>
+    
+    <div class="flex w-1/2 justify-end">
+      <a id="myBtn" @click="modalId('create')">
+        <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+      </a>
+    </div>
+
+      <%= form_with scope: :company, url: companies_path, method: :post do |form|%>
+
+        <modal-vue i= "create">
+          <template v-slot:title>
+            Agrergar Empresa
+          </template>
+          <template v-slot:content>
+            <div class="flex flex-wrap -mx-3 mb-5">
+              <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+                <%= form.label "Nombre de la empresa", class: 'label_input' %>
+                <%= form.text_field :company_name, class: 'field_input rounded-t' %>
+              </div>
+              <div class="w-full md:w-1/2 px-3 focus_form ">
+                <%= form.label "NIT", class: 'label_input' %>
+                <%= form.number_field :company_id, class: 'field_input rounded-t' %>
+              </div>
+            </div>
+          </template>
+          <template v-slot:footer>
+            <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('create')">Cancelar</button>
+            <%= form.submit "Registrar", class: 'btn btn-primary' %>
+          </template>
+        </modal-vue>
+      <% end %>
+    </div>  
+
+<% if @companies.any? %>      
+<%= form_with url: companies_procedure_companies_update_path, method: 'get', local: true do |f| %> 
+<div>
+  <% @companies.each_with_index do |company, index| %>        
+  <div class="row justify-center">
+     <collapse-vue i="collpase_<%= index %>">
+      <template v-slot:title-left>
+        <%= icon('fas','building', class: 'fa-md mr-4') %>
+        <span><%= company.company_name %></span>
+      </template>
+      <template v-slot:title-right>
+        <a @click="modalId('modal_<%= index %>')">
+          <%= icon('fas','edit', class: 'fa-md')%>
+        </a>
+      </template>
+      <template v-slot:content>
+        <% company.procedure_companies.each_with_index do |pc, index| %>
+        <div class="flex w-full justify-center items-center mb-4">
+          <div id= "firstNameField" class="flex w-1/2">
+            <span><%= pc.procedure_type.procedure_type_name %></span>
+          </div>
+          <div id= "lasttNameField" class="row w-1/2 focus_form">
+            <%= f.label :Costo, class: 'label_input' %>
+            <%= f.number_field pc.id.to_s.to_sym, class: 'field_input rounded-t', value: pc.cost%>
+          </div>
+        </div>
+        <% end %> 
+      </template>
+     </collapse-vue>
+     <%= form_with scope: :company, url: company_path(company.id), method: 'put', class: ""  do |f2| %>
+      <modal-vue i="modal_<%= index %>">
+        <template v-slot:title>
+          <%= "Editar empresa #{company.company_name}" %>
+        </template>
+        <template v-slot:content>
+          <div class="flex flex-wrap -mx-3 mb-5">
+            <div  class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+              <%= f2.label "Nombre de la empresa", class: 'label_input' %>
+              <%= f2.text_field :company_name, value: company.company_name, class: 'field_input rounded-t' %>
+            </div>
+            <div  class="w-full md:w-1/2 px-3 focus_form ">
+              <%= f2.label :NIT, class: 'label_input' %>
+              <%= f2.number_field :company_id, value: company.company_id, class: 'field_input rounded-t'%>
+            </div>
+          </div>
+        </template>
+        <template v-slot:footer>
+          <div class="flex justify-start w-1/2">
+            <%= link_to company_path(company.id), method: 'delete', data: {confirm: 'Esto elimnara el registro, ¿esta seguro?'}, class: "btn btn-red-light mx-1"  do %>
+              <%= icon('fas', 'trash') %>
+            <% end %>
+          </div>
+          <div class="flex justify-end w-1/2">
+            <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('modal_<%= index %>')">Cancelar</button>
+            <%= f2.submit "Registrar", class: "btn btn-primary"%>
+          </div> 
+        </template>
+      </modal-vue>
+      <% end %> 
+    </div>
+    <% end %> 
+    <br>
+    <div class="row w-full px-4">
+      <div class="flex w-full">
+        <div class="flex w-full">
+          <div class="flex justify-end w-full">
+           <%= f.submit "Registrar", class: "btn btn-primary"%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+   <% else %>
+    <div class="alert alert-info mx-4" role="alert">
+      <div class="flex">
+        <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest w-full">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm">Aun no se registran empresas, haga click en el '+' para agreagr una</p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+<% end %>

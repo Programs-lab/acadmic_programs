@@ -16,12 +16,20 @@
 // const imagePath = (name) => images(name, true)
 import 'application.scss';
 console.log('Hello World from Webpacker')
+
+// entiities
+
 require('./hello_vue');
 require('./sign_up');
 require('./user_form');
 require('./shared');
 require('./home');
 require('./flash');
+require('./companies');
+require('./procedure_types');
+
+//components
+
 require('./tab');
 require('./components/modal');
 require('./components/dropdown');

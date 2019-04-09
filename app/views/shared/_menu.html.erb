@@ -28,7 +28,7 @@
       </div>
     </div>
   <% end %>
-
+    <!-- Option -->
   <%= link_to(pages_medical_record_path, class: "no-underline") do %>
     <div class="list-group-item <%= is_medical_record_path %>">
       <div class="flex">
@@ -37,6 +37,32 @@
         </div>
         <div class="text-left w-3/4">
           <span>medical record</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+    <!-- Option -->
+  <%= link_to(procedure_types_path, class: "no-underline") do %>
+    <div class="list-group-item <%= is_procedure_type_path %>">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','file-medical-alt', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Tipos de estudio</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <!-- Option -->
+  <%= link_to(companies_path, class: "no-underline") do %>
+    <div class="list-group-item <%= is_companies_path %>">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','building', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Empresas</span>
         </div>
       </div>
     </div>

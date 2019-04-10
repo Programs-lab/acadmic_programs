@@ -2,10 +2,20 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:edit, :update, :destroy, :enable, :disable, :invite]
   def index
-    @users = User.where.not(id: current_user.id)
+    @users = User.where.not(id: current_user.id).order(:last_name)
     #@users = User.where("id NOT IN (?)", current_user.id)
     authorize @users
      # don't display the current user in the users list; go to account management to edit current user details
+  end
+
+  def doctors
+    @doctors = User.where(role: :doctor)
+    authorize @doctors
+  end
+
+  def patients
+    @patients = User.where(role: :patient)
+    authorize @patients
   end
 
   def new
@@ -19,9 +29,15 @@ class Admin::UsersController < ApplicationController
     @user.skip_confirmation! 
     if @user.save(context: :admin)
       @user.invite!
-      redirect_to admin_users_path, notice: 'El usuario fue creado exitosamente.'
+      path = admin_users_path
+      if user_params[:role] == 'doctor'
+        path = admin_doctors_path
+      elsif user_params[:role] == 'patient'
+        path = admin_patients_path
+      end
+      redirect_to path, notice: 'El usuario fue creado exitosamente.'
     else
-      redirect_to new_admin_user_path, alert: 'No fue posible concretar el registro, por favor revise los campos nuevamente'
+      redirect_to path, alert: 'No fue posible concretar el registro, por favor revise los campos nuevamente'
     end    
   end
 

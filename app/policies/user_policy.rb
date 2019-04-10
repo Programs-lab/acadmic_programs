@@ -10,6 +10,18 @@ class UserPolicy
     bt_administration_g
   end
 
+  def doctors?
+    bt_administration_g
+  end
+
+  def patients?
+    bt_administration_g
+  end
+
+  def new?
+    bt_administration_g    
+  end
+
   def create?
     bt_administration_g
   end

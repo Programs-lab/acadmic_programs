@@ -40,7 +40,6 @@
     <% else %>
 
         <div class="w-1/2 flex items-center justify-end relative">
-      <%= link_to 'Cerrar session', destroy_user_session_path, method: :delete,  class: 'btn btn-primary' %>
 
       <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show =! show">
           <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>

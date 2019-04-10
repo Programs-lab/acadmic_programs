@@ -9,14 +9,20 @@ module ApplicationHelper
   end
 
   def is_users_path
-    case request.params[:controller]
-    when 'admin/users' then 'active'
+    case request.path
+    when '/admin/usuarios' then 'active'
+    end
+  end
+
+  def is_patients_path
+    case request.path
+    when '/admin/pacientes' then 'active'
     end
   end
 
   def is_doctors_path
     case request.path
-    when '/pages/home' then 'active'
+    when '/admin/doctores' then 'active'
     end
   end
 
@@ -43,7 +49,7 @@ module ApplicationHelper
     if user.patient?
       "Paciente"
     elsif user.doctor?
-      "Doctro"
+      "Doctor"
     else
       "Administrador"
     end

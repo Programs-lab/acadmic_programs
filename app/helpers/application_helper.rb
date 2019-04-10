@@ -15,14 +15,14 @@ module ApplicationHelper
   end
 
   def is_doctors_path
-    case request.params[:controller]
-    when 'pages' then 'active'
+    case request.path
+    when '/pages/home' then 'active'
     end
   end
 
   def is_medical_record_path
-    case request.params[:controller]
-    when 'pages' then 'active'
+    case request.path
+    when '/pages/medical_record' then 'active'
     end
   end
 

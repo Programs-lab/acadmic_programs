@@ -59,7 +59,7 @@ $( document ).on('turbolinks:load',function() {
     $('textarea').froalaEditor({
       iconsTemplate: "font_awesome_5",
       theme: 'custom',
-      language: 'es',
+      language: 'es'
     });
   }, 200);
 });

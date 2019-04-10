@@ -1,6 +1,6 @@
-<div class="justify-center w-3/4">
+<div class="justify-center w-3/4 mb-32">
   <div class="w-full pl-0 md:pl-2">
-  <div class="bg-white shadow border border-g-l5 py-4 rounded">
+  <div class="bg-white shadow border border-g-l5 py-4 px-2 rounded">
 
     <div class="flex px-4">
       <div class="w-2/3">
@@ -10,10 +10,10 @@
           <%= link_to( return_path, class: 'btn-secondary no-underline') do %>
           <%= icon('fas', 'angle-left', 'Volver') %>
         <% end %>
-      <% end %> 
+      <% end %>
       </div>
     </div>
     <%= yield %>
   </div>
-</div>  
+</div>
 </div>

@@ -8,6 +8,7 @@ document.addEventListener('turbolinks:load', () => {
   var app = new Vue({
     el: '#tab',
     data: {
+      show: false,
       tabItems: {}
     },
     methods: {

@@ -16,7 +16,7 @@
 .modal-content {
   @apply .mx-auto .my-32;
   padding: 20px;
-  width: 80%;
+  width: auto;
   max-width: 1024px;
   animation-duration: 0.2s;
 }

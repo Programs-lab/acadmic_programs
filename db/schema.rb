@@ -62,8 +62,6 @@ ActiveRecord::Schema.define(version: 2019_04_08_204432) do
 
   create_table "companies", force: :cascade do |t|
     t.string "company_name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "company_id", null: false
   end
 
@@ -83,8 +81,6 @@ ActiveRecord::Schema.define(version: 2019_04_08_204432) do
   create_table "procedure_types", force: :cascade do |t|
     t.string "procedure_type_name", null: false
     t.decimal "cost", default: "0.0", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "procedure_duration", null: false
   end
 

@@ -31,7 +31,24 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.default_url_options = { host: 'localhost:3000'  }
+
+  config.action_mailer.default_options = { from: "sistemas@gastromed.com"}
+
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.sendmail_settings = {
+    :address => "smtp.mailgun.org",
+    :port => "587",
+    :user_name => "sistemas@mail.silumin.co",
+    :password => "375f6ec05424c161d7afabde4db2ee56-7caa9475-f285932c",
+    :authentication => "plain",
+    :domain => 'mail.silumin.co',
+    :enable_starttls_auto => true
+  }
 
   config.action_mailer.perform_caching = true
 

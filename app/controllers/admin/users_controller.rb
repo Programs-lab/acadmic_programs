@@ -9,12 +9,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def doctors
-    @doctors = User.where(role: :doctor)
+    @doctors = User.where(role: :doctor).order(:last_name)
     authorize @doctors
   end
 
   def patients
-    @patients = User.where(role: :patient)
+    @patients = User.where(role: :patient).order(:last_name)
     authorize @patients
   end
 

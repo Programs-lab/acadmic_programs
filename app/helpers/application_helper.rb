@@ -17,6 +17,7 @@ module ApplicationHelper
   def is_patients_path
     case request.path
     when '/admin/pacientes' then 'active'
+    when '/pages/medical_record' then 'active'
     end
   end
 

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       post '/habilitar', to: 'users#enable', as: :enable
       post '/deshabilitar', to: 'users#disable', as: :disable
     end
+      get  '/doctores', to: 'users#doctors', as: :doctors
+      get  '/pacientes', to: 'users#patients', as: :patients
   end
   
   resources :companies, path: 'empresas', only: [:index, :create, :update, :destroy]

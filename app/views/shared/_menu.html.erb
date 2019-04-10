@@ -6,7 +6,7 @@
     <div class="list-group-item rounded-t <%= is_users_path %> ">
       <div class="flex">
         <div class="w-1/4 text-center">
-          <%= icon('fas','user-md', class: 'fa-lg') %>
+          <%= icon('fas','user', class: 'fa-lg') %>
         </div>
         <div class="text-left w-3/4">
           <span>Usuarios</span>
@@ -16,7 +16,7 @@
   <% end %>
 <% end %>
 <!-- Option -->
-  <%= link_to(pages_home_path, class: "no-underline") do %>
+  <%= link_to(admin_doctors_path, class: "no-underline") do %>
     <div class="list-group-item <%= is_doctors_path %>">
       <div class="flex">
         <div class="w-1/4 text-center">
@@ -80,7 +80,8 @@
   </div>
 
   <!-- Option -->
-  <div class="list-group-item">
+  <%= link_to(admin_patients_path, class: "no-underline") do %>
+  <div class="list-group-item <%= is_patients_path %>">
     <div class="flex">
       <div class="w-1/4 text-center">
         <%= icon('fas','users', class: 'fa-lg') %>
@@ -90,30 +91,8 @@
       </div>
     </div>
   </div>
+  <% end %>
 
-  <!-- Option -->
-  <div class="list-group-item">
-    <div class="flex">
-      <div class="w-1/4 text-center">
-        <%= icon('fas','clipboard', class: 'fa-lg') %>
-      </div>
-      <div class="text-left w-3/4">
-        <span>Tipos de estudio</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Option -->
-  <div class="list-group-item">
-    <div class="flex">
-      <div class="w-1/4 text-center">
-        <%= icon('fas','building', class: 'fa-lg') %>
-      </div>
-      <div class="text-left w-3/4">
-        <span>Empresa</span>
-      </div>
-    </div>
-  </div>
 </div>
 
 </div>

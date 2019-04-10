@@ -16,7 +16,8 @@ document.addEventListener('turbolinks:load', () => {
       lastNameValue: document.getElementById("user_form").getAttribute('lastName'),
       birthdateValue: document.getElementById("user_form").getAttribute('birthdate'),
       en: en,
-      es: es
+      es: es,
+      modal2: {}
     },
 
     validations: {
@@ -48,6 +49,9 @@ document.addEventListener('turbolinks:load', () => {
         }
         else
           button.classList.remove("disabled")
+      },
+      modalId(i){
+        Vue.set(this.modal2, i , !this.modal2[i]);
       }
     },
     mounted: function() {

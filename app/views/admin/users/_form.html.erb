@@ -55,10 +55,12 @@
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-5">
-    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form <%= disabled(user.disabled) %>">
-      <%= f.label "Ocupación", class: 'label_input' %>
-      <%= f.text_field :occupation, class: 'field_input rounded-t', disabled: @user.disabled %>
-    </div>
+    <% unless params[:role] == 'doctor' %>
+      <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form <%= disabled(user.disabled) %>">
+        <%= f.label "Ocupación", class: 'label_input' %>
+        <%= f.text_field :occupation, class: 'field_input rounded-t', disabled: @user.disabled %>
+      </div>
+    <% end %>
     <div class="w-full md:w-1/2 px-3 focus_form <%= disabled(user.disabled) %>">
       <%= f.label "Fecha de nacimiento", class: 'label_input' %>
       <datepicker input-class="field_input rounded-t" :disabled= "<%= user.disabled %>" :language="es" v-model="birthdateValue"></datepicker>
@@ -88,14 +90,18 @@
           ROLES,
           :first,
           :last,
-          {include_blank: false},
+          {include_blank: false, selected: params[:role]},
           {
-            class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", disabled: @user.disabled
+            class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", disabled: @user.disabled || params[:role]
           }
         )
         %>
       </div>
     </div>
+
+    <% if params[:role] %>
+      <%= f.hidden_field :role, value: params[:role]  %>
+    <% end %>
 
   <% unless @user.new_record? %>
 
@@ -128,21 +134,24 @@
   <div class="md:flex md:items-center mt-6">  
       <div class="flex justify-start w-1/2">
       <% unless @user.new_record? %>
-      <modal-vue style_button="btn btn-secondary cursor-pointer">
-        <template v-slot:name_button>
-          <% if user.disabled %>
-            Habilitar
-          <% else %>
-            Deshabilitar
-          <% end %>
-        </template>
+
+      <a id="myBtn" @click="modalId('disable')" class="btn btn-secondary" v-ripple="'rgba(0, 0, 0, 0.20)'">
+        <% if user.disabled %>
+          Habilitar
+        <% else %>
+          Deshabilitar
+        <% end %>
+      </a>
+
+      <modal-vue i="disable">
         <template v-slot:title>
-          <h1>Deshabilitar usuario</h1>
+          Deshabilitar usuario
         </template>
         <template v-slot:content>
           Esta seguro que desea <%= user.disabled ? "habilitar" : "deshabilitar" %> al usuario <%= "#{@user.first_name} #{@user.last_name}?" %> Esto afectara el acceso del usuario a la plataforma
         </template>
         <template v-slot:footer>
+          <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('disable')">Cancelar</button>
           <% if user.disabled %>
             <%= link_to "Habilitar", admin_user_enable_path(@user.id), method: :post, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'"%>
           <% else %>
@@ -156,7 +165,7 @@
     <div class="flex justify-end w-1/2">
       <div class="flex justify-between w-full">
         <div class="flex justify-end w-3/4">
-         <%= link_to("Cancelar", admin_users_path, class: "btn btn-secondary no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
+         <%= link_to("Cancelar", request.referer, class: "btn btn-secondary no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
         </div>
         <div class="flex justify-end w-32">
          <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ":class"=>"disabled", ':disabled' => "$v.$anyError || $v.$invalid" %>

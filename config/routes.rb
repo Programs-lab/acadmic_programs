@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'companies/procedure_companies_update', to: 'companies#update_procedure_companies'
   resources :procedure_types, path: 'tipos_de_estudio', only: [:index, :create, :update, :destroy]
   
-  root 'pages#home' 
+  root 'admin/users#index' 
   get 'pages/home'
   get 'pages/medical_record'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -11,13 +11,14 @@ module ApplicationHelper
   def is_users_path
     case request.path
     when '/admin/usuarios' then 'active'
+    when '/' then 'active'
     end
   end
 
   def is_patients_path
     case request.path
     when '/admin/pacientes' then 'active'
-    when '/pages/medical_record' then 'active'
+    when '/pages/medical_record' then 'active'    
     end
   end
 

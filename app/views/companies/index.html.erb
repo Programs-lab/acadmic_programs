@@ -8,7 +8,7 @@
         <br><span class="font-medium text-sm text-g-d2">Listado de empresas</span>
       </h4>
     </div>
-    
+
     <div class="flex w-1/2 justify-end">
       <a id="myBtn" @click="modalId('create')">
         <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
@@ -17,17 +17,17 @@
 
       <%= form_with scope: :company, url: companies_path, method: :post do |form|%>
 
-        <modal-vue i= "create">
+        <modal-vue i= "create" style_modal="width: 45%;">
           <template v-slot:title>
             Agrergar Empresa
           </template>
           <template v-slot:content>
-            <div class="flex flex-wrap -mx-3 mb-5">
-              <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+            <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+              <div class="w-full mb-6 focus_form">
                 <%= form.label "Nombre de la empresa", class: 'label_input' %>
                 <%= form.text_field :company_name, class: 'field_input rounded-t' %>
               </div>
-              <div class="w-full md:w-1/2 px-3 focus_form ">
+              <div class="w-full mb-2 focus_form ">
                 <%= form.label "NIT", class: 'label_input' %>
                 <%= form.number_field :company_id, class: 'field_input rounded-t' %>
               </div>
@@ -39,12 +39,12 @@
           </template>
         </modal-vue>
       <% end %>
-    </div>  
+    </div>
 
-<% if @companies.any? %>      
-<%= form_with url: companies_procedure_companies_update_path, method: 'get', local: true do |f| %> 
+<% if @companies.any? %>
+<%= form_with url: companies_procedure_companies_update_path, method: 'get', local: true do |f| %>
 <div>
-  <% @companies.each_with_index do |company, index| %>        
+  <% @companies.each_with_index do |company, index| %>
   <div class="row justify-center">
      <collapse-vue i="collpase_<%= index %>">
       <template v-slot:title-left>
@@ -53,7 +53,7 @@
       </template>
       <template v-slot:title-right>
         <a @click="modalId('modal_<%= index %>')">
-          <%= icon('fas','edit', class: 'fa-md')%>
+          <%= icon('fas','edit', class: 'btn-flat fa-md', "v-ripple" => "'rgba(0, 0, 0, 0.20)'" )%>
         </a>
       </template>
       <template v-slot:content>
@@ -67,21 +67,21 @@
             <%= f.number_field pc.id.to_s.to_sym, class: 'field_input rounded-t', value: pc.cost%>
           </div>
         </div>
-        <% end %> 
+        <% end %>
       </template>
      </collapse-vue>
      <%= form_with scope: :company, url: company_path(company.id), method: 'put', class: ""  do |f2| %>
-      <modal-vue i="modal_<%= index %>">
+      <modal-vue i="modal_<%= index %>" style_modal="width: 45%;">
         <template v-slot:title>
           <%= "Editar empresa #{company.company_name}" %>
         </template>
         <template v-slot:content>
-          <div class="flex flex-wrap -mx-3 mb-5">
-            <div  class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+          <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+            <div  class="w-full mb-6 focus_form">
               <%= f2.label "Nombre de la empresa", class: 'label_input' %>
               <%= f2.text_field :company_name, value: company.company_name, class: 'field_input rounded-t' %>
             </div>
-            <div  class="w-full md:w-1/2 px-3 focus_form ">
+            <div  class="w-full mb-2 focus_form">
               <%= f2.label :NIT, class: 'label_input' %>
               <%= f2.number_field :company_id, value: company.company_id, class: 'field_input rounded-t'%>
             </div>
@@ -96,12 +96,12 @@
           <div class="flex justify-end w-1/2">
             <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('modal_<%= index %>')">Cancelar</button>
             <%= f2.submit "Registrar", class: "btn btn-primary"%>
-          </div> 
+          </div>
         </template>
       </modal-vue>
-      <% end %> 
+      <% end %>
     </div>
-    <% end %> 
+    <% end %>
     <br>
     <div class="row w-full px-4">
       <div class="flex w-full">

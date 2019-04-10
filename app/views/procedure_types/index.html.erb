@@ -21,21 +21,21 @@
 
       <%= form_with scope: :procedure_type, url: procedure_types_path, method: :post do |form|%>
 
-        <modal-vue i= "create">
+        <modal-vue i= "create" style_modal="width: 45%;">
           <template v-slot:title>
             Agrergar Estudio
           </template>
-          <template v-slot:content>          
-            <div class="flex flex-wrap -mx-3 mb-5">
-              <div class="w-full md:w-1/3 px-3 mb-5 md:mb-0 focus_form">
+          <template v-slot:content>
+            <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+              <div class="w-full mb-6 focus_form">
                 <%= form.label "Nombre del tipo de estudio", class: 'label_input' %>
                 <%= form.text_field :procedure_type_name, class: 'field_input rounded-t' %>
               </div>
-              <div class="w-full md:w-1/3 px-3 focus_form ">
+              <div class="w-full mb-6 focus_form">
                 <%= form.label "Costo por defecto", class: 'label_input' %>
                 <%= form.number_field :cost, class: 'field_input rounded-t' %>
               </div>
-              <div class="w-full md:w-1/3 px-3 focus_form ">
+              <div class="w-full mb-6 focus_form">
                 <%= form.label "Duracion (En minutos)", class: 'label_input' %>
                 <%= form.number_field :procedure_duration, class: 'field_input rounded-t' %>
               </div>
@@ -49,7 +49,7 @@
 
       <% end %>
 
-    </div>  
+    </div>
 
 <% if @procedure_types.any? %>
     <div class="px-0 md:px-4 overflow-auto">
@@ -77,21 +77,21 @@
         </tr>
 
       <%= form_with scope: :procedure_type, url: procedure_type_path(procedure_type.id), method: 'put', class: ""  do |f| %>
-        <modal-vue i="update_<%= index %>">
+        <modal-vue i="update_<%= index %>" style_modal="width: 45%;">
           <template v-slot:title>
             <%= "Editar estudio #{procedure_type.procedure_type_name}" %>
           </template>
           <template v-slot:content>
-            <div class="flex flex-wrap -mx-3 mb-5">
-              <div class="w-full md:w-1/3 px-3 mb-5 md:mb-0 focus_form">
+            <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+              <div class="w-full mb-6 focus_form">
                 <%= f.label "Nombre del tipo de estudio", class: 'label_input' %>
                 <%= f.text_field :procedure_type_name, value: procedure_type.procedure_type_name, class: 'field_input rounded-t' %>
               </div>
-              <div class="w-full md:w-1/3 px-3 focus_form ">
+              <div class="w-full mb-6 focus_form">
                 <%= f.label "Costo por defecto", class: 'label_input' %>
                 <%= f.number_field :cost, value: procedure_type.cost, class: 'field_input rounded-t' %>
               </div>
-              <div class="w-full md:w-1/3 px-3 focus_form ">
+              <div class="w-full mb-6 focus_form">
                 <%= f.label "Duracion (En minutos)", class: 'label_input' %>
                 <%= f.number_field :procedure_duration, value: procedure_type.procedure_duration, class: 'field_input rounded-t' %>
               </div>
@@ -106,7 +106,7 @@
             <div class="flex justify-end w-1/2">
               <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('update_<%= index %>')">Cancelar</button>
               <%= f.submit "Registrar", class: "btn btn-primary"%>
-            </div>     
+            </div>
           </template>
         </modal-vue>
       <% end %>

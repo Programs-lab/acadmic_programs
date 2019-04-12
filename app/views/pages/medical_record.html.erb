@@ -5,7 +5,7 @@
     <div class="w-1/3 text-right">
     </div>
   </div>
-  <div id="tab" class="w-full px-4">
+  <div id="medical_record" class="w-full px-4">
     <div class="my-4 flex">
       <div class="w-1/2">
         <h4 class="font-semibold text-g-d4 text-lg">
@@ -55,12 +55,12 @@
             <span><%= Date.today %></span>
         </div>
         <div class="flex w-full justify-end">
-          <a @click="show =! show ">
-            <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+          <a @click="showText">
+            <%= icon('fas',"", class: 'btn cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'", ":class" => "classIconButton")%>
           </a>
         </div>
       </div>
-      <div id="tab_vue" v-show="show">
+      <div id="tab_vue" v-if="show">
         <tab-vue :ids="[1,2,3,4,5,6]">
           <template #1>
             <%= icon('fas','file-alt', class: 'fa-md')%>
@@ -88,82 +88,93 @@
             Carga Archivos
           </template>
           <template #content1>
-            <textarea>
-            </textarea>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea class="flex w-full border-t-4 border-primary rounded-t"></textarea>
+            </div>
           </template>
           <template #content2>
-            <textarea>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Posologia</th>
-                    <th scope="col">Cantidad</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tbody>
-              </table>
-            </textarea>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea>
+                <table class="table" width="100%">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Posologia</th>
+                      <th scope="col">Cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </textarea>
+            </div>
           </template>
           <template #content3>
-            <textarea>
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <th scope="row" width="40%">Examen a realizar</th>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Datos clinicos</th>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </textarea>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea>
+                <table class="table" width="100%">
+                  <tbody>
+                    <tr>
+                      <th scope="row" width="40%">Examen a realizar</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Datos clinicos</th>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </textarea>
+            </div>
           </template>
           <template #content4>
-            <textarea>
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <th scope="row" width="40%">Especialidad a referenciar</th>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Datos clinicos</th>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </textarea>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea>
+                <table class="table" width="100%">
+                  <tbody>
+                    <tr>
+                      <th scope="row" width="40%">Especialidad a referenciar</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Datos clinicos</th>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </textarea>
+            </div>
           </template>
           <template #content5>
-            <textarea>
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <th scope="row" width="40%">Fecha de inicio de incapacidad</th>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Dias de incapacidad</th>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Diagnostico</th>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Recomendaciones/observaciones</th>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </textarea>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea>
+                <table class="table" width="100%">
+                  <tbody>
+                    <tr>
+                      <th scope="row" width="40%">Fecha de inicio de incapacidad</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Dias de incapacidad</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Diagnostico</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Recomendaciones/observaciones</th>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </textarea>
+            </div>
           </template>
           <template #content6>
             cargar archivos

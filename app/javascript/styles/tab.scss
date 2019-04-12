@@ -11,5 +11,5 @@
 }
 
 .tab{
-  @apply .list-reset .flex .border-b;
+  @apply .list-reset .flex .flex-wrap .border-b .w-full;
 }

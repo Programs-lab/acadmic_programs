@@ -32,6 +32,7 @@ require('./medical_record');
 //components
 
 require('./components/tab');
+require('./components/nav');
 require('./components/modal');
 require('./components/dropdown');
 require('./components/collapse');

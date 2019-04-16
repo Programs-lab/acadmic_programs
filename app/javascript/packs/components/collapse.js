@@ -2,18 +2,14 @@ import Vue from 'vue/dist/vue.esm'
 Vue.component('collapse-vue', {
   props: ['i'],
   data: function() {
-    return { show: false };
+    return {
+       show: false,
+       heightC: ''
+     };
   },
   methods: {
     close() {
-        var a = document.getElementsByClassName('collapse-content').namedItem(this.i);
-        if(a.scrollHeight == 0){
           this.show =! this.show;
-          setTimeout(function(){a.style.maxHeight = a.scrollHeight + "px"}, 20)
-        }else{
-          a.style.maxHeight = null;
-          setTimeout(() => this.show =! this.show, 150)
-        }
     }
   },
   computed: {
@@ -23,10 +19,13 @@ Vue.component('collapse-vue', {
         'transform_collapse': this.show,
       }
     }
+  },
+  watch: {
+   heightC(){}
   }
   ,
   template: `
-  <div class="collapse" :class="transformClass">
+  <div :id="i" class="collapse" :class="transformClass">
     <div class="row w-full shadow-md">
       <div class="collapse-title">
         <div class="flex w-full justify-start px-4 items-center" v-on:click="close()">
@@ -38,8 +37,8 @@ Vue.component('collapse-vue', {
           <slot name="title-right"></slot>
         </div>
       </div>
-      <div :id="i" v-show="show" class="collapse-content">
-        <slot name="content"></slot>
+      <div v-show="show" class="collapse-content">
+        <slot name="content" ></slot>
       </div>
     </div>
   </div>

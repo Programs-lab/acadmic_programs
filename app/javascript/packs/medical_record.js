@@ -8,6 +8,8 @@ document.addEventListener('turbolinks:load', () => {
     data: {
       show: false,
       showM: false,
+      showC: false,
+      algo: false,
       tabItems: {}
     },
     methods: {
@@ -35,6 +37,18 @@ document.addEventListener('turbolinks:load', () => {
         return {
           'fa-plus btn-primary': !this.show,
           'fa-trash btn-red-light': this.show
+        }
+      },
+      transformClass: function(){
+        return{
+          'transform_collapse_2': !this.showC,
+          'transform_collapse': this.showC,
+        }
+      },
+      animatedClass: function(){
+        return{
+          'animated slideOutUp': !this.showC,
+          'animated slideInDown': this.showC,
         }
       }
     }

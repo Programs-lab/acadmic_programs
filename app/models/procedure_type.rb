@@ -1,6 +1,7 @@
 class ProcedureType < ApplicationRecord
   has_many :procedure_companies, dependent: :destroy
   has_many :appointments
+  has_many :working_hours
   after_create :create_procedure_company
 
   def create_procedure_company

@@ -7,6 +7,7 @@
     "v-click-outside": "^2.0.2",
     "vue": "^2.6.8",
     "vue-loader": "^15.7.0",
+    "vue-resource": "^1.5.1",
     "vue-ripple-directive": "^2.0.1",
     "vue-template-compiler": "^2.6.8",
     "vue-turbolinks": "^2.0.4",

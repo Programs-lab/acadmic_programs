@@ -28,6 +28,7 @@ require('./flash');
 require('./companies');
 require('./procedure_types');
 require('./medical_record');
+require('./working_weeks');
 
 //components
 

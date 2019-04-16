@@ -41,6 +41,12 @@ module ApplicationHelper
     end
   end
 
+  def is_working_week_path
+    case request.params[:controller]
+    when 'working_weeks' then 'active'
+    end
+  end
+
   def is_procedure_type_path
     case request.params[:controller]
     when 'procedure_types' then 'active'

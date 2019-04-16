@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :companies, path: 'empresas', only: [:index, :create, :update, :destroy]
   get 'companies/procedure_companies_update', to: 'companies#update_procedure_companies'
   resources :procedure_types, path: 'tipos_de_estudio', only: [:index, :create, :update, :destroy]
+  resources :working_weeks, path: 'horarios', only: [:index, :create, :update]
+  resources :working_days, only: [:update]
   
   root 'admin/users#index' 
   get 'pages/home'

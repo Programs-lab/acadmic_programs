@@ -1,0 +1,130 @@
+<%= render  'shared/card' do %>
+<%= content_tag :div ,
+  id: 'working_week_index',
+  data: {
+    week: @working_week.to_json(include: {working_days: { include: {working_hours: {except: [:created_at, :updated_at]}}, except: [:created_at, :updated_at]}}),
+    procedure_types: fetch_procedure_types
+  } do %>
+  
+
+  <div class="my-8 flex px-4 items-center">
+    <div class="flex w-full">
+      <h4 class="font-semibold text-g-d4 text-lg">
+        <span>Horarios de atencion</span>
+        <br>
+      </h4>
+    </div>
+    <div class="flex justify-between w-1/6">
+      <div class="flex justify-end w-1/6">
+       <i class="fas fa-arrow-left"></i>
+      </div>
+      <div class="flex justify-end w-1/6">
+       <i class="fas fa-arrow-right"></i>
+      </div>
+    </div>
+
+  </div>
+    <% if current_user.admin? %>
+    <div class="flex w-full px-4">
+      <div class="flex justify-start w-1/2 ">
+        <%= link_to "Generar Semana", working_weeks_path, method: 'post', class: 'btn btn-secondary' %>
+      </div>
+    </div>  
+  <% end %> 
+  <br>
+  <div class="flex w-full px-4">
+    <% if @working_week %>
+      <span>Horarios laborales <%= "#{@working_week.initial_date} - #{@working_week.end_date}" %></span>        
+    <% end %>      
+  </div>
+
+
+
+<div class="py-4">
+  <% if @working_week %>
+  <% @working_week.working_days.each_with_index do |day, index| %>
+    <div class="row justify-center">
+     <collapse-vue i="collpase_<%= day.id %>">
+      <template v-slot:title-left>
+        <%= icon('fas','calendar-minus', class: 'fa-md mr-4') %>
+        <span><%= DAYS[day.working_date.wday] %></span>
+      </template>
+      <template v-slot:title-right>
+      </template>
+      <template v-slot:content>
+          <div class="flex w-full justify-center items-center">
+            <div class="row w-3/4 justify-start px-8">
+              <span><%= day.working_date.strftime('%B %d %Y') %></span>
+            </div>
+            <div class="row w-1/4 justify-start px-16 mr-1">
+              <a @click="addHour(<%= index %>)">
+                <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+              </a>
+            </div>
+          </div>
+
+        
+          <div class="flex w-full" v-for="(hour, index) in week.working_days[<%= index %>].working_hours_attributes">
+
+            <div class="flex w-full justify-center items-center px-4 my-6" >
+              <div class="flex w-full" v-if="hour._destroy == '1'">
+                <div class="row w-3/4">
+                  Este registro se removera al guardar los cambios
+                </div>
+                <div class="row w-1/4 px-4">
+                  <button @click="undoRemove(<%= index %>, index)" class="btn btn-secondary no-outline">Deshacer</button>
+                </div>
+              </div>
+              <div class="flex w-full" v-else>
+
+                <div class="row w-1/4 focus_form mx-4">
+                  <label class="label_input">Hora de inicio</label>
+                  <input type="text" v-model=hour.initial_hour class="field_input rounded-t">
+                </div>
+
+                <div class="row w-1/4 focus_form mx-4">
+                  <label class="label_input">Hora final</label>
+                  <input type="text" v-model=hour.end_hour class="field_input rounded-t">                
+                </div>
+
+                <div class="row w-1/4 focus_form mx-4">
+                  <label class="label_input">Tipo de procedimiento</label>
+                  <select id="procedure_types" class="fblock appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8" v-model="hour.procedure_type_id">
+                    <option label=" "></option>
+                    <option v-for="procedure in procedures" :value="procedure.id"> {{procedure.procedure_type_name}}</option>
+                  </select>
+                </div> 
+
+                <div class="row w-1/4 justify-end px-16 py-4">
+                    <a class="btn btn-red-light mx-1" @click="removeHour(<%= index %> , index)">
+                    <%= icon('fas', 'trash') %>
+                  </a>
+                </div>
+              </div> 
+
+            </div>
+          </div>
+
+
+        <div class="flex w-1/2 justify-end px-12">
+        </div>
+      </template>
+     </collapse-vue>
+    </div>
+  <% end %>
+    <br>
+    <div class="row w-full px-4">
+      <div class="flex w-full">
+        <div class="flex w-full">
+          <div class="flex justify-end w-full">
+           <a class="btn btn-primary" @click='saveWeek'>
+             Guardar cambios
+           </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% end %>
+<% end %>

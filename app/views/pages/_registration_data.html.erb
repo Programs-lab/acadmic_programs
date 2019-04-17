@@ -1,0 +1,86 @@
+<div class="flex flex-wrap -mx-3 mb-5">
+  <div id= "firstNameField" class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+    <%= f.label :nombre, class: 'label_input' %>
+    <%= f.text_field :first_name, class: 'field_input rounded-t', "v-model" => "firstNameValue", "@input" => "fieldClass('firstNameField', $v.firstNameValue.$invalid), $v.firstNameValue.$touch()" %>
+  </div>
+  <div id= "lasttNameField" class="w-full md:w-1/2 px-3 focus_form">
+    <%= f.label :apellido, class: 'label_input' %>
+    <%= f.text_field :last_name, class: 'field_input rounded-t', "v-model" => "lastNameValue", "@input" => "fieldClass('lasttNameField', $v.lastNameValue.$invalid), $v.lastNameValue.$touch()" %>
+  </div>
+</div>
+<div class="flex flex-wrap -mx-3 mb-5">
+  <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+    <%= f.label :tipo_de_documento, class: 'label_input' %>
+    <div class="relative">
+      <%=
+      f.collection_select(
+        :id_type,
+        ID_TYPES,
+        :last,
+        :first,
+        {include_blank: true},
+        {
+          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8","v-model" => 'idType'
+        }
+      )
+      %>
+    </div>
+  </div>
+  <div class="w-full md:w-1/2 px-3 focus_form">
+    <%= f.label "N° de documento", class: 'label_input' %>
+    <%= f.number_field :id_number, class: 'field_input rounded-t', "v-model" => 'idNumber' %>
+  </div>
+</div>
+<div class="flex flex-wrap -mx-3 mb-5">
+  <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+    <%= f.label "Telefono", class: 'label_input' %>
+    <%= f.number_field :phone_number, class: 'field_input rounded-t', "v-model" => 'phoneNumber' %>
+  </div>
+  <div class="w-full md:w-1/2 px-3 ">
+    <label class="label_input" for="grid-state">
+      Empresa de afiliación
+    </label>
+    <div class="relative">
+      <select class="block appearance-none w-full border-b text-grey-darker py-3 focus:outline-none bg-white focus:border-grey h-8 " id="grid-state">
+        <option class="bg-primary">Nueva EPS</option>
+        <option>Missouri</option>
+        <option>Texas</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="flex flex-wrap -mx-3 mb-5">
+  <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
+    <%= f.label "Ocupación", class: 'label_input' %>
+    <%= f.text_field :occupation, class: 'field_input rounded-t' %>
+  </div>
+  <div class="w-full md:w-1/2 px-3 focus_form">
+    <%= f.label "Fecha de nacimiento", class: 'label_input' %>
+    <datepicker input-class="field_input rounded-t" :language="es" v-model="birthdateValue"></datepicker>
+    <%= f.hidden_field :birthdate, {"v-model" => "birthdateValue"} %>
+  </div>
+</div>
+<div class="flex flex-wrap -mx-3 mb-5">
+  <div class="w-full px-3 focus_form">
+    <%= f.label "Dirreción", class: 'label_input' %>
+    <%= f.text_field :address, class: 'field_input rounded-t', "@click" => "close(0)" %>
+  </div>
+</div>
+<div class="flex flex-wrap -mx-3 mb-5">
+  <div id= "emailField" class="w-full px-3 focus_form">
+    <%= f.label :email, class: 'label_input' %>
+    <%= f.email_field :email, autocomplete: "email", class: 'field_input rounded-t', "v-model" => "emailValue", "@input" => "fieldClass('emailField', $v.emailValue.$invalid), $v.emailValue.$touch()" %>
+  </div>
+</div>
+<div class="flex flex-wrap -mx-3 mb-6">
+  <div id= "passwordField" class="w-full px-3 focus_form">
+    <%= f.label :contraseña, class: 'label_input' %>
+    <%= f.password_field :password, class: 'field_input rounded-t', "v-model" => "passwordValue", "@input" => "fieldClass('passwordField', $v.passwordValue.$invalid), $v.passwordValue.$touch()" %>
+  </div>
+</div>
+<div class="flex flex-wrap -mx-3 mb-6">
+  <div id= "passwordConfirmationField" class="w-full px-3 focus_form">
+    <%= f.label :confirmar_contraseña, class: 'label_input' %>
+    <%= f.password_field :password_confirmation, class: 'field_input rounded-t', "v-model" => "passwordConfirmationValue", "@input" => "fieldClass('passwordConfirmationField', $v.passwordConfirmationValue.$invalid), $v.passwordConfirmationValue.$touch()"%>
+  </div>
+</div>

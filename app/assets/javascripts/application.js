@@ -15,51 +15,20 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
-//= require froala_editor.min.js
-// = require plugins/align.min.js
-// = require plugins/char_counter.min.js
-// = require plugins/code_beautifier.min.js
-// = require plugins/code_view.min.js
-// = require plugins/colors.min.js
-// = require plugins/emoticons.min.js
-// = require plugins/entities.min.js
-// = require plugins/file.min.js
-// = require plugins/font_family.min.js
-// = require plugins/font_size.min.js
-// = require plugins/fullscreen.min.js
-// = require plugins/help.min.js
-// = require plugins/image.min.js
-// = require plugins/image_manager.min.js
-// = require plugins/inline_class.min.js
-// = require plugins/inline_style.min.js
-// = require plugins/line_breaker.min.js
-// = require plugins/line_height.min.js
-// = require plugins/link.min.js
-// = require plugins/lists.min.js
-// = require plugins/paragraph_format.min.js
-// = require plugins/paragraph_style.min.js
-// = require plugins/print.min.js
-// = require plugins/quick_insert.min.js
-// = require plugins/quote.min.js
-// = require plugins/save.min.js
-// = require plugins/table.min.js
-// = require plugins/special_characters.min.js
-// = require plugins/url.min.js
-// = require plugins/video.min.js
-
-// = require third_party/embedly.min.js
-// = require third_party/font_awesome.min.js
-// = require third_party/image_aviary.min.js
-// = require third_party/image_tui.min.js
-// = require third_party/spell_checker.min.js
-//= require languages/es.js
+//= require tinymce
+//= require tinymce/langs/es_MX.js
 
 $( document ).on('turbolinks:load',function() {
   setTimeout(function () {
-    $('textarea').froalaEditor({
-      iconsTemplate: "font_awesome_5",
-      theme: 'custom',
-      language: 'es'
-    });
-  }, 200);
+    tinyMCE.init({
+      selector: 'textarea',
+      plugins: 'paste print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
+      toolbar: 'fullscreen | formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
+      image_advtab: true,
+      paste_data_images: true,
+      width: '100%',
+      height: 409,
+      language: 'es_MX',
+    })
+  }, 10);
 });

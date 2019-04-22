@@ -15,10 +15,10 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 import 'application.scss';
+import './tinymce/langs/es_MX.js'
 console.log('Hello World from Webpacker')
 
 // entiities
-
 require('./hello_vue');
 require('./sign_up');
 require('./user_form');
@@ -28,11 +28,12 @@ require('./flash');
 require('./companies');
 require('./procedure_types');
 require('./medical_record');
+require('./user_no_registered');
 
 //components
 
-require('./tab');
 require('./components/tab');
+require('./components/nav');
 require('./components/modal');
 require('./components/dropdown');
 require('./components/collapse');

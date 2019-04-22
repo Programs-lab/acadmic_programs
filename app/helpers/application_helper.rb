@@ -18,7 +18,21 @@ module ApplicationHelper
   def is_patients_path
     case request.path
     when '/admin/pacientes' then 'active'
-    when '/pages/medical_record' then 'active'    
+    when '/pages/medical_record' then 'active'
+    end
+  end
+
+  def is_appointment_path
+    case request.path
+    when '/pages/appointment' then 'active'
+    when '/pages/schedule_appointment' then 'active'
+    when '/pages/schedule_appointment_no_user' then 'active'
+    end
+  end
+
+  def is_schedule_path
+    case request.path
+    when '/pages/schedule' then 'active'
     end
   end
 

@@ -24,8 +24,8 @@ Vue.component('tab-vue', {
   template: `
   <div id="tab">
     <ul class="tab">
-      <li class="mr-1" v-for="item_id in ids">
-        <a :class="tabItems[item_id] ? 'tab-active' : ''" class="tab-item" :id="item_id" @click="tabMethod()">
+      <li class="w-full md:w-auto mr-1" v-for="item_id in ids">
+        <a :class="tabItems[item_id] ? 'tab-active' : ''" class="w-full tab-item md:w-auto" :id="item_id" @click="tabMethod()">
           <slot :name="item_id"></slot>
         </a>
       </li>

@@ -1,0 +1,54 @@
+<div class="flex flex-wrap w-full mt-4">
+  <div class="flex w-full justify-end mb-6">
+    <div class="w-1/3 focus_form">
+      <%= f.label :doctor, class: 'label_input' %>
+      <%=
+      f.collection_select(
+        :doctor_id,
+        User.all,
+        :id,
+        :first_name,
+        {include_blank: true},
+        {
+          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctor'
+        }
+      )
+      %>
+    </div>
+  </div>
+  <div class="flex border-t w-full"></div>
+  <div class="flex flex-wrap w-full mt-6">
+    <% ['Lunes','Martes','Miercoles','Jueves','Viernes'].each do |d| %>
+    <div class="flex flex-wrap w-1/5">
+      <div class="flex flex-wrap w-full text-center items-center mb-4">
+        <div class="flex w-full justify-center">
+          <p><%= d %></p>
+        </div>
+        <div class="flex w-full justify-center">
+          <p class="font-medium text-sm text-g-d2"><%= Date.today.strftime("%d %B") %></p>
+        </div>
+      </div>
+      <% 11.times.each do |v| %>
+      <div class="flex flex-wrap w-full mb-4 justify-center">
+        <dropdown-vue btn_class="btn-flat" dropdown_style="width: 70%;">
+          <template #title>
+            <p class="text-primary">
+              <%= "0#{6 + v}:00" %>
+            </p>
+          </template>
+          <template #items>
+            <%= link_to('#', class: "dropdown-item", 'data-turbolinks' => false, '@click' => 'selectHour', id: "#{d}-0#{6 + v}:00") do %>
+              <div class="flex w-full justify-center"><%= "0#{6 + v}:00" %></div>
+            <% end %>
+            <%= link_to('#', class: "dropdown-item", 'data-turbolinks' => false, '@click' => 'selectHour', id: "#{d}-0#{6 + v}:30") do %>
+            <div class="flex w-full justify-center"><%= "0#{6 + v}:30" %></div>
+            <% end %>
+          </template>
+        </dropdown-vue>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+    <%= f.hidden_field :appointment_hour, value: "appointmentHour", 'v-model' => 'appointmentHour' %>
+  </div>
+</div>

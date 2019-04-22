@@ -53,7 +53,7 @@
   }
 
   .divider {
-    @apply .border .border-grey-light .my-6;
+    @apply .border-t .border-grey-light .my-6 .w-full;
   }
 
   #footer {

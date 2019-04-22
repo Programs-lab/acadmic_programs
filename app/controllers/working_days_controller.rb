@@ -3,11 +3,11 @@ class WorkingDaysController < ApplicationController
   before_action :set_working_day
 
   def update
-      if @working_day.update(working_day_params)
-        redirect_to working_weeks_path, notice: 'El horario fue actualizado exitosamente'
-      else
-        redirect_to working_weeks_path, alert: 'El horario no pudo ser actualizado'
-      end
+    if @working_day.update(working_day_params)
+      redirect_to working_weeks_path, notice: 'El horario fue actualizado exitosamente'
+    else
+      redirect_to working_weeks_path, alert: 'El horario no pudo ser actualizado'
+    end
   end
 
   private

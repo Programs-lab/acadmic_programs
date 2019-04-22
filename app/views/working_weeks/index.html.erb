@@ -64,7 +64,7 @@
           </div>
 
         
-          <div class="flex w-full" v-for="(hour, index) in week.working_days[<%= index %>].working_hours_attributes">
+          <div class="flex w-full" v-for="(hour, index) in week.working_days_attributes[<%= index %>].working_hours_attributes">
 
             <div class="flex w-full justify-center items-center px-4 my-6" >
               <div class="flex w-full" v-if="hour._destroy == '1'">
@@ -79,12 +79,12 @@
 
                 <div class="row w-1/4 focus_form mx-4">
                   <label class="label_input">Hora de inicio</label>
-                  <input type="text" v-model=hour.initial_hour class="field_input rounded-t">
+                  <datetime v-model=hour.initial_hour type=time input-class='field_input' :use12-hour=true></datetime>
                 </div>
 
                 <div class="row w-1/4 focus_form mx-4">
                   <label class="label_input">Hora final</label>
-                  <input type="text" v-model=hour.end_hour class="field_input rounded-t">                
+                  <datetime v-model=hour.end_hour type=time input-class='field_input' :use12-hour=true></datetime>
                 </div>
 
                 <div class="row w-1/4 focus_form mx-4">

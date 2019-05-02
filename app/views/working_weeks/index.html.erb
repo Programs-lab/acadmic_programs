@@ -1,8 +1,10 @@
 <%= render  'shared/card' do %>
 <%= content_tag :div ,
   id: 'working_week_index',
+  "v-cloak" => "true",
   data: {
-    week: @working_week.to_json(include: {working_days: { include: {working_hours: {except: [:created_at, :updated_at]}}, except: [:created_at, :updated_at]}}),
+    user_id: current_user.id,
+    weeks: @working_weeks,
     procedure_types: fetch_procedure_types
   } do %>
   
@@ -14,12 +16,12 @@
         <br>
       </h4>
     </div>
-    <div class="flex justify-between w-1/6">
-      <div class="flex justify-end w-1/6">
-       <i class="fas fa-arrow-left"></i>
+    <div class="flex justify-between w-1/12">
+      <div class="flex justify-end w-1/12">
+        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='prevWeek' :disabled="index === 0"><i class="fas fa-arrow-left"></i></button>       
       </div>
-      <div class="flex justify-end w-1/6">
-       <i class="fas fa-arrow-right"></i>
+      <div class="flex justify-end w-1/12">
+        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='nextWeek' :disabled="index === weeks.length - 1 "><i class="fas fa-arrow-right"></i></button>       
       </div>
     </div>
 
@@ -34,27 +36,38 @@
   <br>
   <div class="flex w-full px-4">
     <% if @working_week %>
-      <span>Horarios laborales <%= "#{@working_week.initial_date} - #{@working_week.end_date}" %></span>        
-    <% end %>      
+      <span>Horarios laborales {{$moment(week.initial_date).format("DD/MM/YYYY")}}  -  {{$moment(week.end_date).format("DD/MM/YYYY")}}</span>        
+    <% end %>
+  </div>
+  <br>
+  <div class="flex w-full justify-center">
+    <div class="alert alert-warning w-full mx-4" role="alert" v-show= 'showAlert' v-cloak >
+      <div class="flex w-full">
+        <%= icon('fa', icon_alert['warning'], class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm">No puede dejar campos en blanco, si necesita eliminar un horario por favor use el boton <i class="fas fa-trash px-1"></i></p>
+        </div>
+      </div>
+    </div>
   </div>
 
 
-
 <div class="py-4">
-  <% if @working_week %>
-  <% @working_week.working_days.each_with_index do |day, index| %>
+  
+  <% DAYS.each_with_index do |day, index| %>
     <div class="row justify-center">
-     <collapse-vue i="collpase_<%= day.id %>">
+     <collapse-vue i="collpase_<%= index %>">
       <template v-slot:title-left>
         <%= icon('fas','calendar-minus', class: 'fa-md mr-4') %>
-        <span><%= DAYS[day.working_date.wday] %></span>
+        <span><%= day[1] %></span>
       </template>
       <template v-slot:title-right>
       </template>
       <template v-slot:content>
           <div class="flex w-full justify-center items-center">
             <div class="row w-3/4 justify-start px-8">
-              <span><%= day.working_date.strftime('%B %d %Y') %></span>
+              <span> {{$moment(week.working_days_attributes[<%= index %>].working_date).format("MMMM Do YYYY")}} </span>
             </div>
             <div class="row w-1/4 justify-start px-16 mr-1">
               <a @click="addHour(<%= index %>)">
@@ -79,12 +92,12 @@
 
                 <div class="row w-1/4 focus_form mx-4">
                   <label class="label_input">Hora de inicio</label>
-                  <datetime v-model=hour.initial_hour type=time input-class='field_input' :use12-hour=true></datetime>
+                  <datetime value-zone="local" min-datetime= "week.working_days_attributes[<%= index %>].working_date" max-datetime="week.working_days_attributes[<%= index %>].working_date" :phrases= "{ok: 'Acceptar', cancel: 'Cancelar' }" title='Seleccione una hora' v-model=hour.initial_hour type=time input-class='field_input' :use12-hour=true></datetime>
                 </div>
 
                 <div class="row w-1/4 focus_form mx-4">
                   <label class="label_input">Hora final</label>
-                  <datetime v-model=hour.end_hour type=time input-class='field_input' :use12-hour=true></datetime>
+                  <datetime value-zone="local" min-datetime= "week.working_days_attributes[<%= index %>].working_date" max-datetime="week.working_days_attributes[<%= index %>].working_date" :phrases= "{ok: 'Acceptar', cancel: 'Cancelar' }" title='Seleccione una hora' v-model=hour.end_hour type=time input-class='field_input' :use12-hour=true></datetime>
                 </div>
 
                 <div class="row w-1/4 focus_form mx-4">
@@ -125,6 +138,5 @@
       </div>
     </div>
   </div>
-<% end %>
 <% end %>
 <% end %>

@@ -9,6 +9,7 @@
     "vue": "^2.6.8",
     "vue-datetime": "^1.0.0-beta.10",
     "vue-loader": "^15.7.0",
+    "vue-moment": "^4.0.0",
     "vue-resource": "^1.5.1",
     "vue-ripple-directive": "^2.0.1",
     "vue-template-compiler": "^2.6.8",

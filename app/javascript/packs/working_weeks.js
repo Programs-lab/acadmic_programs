@@ -17,7 +17,6 @@ Vue.use(VueResource)
 Vue.use(Vuelidate)
 Vue.use(VueMoment, {moment})
 
-
 document.addEventListener('turbolinks:load', () => {
   var element = document.getElementById('working_week_index')
   if (element != null) {

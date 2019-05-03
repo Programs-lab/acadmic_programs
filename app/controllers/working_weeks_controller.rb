@@ -4,7 +4,7 @@ class WorkingWeeksController < ApplicationController
 
   def index
     @working_week = current_user.doctor_working_weeks.first
-    @working_weeks = current_user.doctor_working_weeks.where("end_date > ?", Date.today).to_json(include: {working_days: { include: {working_hours: {except: [:created_at, :updated_at]}}, except: [:created_at, :updated_at]}})
+    @working_weeks = current_user.doctor_working_weeks.where("end_date >= ?", Date.today).order(:initial_date).to_json(include: {working_days: { include: {working_hours: {except: [:created_at, :updated_at]}}, except: [:created_at, :updated_at]}})
     #authorize @working_week
   end
 
@@ -38,8 +38,8 @@ class WorkingWeeksController < ApplicationController
       parameters[:working_days_attributes].each_with_index do |wday, i|
         wday[:working_date] = next_week[i]
         wday[:working_hours_attributes].each_with_index do |wh, n|
-          wh[:initial_hour] = DateTime.parse("#{wday[:working_date].to_s} #{DateTime.parse(wh[:initial_hour].to_s).strftime("%H:%M")} -0500")
-          wh[:end_hour] = DateTime.parse("#{wday[:working_date].to_s} #{DateTime.parse(wh[:end_hour].to_s).strftime("%H:%M")} -0500")
+          wh[:initial_hour] = DateTime.parse("#{wday[:working_date].to_s} #{DateTime.parse(wh[:initial_hour].to_s).strftime("%H:%M%p")} -0500")
+          wh[:end_hour] = DateTime.parse("#{wday[:working_date].to_s} #{DateTime.parse(wh[:end_hour].to_s).strftime("%H:%M%p")} -0500")
         end
       end
     end 

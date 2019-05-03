@@ -1,0 +1,12 @@
+<%= render 'shared/card' do%>
+<div class="flex flex-wrap px-4">
+  <div class="flex felx-wrap mb-4">
+    <div class="w-full">
+      <h3>Agendar cita</h3>
+    </div>
+  </div>
+  <%= form_for('appointment', method: :post, html: {id: "user_no_registered",'v-cloak' => true, 'doctors' => @doctors, 'procedure_duration' => @procedure_duration},  class: "w-full max-w-md") do |f| %>
+    <%= render 'pages/calendar', f: f %>
+  <% end %>
+</div>
+<% end %>

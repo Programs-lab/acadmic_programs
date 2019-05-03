@@ -328,8 +328,25 @@
                   </template>
                 </tab-vue>
               </div>
+              <div class="flex w-16 justify-end items-center px-4">
+                <a id="myBtn" @click="modalId('1')">
+                  <%= icon('fas','edit', class: 'fa-md')%>
+                </a>
+              </div>
+              <modal-vue i="1">
+                <template v-slot:title>
+                  <h1>Hola </h1>
+                </template>
+                <template v-slot:content>
+                  CONTENIDO
+                </template>
+                <template v-slot:footer>
+                  <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
+                </template>
+              </modal-vue>
             </template>
           </collapse-vue>
+
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ class CompaniesController < ApplicationController
       redirect_to companies_path, notice: 'La empresa fue agregada exitosamente.'
     else
       redirect_to companies_path, alert: 'No fue posible concretar el registro, por favor revise los campos nuevamente'
-    end    
+    end
   end
 
   def update
@@ -40,7 +40,7 @@ class CompaniesController < ApplicationController
   private
 
   def procedure_company_params
-    ids = ProcedureCompany.pluck(:id) 
+    ids = ProcedureCompany.pluck(:id)
     params_hash = {}
     ids.map { |pr| params_hash[pr] = {cost: params[pr.to_s]}  }
     params_hash

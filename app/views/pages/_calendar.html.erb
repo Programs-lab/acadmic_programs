@@ -5,12 +5,12 @@
       <%=
       f.collection_select(
         :doctor_id,
-        User.all,
+        @doctors,
         :id,
         :first_name,
-        {include_blank: true},
+        {include_blank: false},
         {
-          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctor'
+          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctorId'
         }
       )
       %>
@@ -18,37 +18,56 @@
   </div>
   <div class="flex border-t w-full"></div>
   <div class="flex flex-wrap w-full mt-6">
-    <% ['Lunes','Martes','Miercoles','Jueves','Viernes'].each do |d| %>
-    <div class="flex flex-wrap w-1/5">
+    <div class="flex flex-wrap w-1/5" v-for="(value, index) in weekDays">
       <div class="flex flex-wrap w-full text-center items-center mb-4">
         <div class="flex w-full justify-center">
-          <p><%= d %></p>
+          <p>{{ value }}</p>
         </div>
         <div class="flex w-full justify-center">
-          <p class="font-medium text-sm text-g-d2"><%= Date.today.strftime("%d %B") %></p>
+          <p class="font-medium text-sm text-g-d2">
+            {{ doctor != null ? $moment(doctorWorkingWeek.working_days[index].working_date).format("DD MMM YYYY") : '' }}
+          </p>
         </div>
       </div>
-      <% 11.times.each do |v| %>
-      <div class="flex flex-wrap w-full mb-4 justify-center">
+      <div class="flex flex-wrap w-full mb-4 justify-center" v-for="(hour, i) in hours">
         <dropdown-vue btn_class="btn-flat" dropdown_style="width: 70%;">
           <template #title>
-            <p class="text-primary">
-              <%= "0#{6 + v}:00" %>
+            <p :class="workingHours[index][i].length != 0 ? 'text-primary' : 'text-grey'">
+              {{ hour }}
             </p>
           </template>
           <template #items>
-            <%= link_to('#', class: "dropdown-item", 'data-turbolinks' => false, '@click' => 'selectHour', id: "#{d}-0#{6 + v}:00") do %>
-              <div class="flex w-full justify-center"><%= "0#{6 + v}:00" %></div>
-            <% end %>
-            <%= link_to('#', class: "dropdown-item", 'data-turbolinks' => false, '@click' => 'selectHour', id: "#{d}-0#{6 + v}:30") do %>
-            <div class="flex w-full justify-center"><%= "0#{6 + v}:30" %></div>
-            <% end %>
+            <div class="" v-for="(working_hour, j) in workingHours[index][i]">
+              <%= link_to('#', class: "dropdown-item", 'data-turbolinks' => false, '@click' => 'showOptions(index,i,j)', "v-show" => "!schedule[index][i][j]", ':class' => "!schedule[index][i][j] ? '' : 'animated fadeOut'") do %>
+                <div class="flex w-full justify-center">{{$moment(working_hour).format("hh:mm a")}}</div>
+              <% end %>
+              <div class="dropdown-item items-center flex-wrap" v-show="schedule[index][i][j]" :class="schedule[index][i][j] ? 'animated fadeIn' : 'animated fadeOut'">
+                <div class="flex w-full justify-center">
+                  <%= icon('fas','clock', class: 'fa-md mr-2')%>
+                  Agendar
+                </div>
+                <div class="flex w-full mt-2 items-center" >
+                  <%= icon('fas','times', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
+                  <%= icon('fas','check', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
+                </div>
+              </div>
+            </div>
           </template>
         </dropdown-vue>
       </div>
-      <% end %>
     </div>
-    <% end %>
-    <%= f.hidden_field :appointment_hour, value: "appointmentHour", 'v-model' => 'appointmentHour' %>
+    <%= f.hidden_field :appointment_datetime, value: "appointmentHour", 'v-model' => 'appointmentHour' %>
+  </div>
+  <div class="flex flex-wrap w-full justify-center">
+    <div class="flex flex-wrap w-1/2 justify-end">
+      <button class="btn-flat" type="button" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" :class="classArrowLeft" :disabled="indexWeek == 0" @click='indexWeek -= 1, matrixWorkingHours()'>
+        <%= icon('fas','arrow-left', class: "fa-md")%>
+      </button>
+    </div>
+    <div class="flex flex-wrap w-1/2">
+      <button class="btn-flat" type="button" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" :class="classArrowRight" :disabled="disabled" @click='indexWeek += 1, matrixWorkingHours()'>
+        <%= icon('fas','arrow-right', class: "fa-md")%>
+      </button>
+    </div>
   </div>
 </div>

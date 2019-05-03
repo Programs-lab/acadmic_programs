@@ -5,7 +5,7 @@ Vue.component('modal-vue', {
   props: ['style_button','i','style_modal'],
   methods: {
     btnModal(){
-      this.$parent.modalId(this.i);
+      this.$root.modalId(this.i);
     }
   },
   computed: {
@@ -16,7 +16,7 @@ Vue.component('modal-vue', {
       }
     },
     show: function (){
-      return this.$parent.modal2[this.i];
+      return this.$root.modal2[this.i];
     }
   },
   template: `

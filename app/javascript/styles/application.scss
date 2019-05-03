@@ -56,6 +56,10 @@
     @apply .border-t .border-grey-light .my-6 .w-full;
   }
 
+  .obligatory {
+    @apply .rounded-full .h-1 .w-1 .bg-red-light .ml-1;
+  }
+
   #footer {
     position: fixed;
     width: 100%;

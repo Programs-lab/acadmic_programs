@@ -10,9 +10,13 @@ document.addEventListener('turbolinks:load', () => {
       showM: false,
       showC: false,
       algo: false,
-      tabItems: {}
+      tabItems: {},
+      modal2: {},
     },
     methods: {
+      modalId(i){
+        Vue.set(this.modal2, i , !this.modal2[i]);
+      },
       showText(){
         this.show =! this.show
         setTimeout(function () {

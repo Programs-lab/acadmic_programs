@@ -12,11 +12,11 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :timeoutable, reconfirmable: true
-  enum role: [:patient, :doctor, :admin]         
+  enum role: [:patient, :doctor, :admin]
   belongs_to :company, optional: true
-  has_many :doctor_appointments, class_name: 'Appointments', foreign_key: 'doctor_id'
-  has_many :doctor_working_weeks, class_name: 'WorkingWeeks', foreign_key: 'doctor_id'
-  has_many :patient_appointments, class_name: 'Appointments', foreign_key: 'patient_id'
+  has_many :doctor_appointments, class_name: 'Appointment', foreign_key: 'doctor_id'
+  has_many :doctor_working_weeks, class_name: 'WorkingWeek', foreign_key: 'doctor_id'
+  has_many :patient_appointments, class_name: 'Appointment', foreign_key: 'patient_id'
   has_many :patient_medical_records, class_name: 'MedicalRecord', foreign_key: 'patient_id'
   has_one_attached :avatar
 
@@ -26,7 +26,7 @@ class User < ApplicationRecord
   end
 
   def set_default_role
-    self.role ||= :patient                            
+    self.role ||= :patient
   end
 
   def generate_password

@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.esm'
 Vue.component('nav-vue', {
-  props: ['ids'],
+  props: ['ids', 'nav'],
   data: function(){
     return {navItems: {}, currentNav: ""}
   },
@@ -11,12 +11,22 @@ Vue.component('nav-vue', {
       Vue.set(this.navItems, keyOldActive, false)
       Vue.set(this.navItems, keyNewActive , true)
       this.currentNav = keyNewActive
+      this.$root.currentNav = keyNewActive
+    }
+  },
+  watch: {
+    nav(){
+      var keyOldActive = this.currentNav
+      var keyNewActive = this.nav
+      Vue.set(this.navItems, keyOldActive, false)
+      Vue.set(this.navItems, keyNewActive , true)
+      this.currentNav = keyNewActive
     }
   }
   ,
   mounted: function () {
     this.$nextTick(function () {
-      this.currentNav = this.ids[0]
+      this.currentNav = this.nav || this.ids[0]
       Vue.set(this.navItems, this.currentNav ,true);
     })
   }

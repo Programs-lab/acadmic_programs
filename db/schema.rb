@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_204432) do
+ActiveRecord::Schema.define(version: 2019_04_12_212946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,8 @@ ActiveRecord::Schema.define(version: 2019_04_08_204432) do
     t.boolean "remember", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "procedure_type_id", null: false
+    t.index ["procedure_type_id"], name: "index_working_hours_on_procedure_type_id"
     t.index ["working_day_id"], name: "index_working_hours_on_working_day_id"
   end
 

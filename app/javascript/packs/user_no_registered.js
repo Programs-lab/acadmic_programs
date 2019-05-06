@@ -17,7 +17,7 @@ moment.locale('es')
 
 document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('user_no_registered')) {
-
+  var module = require('colombia-holidays');
   var app = new Vue({
     el: '#user_no_registered',
     data: {
@@ -40,12 +40,14 @@ document.addEventListener('turbolinks:load', () => {
       workingHours: [],
       unavailableWorkingHours: "",
       schedule: [],
+      holidays: module.getColombiaHolidaysByYear(2019),
       indexWeek: 0,
       hiddenDropdown: false,
       indexNav: 0,
       navIds: [1,2,3],
       currentNav: "",
       someData: "",
+      patient: '',
       en: en,
       es: es
     },
@@ -92,6 +94,15 @@ document.addEventListener('turbolinks:load', () => {
           this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
           this.matrixWorkingHours()
         }, response => { console.log(response) });
+      },
+      fetchUser: function(){
+        this.$http.get(`/api/appointments/${this.idNumber}/${this.idType}`).then(response => {
+          this.patient = response.body[0]
+          this.firstNameValue = this.patient.first_name
+          this.lastNameValue = this.patient.last_name
+          this.phoneNumber = this.patient.phone_number
+          this.emailValue = this.patient.email
+        }, response => { console.log(response) });
       }
       ,
       selectHour: function(){
@@ -125,6 +136,10 @@ document.addEventListener('turbolinks:load', () => {
       isAvailableHour: function(appointment_datetime){
         return this.unavailableWorkingHours.findIndex(d => moment(d.appointment_datetime).isSame(appointment_datetime)) == -1
       },
+      isHoliday: function(working_date){
+        return this.holidays.findIndex(h => moment(h.holiday).isSame(moment(working_date))) != -1
+      }
+      ,
       matrixWorkingHours: function(){
         var working_days = this.doctorWorkingWeek.working_days
         if (working_days.length == 0) {
@@ -135,7 +150,7 @@ document.addEventListener('turbolinks:load', () => {
             this.workingHours[i] = []
             this.schedule [i] = []
             for (var j = 0; j < this.hours.length; j++) {
-              var wh = this.selectWorkingHour(working_days[i], this.hours[j])
+              var wh = !this.isHoliday(working_days[i].working_date) ? this.selectWorkingHour(working_days[i], this.hours[j]) : []
               this.workingHours[i][j] = wh
               this.schedule [i][j] = Array(wh.length).fill(false)
             }
@@ -185,11 +200,23 @@ document.addEventListener('turbolinks:load', () => {
        this.fetchData()
      },
      schedule(){},
+     idNumber(){
+       this.fetchUser()
+     },
      indexWeek(){
        this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
      },
      currentNav(){
        this.indexNav = this.navIds.findIndex(n => n == this.currentNav)
+     },
+     patient(){
+       if (this.patient != '' && this.patient != null) {
+         this.passwordValue = "123123123"
+         this.passwordConfirmationValue = this.passwordValue
+         document.getElementById("user_no_registered").setAttribute("action","/pages/update")
+       }else{
+         document.getElementById("user_no_registered").setAttribute("action","/pages/create")
+       }
      }
     },
     components: {

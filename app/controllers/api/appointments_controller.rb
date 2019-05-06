@@ -23,4 +23,10 @@ class Api::AppointmentsController < ApplicationController
 
     render json: { doctor: @doctor, unavailable_working_hours: @unavailable_working_hours }
   end
+
+  def fetch_user
+    @user = User.where(id_type: params[:id_type], id_number: params[:id_number]).to_json(only: [:first_name, :last_name, :phone_number, :company_id, :occupation, :address, :email])
+
+    render json: @user
+  end
 end

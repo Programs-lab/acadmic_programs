@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.2",
+    "colombia-holidays": "^0.0.1",
     "luxon": "^1.12.1",
     "tailwindcss-tables": "^0.2.0",
     "v-click-outside": "^2.0.2",

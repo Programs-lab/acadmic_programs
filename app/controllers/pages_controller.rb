@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, except: [:schedule_appointment_no_user, :create]
+  before_action :authenticate_user!, except: [:schedule_appointment_no_user, :create, :update]
 
   def home
   end
@@ -22,6 +22,12 @@ class PagesController < ApplicationController
     else
       redirect_to schedule_appointment_no_user_path, alert: 'No pudo ser registrado'
     end
+  end
+
+  def update
+    patient = User.where(id_number: params[:user_appointment][:id_number]).first
+    Appointment.create(appointment_params.merge({patient_id: patient.id, procedure_type_id: ProcedureType.all.first.id }))
+    redirect_to user_session_path, notice: 'Su cita ha sido creada, por favor inicie sesion para que se confirme'
   end
 
   private

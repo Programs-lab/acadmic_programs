@@ -98,6 +98,33 @@
   </div>
   <% end %>
 
+  <!-- Option -->
+  <%= link_to(pages_schedule_path, class: "no-underline") do %>
+  <div class="list-group-item <%= is_schedule_path %>">
+    <div class="flex">
+      <div class="w-1/4 text-center">
+        <%= icon('fas','clock', class: 'fa-lg') %>
+      </div>
+      <div class="text-left w-3/4">
+        <span>Agenda</span>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <!-- Option -->
+  <%= link_to(appointments_path, class: "no-underline") do %>
+  <div class="list-group-item <%= is_appointment_path %>">
+    <div class="flex">
+      <div class="w-1/4 text-center">
+        <%= icon('fas','calendar', class: 'fa-lg') %>
+      </div>
+      <div class="text-left w-3/4">
+        <span>Citas</span>
+      </div>
+    </div>
+  </div>
+  <% end %>
 </div>
 
 </div>

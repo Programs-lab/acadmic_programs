@@ -26,7 +26,8 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
-gem "wysiwyg-rails"
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
 gem 'font-awesome-sass', '~> 5.6.1'
 gem "animate-rails"
 gem "pundit"

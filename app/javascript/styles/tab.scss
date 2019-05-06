@@ -11,5 +11,25 @@
 }
 
 .tab{
-  @apply .list-reset .flex .border-b;
+  @apply .list-reset .flex .flex-wrap .border-b .w-full;
+}
+
+.nav-item {
+  @apply .flex .text-grey-dark .w-full .justify-center;
+
+  > a {
+    @apply .cursor-pointer .py-4 .px-6 .w-full .text-center;
+  }
+
+  &:hover{
+    @apply .text-primary
+  }
+}
+
+.nav-active {
+  @apply .border-b-2 .border-primary .text-primary;
+}
+
+.nav {
+  @apply .list-reset .flex .w-full;
 }

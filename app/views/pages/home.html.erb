@@ -149,6 +149,9 @@
         </transition>
       </div> -->
       <dropdown-vue>
+        <template #title>
+          hola
+        </template>
         <template v-slot:items>
           <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
             <div class="w-6 text-center" style="font-size: 0.8rem;">

@@ -8,17 +8,15 @@
 }
 
 .collapse-content{
-  max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
   @apply .bg-white .w-full .mx-4 .my-4 .mt-4;
 }
 
 .transform_collapse{
   transform: scale(1.05);
   transition: all 0.3s ease-in-out;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 40px;
+  margin-top: 40px;
 }
 
 .transform_collapse_2{

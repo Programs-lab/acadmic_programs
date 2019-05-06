@@ -60,12 +60,12 @@
   </div>
   <div class="flex flex-wrap w-full justify-center">
     <div class="flex flex-wrap w-1/2 justify-end">
-      <button class="btn-flat" type="button" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" :class="classArrowLeft" :disabled="indexWeek == 0" @click='indexWeek -= 1, matrixWorkingHours()'>
+      <button class="btn-flat" type="button" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" :class="classArrowLeft" :disabled="indexWeek == 0" @click='indexWeek -= 1'>
         <%= icon('fas','arrow-left', class: "fa-md")%>
       </button>
     </div>
     <div class="flex flex-wrap w-1/2">
-      <button class="btn-flat" type="button" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" :class="classArrowRight" :disabled="disabled" @click='indexWeek += 1, matrixWorkingHours()'>
+      <button class="btn-flat" type="button" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" :class="classArrowRight" :disabled="disabled" @click='indexWeek += 1'>
         <%= icon('fas','arrow-right', class: "fa-md")%>
       </button>
     </div>

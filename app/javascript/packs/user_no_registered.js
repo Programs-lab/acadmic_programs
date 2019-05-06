@@ -205,6 +205,7 @@ document.addEventListener('turbolinks:load', () => {
      },
      indexWeek(){
        this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
+       this.matrixWorkingHours()
      },
      currentNav(){
        this.indexNav = this.navIds.findIndex(n => n == this.currentNav)

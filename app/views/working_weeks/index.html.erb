@@ -1,0 +1,134 @@
+<%= render  'shared/card' do %>
+<%= content_tag :div ,
+  id: 'working_week_index',
+  "v-cloak" => "true",
+  data: {
+    user_id: current_user.id,
+    weeks: @working_weeks,
+    procedure_types: fetch_procedure_types
+  } do %>
+
+  <div class="my-8 flex px-4 items-center">
+    <div class="flex w-full">
+      <h4 class="font-semibold text-g-d4 text-lg">
+        <span>Horarios de atencion</span>
+        <br>
+      </h4>
+    </div>
+    <div class="flex justify-between w-1/12">
+      <div class="flex justify-end w-1/12">
+        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='prevWeek' :disabled="index === 0"><i class="fas fa-arrow-left"></i></button>       
+      </div>
+      <div class="flex justify-end w-1/12">
+        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='nextWeek' :disabled="index === weeks.length - 1 "><i class="fas fa-arrow-right"></i></button>       
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <div class="flex w-full px-4">
+    <% if @working_week %>
+      <span>Horarios laborales {{$moment(week.initial_date).format("DD/MM/YYYY")}}  -  {{$moment(week.end_date).format("DD/MM/YYYY")}}</span>        
+    <% end %>
+  </div>
+  <br>
+  <div class="flex w-full justify-center">
+    <div class="alert alert-warning w-full mx-4" role="alert" v-show= 'showAlert' v-cloak >
+      <div class="flex w-full">
+        <%= icon('fa', icon_alert['warning'], class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm">No puede dejar campos en blanco, si necesita eliminar un horario por favor use el boton <i class="fas fa-trash px-1"></i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="py-4">
+  
+  <% DAYS.each_with_index do |day, index| %>
+    <div class="row justify-center">
+     <collapse-vue i="collpase_<%= index %>">
+      <template v-slot:title-left>
+        <%= icon('fas','calendar-minus', class: 'fa-md mr-4') %>
+        <span><%= day[1] %></span>
+      </template>
+      <template v-slot:title-right>
+      </template>
+      <template v-slot:content>
+          <div class="flex w-full justify-center items-center">
+            <div class="row w-3/4 justify-start px-8">
+              <span> {{$moment(week.working_days_attributes[<%= index %>].working_date).format("MMMM Do YYYY")}} </span>
+            </div>
+            <div class="row w-1/4 justify-start px-16 mr-1">
+              <a @click="addHour(<%= index %>)">
+                <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+              </a>
+            </div>
+          </div>
+
+        
+          <div class="flex w-full" v-for="(hour, index) in week.working_days_attributes[<%= index %>].working_hours_attributes">
+
+            <div class="flex w-full justify-center items-center px-4 my-6" >
+              <div class="flex w-full" v-if="hour._destroy == '1'">
+                <div class="row w-3/4 mx-4">
+                  Este registro se removera al guardar los cambios
+                </div>
+                <div class="row w-1/4 px-4">
+                  <button @click="undoRemove(<%= index %>, index)" class="btn btn-secondary no-outline">Deshacer</button>
+                </div>
+              </div>
+              <div class="flex w-full" v-else>
+
+                <div class="row w-1/4 focus_form mx-4">
+                  <label class="label_input">Hora de inicio</label>
+                  <datetime value-zone="local" minute-step="15" min-datetime= "week.working_days_attributes[<%= index %>].working_date" max-datetime="week.working_days_attributes[<%= index %>].working_date" :phrases= "{ok: 'Acceptar', cancel: 'Cancelar' }" title='Seleccione una hora' v-model=hour.initial_hour type=time input-class='field_input' :use12-hour=true></datetime>
+                </div>
+
+                <div class="row w-1/4 focus_form mx-4">
+                  <label class="label_input">Hora final</label>
+                  <datetime value-zone="local" minute-step="15" min-datetime= "week.working_days_attributes[<%= index %>].working_date" max-datetime="week.working_days_attributes[<%= index %>].working_date" :phrases= "{ok: 'Acceptar', cancel: 'Cancelar' }" title='Seleccione una hora' v-model=hour.end_hour type=time input-class='field_input' :use12-hour=true></datetime>
+                </div>
+
+                <div class="row w-1/4 focus_form mx-4">
+                  <label class="label_input">Tipo de procedimiento</label>
+                  <select id="procedure_types" class="fblock appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8" v-model="hour.procedure_type_id">
+                    <option label=" "></option>
+                    <option v-for="procedure in procedures" :value="procedure.id"> {{procedure.procedure_type_name}}</option>
+                  </select>
+                </div> 
+
+                <div class="row w-1/4 justify-end px-16 py-4">
+                    <a class="btn btn-red-light mx-1" @click="removeHour(<%= index %> , index)">
+                    <%= icon('fas', 'trash') %>
+                  </a>
+                </div>
+              </div> 
+
+            </div>
+          </div>
+
+
+        <div class="flex w-1/2 justify-end px-12">
+        </div>
+      </template>
+     </collapse-vue>
+    </div>
+  <% end %>
+    <br>
+    <div class="row w-full px-4">
+      <div class="flex w-full">
+        <div class="flex w-full">
+          <div class="flex justify-end w-full">
+           <a class="btn btn-primary" @click='saveWeek'>
+             Guardar cambios
+           </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% end %>

@@ -15,6 +15,24 @@
     </div>
   <% end %>
 <% end %>
+
+ <!-- Option -->
+ <% if policy(WorkingWeek).index? %>
+  <%= link_to(working_weeks_path, class: "no-underline") do %>
+    <div class="list-group-item rounded-t <%= is_working_week_path %> ">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','calendar', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Horarios de atencion</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
 <!-- Option -->
   <%= link_to(admin_doctors_path, class: "no-underline") do %>
     <div class="list-group-item <%= is_doctors_path %>">

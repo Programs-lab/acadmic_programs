@@ -1447,6 +1447,10 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
+colombia-holidays@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/colombia-holidays/-/colombia-holidays-0.0.1.tgz#77a028669f74b48efe666d8f748cc7142146398a"
+
 color-convert@^1.9.0, color-convert@^1.9.1:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"

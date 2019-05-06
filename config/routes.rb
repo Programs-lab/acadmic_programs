@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     get 'appointments/:doctor_id', to: 'appointments#fetch_appointment_data'
-  end  
+    get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
+  end
 
   root 'pages#home'
   get 'pages/home'
@@ -30,5 +31,6 @@ Rails.application.routes.draw do
   get 'pages/schedule_appointment'
   get 'pages/schedule_appointment_no_user'
   post "pages/create" => "pages#create", :as => :create_appointment_user
+  post "pages/update" => "pages#update", :as => :update_appointment_user
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,0 +1,77 @@
+<%= render  'shared/card' do %>
+  <div class="flex px-4">
+    <div class="w-2/3">
+    </div>
+    <div class="w-1/3 text-right">
+    </div>
+  </div>
+  <div id="medical_record" class="w-full px-4">
+    <div class="my-4 flex">
+      <div class="w-1/2">
+        <h4 class="font-semibold text-g-d4 text-lg">
+          Citas
+          <br><span class="font-medium text-sm text-g-d2">Listado de citas</span>
+        </h4>
+      </div>
+    </div>
+    <div class="flex w-full justify-end">
+      <%= link_to new_appointment_path, class: "btn btn-primary" do %>
+        <%= icon('fas','plus', class: 'fa-md')%>
+      <% end %>
+    </div>
+    <div class="divider"></div>
+    <div class="flex w-full mb-4">
+      <span class="font-medium text-sm text-g-d2">Citas por asistir</span>
+    </div>
+    <% @appointments.each do |appointment| %>
+    <div class="flex flex-wrap w-full justify-between mb-2">
+      <div class="flex w-2/5 items-center">
+        <%= icon('fas','calendar', class: 'fa-md mr-2')%>
+        <p><%= appointment.appointment_datetime.strftime("%d %B %Y") %></p>
+      </div>
+      <div class="flex w-1/5 items-center">
+        <%= icon('fas','clock', class: 'fa-md mr-2')%>
+        <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
+      </div>
+      <div class="flex w-1/5 items-center">
+        <%= icon('fas','medkit', class: 'fa-md mr-2')%>
+        <p><%= appointment.procedure_type.procedure_type_name%></p>
+      </div>
+      <div class="flex w-32 justify-end">
+        <%= link_to appointment_path(appointment), method: :delete, class: "btn btn-secondary" do %>
+          <%= icon('fas','calendar-times', class: 'fa-md')%>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+    <div class="divider"></div>
+    <div class="flex w-full mb-4">
+      <span class="font-medium text-sm text-g-d2">Historial de citas</span>
+    </div>
+    <% 10.times.each do |v| %>
+    <div class="flex flex-wrap w-full justify-between mb-2">
+      <div class="flex w-2/5 items-center">
+        <%= icon('fas','calendar', class: 'fa-md mr-2')%>
+        <p>Martes <%= Date.today.strftime("%d %B %Y") %></p>
+      </div>
+      <div class="flex w-1/5 items-center">
+        <%= icon('fas','clock', class: 'fa-md mr-2')%>
+        <%= Date.today.strftime("%I:%M %P") %>
+      </div>
+      <div class="flex w-1/5 items-center">
+        <%= icon('fas','medkit', class: 'fa-md mr-2')%>
+        <p>Colonoscopia <%= v %></p>
+      </div>
+      <div class="flex w-32 justify-end">
+        <%= link_to "#", class: "btn btn-secondary w-12 text-center mr-1" do %>
+          <%= icon('fas','info', class: 'fa-md')%>
+        <% end %>
+        <%= link_to "#", class: "btn btn-secondary w-12 text-center ml-1" do %>
+          <%= icon('fas','clipboard', class: 'fa-md')%>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  </div>
+<% end %>

@@ -11,8 +11,11 @@ Vue.component('dropdown-vue', {
     btnModal(){
       this.show =! this.show
     },
+    hidden(){
+      return this.$root.hiddenDropdown ? this.show = false : ''
+    },
     close(){
-      return this.show = false
+      return this.show = false;
     }
   },
   computed: {
@@ -25,7 +28,7 @@ Vue.component('dropdown-vue', {
   },
   template: `
   <div class="flex flex-wrap" style="position: relative; width: 15%;" :style="dropdown_style" v-click-outside="close">
-    <button type="button" :class="btn_class" class="w-full bg-white" v-ripple = "'rgba(0, 0, 0, 0.10)'" v-click-outside="close" @click="btnModal">
+    <button type="button" :class="btn_class" class="w-full bg-white" v-ripple = "'rgba(0, 0, 0, 0.10)'" v-click-outside="hidden" @click="btnModal">
         <slot name="title"></slot>
     </button>
     <transition>

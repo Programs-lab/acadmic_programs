@@ -25,6 +25,7 @@ module ApplicationHelper
   def is_appointment_path
     case request.path
     when '/pages/appointment' then 'active'
+    when '/citas' then 'active'
     when '/pages/schedule_appointment' then 'active'
     when '/pages/schedule_appointment_no_user' then 'active'
     end

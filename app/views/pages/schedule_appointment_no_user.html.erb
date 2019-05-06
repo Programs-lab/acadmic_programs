@@ -1,8 +1,8 @@
 
 <%= render  'shared/card' do %>
-  <div id="user_no_registered" class="w-full px-4">
-    <%= form_for('#', html: {'v-cloak' => true},  class: "w-full max-w-md") do |f| %>
-   <nav-vue :ids="[1,2,3]">
+  <div  class="w-full px-4">
+    <%= form_for('user_appointment', url: create_appointment_user_path, method: :post, html: {id: "user_no_registered",'v-cloak' => true, 'doctor_id' => @doctor_id, 'procedure_duration' => @procedure_duration, 'unavailable_working_hours' => @unavailable_working_hours },  class: "w-full max-w-md") do |f| %>
+   <nav-vue :ids="navIds" :nav="navIds[indexNav]">
      <template #1>
        1. Cita
      </template>
@@ -49,10 +49,10 @@
             <span class="font-semibold">Tipo de cita:</span> <p class="ml-2">Consulta</p>
           </div>
           <div class="flex w-full mb-2 text-sm">
-            <span class="font-semibold">Medico: Dr. </span> <p class="ml-2">{{doctor}}</p>
+            <span class="font-semibold">Medico: </span> <p class="ml-2">Dr. {{doctor.first_name + ' ' + doctor.last_name}}</p>
           </div>
           <div class="flex w-full mb-2 text-sm">
-            <span class="font-semibold">Hora de cita:</span> <p class="ml-2">{{appointmentHour}}</p>
+            <span class="font-semibold">Hora de cita:</span> <p class="ml-2">{{appointmentHour == '' ? '' :  $moment(appointmentHour).format("DD MMM YYYY hh:mm a")}}</p>
           </div>
         </div>
         <div class="divider"></div>
@@ -61,7 +61,7 @@
            <%= link_to("Cancelar", request.referer, class: "btn btn-secondary no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
           </div>
           <div class="flex justify-end w-2/4 ml-1">
-           <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ":class"=>"disabled", ':disabled' => "$v.$anyError || $v.$invalid" %>
+           <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ':disabled' => "validSubmit" %>
           </div>
         </div>
       </div>

@@ -16,32 +16,23 @@ Vue.use(VueMoment, { moment } );
 moment.locale('es')
 
 document.addEventListener('turbolinks:load', () => {
-  if(document.getElementById('user_no_registered')) {
+  if(document.getElementById('schedule_appointment')) {
   var module = require('colombia-holidays');
-  var procedure_type = JSON.parse(document.getElementById("user_no_registered").getAttribute('procedure_types'))[0]
+  var procedure_type = JSON.parse(document.getElementById("schedule_appointment").getAttribute('procedure_types'))[0]
   var procedure_name = procedure_type != null ? procedure_type.procedure_type_name : ''
   var procedure_duration = procedure_type != null ? procedure_type.procedure_duration : ''
   var procedure_id = procedure_type != null ? procedure_type.id : ''
 
   var app = new Vue({
-    el: '#user_no_registered',
+    el: '#schedule_appointment',
     data: {
-      emailValue: '',
-      firstNameValue: '',
-      lastNameValue: '',
-      passwordValue: '',
-      passwordConfirmationValue: '',
-      birthdateValue: document.getElementById("user_no_registered").getAttribute('birthdate'),
       appointmentHour: '',
-      idNumber: '',
-      idType: '',
-      phoneNumber: '',
       procedureName: procedure_name,
       procedureDuration: procedure_duration,
+      procedureTypeId: procedure_id,
       doctor: "",
       doctorWorkingWeek: '',
-      doctorId: document.getElementById("user_no_registered").getAttribute('doctor_id'),
-      procedureTypeId: procedure_id,
+      doctorId: document.getElementById("schedule_appointment").getAttribute('doctor_id'),
       weekDays: ['Lunes','Martes','Miercoles','Jueves','Viernes'],
       hours: [],
       workingHours: [],
@@ -50,65 +41,16 @@ document.addEventListener('turbolinks:load', () => {
       holidays: module.getColombiaHolidaysByYear(2019),
       indexWeek: 0,
       hiddenDropdown: false,
-      indexNav: 0,
-      navIds: [1,2,3],
-      currentNav: "",
-      someData: "",
-      patient: '',
       en: en,
       es: es
     },
-
-    validations: {
-      emailValue: {
-        required,
-        email
-      },
-      firstNameValue: {
-        required
-      },
-      lastNameValue: {
-        required
-      },
-      idNumber: {
-        required
-      },
-      idType: {
-        required
-      },
-      passwordValue: {
-        required,
-        minLength: minLength(8)
-      },
-      passwordConfirmationValue: {
-        sameAsPassword: sameAs('passwordValue')
-      }
-    },
     methods: {
-      fieldClass(element, invalid){
-        var el = document.getElementById(element)
-        if(invalid){
-          el.classList.replace('focus_form', 'invalid_form')
-        }
-        else {
-          el.classList.replace('invalid_form', 'focus_form')
-        }
-      },
       fetchData: function(){
         this.$http.get(`/api/appointments/${this.doctorId}`).then(response => {
           this.doctor = JSON.parse(response.body.doctor)[0];
           this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
           this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
           this.matrixWorkingHours()
-        }, response => { console.log(response) });
-      },
-      fetchUser: function(){
-        this.$http.get(`/api/appointments/${this.idNumber}/${this.idType}`).then(response => {
-          this.patient = response.body[0]
-          this.firstNameValue = this.patient.first_name
-          this.lastNameValue = this.patient.last_name
-          this.phoneNumber = this.patient.phone_number
-          this.emailValue = this.patient.email
         }, response => { console.log(response) });
       }
       ,
@@ -168,14 +110,6 @@ document.addEventListener('turbolinks:load', () => {
         var schedule = this.schedule
         schedule[i][j][k] =! this.schedule[i][j][k]
         Vue.set(this.schedule, i, schedule[i])
-      },
-      changeNav: function(){
-        this.indexNav += 1
-        this.currentNav = this.navIds[this.indexNav]
-      },
-      nextWeek: function(){
-        var length = this.doctor.doctor_working_weeks.length
-        this.indexWeek += 1
       }
     },
     computed: {
@@ -216,18 +150,6 @@ document.addEventListener('turbolinks:load', () => {
      indexWeek(){
        this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
        this.matrixWorkingHours()
-     },
-     currentNav(){
-       this.indexNav = this.navIds.findIndex(n => n == this.currentNav)
-     },
-     patient(){
-       if (this.patient != '' && this.patient != null) {
-         this.passwordValue = "123123123"
-         this.passwordConfirmationValue = this.passwordValue
-         document.getElementById("user_no_registered").setAttribute("action","/pages/update")
-       }else{
-         document.getElementById("user_no_registered").setAttribute("action","/pages/create")
-       }
      }
     },
     components: {

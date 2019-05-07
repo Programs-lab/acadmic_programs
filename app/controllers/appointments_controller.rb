@@ -6,30 +6,20 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    @doctors = User.where(role: :doctor).to_json(
-      only: [:first_name, :last_name, :id],
-      include:
-      { doctor_working_weeks:
-        { only: [:initial_date, :end_date],
-          include:
-          { working_days:
-            { only: [:working_date],
-              include:
-              {
-                working_hours: {only: [:initial_hour, :end_hour]}
-              }
-              }
-            }
-        }
-      }
-    )
-    @procedure_duration = ProcedureType.all.first.procedure_duration
+    @doctor_id = User.where(role: :doctor).first.id
+    @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
+    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
   end
 
   def create
+    appointments = current_user.patient_appointments.where('appointment_datetime > ?', DateTime.now).any?
     @appointment = Appointment.new(appointments_params.merge({patient_id: current_user.id}))
-    if @appointment.save
-      redirect_to appointments_path, notice: 'La cita fue agendada correctamente'
+    unless appointments
+      if @appointment.save
+        redirect_to appointments_path, notice: 'La cita fue agendada correctamente'
+      end
+    else
+      redirect_to appointments_path, flash: {danger: 'No se pudo crear la cita debido a que tiene citas activas'}
     end
   end
 

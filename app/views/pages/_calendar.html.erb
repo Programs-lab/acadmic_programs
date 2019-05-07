@@ -1,6 +1,21 @@
 <div class="flex flex-wrap w-full mt-4">
   <div class="flex w-full justify-end mb-6">
-    <div class="w-1/3 focus_form">
+    <div class="w-1/4 focus_form mr-1">
+      <%= f.label :tipo_de_cita, class: 'label_input' %>
+      <%=
+      f.collection_select(
+        :procedure_type_id,
+        @procedure_types,
+        :id,
+        :procedure_type_name,
+        {include_blank: false, selected: :first},
+        {
+          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId'
+        }
+      )
+      %>
+    </div>
+    <div class="w-1/4 focus_form ml-1">
       <%= f.label :doctor, class: 'label_input' %>
       <%=
       f.collection_select(
@@ -48,7 +63,13 @@
                 </div>
                 <div class="flex w-full mt-2 items-center" >
                   <%= icon('fas','times', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
-                  <%= icon('fas','check', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
+                  <% unless current_user %>
+                    <%= icon('fas','check', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
+                  <% else %>
+                    <button class="btn-flat" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                      <%= icon('fas','check', class: "fa-md text-black")%>
+                    </button>
+                  <% end %>
                 </div>
               </div>
             </div>

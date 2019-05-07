@@ -5,7 +5,7 @@
       <h3>Agendar cita</h3>
     </div>
   </div>
-  <%= form_for('appointment', method: :post, html: {id: "user_no_registered",'v-cloak' => true, 'doctors' => @doctors, 'procedure_duration' => @procedure_duration},  class: "w-full max-w-md") do |f| %>
+  <%= form_for('appointment', url: appointments_path, html: {id: "schedule_appointment", 'v-cloak' => true, method: :post, 'doctor_id' => @doctor_id, 'procedure_types' => @procedure_types.to_json(only: [:id, :procedure_type_name, :procedure_duration]), 'unavailable_working_hours' => @unavailable_working_hours },  class: "w-full max-w-md") do |f| %>
     <%= render 'pages/calendar', f: f %>
   <% end %>
 </div>

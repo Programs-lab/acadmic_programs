@@ -20,14 +20,25 @@ class PagesController < ApplicationController
       patient.send_confirmation_instructions
       redirect_to user_session_path, notice: 'Debe confirmar su cuenta antes de continuar'
     else
-      redirect_to schedule_appointment_no_user_path, alert: 'No pudo ser registrado'
+      redirect_to pages_schedule_appointment_no_user_path, alert: 'No pudo ser registrado'
     end
   end
 
   def update
     patient = User.where(id_number: params[:user_appointment][:id_number]).first
-    Appointment.create(appointment_params.merge({patient_id: patient.id, procedure_type_id: ProcedureType.all.first.id }))
-    redirect_to user_session_path, notice: 'Su cita ha sido creada, por favor inicie sesion para que se confirme'
+    appointments = patient.patient_appointments.where('appointment_datetime > ?', DateTime.now).any?
+
+    unless appointments
+      binding.pry
+      @appointment = Appointment.new(appointment_params.merge({patient_id: patient.id}))
+      if @appointment.save
+        redirect_to user_session_path, notice: 'Su cita ha sido creada, por favor inicie sesion para que se confirme'
+      else
+        redirect_to pages_schedule_appointment_no_user_path, flash: {danger: 'Su cita no pudo ser creada, por favor intente de nuevo'}
+      end
+    else
+      redirect_to pages_schedule_appointment_no_user_path, flash: {danger: 'No se pudo crear la cita debido a que tiene citas activas'}
+    end
   end
 
   private
@@ -51,7 +62,8 @@ class PagesController < ApplicationController
   def appointment_params
     params.require(:user_appointment).permit(
       :appointment_datetime,
-      :doctor_id
+      :doctor_id,
+      :procedure_type_id
     )
   end
 end

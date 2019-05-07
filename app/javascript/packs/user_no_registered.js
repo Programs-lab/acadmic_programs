@@ -120,7 +120,7 @@ document.addEventListener('turbolinks:load', () => {
         var arrayHours = []
         var date = working_day.working_date
         var datetime = moment(`${date} ${hour}`)
-        if (datetime.isAfter(moment())) {
+        if (datetime.isAfter(moment().add(1, 'day'))) {
           var limit_datetime = moment(`${date} ${hour}`).add(1,'hour')
           var wh = working_day.working_hours
           for (var i = 0; i < wh.length; i++) {

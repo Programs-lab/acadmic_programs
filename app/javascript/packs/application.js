@@ -31,6 +31,7 @@ require('./medical_record');
 require('./working_weeks');
 require('./user_no_registered');
 require('./appointments');
+require('./scheduled_appointments');
 
 //components
 

@@ -22,9 +22,11 @@ Rails.application.routes.draw do
     get 'appointments/:doctor_id', to: 'appointments#fetch_appointment_data'
     get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
   end
+
   get 'appointments/schedule_appointment_no_user', to: 'appointments#schedule_appointment_no_user', as: :schedule_appointment_no_user
   post 'appointments/create_appointment', to: 'appointments#create_appointment', as: :create_appointment_user
   post 'appointments/update_appointment', to: 'appointments#update_appointment', as: :update_appointment_user
+  get 'appointments/scheduled_appointments', to: 'appointments#scheduled_appointments', as: :scheduled_appointments
 
   root 'pages#home'
   get 'pages/home'

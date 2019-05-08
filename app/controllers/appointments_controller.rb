@@ -63,6 +63,10 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def scheduled_appointments
+    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ?', DateTime.now)
+  end
+
   private
 
   def user_params

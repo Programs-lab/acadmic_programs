@@ -15,11 +15,11 @@ class UserPolicy
   end
 
   def patients?
-    bt_administration_g
+    is_doctor
   end
 
   def new?
-    bt_administration_g    
+    bt_administration_g
   end
 
   def create?
@@ -40,4 +40,7 @@ class UserPolicy
     @user.admin?
   end
 
+  def is_doctor
+    @user.admin? || @user.doctor?
+  end
 end

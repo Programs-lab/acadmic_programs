@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :procedure_types, path: 'tipos_de_estudio', only: [:index, :create, :update, :destroy]
   resources :working_weeks, path: 'horarios', only: [:index, :create, :update]
   resources :working_days, only: [:update]
+
+  get 'medical_records/medical_record/:patient_id', to: 'medical_records#medical_record', as: :medical_record
+
   resources :appointments, path: 'citas'
   namespace :api do
     get 'appointments/:doctor_id', to: 'appointments#fetch_appointment_data'

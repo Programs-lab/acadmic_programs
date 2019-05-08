@@ -62,7 +62,7 @@ document.addEventListener('turbolinks:load', () => {
         var arrayHours = []
         var date = working_day.working_date
         var datetime = moment(`${date} ${hour}`)
-        if (datetime.isAfter(moment().add(1, 'day'))) {
+        if (datetime.isAfter(moment().add(23, 'hour'))) {
           var limit_datetime = moment(`${date} ${hour}`).add(1,'hour')
           var wh = working_day.working_hours
           for (var i = 0; i < wh.length; i++) {
@@ -71,7 +71,7 @@ document.addEventListener('turbolinks:load', () => {
             if (datetime.isBetween(initial_hour, end_hour, null, '[)')) {
               initial_hour = datetime
               while (initial_hour.isBefore(end_hour) && initial_hour.isBefore(limit_datetime)) {
-                if (this.isAvailableHour(initial_hour)) {
+                if (this.isAvailableHour(initial_hour) && initial_hour.isAfter(moment().add(1, 'day'))) {
                   arrayHours.push(initial_hour.format())
                 }
                 initial_hour.add(this.procedureDuration,'minutes')

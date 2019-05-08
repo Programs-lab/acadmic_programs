@@ -105,10 +105,10 @@ document.addEventListener('turbolinks:load', () => {
       fetchUser: function(){
         this.$http.get(`/api/appointments/${this.idNumber}/${this.idType}`).then(response => {
           this.patient = response.body[0]
-          this.firstNameValue = this.patient.first_name
-          this.lastNameValue = this.patient.last_name
-          this.phoneNumber = this.patient.phone_number
-          this.emailValue = this.patient.email
+          this.firstNameValue = this.patient != null ? this.patient.first_name : ''
+          this.lastNameValue = this.patient != null ? this.patient.last_name : ''
+          this.phoneNumber = this.patient != null ? this.patient.phone_number : ''
+          this.emailValue = this.patient != null ? this.patient.email : ''
         }, response => { console.log(response) });
       }
       ,
@@ -120,7 +120,7 @@ document.addEventListener('turbolinks:load', () => {
         var arrayHours = []
         var date = working_day.working_date
         var datetime = moment(`${date} ${hour}`)
-        if (datetime.isAfter(moment().add(1, 'day'))) {
+        if (datetime.isAfter(moment().add(23, 'hour'))) {
           var limit_datetime = moment(`${date} ${hour}`).add(1,'hour')
           var wh = working_day.working_hours
           for (var i = 0; i < wh.length; i++) {
@@ -129,7 +129,7 @@ document.addEventListener('turbolinks:load', () => {
             if (datetime.isBetween(initial_hour, end_hour, null, '[)')) {
               initial_hour = datetime
               while (initial_hour.isBefore(end_hour) && initial_hour.isBefore(limit_datetime)) {
-                if (this.isAvailableHour(initial_hour)) {
+                if (this.isAvailableHour(initial_hour) && initial_hour.isAfter(moment().add(1, 'day'))) {
                   arrayHours.push(initial_hour.format())
                 }
                 initial_hour.add(this.procedureDuration,'minutes')
@@ -211,7 +211,14 @@ document.addEventListener('turbolinks:load', () => {
      },
      schedule(){},
      idNumber(){
-       this.fetchUser()
+       if (this.idType != "") {
+         this.fetchUser()
+       }
+     },
+     idType(){
+       if (this.idNumber != "") {
+         this.fetchUser()
+       }
      },
      indexWeek(){
        this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
@@ -224,9 +231,11 @@ document.addEventListener('turbolinks:load', () => {
        if (this.patient != '' && this.patient != null) {
          this.passwordValue = "123123123"
          this.passwordConfirmationValue = this.passwordValue
-         document.getElementById("user_no_registered").setAttribute("action","/pages/update")
+         document.getElementById("user_no_registered").setAttribute("action","/appointments/update_appointment")
        }else{
-         document.getElementById("user_no_registered").setAttribute("action","/pages/create")
+         this.passwordValue = ""
+         this.passwordConfirmationValue = this.passwordValue
+         document.getElementById("user_no_registered").setAttribute("action","/appointments/create_appointment")
        }
      }
     },

@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:schedule_appointment_no_user, :create_appointment,          :update_appointment]
 
   def index
     @appointments = User.find(current_user.id).patient_appointments
@@ -30,7 +30,56 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def schedule_appointment_no_user
+    @doctor_id = User.where(role: :doctor).first.id
+    @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
+    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
+  end
+
+  def create_appointment
+    patient = User.new(user_params)
+    if patient.save
+      appointment = Appointment.create(appointments_params.merge({patient_id: patient.id, procedure_type_id: ProcedureType.all.first.id }))
+      patient.send_confirmation_instructions
+      redirect_to user_session_path, notice: 'Debe confirmar su cuenta antes de continuar'
+    else
+      redirect_to schedule_appointment_no_user_path, alert: 'No pudo ser registrado'
+    end
+  end
+
+  def update_appointment
+    patient = User.where(id_number: params[:appointment][:id_number]).first
+    appointments = patient.patient_appointments.where('appointment_datetime > ?', DateTime.now).any?
+
+    unless appointments
+      @appointment = Appointment.new(appointments_params.merge({patient_id: patient.id}))
+      if @appointment.save
+        redirect_to user_session_path, notice: 'Su cita ha sido creada, por favor inicie sesion para que se confirme'
+      else
+        redirect_to schedule_appointment_no_user_path, flash: {danger: 'Su cita no pudo ser creada, por favor intente de nuevo'}
+      end
+    else
+      redirect_to schedule_appointment_no_user_path, flash: {danger: 'No se pudo crear la cita debido a que tiene citas activas'}
+    end
+  end
+
   private
+
+  def user_params
+    params.require(:appointment).permit(
+      :first_name,
+      :last_name,
+      :id_type,
+      :id_number,
+      :occupation,
+      :address,
+      :birthdate,
+      :phone_number,
+      :email,
+      :password,
+      :password_confirmation
+    )
+  end
 
   def appointments_params
     params.require(:appointment).permit(

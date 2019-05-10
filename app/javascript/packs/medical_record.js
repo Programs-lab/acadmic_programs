@@ -1,9 +1,18 @@
 import Vue from 'vue/dist/vue.esm'
 import TurbolinksAdapter from 'vue-turbolinks';
+import VueMoment from 'vue-moment';
+import moment from 'moment';
 Vue.use(TurbolinksAdapter)
+Vue.use(VueMoment, { moment } );
+moment.locale('es')
 
 document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('medical_record')) {
+    var appointment = JSON.parse(document.getElementById("medical_record_form").getAttribute('appointment'))
+    if (JSON.stringify(appointment) == "{}") {
+      appointment['id'] = ""
+      appointment['appointment_datetime'] = moment().format()
+    }
     var app = new Vue({
       el: '#medical_record',
       data: {
@@ -13,6 +22,7 @@ document.addEventListener('turbolinks:load', () => {
         algo: false,
         tabItems: {},
         modal2: {},
+        appointment: appointment
       },
       methods: {
         modalId(i){
@@ -20,18 +30,6 @@ document.addEventListener('turbolinks:load', () => {
         },
         showText(){
           this.show =! this.show
-          setTimeout(function () {
-            tinyMCE.init({
-              selector: 'textarea',
-              plugins: 'paste print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
-              toolbar: 'fullscreen | formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat | addcomment',
-              image_advtab: true,
-              paste_data_images: true,
-              width: '100%',
-              height: 409,
-              language: 'es_MX'
-            })
-          }, 10);
         },
         showMedicalRecord(){
           this.showM =! this.showM

@@ -21,6 +21,23 @@
 $( document ).on('turbolinks:load',function() {
   setTimeout(function () {
     tinyMCE.init({
+      selector: 'textarea.content-no-editable',
+      plugins: 'fullscreen print',
+      toolbar: 'fullscreen print',
+      menubar: false,
+      image_advtab: true,
+      paste_data_images: true,
+      width: '100%',
+      height: 409,
+      language: 'es_MX',
+      readonly: 1
+    })
+  }, 10);
+});
+
+$( document ).on('turbolinks:load',function() {
+  setTimeout(function () {
+    tinyMCE.init({
       selector: 'textarea',
       plugins: 'paste print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
       toolbar: 'fullscreen | formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',

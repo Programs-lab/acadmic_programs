@@ -8,9 +8,9 @@
 
 admin = User.create(first_name: "Cristian", last_name: "Peñaranda", id_number: "1090534221", email: "cristian999@gmail.com", password: "123123123", password_confirmation: "123123123", role: 'admin', confirmed_at: Date.today)
 
-patient_1 = User.create(first_name: "Mark", last_name: "Brown", id_number: "1090534222", email: "markpatient999@gmail.com", password: "123123123", password_confirmation: "123123123", confirmed_at: Date.today)
+patient_1 = User.create(first_name: "Mark", last_name: "Brown", id_number: "1090534222", email: "markpatient999@gmail.com", password: "123123123", password_confirmation: "123123123", id_type: "CC" ,confirmed_at: Date.today)
 
-patient_2 = User.create(first_name: "Mark", last_name: "Brown", id_number: "1090534223", email: "markpatient999@gmail.com", password: "123123123", password_confirmation: "123123123", confirmed_at: Date.today)
+patient_2 = User.create(first_name: "Mark", last_name: "Brown", id_number: "1090534223", email: "markpatient999@gmail.com", password: "123123123", password_confirmation: "123123123", id_type: "CC", confirmed_at: Date.today)
 
 doctor = User.create(first_name: "Jose", last_name: "Peñaranda", id_number: "1090534224", email: "josedoctor999@gmail.com", password: "123123123", password_confirmation: "123123123", role: 'doctor', confirmed_at: Date.today)
 

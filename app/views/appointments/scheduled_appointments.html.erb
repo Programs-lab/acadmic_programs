@@ -33,12 +33,12 @@
             {{ $moment("<%= appointment.appointment_datetime %>").format("hh:mm a") }}
           </div>
           <div class="flex w-1/3 pl-8">
-            <a class="btn btn-primary mr-1" href="#">
+            <%= link_to medical_record_path(appointment.patient, appointment), class: 'btn btn-primary mr-1' do %>
               <%= icon('fas','paper-plane', class: 'fa-xs')%>
-            </a>
-            <a class="btn btn-red-light" href="#">
+            <% end %>
+            <%= link_to "#", class: 'btn btn-red-light' do %>
               <%= icon('fas','ban', class: 'fa-xs')%>
-            </a>
+            <% end %>
           </div>
         </div>
       </div>

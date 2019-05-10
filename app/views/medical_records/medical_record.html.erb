@@ -5,7 +5,7 @@
     <div class="w-1/3 text-right">
     </div>
   </div>
-  <div id="medical_record" class="w-full px-4">
+  <div id="medical_record" class="w-full px-4" v-cloak>
     <div class="my-4 flex">
       <div class="w-1/2">
         <h4 class="font-semibold text-g-d4 text-lg">
@@ -49,18 +49,45 @@
         </div>
       </div>
       <div class="divider"></div>
+      <%= form_for('medical_record', url: create_medical_record_path(patient_id: @patient.id), method: :post, class: "w-full",
+      html: { id: "medical_record_form",
+              'appointment' =>  @appointment ? @appointment.to_json(only: [:id, :appointment_datetime]) : {}
+      }) do |f| %>
       <div class="flex w-full items-center mb-6">
         <div class="flex w-1/2 justify-start text-grey-darker" v-if="show">
             <%= icon('fas','calendar-day', class:'fa-md mr-2')%>
-            <span><%= Date.today %></span>
+            <span>{{$moment(appointment.appointment_datetime).format("MMMM Do YYYY")}}</span>
+
+            <%= f.hidden_field :appointment_datetime, ":value" => "appointment.appointment_datetime"%>
+            <%= f.hidden_field :appointment_id, ":value" => "appointment.id"%>
         </div>
         <div class="flex w-full justify-end">
-          <a @click="showText">
-            <%= icon('fas',"", class: 'btn cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'", ":class" => "classIconButton")%>
-          </a>
+          <div class="flex w-1/5 justify-end text-grey-darker" v-if="show">
+              <a class="btn btn-primary" id="myBtn" @click="modalId('1')">
+                <%= icon('fas','save', class:'fa-md')%>
+              </a>
+              <modal-vue i="1" style_modal="width: 80%;">
+                <template v-slot:title>
+                  <h3>Diagnostico medico</h3>
+                </template>
+                <template v-slot:content>
+                  Esta seguro que desea guardar el diagnostico medico para <%= @patient.first_name %>, recuerde
+                  que esta acción es inmodificable.
+                </template>
+                <template v-slot:footer>
+                  <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('1')">Cancelar</button>
+                  <button type="submit" name="button" class="btn btn-primary">Guardar</button>
+                </template>
+              </modal-vue>
+          </div>
+          <div class="flex w-16 justify-end text-grey-darker">
+            <a @click="showText">
+              <%= icon('fas',"", class: 'btn cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'", ":class" => "classIconButton")%>
+            </a>
+          </div>
         </div>
       </div>
-      <div id="tab_vue" v-if="show">
+      <div id="tab_vue" v-show="show">
         <tab-vue :ids="[1,2,3,4,5,6]">
           <template #1>
             <%= icon('fas','file-alt', class: 'fa-md')%>
@@ -89,12 +116,12 @@
           </template>
           <template #content1>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea class="flex w-full border-t-4 border-primary rounded-t"></textarea>
+              <textarea class="flex w-full border-t-4 border-primary rounded-t" name="medical_record[diagnosis]"></textarea>
             </div>
           </template>
           <template #content2>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea>
+              <textarea name="medical_record[medical_order]">
                 <table class="table" width="100%">
                   <thead>
                     <tr>
@@ -116,7 +143,7 @@
           </template>
           <template #content3>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea>
+              <textarea name="medical_record[examination_request]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -134,7 +161,7 @@
           </template>
           <template #content4>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea>
+              <textarea name="medical_record[reference]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -152,7 +179,7 @@
           </template>
           <template #content5>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea>
+              <textarea name="medical_record[medical_disability]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -181,6 +208,7 @@
           </template>
         </tab-vue>
       </div>
+      <% end %>
       <div class="divider"></div>
       <div class="flex w-full justify-end">
         <a class="btn btn-secondary" @click="showMedicalRecord">
@@ -195,158 +223,97 @@
               <span class="font-medium text-sm text-g-d2">Historial medico de Mark</span>
             </h4>
           </div>
-          <div class="w-1/2">
-
-          </div>
         </div>
         <br>
         <div class="row justify-center">
-          <collapse-vue i="myCollpase">
-            <template v-slot:title-left>
-              <%= icon('fas','file-medical', class: 'fa-md mr-4') %>
-              <span>20-12-1028</span>
-            </template>
-            <template v-slot:content>
-              <div id="tab_vue">
-                <tab-vue :ids="[1,2,3,4,5,6]">
-                  <template #1>
-                    <%= icon('fas','file-alt', class: 'fa-md')%>
-                    Diagnostico
-                  </template>
-                  <template #2>
-                    <%= icon('fas','list', class: 'fa-md')%>
-                    Ord Medica
-                  </template>
-                  <template #3>
-                    <%= icon('fas','file', class: 'fa-md')%>
-                    Sol Examen
-                  </template>
-                  <template #4>
-                    <%= icon('fas','address-book', class: 'fa-md')%>
-                    Referencias
-
-                  </template>
-                  <template #5>
-                    <%= icon('fas','wheelchair', class: 'fa-md')%>
-                    Incapacidad
-                  </template>
-                  <template #6>
-                    <%= icon('fas','upload', class: 'fa-md')%>
-                    Carga Archivos
-                  </template>
-                  <template #content1>
-                    <div class="flex w-full border-t-4 border-primary rounded-t">
-                      <textarea class="flex w-full border-t-4 border-primary rounded-t"></textarea>
-                    </div>
-                  </template>
-                  <template #content2>
-                    <div class="flex w-full border-t-4 border-primary rounded-t">
-                      <textarea>
-                        <table class="table" width="100%">
-                          <thead>
-                            <tr>
-                              <th scope="col">Nombre</th>
-                              <th scope="col">Posologia</th>
-                              <th scope="col">Cantidad</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </textarea>
-                    </div>
-                  </template>
-                  <template #content3>
-                    <div class="flex w-full border-t-4 border-primary rounded-t">
-                      <textarea>
-                        <table class="table" width="100%">
-                          <tbody>
-                            <tr>
-                              <th scope="row" width="40%">Examen a realizar</th>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Datos clinicos</th>
-                              <td></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </textarea>
-                    </div>
-                  </template>
-                  <template #content4>
-                    <div class="flex w-full border-t-4 border-primary rounded-t">
-                      <textarea>
-                        <table class="table" width="100%">
-                          <tbody>
-                            <tr>
-                              <th scope="row" width="40%">Especialidad a referenciar</th>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Datos clinicos</th>
-                              <td></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </textarea>
-                    </div>
-                  </template>
-                  <template #content5>
-                    <div class="flex w-full border-t-4 border-primary rounded-t">
-                      <textarea>
-                        <table class="table" width="100%">
-                          <tbody>
-                            <tr>
-                              <th scope="row" width="40%">Fecha de inicio de incapacidad</th>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Dias de incapacidad</th>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Diagnostico</th>
-                              <td></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Recomendaciones/observaciones</th>
-                              <td></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </textarea>
-                    </div>
-                  </template>
-                  <template #content6>
-                    cargar archivos
-                  </template>
-                </tab-vue>
+          <% unless @appointment_reports.any? %>
+          <div class="alert alert-info w-full" role="alert" v-cloak>
+            <div class="flex">
+              <%= icon('fa', 'info-circle', class: 'mr-3 fa-2x') %>
+              <div class="text-teal-darkest w-1/2">
+                <p class="font-bold">Atención.</p>
+                <p class="text-sm">Este paciente aun no tiene un historial clínico</p>
               </div>
-              <div class="flex w-16 justify-end items-center px-4">
-                <a id="myBtn" @click="modalId('1')">
-                  <%= icon('fas','edit', class: 'fa-md')%>
-                </a>
-              </div>
-              <modal-vue i="1">
-                <template v-slot:title>
-                  <h1>Hola </h1>
-                </template>
-                <template v-slot:content>
-                  CONTENIDO
-                </template>
-                <template v-slot:footer>
-                  <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
-                </template>
-              </modal-vue>
-            </template>
-          </collapse-vue>
+            </div>
+          </div>
+          <% end %>
+          <% @appointment_reports.each_with_index do |appointment_report, index|%>
+            <collapse-vue i="myCollpase<%= index %>">
+              <template v-slot:title-left>
+                <%= icon('fas','file-medical', class: 'fa-md mr-4') %>
+                <span>{{$moment("<%= appointment_report.appointment_datetime %>").format("MMMM Do YYYY")}}</span>
+              </template>
+              <template v-slot:content>
+                <div id="tab_vue">
+                  <tab-vue :ids="[1,2,3,4,5,6]">
+                    <template #1>
+                      <%= icon('fas','file-alt', class: 'fa-md')%>
+                      Diagnostico
+                    </template>
+                    <template #2>
+                      <%= icon('fas','list', class: 'fa-md')%>
+                      Ord Medica
+                    </template>
+                    <template #3>
+                      <%= icon('fas','file', class: 'fa-md')%>
+                      Sol Examen
+                    </template>
+                    <template #4>
+                      <%= icon('fas','address-book', class: 'fa-md')%>
+                      Referencias
 
+                    </template>
+                    <template #5>
+                      <%= icon('fas','wheelchair', class: 'fa-md')%>
+                      Incapacidad
+                    </template>
+                    <template #6>
+                      <%= icon('fas','upload', class: 'fa-md')%>
+                      Carga Archivos
+                    </template>
+                    <template #content1>
+                      <div class="flex w-full border-t-4 border-primary rounded-t">
+                        <textarea class="content-no-editable">
+                          <%= appointment_report.diagnosis %>
+                        </textarea>
+                      </div>
+                    </template>
+                    <template #content2>
+                      <div class="flex w-full border-t-4 border-primary rounded-t">
+                        <textarea class="content-no-editable">
+                          <%= appointment_report.medical_order %>
+                        </textarea>
+                      </div>
+                    </template>
+                    <template #content3>
+                      <div class="flex w-full border-t-4 border-primary rounded-t">
+                        <textarea class="content-no-editable">
+                          <%= appointment_report.examination_request %>
+                        </textarea>
+                      </div>
+                    </template>
+                    <template #content4>
+                      <div class="flex w-full border-t-4 border-primary rounded-t">
+                        <textarea class="content-no-editable">
+                          <%= appointment_report.reference %>
+                        </textarea>
+                      </div>
+                    </template>
+                    <template #content5>
+                      <div class="flex w-full border-t-4 border-primary rounded-t">
+                        <textarea class="content-no-editable">
+                          <%= appointment_report.medical_disability %>
+                        </textarea>
+                      </div>
+                    </template>
+                    <template #content6>
+                      cargar archivos
+                    </template>
+                  </tab-vue>
+                </div>
+              </template>
+            </collapse-vue>
+          <% end %>
         </div>
       </div>
     </div>

@@ -16,9 +16,9 @@ module ApplicationHelper
   end
 
   def is_patients_path
-    case request.path
-    when '/admin/pacientes' then 'active'
-    when '/pages/medical_record' then 'active'
+    case request.params[:controller]
+    when 'admin/users' then 'active'
+    when 'medical_records' then 'active'
     end
   end
 

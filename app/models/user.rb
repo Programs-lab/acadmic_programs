@@ -14,7 +14,6 @@ class User < ApplicationRecord
          :timeoutable, reconfirmable: true
   enum role: [:patient, :doctor, :admin]
   belongs_to :company, optional: true
-  belongs_to :medical_record
   has_many :doctor_appointments, class_name: 'Appointment', foreign_key: 'doctor_id'
   has_many :doctor_working_weeks, class_name: 'WorkingWeek', foreign_key: 'doctor_id'
   has_many :patient_appointments, class_name: 'Appointment', foreign_key: 'patient_id'

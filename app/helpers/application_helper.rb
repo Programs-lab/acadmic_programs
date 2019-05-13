@@ -9,9 +9,8 @@ module ApplicationHelper
   end
 
   def is_users_path
-    case request.path
-    when '/admin/usuarios' then 'active'
-    when '/' then 'active'
+    case request.params[:controller]
+    when 'admin/users' then 'active'
     end
   end
 

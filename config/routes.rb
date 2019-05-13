@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   namespace :api do
     get 'appointments/:doctor_id', to: 'appointments#fetch_appointment_data'
     get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
+    get 'appointments/working_hours/:wh_id/', to: 'appointments#is_available_working_hour'
   end
 
   get 'appointments/schedule_appointment_no_user', to: 'appointments#schedule_appointment_no_user', as: :schedule_appointment_no_user

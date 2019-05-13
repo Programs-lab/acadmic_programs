@@ -16,6 +16,10 @@ Vue.use(vClickOutside)
 Vue.use(VueResource)
 Vue.use(Vuelidate)
 Vue.use(VueMoment, {moment})
+const after = (params) =>
+  (value) => moment(value).isAfter(params)
+const before = (params) =>
+  (value) => moment(value).isBefore(params)
 
 document.addEventListener('turbolinks:load', () => {
   var element = document.getElementById('working_week_index')
@@ -23,16 +27,17 @@ document.addEventListener('turbolinks:load', () => {
 
 
   moment.locale('es')
+  var i = parseInt(element.dataset.index) || 0
   var weeks = JSON.parse(element.dataset.weeks)
   var user_id = element.dataset.userId
   var pt = JSON.parse(element.dataset.procedureTypes)
   if (weeks.length === 0) {
     var date = moment()
     var new_week = []
-    for (var i = 1; i < 6; i++){
+    for (var j = 1; j < 6; j++){
       new_week.push({
         id: null,
-        working_date: moment().day(i),
+        working_date: moment().day(j),
         working_hours: []
       })
     }
@@ -62,11 +67,14 @@ document.addEventListener('turbolinks:load', () => {
   var app = new Vue({
     el: '#working_week_index',
     data: {
-      index: 0,
+      index: i,
       weeks: weeks,
-      week: weeks[0],
+      week: weeks[i],
+      last_week: weeks[weeks.length - 1],
       procedures: pt,
-      errors: false
+      errors: false,
+      modal2: {},
+      booleans: {}
     },
 
     validations: {
@@ -77,8 +85,18 @@ document.addEventListener('turbolinks:load', () => {
           $each: {
             working_hours_attributes: {
               $each: {
-                initial_hour: { required },
-                end_hour: { required },
+                initial_hour: { 
+                  required,
+                  isBefore: (value, working_hours_attribute) => {
+                    return moment(value).isSameOrBefore(working_hours_attribute.end_hour)
+                  }
+                },
+                end_hour: { 
+                  required,
+                  isBefore: (value, working_hours_attribute) => {
+                    return moment(value).isSameOrAfter(working_hours_attribute.initial_hour)
+                  }
+                },
                 procedure_type_id: { required }
               }
             }
@@ -87,7 +105,58 @@ document.addEventListener('turbolinks:load', () => {
       }
     },
 
+    watch: {
+      booleans(){}
+    },
+
     methods: {
+
+      modalId(i){
+        Vue.set(this.modal2, i , !this.modal2[i]);
+      },
+
+      disabled_working_hour(id){
+        if(id != null){
+          var disabled = false        
+          var self = this
+          self.$http.get(`api/appointments/working_hours/${id}`).then(response => {
+            disabled = response.body.disabled
+            Vue.set(this.booleans, id , disabled)}, response => {console.log(response)})
+          return this.booleans[id]
+        }
+        else {
+          return false
+        }
+      },
+
+      disabled_class_field(id){
+        var disabled = this.disabled_working_hour(id)
+        if (disabled) {
+        setTimeout(function(){ 
+          document.getElementById("timepicker_initial_" + id).setAttribute("disabled", "");
+          document.getElementById("timepicker_end_" + id).setAttribute("disabled", "");
+         }, 100);
+        }
+        else{
+          setTimeout(function(){ 
+            document.getElementById("timepicker_initial_" + id).removeAttribute("disabled");
+            document.getElementById("timepicker_end_" + id).removeAttribute("disabled");
+          }, 100);
+        }
+
+        return{
+          "disabled_form": disabled,
+          "": !disabled
+        }
+      },  
+
+      disabled_class_button(id){
+        var disabled = this.disabled_working_hour(id)
+        return{
+          "disabled": disabled,
+          "": !disabled
+        }
+      }, 
 
       nextWeek(){
         this.index += 1
@@ -100,7 +169,8 @@ document.addEventListener('turbolinks:load', () => {
       },
 
       addHour(id) {
-        this.week.working_days_attributes[id].working_hours_attributes.push({
+        var week_to_update = (this.modal2["update"] === true) ? this.last_week : this.week
+        week_to_update.working_days_attributes[id].working_hours_attributes.push({
           id: null,
           initial_hour: '',
           end_hour: '',
@@ -110,31 +180,34 @@ document.addEventListener('turbolinks:load', () => {
         })
       },
       removeHour(d_id, id) {
-        var hour = this.week.working_days_attributes[d_id].working_hours_attributes[id]
+        var week_to_update = (this.modal2["update"] === true) ? this.last_week : this.week
+        var hour = week_to_update.working_days_attributes[d_id].working_hours_attributes[id]
 
         if (hour.id == null) {
-          this.week.working_days_attributes[d_id].working_hours_attributes.splice(id, 1);
+          week_to_update.working_days_attributes[d_id].working_hours_attributes.splice(id, 1);
         } else {
-          this.week.working_days_attributes[d_id].working_hours_attributes[id]._destroy = '1'
+          week_to_update.working_days_attributes[d_id].working_hours_attributes[id]._destroy = '1'
         }
       },
       undoRemove(d_id, id){
-        this.week.working_days_attributes[d_id].working_hours_attributes[id]._destroy = null
+        var week_to_update = (this.modal2["update"] === true) ? this.last_week : this.week
+        week_to_update.working_days_attributes[d_id].working_hours_attributes[id]._destroy = null
       },
 
       saveWeek(){
-        if (this.$v.week.$invalid) {
+        var week_to_update = (this.modal2["update"] === true) ? this.last_week : this.week
+        if (false) {
           this.errors = true
         }
         else {
         var self = this
-        if (self.week.id !== null) {
-        self.$http.put("horarios/" + self.week.id, {working_week: self.week}).then(response => {
-          Turbolinks.visit(window.location)}, response => {console.log(response)
+        if (week_to_update.id !== null) {
+        self.$http.put("horarios/" + week_to_update.id, {working_week: week_to_update}).then(response => {
+          Turbolinks.visit(location.origin + location.pathname + "?index=" + self.index)}, response => {console.log(response)
           })
         }
         else {
-         self.$http.post("horarios", {working_week: self.week}).then(response => {
+         self.$http.post("horarios", {working_week: week_to_update}).then(response => {
           Turbolinks.visit(window.location)}, response => {console.log(response)
           }) 
         }

@@ -15,9 +15,9 @@ module ApplicationHelper
   end
 
   def is_patients_path
-    case request.path
-    when '/admin/pacientes' then 'active'
-    when '/pages/medical_record' then 'active'
+    case request.params[:controller]
+    when 'admin/users' then 'active'
+    when 'medical_records' then 'active' if request.params[:action] == 'medical_record'
     end
   end
 
@@ -25,14 +25,20 @@ module ApplicationHelper
     case request.path
     when '/pages/appointment' then 'active'
     when '/citas' then 'active'
+    when '/citas/new' then 'active'
     when '/pages/schedule_appointment' then 'active'
-    when '/pages/schedule_appointment_no_user' then 'active'
+    end
+  end
+
+  def is_medical_record_path
+    case request.path
+    when '/historial_medico' then 'active'
     end
   end
 
   def is_schedule_path
     case request.path
-    when '/pages/schedule' then 'active'
+    when '/appointments/scheduled_appointments' then 'active'
     end
   end
 
@@ -42,7 +48,7 @@ module ApplicationHelper
     end
   end
 
-  def is_medical_record_path
+  def is_patient_medical_record_path
     case request.path
     when '/pages/medical_record' then 'active'
     end
@@ -98,14 +104,14 @@ module ApplicationHelper
           working_days_attributes[i]["working_date"] = next_week[i]
 
           day.working_hours.each_with_index do |hour, n|
-             
+
              working_hours_attributes[n] = hour.attributes.except!("id", "created_at", "updated_at", "working_day_id")
              binding.pry
              working_hours_attributes[n]["initial_hour"] = DateTime.parse("#{day["working_date"].to_s} #{DateTime.parse(hour["initial_hour"].to_s).strftime("%H:%M%p")} -0500")
              working_hours_attributes[n]["end_hour"] = DateTime.parse("#{day["working_date"].to_s} #{DateTime.parse(hour["end_hour"].to_s).strftime("%H:%M%p")} -0500")
              working_days_attributes[i]["working_hours_attributes"] = {}
              working_days_attributes[i]["working_hours_attributes"][n] = working_hours_attributes[n]
-          end          
+          end
         end
 
         new_week_attrs["working_days_attributes"] = working_days_attributes

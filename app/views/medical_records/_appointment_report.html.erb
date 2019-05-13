@@ -1,0 +1,90 @@
+<collapse-vue i="myCollpase<%= index %>">
+  <template v-slot:title-left>
+    <div class="flex w-full justify-between ">
+      <div class="flex w-2/6">
+        <%= icon('fas','file-medical', class: 'fa-md mr-2') %>
+        <span>{{$moment("<%= appointment_report.appointment_datetime %>").format("MMMM Do YYYY")}}</span>
+      </div>
+      <div class="flex w-2/6">
+        <%= icon('fas','medkit', class: 'fa-md mr-2') %>
+        <span>
+          <%=
+            appointment_report.appointment ? appointment_report.appointment.procedure_type.procedure_type_name : "-"
+          %>
+        </span>
+      </div>
+      <div class="flex w-2/6">
+        <%= icon('fas','user-md', class: 'fa-md mr-2') %>
+        <span><%= "Dr. #{appointment_report.doctor.first_name}" %></span>
+      </div>
+    </div>
+  </template>
+  <template v-slot:content>
+    <div id="tab_vue">
+      <tab-vue :ids="[1,2,3,4,5,6]">
+        <template #1>
+          <%= icon('fas','file-alt', class: 'fa-md')%>
+          Diagnostico
+        </template>
+        <template #2>
+          <%= icon('fas','list', class: 'fa-md')%>
+          Ord Medica
+        </template>
+        <template #3>
+          <%= icon('fas','file', class: 'fa-md')%>
+          Sol Examen
+        </template>
+        <template #4>
+          <%= icon('fas','address-book', class: 'fa-md')%>
+          Referencias
+
+        </template>
+        <template #5>
+          <%= icon('fas','wheelchair', class: 'fa-md')%>
+          Incapacidad
+        </template>
+        <template #6>
+          <%= icon('fas','upload', class: 'fa-md')%>
+        </template>
+        <template #content1>
+          <div class="flex w-full border-t-4 border-primary rounded-t">
+            <textarea class="content-no-editable">
+              <%= appointment_report.diagnosis %>
+            </textarea>
+          </div>
+        </template>
+        <template #content2>
+          <div class="flex w-full border-t-4 border-primary rounded-t">
+            <textarea class="content-no-editable">
+              <%= appointment_report.medical_order %>
+            </textarea>
+          </div>
+        </template>
+        <template #content3>
+          <div class="flex w-full border-t-4 border-primary rounded-t">
+            <textarea class="content-no-editable">
+              <%= appointment_report.examination_request %>
+            </textarea>
+          </div>
+        </template>
+        <template #content4>
+          <div class="flex w-full border-t-4 border-primary rounded-t">
+            <textarea class="content-no-editable">
+              <%= appointment_report.reference %>
+            </textarea>
+          </div>
+        </template>
+        <template #content5>
+          <div class="flex w-full border-t-4 border-primary rounded-t">
+            <textarea class="content-no-editable">
+              <%= appointment_report.medical_disability %>
+            </textarea>
+          </div>
+        </template>
+        <template #content6>
+          cargar archivos
+        </template>
+      </tab-vue>
+    </div>
+  </template>
+</collapse-vue>

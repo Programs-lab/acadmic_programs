@@ -23,9 +23,20 @@
     <div class="flex w-full mb-4">
       <span class="font-medium text-sm text-g-d2">Citas por asistir</span>
     </div>
+    <% unless @appointments.any? %>
+    <div id="flash" class="alert alert-info" role="alert" v-cloak>
+      <div class="flex">
+        <%= icon('fa', 'info-circle', class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest w-1/2">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm">No tiene citas activas.</p>
+        </div>
+      </div>
+    </div>
+    <% end %>
     <% @appointments.each do |appointment| %>
     <div class="flex flex-wrap w-full justify-between mb-2">
-      <div class="flex w-2/5 items-center">
+      <div class="flex w-1/5 items-center">
         <%= icon('fas','calendar', class: 'fa-md mr-2')%>
         <p><%= appointment.appointment_datetime.strftime("%d %B %Y") %></p>
       </div>
@@ -37,7 +48,7 @@
         <%= icon('fas','medkit', class: 'fa-md mr-2')%>
         <p><%= appointment.procedure_type.procedure_type_name%></p>
       </div>
-      <div class="flex w-32 justify-end">
+      <div class="flex w-1/5 justify-end">
         <%= link_to appointment_path(appointment), method: :delete, class: "btn btn-secondary" do %>
           <%= icon('fas','calendar-times', class: 'fa-md')%>
         <% end %>
@@ -48,21 +59,32 @@
     <div class="flex w-full mb-4">
       <span class="font-medium text-sm text-g-d2">Historial de citas</span>
     </div>
-    <% 10.times.each do |v| %>
+    <% unless @appointment_history.any? %>
+    <div id="" class="alert alert-info" role="alert" v-cloak>
+      <div class="flex">
+        <%= icon('fa', 'info-circle', class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest w-1/2">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm">No existen citas en su historial medico.</p>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <% @appointment_history.each do |appointment| %>
     <div class="flex flex-wrap w-full justify-between mb-2">
-      <div class="flex w-2/5 items-center">
+      <div class="flex w-1/5 items-center">
         <%= icon('fas','calendar', class: 'fa-md mr-2')%>
-        <p>Martes <%= Date.today.strftime("%d %B %Y") %></p>
+        <p><%= appointment.appointment_datetime.strftime("%d %B %Y") %></p>
       </div>
       <div class="flex w-1/5 items-center">
         <%= icon('fas','clock', class: 'fa-md mr-2')%>
-        <%= Date.today.strftime("%I:%M %P") %>
+        <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
       </div>
       <div class="flex w-1/5 items-center">
         <%= icon('fas','medkit', class: 'fa-md mr-2')%>
-        <p>Colonoscopia <%= v %></p>
+        <p><%= appointment.appointment ? appointment.appointment.procedure_type.procedure_type_name : "-" %></p>
       </div>
-      <div class="flex w-32 justify-end">
+      <div class="flex w-1/5 justify-end">
         <%= link_to "#", class: "btn btn-secondary w-12 text-center mr-1" do %>
           <%= icon('fas','info', class: 'fa-md')%>
         <% end %>

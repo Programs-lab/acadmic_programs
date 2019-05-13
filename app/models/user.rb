@@ -16,6 +16,7 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   has_many :doctor_appointments, class_name: 'Appointment', foreign_key: 'doctor_id'
   has_many :doctor_working_weeks, class_name: 'WorkingWeek', foreign_key: 'doctor_id'
+  has_many :doctor_appointment_reports, class_name: 'AppointmentReport', foreign_key: 'doctor_id'
   has_many :patient_appointments, class_name: 'Appointment', foreign_key: 'patient_id'
   has_many :patient_medical_records, class_name: 'MedicalRecord', foreign_key: 'patient_id'
   has_one_attached :avatar

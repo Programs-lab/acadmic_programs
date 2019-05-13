@@ -30,6 +30,9 @@ require('./procedure_types');
 require('./medical_record');
 require('./working_weeks');
 require('./user_no_registered');
+require('./appointments');
+require('./scheduled_appointments');
+require('./medical_record_index');
 
 //components
 

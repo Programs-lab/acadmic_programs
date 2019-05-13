@@ -141,6 +141,22 @@
     </div>
     <% end %>
   <% end %>
+
+  <!-- Option -->
+  <% if policy(MedicalRecord).index? %>
+    <%= link_to(medical_records_path, class: "no-underline") do %>
+    <div class="list-group-item <%= is_medical_record_path %>">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','history', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Historial clínico</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
 </div>
 
 </div>

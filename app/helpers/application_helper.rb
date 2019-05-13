@@ -18,7 +18,7 @@ module ApplicationHelper
   def is_patients_path
     case request.params[:controller]
     when 'admin/users' then 'active'
-    when 'medical_records' then 'active'
+    when 'medical_records' then 'active' if request.params[:action] == 'medical_record'
     end
   end
 
@@ -26,7 +26,14 @@ module ApplicationHelper
     case request.path
     when '/pages/appointment' then 'active'
     when '/citas' then 'active'
+    when '/citas/new' then 'active'
     when '/pages/schedule_appointment' then 'active'
+    end
+  end
+
+  def is_medical_record_path
+    case request.path
+    when '/historial_medico' then 'active'
     end
   end
 
@@ -42,7 +49,7 @@ module ApplicationHelper
     end
   end
 
-  def is_medical_record_path
+  def is_patient_medical_record_path
     case request.path
     when '/pages/medical_record' then 'active'
     end

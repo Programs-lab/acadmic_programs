@@ -2,7 +2,9 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!, except: [:schedule_appointment_no_user, :create_appointment,          :update_appointment]
 
   def index
-    @appointments = User.find(current_user.id).patient_appointments
+    patient = User.find(current_user.id)
+    @appointments = patient.patient_appointments.where(attended: false)
+    @appointment_history = AppointmentReport.where.not(appointment_id: @appointments.pluck(:id))
   end
 
   def new
@@ -64,7 +66,7 @@ class AppointmentsController < ApplicationController
   end
 
   def scheduled_appointments
-    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ?', DateTime.now)
+    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false)
   end
 
   private

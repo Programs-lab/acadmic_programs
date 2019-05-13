@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   resources :working_weeks, path: 'horarios', only: [:index, :create, :update]
   resources :working_days, only: [:update]
 
-  get "medical_records/medical_record/:patient_id(/:appointment_id)" , to: 'medical_records#medical_record', as: :medical_record
+  resources :medical_records, path: 'historial_medico'
+  get "medical_records/patient_record/:patient_id(/:appointment_id)" , to: 'medical_records#medical_record', as: :patient_medical_record
   post "medical_records/create_medical_record" , to: 'medical_records#create', as: :create_medical_record
 
   resources :appointments, path: 'citas'

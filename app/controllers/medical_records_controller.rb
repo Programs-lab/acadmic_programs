@@ -4,6 +4,12 @@ class MedicalRecordsController < ApplicationController
   before_action :set_appointment, only: :medical_record
   before_action :set_medical_record, only: :create
 
+  def index
+    @appointment_reports = AppointmentReport.all
+
+    authorize @appointment_reports
+  end
+
   def medical_record
     @appointment_reports = @patient.patient_medical_records.any? ? @patient.patient_medical_records.first.appointment_reports : []
   end
@@ -12,9 +18,9 @@ class MedicalRecordsController < ApplicationController
     @appointment_report = @medical_record.appointment_reports.new(appointment_report_params)
 
     if @appointment_report.save
-      redirect_to medical_record_path(@medical_record.patient_id), notice: "El diagnostico del paciente fue creado correctamente"
+      redirect_to patient_medical_record_path(@medical_record.patient_id), notice: "El diagnostico del paciente fue creado correctamente"
     else
-      redirect_to medical_record_path(@medical_record.patient_id), flash: { danger: "El diagnostico del paciente no pudo ser creado"}
+      redirect_to patient_medical_record_path(@medical_record.patient_id), flash: { danger: "El diagnostico del paciente no pudo ser creado"}
     end
   end
 
@@ -34,6 +40,7 @@ class MedicalRecordsController < ApplicationController
 
   def appointment_report_params
     params.require(:medical_record).permit(
+      :doctor_id,
       :appointment_id,
       :appointment_datetime,
       :diagnosis,

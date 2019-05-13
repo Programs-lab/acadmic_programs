@@ -1,4 +1,4 @@
-<%= render 'shared/card' do%>
+<%= render 'shared/card', return_path: request.referrer, has_return: true do%>
 <div class="flex flex-wrap px-4">
   <div class="flex felx-wrap mb-4">
     <div class="w-full">

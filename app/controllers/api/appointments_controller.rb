@@ -29,4 +29,12 @@ class Api::AppointmentsController < ApplicationController
 
     render json: @user
   end
+
+  def is_available_working_hour
+    working_hour = WorkingHour.find(params[:wh_id])
+    appointments = Appointment.where(appointment_datetime: working_hour.initial_hour..working_hour.end_hour)
+    render json: {disabled: appointments.any?}.to_json
+  end
+
+
 end

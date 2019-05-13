@@ -16,12 +16,14 @@ Rails.application.routes.draw do
   get 'companies/procedure_companies_update', to: 'companies#update_procedure_companies'
   resources :procedure_types, path: 'tipos_de_estudio', only: [:index, :create, :update, :destroy]
   resources :working_weeks, path: 'horarios', only: [:index, :create, :update]
+  put 'horarios/actualizar/:id', to: 'working_weeks#update_all'
   resources :working_days, only: [:update] 
   
   resources :appointments, path: 'citas'
   namespace :api do
     get 'appointments/:doctor_id', to: 'appointments#fetch_appointment_data'
-    get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
+    #get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
+    get 'appointments/working_hours/:wh_id/', to: 'appointments#is_available_working_hour'
   end
 
   root 'pages#home'

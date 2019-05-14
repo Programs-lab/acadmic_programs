@@ -4,7 +4,8 @@ class AppointmentsController < ApplicationController
   def index
     patient = User.find(current_user.id)
     @appointments = patient.patient_appointments.where(attended: false)
-    @appointment_history = AppointmentReport.where.not(appointment_id: @appointments.pluck(:id))
+    medical_record = patient.patient_medical_records.first
+    @appointment_history = medical_record ? medical_record.appointment_reports.where.not(appointment_id: @appointments.pluck(:id)) : []
   end
 
   def new
@@ -14,7 +15,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    appointments = current_user.patient_appointments.where('appointment_datetime > ?', DateTime.now).any?
+    appointments = current_user.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).any?
     @appointment = Appointment.new(appointments_params.merge({patient_id: current_user.id}))
     unless appointments
       if @appointment.save
@@ -51,7 +52,7 @@ class AppointmentsController < ApplicationController
 
   def update_appointment
     patient = User.where(id_number: params[:appointment][:id_number]).first
-    appointments = patient.patient_appointments.where('appointment_datetime > ?', DateTime.now).any?
+    appointments = patient.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).any?
 
     unless appointments
       @appointment = Appointment.new(appointments_params.merge({patient_id: patient.id}))

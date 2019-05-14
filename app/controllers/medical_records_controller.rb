@@ -5,7 +5,9 @@ class MedicalRecordsController < ApplicationController
   before_action :set_medical_record, only: :create
 
   def index
-    @appointment_reports = AppointmentReport.all
+    patient = current_user
+    medical_record = patient.patient_medical_records
+    @appointment_reports = AppointmentReport.where(medical_record_id: medical_record.pluck(:id))
 
     authorize @appointment_reports
   end

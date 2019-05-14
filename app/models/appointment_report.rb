@@ -7,6 +7,5 @@ class AppointmentReport < ApplicationRecord
 
   def attended_appointment
     self.appointment.update(attended: true) if self.appointment
-    binding.pry
   end
 end

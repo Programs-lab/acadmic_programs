@@ -9,8 +9,9 @@ class Appointment < ApplicationRecord
 
   def is_valid_record
     appointment_datetime = self.appointment_datetime
-    appointments_any = Appointment.where(appointment_datetime: appointment_datetime, attended: false, diabled: false).any?
+    appointments_any = Appointment.where(appointment_datetime: appointment_datetime, attended: false, disabled: false).any?
     datetime_between_working_hour = WorkingHour.where('initial_hour <= :date AND end_hour > :date', date: appointment_datetime).any?
+
     if appointments_any || !datetime_between_working_hour || DateTime.now >= appointment_datetime
       errors.add(:appointments, message: "there are not available appointments for this hour")
     end

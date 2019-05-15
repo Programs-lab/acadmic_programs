@@ -47,7 +47,7 @@
       <div class="flex flex-wrap w-full mb-4 justify-center" v-for="(hour, i) in hours">
         <dropdown-vue btn_class="btn-flat" dropdown_style="width: 70%;">
           <template #title>
-            <p :class="workingHours[index][i].length != 0 ? 'text-primary' : 'text-grey'">
+            <p :class="workingHours[index][i].length != 0 ? 'font-bold text-secondary' : 'text-grey'">
               {{ hour }}
             </p>
           </template>

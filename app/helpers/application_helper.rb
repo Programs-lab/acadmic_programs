@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
 
   def header(text)
     content_for(:header) { text.to_s }

@@ -60,6 +60,26 @@
     @apply .rounded-full .h-1 .w-1 .bg-red-light .ml-1;
   }
 
+  .pagy-link {
+    @apply .text-grey-darker .no-underline;
+
+    &:visited{
+      @apply .text-grey-darker;
+    }
+
+    &:active{
+      @apply .text-black;
+    }
+  }
+
+  .page {
+    @apply .text-lg .px-2 .py-1 .rounded-sm .flex .items-center;
+  }
+
+  .current {
+    @apply .bg-primary .font-hairline .text-white;
+  }
+
   #footer {
     position: fixed;
     width: 100%;

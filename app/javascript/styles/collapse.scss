@@ -8,11 +8,11 @@
 }
 
 .collapse-content{
-  overflow: hidden;  
+  overflow: hidden;
   @apply .bg-white .w-full .mx-4 .my-4 .mt-4;
 }
 
-.transform_collapse{
+.popup{
   transform: scale(1.05);
   transition: all 0.3s ease-in-out;
   margin-bottom: 40px;
@@ -20,7 +20,14 @@
   z-index: 1;
 }
 
-.transform_collapse_2{
+.semi_popup{
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  z-index: 1;
+}
+
+.popdown{
   transform: scale(1);
   transition: all 0.2s ease-in-out;
 }

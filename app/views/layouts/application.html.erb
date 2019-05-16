@@ -17,13 +17,11 @@
     <%= yield :top_content %>
 
   <div class="flex-grow">
-    <div class="container flex flex-wrap items-start mx-auto mt-6">
-      <div class="flex flex-wrap justify-center md:w-full">
+    <div class="container flex flex-wrap justify-center items-start mx-auto mt-6">
       <% if current_user %>
         <%= render "shared/menu" %>
       <% end %>
        <%= yield %>
-      </div>
     </div>
   </div>
 

@@ -1428,7 +1428,6 @@ clone-response@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone-response/-/clone-response-1.0.2.tgz#d1dc973920314df67fbeb94223b4ee350239e96b"
   integrity sha1-0dyXOSAxTfZ/vrlCI7TuNQI56Ws=
-
   dependencies:
     mimic-response "^1.0.0"
 
@@ -2071,10 +2070,16 @@ dot-prop@^4.1.1:
   dependencies:
     is-obj "^1.0.0"
 
+dropzone@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.5.1.tgz#06e2f513e61d6aa363d4b556f18574f47cf7ba26"
+  integrity sha512-3VduRWLxx9hbVr42QieQN25mx/I61/mRdUSuxAmDGdDqZIN8qtP7tcKMa3KfpJjuGjOJGYYUzzeq6eGDnkzesA==
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
+
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.7.1.tgz#2a4df5317f6ccfd91f86d6fd25d8d8a103b88309"
@@ -2640,7 +2645,6 @@ got@^8.0.3:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/got/-/got-8.3.2.tgz#1d23f64390e97f776cac52e5b936e5f514d2e937"
   integrity sha512-qjUJ5U/hawxosMryILofZCkm3C84PLJS/0grRIpjAwu+Lkxxj5cxeCU25BG0/3mDSpXKTyZr8oh8wIgLaH0QCw==
-
   dependencies:
     "@sindresorhus/is" "^0.7.0"
     cacheable-request "^2.1.1"
@@ -2706,7 +2710,6 @@ has-to-string-tag-x@^1.2.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/has-to-string-tag-x/-/has-to-string-tag-x-1.4.1.tgz#a045ab383d7b4b2012a00148ab0aa5f290044d4d"
   integrity sha512-vdbKfmw+3LoOYVr+mtxHaX5a96+0f3DljYd8JOqvOLsf5mw2Otda2qCDT9qRqLAhrjyQ0h7ual5nOiASpsGNFw==
-
   dependencies:
     has-symbol-support-x "^1.4.1"
 
@@ -2985,7 +2988,6 @@ into-stream@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/into-stream/-/into-stream-3.1.0.tgz#96fb0a936c12babd6ff1752a17d05616abd094c6"
   integrity sha1-lvsKk2wSur1v8XUqF9BWFqvQlMY=
-  
   dependencies:
     from2 "^2.1.1"
     p-is-promise "^1.1.0"
@@ -3161,7 +3163,6 @@ is-object@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-object/-/is-object-1.0.1.tgz#8952688c5ec2ffd6b03ecc85e769e02903083470"
   integrity sha1-iVJojF7C/9awPsyF52ngKQMINHA=
-
 
 is-path-cwd@^1.0.0:
   version "1.0.0"
@@ -3966,7 +3967,6 @@ normalize-url@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-2.0.1.tgz#835a9da1551fa26f70e92329069a23aa6574d7e6"
   integrity sha512-D6MUW4K/VzoJ4rJ01JFKxDrtY1v9wrgzCX5f2qj/lzH1m/lW6MhUZFKerVsnyjOhOsYzI9Kqqak+10l4LvLpMw==
-
   dependencies:
     prepend-http "^2.0.0"
     query-string "^5.0.1"
@@ -5081,7 +5081,6 @@ query-string@^5.0.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.1.1.tgz#a78c012b71c17e05f2e3fa2319dd330682efb3cb"
   integrity sha512-gjWOsm2SoGlgLEdAGt7a6slVOk9mGiXmPFMqrEhLQ68rhQuBnpfs3+EmlvqKyxnCo9/PPlF+9MtY02S1aFg+Jw==
-
   dependencies:
     decode-uri-component "^0.2.0"
     object-assign "^4.1.0"
@@ -5604,7 +5603,6 @@ sort-keys@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-2.0.0.tgz#658535584861ec97d730d6cf41822e1f56684128"
   integrity sha1-ZYU1WEhh7JfXMNbPQYIuH1ZoQSg=
-
   dependencies:
     is-plain-obj "^1.0.0"
 
@@ -6285,7 +6283,6 @@ vue-moment@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/vue-moment/-/vue-moment-4.0.0.tgz#20809d1e7d7fca63d556fb8d008b95993d32f5ea"
   integrity sha512-lNkEPuA3i3A4q4TDSwOXoRF4Y2vHHdaTOSvpPyGgxoFQP8n4sUh6jU5aJj3FIMlXo5UaHLPIz5hvvpvYx9Wj0w==
-
   dependencies:
     moment "^2.11.1"
 
@@ -6293,7 +6290,6 @@ vue-resource@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/vue-resource/-/vue-resource-1.5.1.tgz#0f3d685e3254d21800bebd966edcf56c34b3b6e4"
   integrity sha512-o6V4wNgeqP+9v9b2bPXrr20CGNQPEXjpbUWdZWq9GJhqVeAGcYoeTtn/D4q059ZiyN0DIrDv/ADrQUmlUQcsmg==
-
   dependencies:
     got "^8.0.3"
 
@@ -6326,6 +6322,13 @@ vue-turbolinks@^2.0.4:
   resolved "https://registry.yarnpkg.com/vue-turbolinks/-/vue-turbolinks-2.0.4.tgz#a64102b9641b2fc523570b84964620ea7b51aabb"
   dependencies:
     vue "^2.2.4"
+
+vue2-dropzone@^3.5.9:
+  version "3.5.9"
+  resolved "https://registry.yarnpkg.com/vue2-dropzone/-/vue2-dropzone-3.5.9.tgz#a63999a45a7aad24d4c21e3d35be409b4e6bdce8"
+  integrity sha512-nJz6teulVKlZIAeKgvPU7wBI/gzfIgqDOrEp1okSkQIkdprDVCoM0U7XWM0NOM4AAVX+4XGRtMoocYWdTYb3bQ==
+  dependencies:
+    dropzone "^5.5.1"
 
 vue@^2.2.1:
   version "2.6.10"

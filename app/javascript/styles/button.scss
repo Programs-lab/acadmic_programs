@@ -8,6 +8,10 @@
   &:focus {
     @apply .outline-none;
   }
+
+  &:visited {
+    @apply .text-black
+  }
 }
 
 .btn:focus{

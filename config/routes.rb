@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
     get 'appointments/horario/working_hours/:wh_id/', to: 'appointments#is_available_working_hour'
     post 'media/:id', to: 'media#create'
+    get  'media/:id', to: 'media#index'
+    delete  'media/:id', to: 'media#destroy'
   end
 
   get 'appointments/schedule_appointment_no_user', to: 'appointments#schedule_appointment_no_user', as: :schedule_appointment_no_user

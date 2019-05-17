@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_204355) do
+ActiveRecord::Schema.define(version: 2019_05_17_214609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -83,10 +83,10 @@ ActiveRecord::Schema.define(version: 2019_05_17_204355) do
 
   create_table "media", force: :cascade do |t|
     t.string "file_name"
-    t.bigint "appointment_report_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appointment_report_id"], name: "index_media_on_appointment_report_id"
+    t.bigint "medical_record_id"
+    t.index ["medical_record_id"], name: "index_media_on_medical_record_id"
   end
 
   create_table "medical_records", force: :cascade do |t|
@@ -195,7 +195,6 @@ ActiveRecord::Schema.define(version: 2019_05_17_204355) do
   add_foreign_key "appointment_reports", "medical_records"
   add_foreign_key "appointments", "procedure_types"
   add_foreign_key "files", "appointment_reports"
-  add_foreign_key "media", "appointment_reports"
   add_foreign_key "procedure_companies", "companies"
   add_foreign_key "procedure_companies", "procedure_types"
   add_foreign_key "working_days", "working_weeks"

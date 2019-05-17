@@ -4,13 +4,32 @@
     <%= form_for('appointment', url: create_appointment_user_path, method: :post, html: {id: "user_no_registered",'v-cloak' => true, 'doctor_id' => @doctor_id, 'procedure_types' => @procedure_types.to_json(only: [:id, :procedure_type_name, :procedure_duration]), 'unavailable_working_hours' => @unavailable_working_hours },  class: "w-full max-w-md") do |f| %>
    <nav-vue :ids="navIds" :nav="navIds[indexNav]">
      <template #1>
-       1. Cita
+       <div class="flex w-full items-center justify-center">
+         <span>
+           1. Cita
+         </span>
+         <div class="obligatory" v-if="appointmentHour == ''"></div>
+       </div>
      </template>
      <template #2>
-       2. Información
+       <div class="flex w-full items-center justify-center">
+         <span>
+           <div class="hidden md:block">
+             2. Información
+           </div>
+           <div class="block md:hidden">
+             2. Datos
+           </div>
+         </span>
+         <div class="obligatory" v-if="$v.$anyError || $v.$invalid"></div>
+       </div>
      </template>
      <template #3>
-       3. Confirmar
+       <div class="flex w-full items-center justify-center">
+         <span>
+           3. Confirmar
+         </span>
+       </div>
      </template>
      <template #content1 v-if="renderForm">
        <%= render 'calendar', f: f %>
@@ -56,7 +75,27 @@
           </div>
         </div>
         <div class="divider"></div>
-        <div class="flex justify-end w-full">
+        <div class="flex justify-end items-center w-full">
+          <div class="flex justify-start w-full">
+            <div class="p-1 pl-0 pt-2 text-red-light text-xs" v-if="validSubmit">
+              <i class="fas fa-exclamation-circle mr-1"></i>
+              <span>
+                Debe asegurarse de
+                <span v-if="$v.$anyError || $v.$invalid">
+                  completar los datos obligatorios de la seccion de informacion
+                </span>
+                <span v-if="appointmentHour == ''">
+                  {{($v.$anyError || $v.$invalid) && appointmentHour == '' ? "y" : ""}} seleccionar la hora de la cita.
+                </span>
+              </span>
+            </div>
+            <div class="p-1 pl-0 pt-2 text-teal text-xs" v-else>
+              <i class="fas fa-check-circle mr-1"></i>
+              <span>
+                Ya esta listo para registrar su cita.
+              </span>
+            </div>
+          </div>
           <div class="flex justify-end w-2/4 mr-1">
            <%= link_to("Cancelar", request.referer, class: "btn btn-secondary no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
           </div>

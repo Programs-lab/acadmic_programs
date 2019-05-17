@@ -18,6 +18,10 @@
       )
       %>
     </div>
+    <div class="error_form">
+      <i class="fas fa-exclamation-circle mr-1"></i>
+      <span>El campo es obligatorio.</span>
+    </div>
   </div>
   <div id="idNumberField" class="w-full md:w-1/2 px-3 focus_form">
     <div class="flex items-center w-full">
@@ -25,6 +29,10 @@
       <div class="obligatory"></div>
     </div>
     <%= f.number_field :id_number, class: 'field_input rounded-t', "v-model" => 'idNumber', "@input" => "fieldClass('idNumberField', $v.idNumber.$invalid), $v.idNumber.$touch()" %>
+    <div class="error_form">
+      <i class="fas fa-exclamation-circle mr-1"></i>
+      <span>El campo es obligatorio.</span>
+    </div>
   </div>
 </div>
 <div v-if="patient != ''">
@@ -35,6 +43,10 @@
         <div class="obligatory"></div>
       </div>
       <%= f.text_field :first_name, class: 'field_input rounded-t', "v-model" => "firstNameValue", "@input" => "fieldClass('firstNameField', $v.firstNameValue.$invalid), $v.firstNameValue.$touch()" %>
+      <div class="error_form">
+        <i class="fas fa-exclamation-circle mr-1"></i>
+        <span>El campo es obligatorio.</span>
+      </div>
     </div>
     <div id= "lasttNameField" class="w-full md:w-1/2 px-3 focus_form">
       <div class="flex items-center w-full">
@@ -42,6 +54,10 @@
         <div class="obligatory"></div>
       </div>
       <%= f.text_field :last_name, class: 'field_input rounded-t', "v-model" => "lastNameValue", "@input" => "fieldClass('lasttNameField', $v.lastNameValue.$invalid), $v.lastNameValue.$touch()" %>
+      <div class="error_form">
+        <i class="fas fa-exclamation-circle mr-1"></i>
+        <span>El campo es obligatorio.</span>
+      </div>
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-5">
@@ -86,6 +102,10 @@
         <div class="obligatory"></div>
       </div>
       <%= f.email_field :email, autocomplete: "email", class: 'field_input rounded-t', "v-model" => "emailValue", "@input" => "fieldClass('emailField', $v.emailValue.$invalid), $v.emailValue.$touch()" %>
+      <div class="error_form">
+        <i class="fas fa-exclamation-circle mr-1"></i>
+        <span>Debe ser un email valido.</span>
+      </div>
     </div>
   </div>
 </div>
@@ -97,6 +117,10 @@
         <div class="obligatory"></div>
       </div>
       <%= f.password_field :password, class: 'field_input rounded-t', "v-model" => "passwordValue", "@input" => "fieldClass('passwordField', $v.passwordValue.$invalid), $v.passwordValue.$touch()" %>
+      <div class="error_form">
+        <i class="fas fa-exclamation-circle mr-1"></i>
+        <span>Debe tener minimo 8 caracteres.</span>
+      </div>
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-6">
@@ -106,6 +130,10 @@
         <div class="obligatory"></div>
       </div>
       <%= f.password_field :password_confirmation, class: 'field_input rounded-t', "v-model" => "passwordConfirmationValue", "@input" => "fieldClass('passwordConfirmationField', $v.passwordConfirmationValue.$invalid), $v.passwordConfirmationValue.$touch()"%>
+      <div class="error_form">
+        <i class="fas fa-exclamation-circle mr-1"></i>
+        <span>Debe ser igual a la contraseña</span>
+      </div>
     </div>
   </div>
 </div>

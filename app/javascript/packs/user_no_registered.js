@@ -47,6 +47,7 @@ document.addEventListener('turbolinks:load', () => {
       workingHours: [],
       unavailableWorkingHours: "",
       schedule: [],
+      scheduleIndexs: [],
       holidays: module.getColombiaHolidaysByYear(2019),
       indexWeek: 0,
       hiddenDropdown: false,
@@ -168,7 +169,8 @@ document.addEventListener('turbolinks:load', () => {
         var schedule = this.schedule
         schedule[i][j][k] =! this.schedule[i][j][k]
         Vue.set(this.schedule, i, schedule[i])
-      },
+      }
+      ,
       changeNav: function(){
         this.indexNav += 1
         this.currentNav = this.navIds[this.indexNav]
@@ -194,7 +196,7 @@ document.addEventListener('turbolinks:load', () => {
         }
       },
       validSubmit: function(){
-        return this.anyError || this.invalid || this.appointmentHour == ''
+        return this.$v.$anyError || this.$v.$invalid || this.appointmentHour == ''
       },
       disabled: function(){
         return this.doctor != null ? this.indexWeek == this.doctor.doctor_working_weeks.length - 1 : true

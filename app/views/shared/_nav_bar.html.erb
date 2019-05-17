@@ -1,4 +1,4 @@
-<nav id="nav_bar"  class="flex items-center flex-wrap shadow ">
+<nav id="nav_bar"  class="flex items-center flex-wrap shadow px-6 md:px-0">
   <div class="container mx-auto flex">
     <div class="w-1/2 flex items-center m-0">
       <div class="w-48 flex-no-shrink text-white justify-start">
@@ -9,7 +9,7 @@
     </div>
     <% unless current_user %>
     <div class="w-1/2 flex items-center justify-end relative">
-      <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-primary' %>
+      <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-primary invisible md:visible' %>
 
       <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show =! show">
           <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>

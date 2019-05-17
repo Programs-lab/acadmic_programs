@@ -9,8 +9,12 @@
     @apply .outline-none;
   }
 
+  &:active {
+    @apply .text-black;
+  }
+
   &:visited {
-    @apply .text-black
+    @apply .text-black;
   }
 }
 

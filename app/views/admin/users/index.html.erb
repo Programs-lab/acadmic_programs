@@ -40,12 +40,12 @@
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th scope="col" width=13%></th>
-          <th scope="col" width=20%>Nombre</th>
-          <th scope="col" width=20%>Apellido</th>
-          <th scope="col" >Fecha de Nacimiento</th>
-          <th scope="col">Numero telefonico</th>
-          <th scope="col">Ocupación</th>
+          <th scope="col" class="w-18"></th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">N° identificación</th>
+          <th scope="col" class="hidden md:table-cell">Numero telefonico</th>
+          <th scope="col" class="hidden md:table-cell">Ocupación</th>
           <th scope="col">Rol</th>
         </tr>
       </thead>
@@ -53,15 +53,18 @@
         <% @users.each do |user| %>
         <tr>
           <td>
-            <div class="py-2"><%= link_to(edit_admin_user_path(user.id), class: 'btn btn-secondary no-underline') do %>
+            <div class="py-2 hidden md:table-cell"><%= link_to(edit_admin_user_path(user.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+            <%= icon('fas', 'pencil-alt', '') %>
+          <% end %></div>
+            <div class="py-2 md:hidden"><%= link_to(edit_admin_user_path(user.id), class: 'btn-flat text-black') do %>
             <%= icon('fas', 'pencil-alt', '') %>
           <% end %></div>
           </td>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= user.birthdate %></td>
-          <td><%= user.phone_number %></td>
-          <td><%= user.occupation %></td>
+          <td>"Cristian Leonardo"</td>
+          <td>"Cristian Leonardo</td>
+          <td><%= user.id_number %></td>
+          <td class="hidden md:table-cell"><%= user.phone_number %></td>
+          <td class="hidden md:table-cell"><%= user.occupation %></td>
           <td><%= roles_names(user) %></td>
         </tr>
        <% end %>

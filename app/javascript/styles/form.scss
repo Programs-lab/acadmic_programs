@@ -29,6 +29,7 @@
 .invalid_form {
   label { @apply .text-red-light; }
   input { @apply .border-red-light; }
+  .error_form { display: block; }
 }
 
 .label_input {
@@ -58,4 +59,8 @@
   .field_input {
     @apply .appearance-none .block .w-full .text-grey-light .cursor-not-allowed;
   }
+}
+
+.error_form {
+  @apply .p-1 .pl-0 .pt-2 .text-red-light .text-xs .hidden;
 }

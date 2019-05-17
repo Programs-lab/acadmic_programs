@@ -1,8 +1,8 @@
 <%= render  'shared/card' do %>
   <div class="flex px-4">
-    <div class="w-2/3">
+    <div class="w-1/3">
     </div>
-    <div class="w-1/3 text-right">
+    <div class="w-2/3 text-right">
       <%= link_to('Crear un paciente', new_admin_user_path(role: :patient), class: "btn btn-primary") %>
     </div>
   </div>
@@ -31,13 +31,13 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col" width=8%></th>
-          <th scope="col" width=13%></th>
-          <th scope="col" width=20%>Nombre</th>
-          <th scope="col" width=20%>Apellido</th>
-          <th scope="col" >Fecha de Nacimiento</th>
-          <th scope="col">Numero telefonico</th>
-          <th scope="col">Ocupación</th>
+          <th scope="col" class="w-16"></th>
+          <th scope="col" class="w-16"></th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col" class="hidden md:table-cell">N° Telefónico</th>
+          <th scope="col">N° identificación</th>
+          <th scope="col" class="hidden md:table-cell">Afiliado a</th>
         </tr>
       </thead>
       <tbody class="">
@@ -59,13 +59,14 @@
           </td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
-          <td><%= user.birthdate %></td>
-          <td><%= user.phone_number %></td>
-          <td><%= user.occupation %></td>
+          <td class="hidden md:table-cell"><%= user.phone_number %></td>
+          <td><%= user.id_number %></td>
+          <td class="hidden md:table-cell"><%= user.company ? user.company.company_name : "-" %></td>
         </tr>
        <% end %>
       </tbody>
     </table>
 
   </div>
+  <%== render 'pagy/nav', pagy: @pagy %>
 <% end %>

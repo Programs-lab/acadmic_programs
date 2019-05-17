@@ -15,6 +15,7 @@ class Admin::UsersController < ApplicationController
 
   def patients
     @patients = User.where(role: :patient).order(:last_name)
+    @pagy, @patients = pagy(@patients, items: 1)
     authorize @patients
   end
 
@@ -26,7 +27,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     authorize @user
-    @user.skip_confirmation! 
+    @user.skip_confirmation!
     if @user.save(context: :admin)
       @user.invite!
       path = admin_users_path
@@ -38,7 +39,7 @@ class Admin::UsersController < ApplicationController
       redirect_to path, notice: 'El usuario fue creado exitosamente.'
     else
       redirect_to path, alert: 'No fue posible concretar el registro, por favor revise los campos nuevamente'
-    end    
+    end
   end
 
   def edit

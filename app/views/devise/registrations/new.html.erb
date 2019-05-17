@@ -1,7 +1,7 @@
 <%= render "devise/shared/error_messages", resource: resource %>
-<div id= "sign_up_form" class="flex flex-wraper justify-center my-32">
+<div id= "sign_up_form" class="flex flex-wraper justify-center my-12">
   <div class="md:shadow-md rounded px-6 py-6 bg-white">
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {'v-cloak' => true},  class: "w-full max-w-md") do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {'v-cloak' => true, class: "w-full max-w-md"}) do |f| %>
 
     <div class="flex flex-wrap justify-center mt-1 mb-6 border-b border-grey-dark pb-4">
       <span class="">Formulario de Registro</span>
@@ -10,10 +10,18 @@
       <div id= "firstNameField" class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form">
         <%= f.label :nombre, class: 'label_input' %>
         <%= f.text_field :first_name, class: 'field_input rounded-t', "v-model" => "firstNameValue", "@input" => "fieldClass('firstNameField', $v.firstNameValue.$invalid), $v.firstNameValue.$touch()" %>
+        <div class="error_form">
+          <i class="fas fa-exclamation-circle mr-1"></i>
+          <span>El campo es obligatorio.</span>
+        </div>
       </div>
       <div id= "lasttNameField" class="w-full md:w-1/2 px-3 focus_form">
         <%= f.label :apellido, class: 'label_input' %>
         <%= f.text_field :last_name, class: 'field_input rounded-t', "v-model" => "lastNameValue", "@input" => "fieldClass('lasttNameField', $v.lastNameValue.$invalid), $v.lastNameValue.$touch()" %>
+        <div class="error_form">
+          <i class="fas fa-exclamation-circle mr-1"></i>
+          <span>El campo es obligatorio.</span>
+        </div>
       </div>
     </div>
     <div class="flex flex-wrap -mx-3 mb-5">
@@ -33,10 +41,18 @@
           )
           %>
         </div>
+        <div class="error_form">
+          <i class="fas fa-exclamation-circle mr-1"></i>
+          <span>El campo es obligatorio.</span>
+        </div>
       </div>
       <div class="w-full md:w-1/2 px-3 focus_form">
         <%= f.label "N° de documento", class: 'label_input' %>
         <%= f.number_field :id_number, class: 'field_input rounded-t' %>
+        <div class="error_form">
+          <i class="fas fa-exclamation-circle mr-1"></i>
+          <span>El campo es obligatorio.</span>
+        </div>
       </div>
     </div>
     <div class="flex flex-wrap -mx-3 mb-5">
@@ -78,18 +94,30 @@
       <div id= "emailField" class="w-full px-3 focus_form">
         <%= f.label :email, class: 'label_input' %>
         <%= f.email_field :email, autocomplete: "email", class: 'field_input rounded-t', "v-model" => "emailValue", "@input" => "fieldClass('emailField', $v.emailValue.$invalid), $v.emailValue.$touch()" %>
+        <div class="error_form">
+          <i class="fas fa-exclamation-circle mr-1"></i>
+          <span>Debe ser un email valido.</span>
+        </div>
       </div>
     </div>
     <div class="flex flex-wrap -mx-3 mb-6">
       <div id= "passwordField" class="w-full px-3 focus_form">
         <%= f.label :contraseña, class: 'label_input' %>
         <%= f.password_field :password, class: 'field_input rounded-t', "v-model" => "passwordValue", "@input" => "fieldClass('passwordField', $v.passwordValue.$invalid), $v.passwordValue.$touch()" %>
+        <div class="error_form">
+          <i class="fas fa-exclamation-circle mr-1"></i>
+          <span>Debe tener minimo 8 caracteres.</span>
+        </div>
       </div>
     </div>
     <div class="flex flex-wrap -mx-3 mb-6">
       <div id= "passwordConfirmationField" class="w-full px-3 focus_form">
         <%= f.label :confirmar_contraseña, class: 'label_input' %>
         <%= f.password_field :password_confirmation, class: 'field_input rounded-t', "v-model" => "passwordConfirmationValue", "@input" => "fieldClass('passwordConfirmationField', $v.passwordConfirmationValue.$invalid), $v.passwordConfirmationValue.$touch()"%>
+        <div class="error_form">
+          <i class="fas fa-exclamation-circle mr-1"></i>
+          <span>Debe ser igual a la contraseña</span>
+        </div>
       </div>
     </div>
     <div class="md:flex md:items-center justify-center mt-6">

@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.esm'
 Vue.component('collapse-vue', {
-  props: ['i'],
+  props: ['i', 'collapse_type'],
   data: function() {
     return {
        show: false,
@@ -14,10 +14,11 @@ Vue.component('collapse-vue', {
   },
   computed: {
     transformClass: function(){
-      return{
-        'transform_collapse_2': !this.show,
-        'transform_collapse': this.show,
-      }
+      var collapse_type = this.collapse_type || 'popup'
+      var classCollapse = {}
+      Vue.set(classCollapse, collapse_type, this.show)
+      Vue.set(classCollapse, 'popdown', !this.show)
+      return classCollapse
     }
   },
   watch: {

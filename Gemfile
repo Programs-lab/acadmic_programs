@@ -34,6 +34,7 @@ gem "pundit"
 gem 'devise_invitable', '~> 2.0.0'
 gem 'sidekiq'
 gem 'sidekiq-cron'
+gem 'pagy'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

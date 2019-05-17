@@ -94,15 +94,15 @@
                 </div>
 
                 <div class="row w-1/4 focus_form mx-4" :class=disabled_class_field(hour.id)>
-                  <label class="label_input">Tipo de cita</label>
-                  <select id="procedure_types" class="fblock appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8" v-model="hour.procedure_type_id" :disabled="disabled_working_hour(hour.id)">
+                  <label class="label_input">Tipo de procedimiento</label>
+                  <select id="procedure_types" class="fblock appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8 field_input" v-model="hour.procedure_type_id" :disabled="disabled_working_hour(hour.id)">
                     <option label=" "></option>
                     <option v-for="procedure in procedures" :value="procedure.id"> {{procedure.procedure_type_name}}</option>
                   </select>
                 </div>
 
-                <div class="row w-1/4 justify-end md:px-16 py-4">
-                    <button :class="disabled_class_button(hour.id)" class="btn btn-red-light mx-1" @click="removeHour(<%= index %> , index)" :disabled="disabled_working_hour(hour.id)">
+                <div class="row w-1/4 justify-end px-16 py-4">
+                    <button :class="disabled_class_button(hour.id)" class="btn btn-red-light mx-1" @click="removeHour(<%= index %> , index), $v.$reset(), $v.$touch()" :disabled="disabled_working_hour(hour.id)">
                       <%= icon('fas', 'trash') %>
                     </button>
                 </div>

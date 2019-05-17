@@ -34,6 +34,9 @@ gem "pundit"
 gem 'devise_invitable', '~> 2.0.0'
 gem 'sidekiq'
 gem 'sidekiq-cron'
+gem "fog"
+gem "fog-aws"
+gem 'carrierwave', '~> 1.0'
 gem 'pagy'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -48,6 +51,7 @@ gem 'pagy'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'pg_search'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

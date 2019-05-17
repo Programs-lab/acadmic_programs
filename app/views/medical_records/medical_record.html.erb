@@ -112,8 +112,7 @@
             Incapacidad
           </template>
           <template #6>
-            <%= icon('fas','upload', class: 'fa-md')%>
-            Carga Archivos
+            <%= icon('fas','upload', class: 'fa-md')%>            
           </template>
           <template #content1>
             <div class="flex w-full border-t-4 border-primary rounded-t">
@@ -205,7 +204,9 @@
             </div>
           </template>
           <template #content6>
-            cargar archivos
+            <div class="flex w-full">              
+              <vue-dropzone ref="myVueDropzone" v-on:vdropzone-success="updateMediaArray" v-on:vdropzone-removed-file="updateMediaArray" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+            </div>
           </template>
         </tab-vue>
       </div>

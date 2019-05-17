@@ -16,10 +16,18 @@ class MedicalRecordsController < ApplicationController
     @appointment_reports = @patient.patient_medical_records.any? ? @patient.patient_medical_records.first.appointment_reports : []
   end
 
-  def create
-    @appointment_report = @medical_record.appointment_reports.new(appointment_report_params)
-
+  def create    
+    binding.pry
+    report_params = {}.merge(appointment_report_params)
+    media = appointment_report_params[:media]
+    report_params.except!(:media)
+    @appointment_report = @medical_record.appointment_reports.new(report_params)
     if @appointment_report.save
+      if media.any?
+        media.each do |m|
+          @appointment_report.media.create(file: m)
+        end          
+      end      
       redirect_to patient_medical_record_path(@medical_record.patient_id), notice: "El diagnostico del paciente fue creado correctamente"
     else
       redirect_to patient_medical_record_path(@medical_record.patient_id), flash: { danger: "El diagnostico del paciente no pudo ser creado"}
@@ -49,7 +57,8 @@ class MedicalRecordsController < ApplicationController
       :medical_order,
       :medical_disability,
       :reference,
-      :examination_request
+      :examination_request,
+      media: []
     )
   end
 end

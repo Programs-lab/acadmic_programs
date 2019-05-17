@@ -1,7 +1,8 @@
 class AppointmentReport < ApplicationRecord
   belongs_to :appointment, optional: true
   belongs_to :medical_record
-  has_many   :appointments
+  #has_many   :appointments
+  has_many   :media
   belongs_to :doctor, class_name: 'User', foreign_key: 'doctor_id'
   after_create :attended_appointment
 

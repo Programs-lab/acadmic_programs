@@ -15,12 +15,21 @@
       </h4>
     </div>
     <div class="w-1/2 text-right">
-      <form class="w-full max-w-sm">
-        <div class="flex items-center border-b border-b-2 border-g-l3 py-2">
-          <input class="appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Nombre del médico">
-          <button class="flex-no-shrink bg-white hover:bg-b-d border-b-d text-b-d text-sm border hover:text-white py-1 px-2 rounded" type="button">
-            <i class="fas fa-search"></i>
-          </button>
+      <form class="w-full max-w-sm justify-end">
+        <div class="flex items-center py-2 justify-end">
+          <%= form_with url: admin_doctors_path, method: :get, class: "w-full max-w-sm" do |f|%>
+          <div class="flex items-center border-b border-b-2 border-g-l3 w-2/3">
+            <%= f.text_field :query, class: 'w-full flex rounded-t h-8 focus:outline-none', value: params[:query], placeholder: "Nombre, Cedula...." %>
+            <%= button_tag(type: "submit", class: "btn-flat") do %>
+              <i class="fas fa-search"></i>
+            <% end %>
+            <% if params[:query] && params[:query] != "" %>
+              <%= link_to admin_users_path, method: :get, class: "btn-flat" do %>
+                <i class="fas fa-eraser"></i>
+              <% end %>
+            <% end %>
+          <% end %>
+          </div>
         </div>
       </form>
     </div>

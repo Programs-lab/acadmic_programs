@@ -88,13 +88,15 @@ document.addEventListener('turbolinks:load', () => {
                 initial_hour: { 
                   required,
                   isBefore: (value, working_hours_attribute) => {
-                    return moment(value).isSameOrBefore(working_hours_attribute.end_hour)
+                    console.log(moment(value).isSameOrBefore(working_hours_attribute.end_hour) && working_hours_attribute._destroy !== '1')
+                    return moment(value).isSameOrBefore(working_hours_attribute.end_hour) && working_hours_attribute._destroy !== '1'
                   }
                 },
                 end_hour: { 
                   required,
                   isBefore: (value, working_hours_attribute) => {
-                    return moment(value).isSameOrAfter(working_hours_attribute.initial_hour)
+                    console.log(moment(value).isSameOrAfter(working_hours_attribute.initial_hour) && working_hours_attribute._destroy !== '1')
+                    return moment(value).isSameOrAfter(working_hours_attribute.initial_hour) && working_hours_attribute._destroy !== '1'
                   }
                 },
                 procedure_type_id: { required }
@@ -119,7 +121,7 @@ document.addEventListener('turbolinks:load', () => {
         if(id != null){
           var disabled = false        
           var self = this
-          self.$http.get(`api/appointments/working_hours/${id}`).then(response => {
+          self.$http.get(`api/appointments/horario/working_hours/${id}`).then(response => {
             disabled = response.body.disabled
             Vue.set(this.booleans, id , disabled)}, response => {console.log(response)})
           return this.booleans[id]
@@ -196,7 +198,7 @@ document.addEventListener('turbolinks:load', () => {
 
       saveWeek(){
         var week_to_update = (this.modal2["update"] === true) ? this.last_week : this.week
-        if (false) {
+        if (this.$v.week.$invalid) {
           this.errors = true
         }
         else {

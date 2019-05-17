@@ -2,19 +2,31 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:edit, :update, :destroy, :enable, :disable, :invite]
   def index
-    @users = User.where.not(id: current_user.id).order(:last_name)
+    if params[:query] &&  params[:query] != ""
+      @users = User.where.not(id: current_user.id).search_by_personal_information(params[:query]).order(:last_name)
+    else
+      @users = User.where.not(id: current_user.id).order(:last_name)
+    end
     #@users = User.where("id NOT IN (?)", current_user.id)
     authorize @users
      # don't display the current user in the users list; go to account management to edit current user details
   end
 
   def doctors
-    @doctors = User.where(role: :doctor).order(:last_name)
+    if params[:query] &&  params[:query] != ""
+      @doctors = User.where(role: :doctor).search_by_personal_information(params[:query]).order(:last_name)
+    else
+      @doctors = User.where(role: :doctor).order(:last_name)
+    end
     authorize @doctors
   end
 
   def patients
-    @patients = User.where(role: :patient).order(:last_name)
+    if params[:query] &&  params[:query] != ""
+      @patients = User.where(role: :patient).search_by_personal_information(params[:query]).order(:last_name)
+    else
+      @patients = User.where(role: :patient).order(:last_name)
+    end
     @pagy, @patients = pagy(@patients, items: 1)
     authorize @patients
   end

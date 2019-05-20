@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   post 'appointments/create_appointment', to: 'appointments#create_appointment', as: :create_appointment_user
   post 'appointments/update_appointment', to: 'appointments#update_appointment', as: :update_appointment_user
   get 'appointments/scheduled_appointments', to: 'appointments#scheduled_appointments', as: :scheduled_appointments
+  get 'appointments/schedule_appointment/:patient_id', to: 'appointments#schedule_appointment', as: :schedule_appointment
+  post 'appointments/create_schedule_appointment/:patient_id', to: 'appointments#create_schedule_appointment', as: :create_schedule_appointment
 
   root 'pages#home'
   get 'pages/home'

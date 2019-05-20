@@ -1,5 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :authenticate_user!, except: [:schedule_appointment_no_user, :create_appointment,          :update_appointment]
+  before_action :patient, only: [:create, :create_schedule_appointment]
+  before_action :get_variables_appointment, only: [:new, :schedule_appointment_no_user, :schedule_appointment]
 
   def index
     patient = User.find(current_user.id)
@@ -9,34 +11,50 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    @doctor_id = User.where(role: :doctor).first.id
-    @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
     @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
   end
 
+  def schedule_appointment_no_user
+    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
+  end
+
+  def schedule_appointment
+    @procedure_types = ProcedureType.all
+  end
+
+  def scheduled_appointments
+    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false)
+  end
+
   def create
-    appointments = current_user.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).any?
-    @appointment = Appointment.new(appointments_params.merge({patient_id: current_user.id}))
+    appointments = @patient.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).any?
     unless appointments
+      @appointment = @patient.patient_appointments.new(appointments_params)
       if @appointment.save
         redirect_to appointments_path, notice: 'La cita fue agendada correctamente'
+      else
+        redirect_to appointments_path, flash: {danger: 'Ocurrio un error al crear la cita, por favor intente de nuevo.'}
       end
     else
       redirect_to appointments_path, flash: {danger: 'No se pudo crear la cita debido a que tiene citas activas'}
     end
   end
 
-  def destroy
-    @appointment = Appointment.find(params[:id])
-    if @appointment.destroy
-      redirect_to appointments_path, notice: 'La cita fue eliminada correctamente.'
+  def create_schedule_appointment
+    appointments = @patient.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).includes(:procedure_type)
+    procedure_types = appointments.pluck(:procedure_type_name)
+    checkup_apointment_count = procedure_types.map(&:downcase).count("consulta")
+    binding.pry
+    if checkup_apointment_count < 1
+      @appointment = @patient.patient_appointments.new(appointments_params)
+      if @appointment.save
+        redirect_to admin_patients_path, notice: 'La cita fue agendada correctamente'
+      else
+        redirect_to schedule_appointment_path(@patient), flash: {danger: 'Ocurrio un error al crear la cita, por favor intente de nuevo.'}
+      end
+    else
+      redirect_to schedule_appointment_path(@patient), flash: {danger: 'No se pudo crear la cita debido a que tiene citas activas'}
     end
-  end
-
-  def schedule_appointment_no_user
-    @doctor_id = User.where(role: :doctor).first.id
-    @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
-    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
   end
 
   def create_appointment
@@ -66,11 +84,23 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def scheduled_appointments
-    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false)
+  def destroy
+    @appointment = Appointment.find(params[:id])
+    if @appointment.destroy
+      redirect_to appointments_path, notice: 'La cita fue eliminada correctamente.'
+    end
   end
 
   private
+
+  def patient
+    @patient = params[:patient_id] ? User.find(params[:patient_id]) : current_user
+  end
+
+  def get_variables_appointment
+    @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
+    @doctor_id = @doctors.first.id
+  end
 
   def user_params
     params.require(:appointment).permit(

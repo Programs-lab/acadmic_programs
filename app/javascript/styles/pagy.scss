@@ -1,5 +1,6 @@
 .pagy-link {
   @apply .text-grey-darker .no-underline;
+  cursor: pointer;
 
   &:visited{
     @apply .text-grey-darker;
@@ -16,4 +17,14 @@
 
 .current {
   @apply .bg-primary .font-hairline .text-white;
+}
+
+
+ul.paginate-links > li.disabled > a{
+  @apply .text-grey-light;
+  background-color: #fff
+}
+
+ul.paginate-links > li.active > a {
+  @apply .current
 }

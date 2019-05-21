@@ -213,7 +213,7 @@
       <% end %>
       <div class="divider"></div>
       <div class="flex w-full justify-end">
-        <a class="btn btn-secondary" @click="showFileUpload">
+        <a class="btn btn-secondary" @click="showFileUpload()">
           Carga de archivos
         </a>
         <a class="btn btn-secondary" @click="showMedicalRecord">
@@ -251,40 +251,59 @@
       <div class="" v-show="showD">        
           
           <div class="flex w-full">
-             <vue-dropzone ref="myVueDropzone" v-on:vdropzone-success="fetchMedia, removeFilesFromDZ()" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+             <vue-dropzone ref="myVueDropzone" v-on:vdropzone-success="fetchMedia(), removeFilesFromDZ()" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
            </div>
            <br>
-           <div class="" v-if="media.length > 0">
-           <div class="px-0 md:px-4 overflow-auto">
-            <table class="table table-responsive">
-              <thead>
-                <tr>
-                  <th width="20%"></th>
-                  <th width="30%">Fecha/Hora</th>
-                  <th width="50%">Nombre</th>
-                </tr>
-              </thead>
-              <tbody class="">
-                <tr v-for="medium in media" track-by="$index">
+           <paginate v-if="media.length > 0"
+              name="media"
+              :list="media"
+              :per="5"
+           >
+             <div class="px-0 md:px-4 overflow-auto">
+              <table class="table table-responsive">
+                <thead>
+                  <tr>
+                    <th width="20%"></th>
+                    <th width="30%">Fecha/Hora</th>
+                    <th width="50%">Nombre</th>
+                  </tr>
+                </thead>
+                <tbody class="">
+                  <tr v-for="(medium, index) in paginated('media')">
 
-                  <td>
-                    <a v-bind:href="medium.file_name.url" class='btn btn-default btn-xs' target='_blank'>Ver</a>
-                    <button type="button" class="btn btn-danger btn-xs" @click=removeMedium(medium.id)>
-                        <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                  <td>
-                    {{$moment(medium.created_at).format('D/M/YYYY h:mm:ss')}}
-                  </td>
-                  <td>
-                    {{medium.file_name.url.split('/')[medium.file_name.url.split('/').length-1]}}
-                  </td>
+                    <td>
+                      <a v-bind:href="medium.file_name.url" class='btn btn-secondary no-outline' target='_blank'>Ver</a>
+                      <button type="button" class="btn btn-red-light" @click="removeMedium(medium.id, index)">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                    <td>
+                      {{$moment(medium.created_at).format('D/M/YYYY h:mm:ss')}}
+                    </td>
+                    <td>
+                      {{medium.file_name.url.split('/')[medium.file_name.url.split('/').length-1]}}
+                    </td>
 
-                </tr>
-              </tbody>
-            </table>
-          </div>          
-        </div>
+                  </tr>
+                </tbody>
+              </table>
+            </div>          
+          </paginate>
+          <div class="flex justify-center">
+            <paginate-links for="media" 
+                :async="true" 
+                :show-step-links="true"
+                :step-links="{
+                  next: ' Siguiente »',
+                  prev: '« Anterior '
+                }"
+                :classes="{
+                  'ul': ['flex', 'w-full', 'justify-center'],
+                  'a':  ['pagy-link', 'page'],
+                }"
+            >            
+            </paginate-links>
+          </div>
         <div class="" v-if="media.length === 0">          
           <div class="flex w-full justify-center">
             <div class="alert alert-info w-full mx-4" role="alert">

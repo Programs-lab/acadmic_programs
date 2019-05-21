@@ -5,6 +5,8 @@ import VueMoment from 'vue-moment';
 import moment from 'moment';
 import VueResource from 'vue-resource'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import VuePaginate from 'vue-paginate'
+Vue.use(VuePaginate)
 Vue.use(TurbolinksAdapter)
 Vue.use(VueResource)
 Vue.use(VueMoment, { moment } );
@@ -31,6 +33,7 @@ document.addEventListener('turbolinks:load', () => {
         modal2: {},
         appointment: appointment,
         media: [],
+        paginate: ['media'],
         dropzoneOptions: {
           url: `/api/media/${id}`,
           thumbnailWidth: 230,
@@ -56,9 +59,10 @@ document.addEventListener('turbolinks:load', () => {
           self.$http.get(`/api/media/${id}`).then(response => {self.media = response.body}, response => {console.log(response)})
         },
 
-        removeMedium(medium_id){
+        removeMedium(medium_id, j){
           var self = this 
-          self.$http.delete(`/api/media/${medium_id}`).then(response => {self.fetchMedia()}, response => {console.log(response)})
+          self.$http.delete(`/api/media/${medium_id}`).then(response => {}, response => {console.log(response)})
+          this.media.splice(j, 1);
         },
 
         removeFilesFromDZ(){
@@ -85,9 +89,8 @@ document.addEventListener('turbolinks:load', () => {
       },
 
       mounted: function () {
-        this.$nextTick(function () {
-          console.log(id)          
-          this.fetchMedia()          
+        this.$nextTick(function () {          
+          this.fetchMedia();          
         })
       },
 

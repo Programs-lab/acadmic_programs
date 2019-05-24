@@ -44,8 +44,10 @@ class AppointmentsController < ApplicationController
     appointments = @patient.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).includes(:procedure_type)
     procedure_types = appointments.pluck(:procedure_type_name)
     checkup_apointment_count = procedure_types.map(&:downcase).count("consulta")
-    binding.pry
-    if checkup_apointment_count < 1
+    procedure_type = ProcedureType.find(appointments_params[:procedure_type_id]).procedure_type_name
+    condition = procedure_type.downcase == "consulta" ? checkup_apointment_count < 1 : true
+
+    if condition
       @appointment = @patient.patient_appointments.new(appointments_params)
       if @appointment.save
         redirect_to admin_patients_path, notice: 'La cita fue agendada correctamente'

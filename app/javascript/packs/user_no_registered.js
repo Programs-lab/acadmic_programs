@@ -50,6 +50,7 @@ document.addEventListener('turbolinks:load', () => {
       scheduleIndexs: [],
       holidays: module.getColombiaHolidaysByYear(2019),
       indexWeek: 0,
+      week: [],
       hiddenDropdown: false,
       indexNav: 0,
       navIds: [1,2,3],
@@ -96,7 +97,7 @@ document.addEventListener('turbolinks:load', () => {
         }
       },
       fetchData: function(){
-        this.$http.get(`/api/appointments/${this.doctorId}`).then(response => {
+        this.$http.get(`/api/appointments/fetch_appointment_data/${this.doctorId}/${this.procedureTypeId}`).then(response => {
           this.doctor = JSON.parse(response.body.doctor)[0];
           this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
           this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
@@ -104,7 +105,7 @@ document.addEventListener('turbolinks:load', () => {
         }, response => { console.log(response) });
       },
       fetchUser: function(){
-        this.$http.get(`/api/appointments/${this.idNumber}/${this.idType}`).then(response => {
+        this.$http.get(`/api/appointments/fetch_user/${this.idNumber}/${this.idType}`).then(response => {
           this.patient = response.body[0]
           this.firstNameValue = this.patient != null ? this.patient.first_name : ''
           this.lastNameValue = this.patient != null ? this.patient.last_name : ''
@@ -154,11 +155,16 @@ document.addEventListener('turbolinks:load', () => {
           this.workingHours = Array(5).fill(null).map(()=>Array(this.hours.length).fill([]))
         }
         else {
-          for (var i = 0; i < working_days.length; i++) {
+          this.createWeek()
+          for (var i = 0; i < this.week.length; i++) {
             this.workingHours[i] = []
             this.schedule [i] = []
+            var wdays = working_days.find(wd => moment(wd.working_date).isSame(this.week[i]))
             for (var j = 0; j < this.hours.length; j++) {
-              var wh = !this.isHoliday(working_days[i].working_date) ? this.selectWorkingHour(working_days[i], this.hours[j]) : []
+              var wh = []
+              if (wdays != null) {
+                wh = !this.isHoliday(wdays.working_date) ? this.selectWorkingHour(wdays, this.hours[j]) : []
+              }
               this.workingHours[i][j] = wh
               this.schedule [i][j] = Array(wh.length).fill(false)
             }
@@ -169,6 +175,11 @@ document.addEventListener('turbolinks:load', () => {
         var schedule = this.schedule
         schedule[i][j][k] =! this.schedule[i][j][k]
         Vue.set(this.schedule, i, schedule[i])
+      },
+      createWeek: function(){
+        for (var i = 0; i < 5; i++) {
+          Vue.set(this.week, i, moment(this.doctorWorkingWeek.initial_date).day(i + 1))
+        }
       }
       ,
       changeNav: function(){

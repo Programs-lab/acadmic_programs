@@ -24,8 +24,8 @@ Rails.application.routes.draw do
 
   resources :appointments, path: 'citas'
   namespace :api do
-    get 'appointments/:doctor_id', to: 'appointments#fetch_appointment_data'
-    get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
+    get 'appointments/fetch_appointment_data/:doctor_id/:procedure_type_id', to: 'appointments#fetch_appointment_data'
+    get 'appointments/fetch_user/:id_number/:id_type', to: 'appointments#fetch_user'
     get 'appointments/working_hours/:wh_id/', to: 'appointments#is_available_working_hour'
   end
 

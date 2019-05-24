@@ -40,7 +40,7 @@
         </div>
         <div class="flex w-full justify-center">
           <p class="font-medium text-sm text-g-d2">
-            {{ doctor != null ? $moment(doctorWorkingWeek.working_days[index].working_date).format("DD MMM YYYY") : '' }}
+            {{ doctor != null ? $moment(week[index]).format("DD MMM YYYY") : '' }}
           </p>
         </div>
       </div>

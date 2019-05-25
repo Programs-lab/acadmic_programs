@@ -51,8 +51,8 @@
             <%= icon('fas', 'pencil-alt', '') %>
           <% end %></div>
           </td>
-          <td>"Cristian Leonardo"</td>
-          <td>"Cristian Leonardo</td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
           <td><%= user.id_number %></td>
           <td class="hidden md:table-cell"><%= user.phone_number %></td>
           <td class="hidden md:table-cell"><%= user.occupation %></td>
@@ -62,4 +62,5 @@
       </tbody>
     </table>
   </div>
+  <%== render 'pagy/nav', pagy: @pagy %>
 <% end %>

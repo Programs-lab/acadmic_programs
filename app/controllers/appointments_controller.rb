@@ -23,7 +23,8 @@ class AppointmentsController < ApplicationController
   end
 
   def scheduled_appointments
-    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false)
+    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false).order(:appointment_datetime)
+    @pagy, @appointments = pagy(@appointments, items: 5)
   end
 
   def create

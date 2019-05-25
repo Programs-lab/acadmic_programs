@@ -3,6 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy, :enable, :disable, :invite]
   def index
     @users = User.where.not(id: current_user.id).order(:last_name)
+    @pagy, @users = pagy(@users)
     #@users = User.where("id NOT IN (?)", current_user.id)
     authorize @users
      # don't display the current user in the users list; go to account management to edit current user details
@@ -10,12 +11,13 @@ class Admin::UsersController < ApplicationController
 
   def doctors
     @doctors = User.where(role: :doctor).order(:last_name)
+    @pagy, @doctors = pagy(@doctors)
     authorize @doctors
   end
 
   def patients
     @patients = User.where(role: :patient).order(:last_name)
-    @pagy, @patients = pagy(@patients, items: 1)
+    @pagy, @patients = pagy(@patients)
     authorize @patients
   end
 

@@ -10,7 +10,7 @@
       <div class="w-1/2">
         <h4 class="font-semibold text-g-d4 text-lg">
           Agenda
-          <br><span class="font-medium text-sm text-g-d2">Citas programadas para: <%= Date.today %></span>
+          <br><span class="font-medium text-sm text-g-d2">Citas programadas</span>
         </h4>
       </div>
     </div>
@@ -37,7 +37,7 @@
         <div class="flex w-2/3 md:w-1/3">
           <div class="flex w-1/3 mr-2 items-center">
             <%= icon('fas','calendar', class: 'fa-xs mr-1')%>
-            {{ $moment("<%= appointment.appointment_datetime %>").format("dddd") }}
+            {{ $moment("<%= appointment.appointment_datetime %>").format("MM ddd DD") }}
           </div>
           <div class="flex w-1/3 ml-2 items-center">
             <%= icon('fas','clock', class: 'fa-xs mr-1')%>
@@ -62,4 +62,5 @@
     <% end %>
     <div class="divider"></div>
   </div>
+  <%== render 'pagy/nav', pagy: @pagy %>
 <% end %>

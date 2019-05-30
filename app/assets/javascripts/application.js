@@ -25,12 +25,9 @@ $( document ).on('turbolinks:load',function() {
       plugins: 'fullscreen print',
       toolbar: 'fullscreen print',
       menubar: false,
-      image_advtab: true,
-      paste_data_images: true,
       width: '100%',
       height: 409,
       language: 'es_MX',
-      readonly: 1
     })
   }, 10);
 });

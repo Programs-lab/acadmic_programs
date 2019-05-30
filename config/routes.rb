@@ -24,8 +24,8 @@ Rails.application.routes.draw do
 
   resources :appointments, path: 'citas'
   namespace :api do
-    get 'appointments/:doctor_id', to: 'appointments#fetch_appointment_data'
-    get 'appointments/:id_number/:id_type', to: 'appointments#fetch_user'
+    get 'appointments/fetch_appointment_data/:doctor_id/:procedure_type_id', to: 'appointments#fetch_appointment_data'
+    get 'appointments/fetch_user/:id_number/:id_type', to: 'appointments#fetch_user'
     get 'appointments/horario/working_hours/:wh_id/', to: 'appointments#is_available_working_hour'
     post 'media/:id', to: 'media#create'
   end
@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   post 'appointments/create_appointment', to: 'appointments#create_appointment', as: :create_appointment_user
   post 'appointments/update_appointment', to: 'appointments#update_appointment', as: :update_appointment_user
   get 'appointments/scheduled_appointments', to: 'appointments#scheduled_appointments', as: :scheduled_appointments
+  get 'appointments/schedule_appointment/:patient_id', to: 'appointments#schedule_appointment', as: :schedule_appointment
+  post 'appointments/create_schedule_appointment/:patient_id', to: 'appointments#create_schedule_appointment', as: :create_schedule_appointment
 
   root 'pages#home'
   get 'pages/home'

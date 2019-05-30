@@ -7,8 +7,10 @@ class Admin::UsersController < ApplicationController
     else
       @users = User.where.not(id: current_user.id).order(:last_name)
     end
+    
     #@users = User.where("id NOT IN (?)", current_user.id)
     authorize @users
+    @pagy, @users = pagy(@users)
      # don't display the current user in the users list; go to account management to edit current user details
   end
 
@@ -18,7 +20,9 @@ class Admin::UsersController < ApplicationController
     else
       @doctors = User.where(role: :doctor).order(:last_name)
     end
+    
     authorize @doctors
+    @pagy, @doctors = pagy(@doctors)
   end
 
   def patients
@@ -27,8 +31,9 @@ class Admin::UsersController < ApplicationController
     else
       @patients = User.where(role: :patient).order(:last_name)
     end
-    @pagy, @patients = pagy(@patients, items: 1)
+    
     authorize @patients
+    @pagy, @patients = pagy(@patients)
   end
 
   def new

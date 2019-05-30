@@ -18,8 +18,12 @@ class Api::AppointmentsController < ApplicationController
       }
     )
 
+<<<<<<< Updated upstream
     appointment_registered = AppointmentReport.pluck(:appointment_id)
     @unavailable_working_hours = Appointment.where.not(id: appointment_registered).where(doctor_id: params[:doctor_id])
+=======
+    @unavailable_working_hours = Appointment.where.not(state: :completed).where.not(state: :canceled).where(doctor_id: params[:doctor_id])
+>>>>>>> Stashed changes
     @unavailable_working_hours = @unavailable_working_hours.where('appointment_datetime >= ?', DateTime.now).to_json(only: [:doctor_id, :appointment_datetime])
 
     render json: { doctor: @doctor, unavailable_working_hours: @unavailable_working_hours }
@@ -31,10 +35,17 @@ class Api::AppointmentsController < ApplicationController
     render json: @user
   end
 
-  def is_available_working_hour
-    working_hour = WorkingHour.find(params[:wh_id])
-    appointments = Appointment.where(appointment_datetime: working_hour.initial_hour..working_hour.end_hour)
-    render json: {disabled: appointments.any?}.to_json
+  def unavialbale_working_hours
+
+    appointments = Appointment.where.not(state: :completed).where.not(state: :canceled).where(doctor_id: params[:doctor_id])
+    appointments = appointments.where('appointment_datetime >= ?', DateTime.now).pluck(:appointment_datetime)
+    taken_working_hours = []
+    appointments.each do |app|
+      taken_working_hours = taken_working_hours + WorkingHour.where("initial_hour <= :date AND end_hour > :date", date: app).pluck(:id)
+    end
+
+
+    render json: taken_working_hours
   end
 
 

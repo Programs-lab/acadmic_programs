@@ -2,7 +2,7 @@ class WorkingHour < ApplicationRecord
   belongs_to :working_day
   belongs_to :procedure_type
   validate :is_updatable
-  validate :hourLImitsMakeSense
+  validate :hour_limits_make_sense
 
   def is_updatable
      appointments = Appointment.where(appointment_datetime: self.initial_hour_was..self.end_hour_was)
@@ -11,7 +11,7 @@ class WorkingHour < ApplicationRecord
      end
   end
 
-  def hourLImitsMakeSense
+  def hour_limits_make_sense
     if (self.initial_hour > self.end_hour)
       errors.add(:working_hours, 'las horas de inicio y fin no son coherentes')
     end

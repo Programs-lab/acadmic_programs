@@ -44,7 +44,9 @@
           Incapacidad
         </template>
         <template #6>
-          <%= icon('fas','upload', class: 'fa-md')%>
+          <%= link_to(appointment_report_path(id: appointment_report.id, format: :pdf), class: "btn-flat") do %>
+            <%= icon('fas', 'file-pdf', '') %>
+          <% end %>
         </template>
         <template #content1>
           <div class="flex w-full border-t-4 border-primary rounded-t">
@@ -82,7 +84,11 @@
           </div>
         </template>
         <template #content6>
-          cargar archivos
+          <div class="flex w-full justify-center">
+            <div class="flex w-full justify-center">
+              <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+          </div>
         </template>
       </tab-vue>
     </div>

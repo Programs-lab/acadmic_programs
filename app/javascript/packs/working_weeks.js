@@ -74,7 +74,7 @@ document.addEventListener('turbolinks:load', () => {
       procedures: pt,
       errors: false,
       modal2: {},
-      booleans: {}
+      unavailable_working_hours: []
     },
 
     validations: {
@@ -107,28 +107,37 @@ document.addEventListener('turbolinks:load', () => {
       }
     },
 
-    watch: {
-      booleans(){}
-    },
-
     methods: {
 
       modalId(i){
         Vue.set(this.modal2, i , !this.modal2[i]);
       },
 
+      fetch_unavailable_working_hours(id){
+        var self = this
+        self.$http.get(`api/appointments/horario/working_hours/${id}`).then(response => {self.unavailable_working_hours = response.body}, response => {console.log(response)})
+      },
+
       disabled_working_hour(id){
-        if(id != null){
-          var disabled = false        
-          var self = this
-          self.$http.get(`api/appointments/horario/working_hours/${id}`).then(response => {
-            disabled = response.body.disabled
-            Vue.set(this.booleans, id , disabled)}, response => {console.log(response)})
-          return this.booleans[id]
+
+        if (id != null) {
+          return this.unavailable_working_hours.includes(id)
         }
-        else {
+        else{
           return false
         }
+        // if(id != null){
+        //   var disabled = false        
+        //   var self = this
+        //   self.$http.get(`api/appointments/horario/working_hours/${id}`).then(response => {
+        //     disabled = response.body.disabled
+        //     Vue.set(this.booleans, id , disabled)}, response => {console.log(response)})
+        //   return this.booleans[id]
+        // }
+        // else {
+        //   return false
+        // }
+
       },
 
       disabled_class_field(id){
@@ -158,8 +167,7 @@ document.addEventListener('turbolinks:load', () => {
           "disabled": disabled,
           "": !disabled
         }
-      }, 
-
+      },
       nextWeek(){
         this.index += 1
         this.week = this.weeks[this.index]
@@ -216,6 +224,13 @@ document.addEventListener('turbolinks:load', () => {
         }  
         }
       },
+
+      mounted: function () {
+        this.$nextTick(function () {          
+          this.fetch_unavailable_working_hours(user_id);          
+        })
+      },
+
       computed: {
         showAlert: function(){
           if (this.errors) {

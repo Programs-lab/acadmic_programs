@@ -47,12 +47,46 @@
             <%= link_to patient_medical_record_path(appointment.patient, appointment), class: 'btn btn-primary mr-1' do %>
               <%= icon('fas','paper-plane', class: 'fa-xs')%>
             <% end %>
-            <%= link_to "#", class: 'btn btn-red-light' do %>
-              <%= icon('fas','ban', class: 'fa-xs')%>
+            <%= link_to "#", class: '' do %>
+              <a id="myBtn" @click="modalId('cancel')">
+                <%= icon('fas','ban', class: 'btn btn-red-light', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+              </a>
             <% end %>
           </div>
         </div>
       </div>
+
+
+        <%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put do |form|%>
+
+          <modal-vue i= "cancel" style_modal="width: 45%;">
+            <template v-slot:title>
+              Cancelar cita
+            </template>
+            <template v-slot:content>
+              <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+                <div class="flex w-full">
+                  <p>¿Esta seguro de que desea cancelar esta cita? Esta accion es irreversible</p>
+                </div>
+                <br>
+                <br>
+                <div class="w-full mb-6 focus_form">
+                  <%= form.label "Razon de cancelacion (recomendado)", class: 'label_input' %>
+                  <%= form.text_field :reason, class: 'field_input rounded-t' %>
+                </div>
+              </div>
+            </template>
+            <template v-slot:footer>
+              <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('cancel')">Cancelar</button>
+              <%= form.submit "Acceptar", class: 'btn btn-primary' %>
+            </template>
+          </modal-vue>
+
+      <% end %>
+
+
+
+
       <div class="flex flex-wrap w-full mt-4">
         <h3 class="text-grey-darker text-sm">
           Motivo de cita: <%= appointment.procedure_type.procedure_type_name %>

@@ -6,6 +6,6 @@ class AppointmentReport < ApplicationRecord
   after_create :attended_appointment
 
   def attended_appointment
-    self.appointment.update(attended: true) if self.appointment
+    self.appointment.update(state: :completed) if self.appointment
   end
 end

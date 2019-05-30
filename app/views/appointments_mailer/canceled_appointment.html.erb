@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Un saludo del equipo de gastromed <%= "#{@user.first_name} #{@user.last_name}" %></h1>
+    <p>
+      Le enviamos este correo para informarle que su cita programada con <%= "#{@appointment.doctor.first_name} #{@appointment.doctor.last_name}" %> progrmada para el <%= @appointment.appointment_datetime %> a las <%= @appointment.appointment_datetime %><br>
+    </p>
+    <p>
+      <% if @reason %>
+        Razon de cancelacion: <%= @reason %>
+      <% end %>
+      Puede progrmar otra cita haciendo click <%= link_to("aqui", schedule_appointment_no_user_url)  %>
+    </p>
+    <p>Nos disculpamos por cualquier molestia </p>
+  </body>
+</html>

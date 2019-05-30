@@ -48,6 +48,9 @@
         <%= icon('fas','medkit', class: 'fa-md mr-2')%>
         <p><%= appointment.procedure_type.procedure_type_name%></p>
       </div>
+      <div class="flex w-1/5 items-center">
+        <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>        
+      </div>
       <div class="flex w-1/5 justify-end">
         <%= link_to appointment_path(appointment), method: :delete, class: "btn btn-secondary" do %>
           <%= icon('fas','calendar-times', class: 'fa-md')%>
@@ -72,24 +75,28 @@
     <% end %>
     <% @appointment_history.each do |appointment| %>
     <div class="flex flex-wrap w-full justify-between mb-2">
-      <div class="flex w-1/5 items-center">
+      <div class="flex w-1/6 items-center">
         <%= icon('fas','calendar', class: 'fa-md mr-2')%>
         <p><%= appointment.appointment_datetime.strftime("%d %B %Y") %></p>
       </div>
-      <div class="flex w-1/5 items-center">
+      <div class="flex w-1/6 items-center">
         <%= icon('fas','clock', class: 'fa-md mr-2')%>
         <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
       </div>
-      <div class="flex w-1/5 items-center">
+      <div class="flex w-1/6 items-center">
         <%= icon('fas','medkit', class: 'fa-md mr-2')%>
-        <p><%= appointment.appointment ? appointment.appointment.procedure_type.procedure_type_name : "-" %></p>
+        <p><%= appointment.procedure_type ? appointment.procedure_type.procedure_type_name : "-" %></p>
       </div>
-      <div class="flex w-1/5 justify-end">
-        <%= link_to "#", class: "btn btn-secondary w-12 text-center mr-1" do %>
+      <div class="flex w-1/6 items-center">
+        <%= icon('fas','user-md', class: 'fa-md mr-2')%>
+        <p><%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%></p>
+      </div>
+      <div class="flex w-1/6 justify-center items-center px-8">
+        <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>        
+      </div>
+      <div class="flex w-1/6 justify-end">
+        <%= link_to "#", class: "btn btn-secondary w-12 text-center mr-1 #{disabled_button(appointment)}" do %>
           <%= icon('fas','info', class: 'fa-md')%>
-        <% end %>
-        <%= link_to "#", class: "btn btn-secondary w-12 text-center ml-1" do %>
-          <%= icon('fas','clipboard', class: 'fa-md')%>
         <% end %>
       </div>
     </div>

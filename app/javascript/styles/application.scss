@@ -12,6 +12,8 @@
 @import 'tab';
 @import 'froala-editor';
 @import 'pagy';
+@import 'spinner';
+@import 'badges';
 
   *{
     font-family: 'Didact Gothic', sans-serif;
@@ -38,6 +40,12 @@
   .disabled{
     @apply .bg-third .cursor-not-allowed .text-white;
   }
+
+  .disabled-link{
+    @apply .bg-third .cursor-not-allowed .text-white;
+    pointer-events: none;
+  }
+
   .disabled:hover{
     @apply .bg-third; 
   }

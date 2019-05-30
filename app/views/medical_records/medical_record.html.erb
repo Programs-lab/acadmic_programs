@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="divider"></div>
-      <%= form_for('medical_record', url: create_medical_record_path(patient_id: @patient.id), method: :post, class: "w-full",
+      <%= form_for('appointment_report', url: create_medical_record_path(patient_id: @patient.id), method: :post, class: "w-full",
       html: { id: "medical_record_form",
               'appointment' =>  @appointment ? @appointment.to_json(only: [:id, :appointment_datetime]) : {}
       }) do |f| %>
@@ -116,12 +116,12 @@
           </template>
           <template #content1>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea class="flex w-full border-t-4 border-primary rounded-t" name="medical_record[diagnosis]"></textarea>
+              <textarea class="flex w-full border-t-4 border-primary rounded-t" name="appointment_report[diagnosis]"></textarea>
             </div>
           </template>
           <template #content2>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[medical_order]">
+              <textarea name="appointment_report[medical_order]">
                 <table class="table" width="100%">
                   <thead>
                     <tr>
@@ -143,7 +143,7 @@
           </template>
           <template #content3>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[examination_request]">
+              <textarea name="appointment_report[examination_request]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -161,7 +161,7 @@
           </template>
           <template #content4>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[reference]">
+              <textarea name="appointment_report[reference]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -179,7 +179,7 @@
           </template>
           <template #content5>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[medical_disability]">
+              <textarea name="appointment_report[medical_disability]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -245,9 +245,14 @@
           <% @appointment_reports.each_with_index do |appointment_report, index|%>
             <%= render 'appointment_report', appointment_report: appointment_report, index: index %>
           <% end %>
+          <div class="divider"></div>
+          <div class="flex w-full justify-end">
+              <%= link_to(medical_record_path(id: @medical_record.id, patient_id: @patient.id, format: :pdf), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'file-pdf', 'Descargar como PDF') %>
+              <% end %>
+          </div>
         </div>
       </div>
-
       <div class="" v-show="showD">        
           
           <div class="flex w-full">
@@ -319,8 +324,5 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 <% end %>

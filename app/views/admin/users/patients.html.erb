@@ -42,6 +42,7 @@
         <tr>
           <th scope="col" class="w-16"></th>
           <th scope="col" class="w-16"></th>
+          <th scope="col" class="w-16"></th>
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
           <th scope="col" class="hidden md:table-cell">N° Telefónico</th>
@@ -63,6 +64,13 @@
             <div class="py-2">
               <%= link_to(patient_medical_record_path(user.id, nil), class: 'btn btn-secondary no-underline') do %>
                 <%= icon('fas', 'clipboard', '') %>
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <div class="py-2">
+              <%= link_to(schedule_appointment_path(user), class: 'btn btn-secondary no-underline') do %>
+                <%= icon('fas', 'clock', '') %>
               <% end %>
             </div>
           </td>

@@ -10,7 +10,7 @@
         :procedure_type_name,
         {include_blank: false, selected: :first},
         {
-          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId'
+          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId',
         }
       )
       %>
@@ -40,14 +40,14 @@
         </div>
         <div class="flex w-full justify-center">
           <p class="font-medium text-sm text-g-d2">
-            {{ doctor != null ? $moment(doctorWorkingWeek.working_days[index].working_date).format("DD MMM YYYY") : '' }}
+            {{ doctor != null ? $moment(week[index]).format("DD MMM YYYY") : '' }}
           </p>
         </div>
       </div>
       <div class="flex flex-wrap w-full mb-4 justify-center" v-for="(hour, i) in hours">
         <dropdown-vue btn_class="btn-flat" dropdown_style="width: 70%;">
           <template #title>
-            <p :class="workingHours[index][i].length != 0 ? 'font-bold text-secondary' : 'text-grey'">
+            <p :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'">
               {{ hour }}
             </p>
           </template>
@@ -56,20 +56,37 @@
               <%= link_to('#', class: "dropdown-item", 'data-turbolinks' => false, '@click' => 'showOptions(index,i,j)', "v-show" => "!schedule[index][i][j]", ':class' => "!schedule[index][i][j] ? '' : 'animated fadeOut'") do %>
                 <div class="flex w-full justify-center">{{$moment(working_hour).format("hh:mm a")}}</div>
               <% end %>
-              <div class="dropdown-item items-center flex-wrap" v-show="schedule[index][i][j]" :class="schedule[index][i][j] ? 'animated fadeIn' : 'animated fadeOut'">
-                <div class="flex w-full justify-center">
-                  <%= icon('fas','clock', class: 'fa-md mr-2')%>
-                  Agendar
+              <div class="hidden md:block">
+                <div class="dropdown-item items-center flex-wrap" v-show="schedule[index][i][j]" :class="schedule[index][i][j] ? 'animated fadeIn' : 'animated fadeOut'">
+                  <div class="flex w-full justify-center">
+                    <%= icon('fas','clock', class: 'fa-md mr-2')%>
+                    Agendar
+                  </div>
+                  <div class="flex w-full mt-2 items-center" >
+                    <%= icon('fas','times', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
+                    <% unless current_user %>
+                      <%= icon('fas','check', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
+                    <% else %>
+                      <button class="btn-flat" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                        <%= icon('fas','check', class: "fa-md text-black")%>
+                      </button>
+                    <% end %>
+                  </div>
                 </div>
-                <div class="flex w-full mt-2 items-center" >
-                  <%= icon('fas','times', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
-                  <% unless current_user %>
-                    <%= icon('fas','check', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
-                  <% else %>
-                    <button class="btn-flat" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
-                      <%= icon('fas','check', class: "fa-md text-black")%>
-                    </button>
-                  <% end %>
+              </div>
+              <div class="block md:hidden">
+                <div class="dropdown-item items-center flex-wrap" v-show="schedule[index][i][j]" :class="schedule[index][i][j] ? 'animated fadeIn' : 'animated fadeOut'">
+                  <div class="flex w-full md:mt-2 justify-center items-center" >
+                    <% unless current_user %>
+                      <%= button_tag('#',type: 'button', class: "btn btn-secondary text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour") do %>
+                        <%= icon('fas','check', class: "fa-md text-black")%>
+                      <% end %>
+                    <% else %>
+                      <button class="btn btn-secondary" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                        <%= icon('fas','check', class: "fa-md text-black")%>
+                      </button>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>

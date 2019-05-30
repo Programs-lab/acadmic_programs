@@ -1,0 +1,12 @@
+<%= render 'shared/card', return_path: request.referrer, has_return: true do%>
+<div class="flex flex-wrap px-4">
+  <div class="flex felx-wrap mb-4">
+    <div class="w-full">
+      <h3>Agendar cita</h3>
+    </div>
+  </div>
+  <%= form_for('appointment', url: create_schedule_appointment_path(params[:patient_id]), html: {id: "schedule_appointment", 'v-cloak' => true, method: :post, 'doctor_id' => @doctor_id, 'procedure_types' => @procedure_types.to_json(only: [:id, :procedure_type_name, :procedure_duration]), 'unavailable_working_hours' => @unavailable_working_hours },  class: "w-full max-w-md") do |f| %>
+    <%= render 'calendar', f: f %>
+  <% end %>
+</div>
+<% end %>

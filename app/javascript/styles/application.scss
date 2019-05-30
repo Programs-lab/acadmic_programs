@@ -21,6 +21,11 @@
     @apply .flex .flex-wrap;
    }
 
+   #dropzone {
+    @apply .flex .flex-wrap .w-full .rounded .justify-center .border .border-primary .border-dashed .items-center;
+  }
+
+
   .focus_form:focus-within {
     label { @apply .text-primary; }
     input { @apply .border-primary; }
@@ -31,10 +36,10 @@
   [v-cloak] { display:none; }
 
   .disabled{
-    @apply .bg-third .cursor-not-allowed;
+    @apply .bg-third .cursor-not-allowed .text-white;
   }
   .disabled:hover{
-    @apply .bg-third;
+    @apply .bg-third; 
   }
 
   .active{

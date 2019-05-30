@@ -59,6 +59,12 @@ class AppointmentsController < ApplicationController
       redirect_to schedule_appointment_path(@patient), flash: {danger: 'No se pudo crear la cita debido a que tiene citas activas'}
     end
   end
+  
+ def schedule_appointment_no_user
+    @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
+    @doctor_id = @doctors.first.id
+    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
+ end  
 
   def create_appointment
     patient = User.new(user_params)

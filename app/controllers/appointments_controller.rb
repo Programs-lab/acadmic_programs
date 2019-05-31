@@ -1,13 +1,13 @@
 class AppointmentsController < ApplicationController
-  before_action :authenticate_user!, except: [:schedule_appointment_no_user, :create_appointment,          :update_appointment]
+  before_action :authenticate_user!, except: [:schedule_appointment_no_user, :create_appointment, :update_appointment]
   before_action :patient, only: [:create, :create_schedule_appointment]
   before_action :get_variables_appointment, only: [:new, :schedule_appointment_no_user, :schedule_appointment]
 
   def index
     patient = User.find(current_user.id)
-    @appointments = patient.patient_appointments.where(attended: false)
+    @appointments = patient.patient_appointments.where(state: :pending).where('appointment_datetime >= ?', DateTime.now)
     medical_record = patient.patient_medical_records.first
-    @appointment_history = medical_record ? medical_record.appointment_reports.where.not(appointment_id: @appointments.pluck(:id)) : []
+    @appointment_history = patient.patient_appointments.where('appointment_datetime <= ? OR state = ? OR state = ?', DateTime.now, 2, 3)
   end
 
   def new
@@ -23,7 +23,8 @@ class AppointmentsController < ApplicationController
   end
 
   def scheduled_appointments
-    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false).order(:appointment_datetime)
+    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND state = ?', Date.today, 1).order(:appointment_datetime)
+    #@appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false).order(:appointment_datetime)
     @pagy, @appointments = pagy(@appointments, items: 5)
   end
 
@@ -69,9 +70,10 @@ class AppointmentsController < ApplicationController
   def create_appointment
     patient = User.new(user_params)
     if patient.save
-      appointment = Appointment.create(appointments_params.merge({patient_id: patient.id, procedure_type_id: ProcedureType.all.first.id }))
+      appointment = Appointment.create(appointments_params.merge({patient_id: patient.id, procedure_type_id: ProcedureType.all.first.id, state: :disabled}))
       patient.send_confirmation_instructions
-      redirect_to user_session_path, notice: 'Debe confirmar su cuenta antes de continuar'
+      AppointmentWorker.perform_in(30.minutes, patient.id)
+      redirect_to user_session_path, notice: 'Su cita esta reservada pero aun no esta activa por favor siga las instrucciones enviadas al correo electronico especificado para concretarla'
     else
       redirect_to schedule_appointment_no_user_path, alert: 'No pudo ser registrado'
     end
@@ -79,12 +81,13 @@ class AppointmentsController < ApplicationController
 
   def update_appointment
     patient = User.where(id_number: params[:appointment][:id_number]).first
-    appointments = patient.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).any?
+    appointments = patient.patient_appointments.where('appointment_datetime > ? AND state = ?', DateTime.now, 1).any?
 
     unless appointments
-      @appointment = Appointment.new(appointments_params.merge({patient_id: patient.id}))
+      @appointment = Appointment.new(appointments_params.merge({patient_id: patient.id, state: :disabled}))
       if @appointment.save
-        redirect_to user_session_path, notice: 'Su cita ha sido creada, por favor inicie sesion para que se confirme'
+        AppointmentWorker.perform_in(30.minutes, patient.id)
+        redirect_to user_session_path, notice: 'Su cita ha sido creada debe iniciar sesion en los proximos 30 minutos para que se confirme'
       else
         redirect_to schedule_appointment_no_user_path, flash: {danger: 'Su cita no pudo ser creada, por favor intente de nuevo'}
       end
@@ -98,6 +101,18 @@ class AppointmentsController < ApplicationController
     if @appointment.destroy
       redirect_to appointments_path, notice: 'La cita fue eliminada correctamente.'
     end
+  end
+
+  def cancel_appointment    
+    user = User.find(params[:current_user_id])    
+    reason = params[:reason].blank? ? nil : params[:reason]
+    appointment = Appointment.find(params[:appointment_id])
+    mail_to = user.doctor? ? appointment.patient.id : appointment.doctor.id
+    path = user.doctor? ? scheduled_appointments_path : appointments_path
+    mail = AppointmentsMailer.canceled_appointment(mail_to, appointment.id, reason)
+    appointment.update(state: :canceled)
+    mail.deliver_now
+    redirect_to path
   end
 
   private

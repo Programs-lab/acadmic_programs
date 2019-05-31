@@ -11,7 +11,15 @@ moment.locale('es')
 document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('schedule_appointments')) {
     var app = new Vue({
-      el: '#schedule_appointments'
+      el: '#schedule_appointments',
+      data: {
+        modal2: {}
+      },
+      methods: {
+        modalId(i){
+          Vue.set(this.modal2, i , !this.modal2[i]);
+        }
+      }      
     })
   }
 })

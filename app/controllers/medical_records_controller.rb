@@ -1,8 +1,25 @@
 class MedicalRecordsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_patient, only: :medical_record
+  before_action :set_patient, only: [:medical_record, :show]
   before_action :set_appointment, only: :medical_record
-  before_action :set_medical_record, only: :create
+  before_action :set_medical_record, only: [:create, :medical_record]
+
+  def show
+    medical_record = @patient.patient_medical_records
+    @appointment_reports = AppointmentReport.where(medical_record_id: medical_record.pluck(:id))
+    respond_to do |format|
+      format.html
+      format.pdf do 
+        render pdf: "Historial clinico de #{@patient.first_name} #{@patient.last_name} (#{Date.today})",
+        template: "medical_records/show.html.erb",
+        layout: "pdf.html",
+        zoom: 2,
+        dpi: 75,
+        page_size: 'A4',
+        encoding: 'utf8'
+      end
+    end
+  end
 
   def index
     patient = current_user
@@ -17,17 +34,8 @@ class MedicalRecordsController < ApplicationController
   end
 
   def create    
-    binding.pry
-    report_params = {}.merge(appointment_report_params)
-    media = appointment_report_params[:media]
-    report_params.except!(:media)
-    @appointment_report = @medical_record.appointment_reports.new(report_params)
-    if @appointment_report.save
-      if media.any?
-        media.each do |m|
-          @appointment_report.media.create(file: m)
-        end          
-      end      
+    @appointment_report = @medical_record.appointment_reports.new(appointment_report_params)
+    if @appointment_report.save     
       redirect_to patient_medical_record_path(@medical_record.patient_id), notice: "El diagnostico del paciente fue creado correctamente"
     else
       redirect_to patient_medical_record_path(@medical_record.patient_id), flash: { danger: "El diagnostico del paciente no pudo ser creado"}
@@ -49,7 +57,7 @@ class MedicalRecordsController < ApplicationController
   end
 
   def appointment_report_params
-    params.require(:medical_record).permit(
+    params.require(:appointment_report).permit(
       :doctor_id,
       :appointment_id,
       :appointment_datetime,
@@ -57,8 +65,7 @@ class MedicalRecordsController < ApplicationController
       :medical_order,
       :medical_disability,
       :reference,
-      :examination_request,
-      media: []
+      :examination_request
     )
   end
 end

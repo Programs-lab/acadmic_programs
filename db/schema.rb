@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_204355) do
+ActiveRecord::Schema.define(version: 2019_05_31_213146) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -38,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_204355) do
   end
 
   create_table "appointment_reports", force: :cascade do |t|
-    t.bigint "appointment_id", null: false
+    t.bigint "appointment_id"
     t.bigint "medical_record_id", null: false
     t.text "diagnosis"
     t.text "medical_order"
@@ -62,6 +61,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_204355) do
     t.datetime "updated_at", null: false
     t.boolean "disabled", default: false, null: false
     t.boolean "attended", default: false, null: false
+    t.integer "state"
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
     t.index ["procedure_type_id"], name: "index_appointments_on_procedure_type_id"
@@ -74,19 +74,12 @@ ActiveRecord::Schema.define(version: 2019_05_17_204355) do
     t.integer "company_id", null: false
   end
 
-  create_table "files", force: :cascade do |t|
-    t.bigint "appointment_report_id"
-    t.string "file"
-    t.string "name"
-    t.index ["appointment_report_id"], name: "index_files_on_appointment_report_id"
-  end
-
   create_table "media", force: :cascade do |t|
     t.string "file_name"
-    t.bigint "appointment_report_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appointment_report_id"], name: "index_media_on_appointment_report_id"
+    t.bigint "medical_record_id"
+    t.index ["medical_record_id"], name: "index_media_on_medical_record_id"
   end
 
   create_table "medical_records", force: :cascade do |t|
@@ -150,6 +143,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_204355) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.bigint "company_id"
+    t.string "avatar"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -194,8 +188,6 @@ ActiveRecord::Schema.define(version: 2019_05_17_204355) do
   add_foreign_key "appointment_reports", "appointments"
   add_foreign_key "appointment_reports", "medical_records"
   add_foreign_key "appointments", "procedure_types"
-  add_foreign_key "files", "appointment_reports"
-  add_foreign_key "media", "appointment_reports"
   add_foreign_key "procedure_companies", "companies"
   add_foreign_key "procedure_companies", "procedure_types"
   add_foreign_key "working_days", "working_weeks"

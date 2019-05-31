@@ -74,6 +74,12 @@
     @apply .rounded-full .h-1 .w-1 .bg-red-light .ml-1;
   }
 
+  .img-circle {
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+  }
+
   #footer {
     position: fixed;
     width: 100%;

@@ -33,6 +33,9 @@ document.addEventListener('turbolinks:load', () => {
       idNumber: '',
       idType: '',
       phoneNumber: '',
+      occupation: '',
+      address: '',
+      company_id: '',
       procedureName: procedure_name,
       procedureDuration: procedure_duration,
       doctorId: document.getElementById("user_no_registered").getAttribute('doctor_id'),
@@ -88,6 +91,11 @@ document.addEventListener('turbolinks:load', () => {
           this.lastNameValue = this.patient != null ? this.patient.last_name : ''
           this.phoneNumber = this.patient != null ? this.patient.phone_number : ''
           this.emailValue = this.patient != null ? this.patient.email : ''
+          this.occupation = this.patient != null ? this.patient.occupation : ''
+          this.address = this.patient != null ? this.patient.address : ''
+          this.birthdateValue = this.patient != null ? this.patient.birthdate : ''
+          this.company_id = this.patient != null ? this.patient.company_id : ''
+          console.log(this.patient)
         }, response => { console.log(response) });
       },
       changeNav: function(){

@@ -8,5 +8,5 @@
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
   WickedPdf.config = {
-    :exe_path => "/Users/davidbayona/.rbenv/shims/wkhtmltopdf"
-  }
+    :exe_path => "#{ENV['GEM_HOME']}/gems/wkhtmltopdf-binary-#{Gem.loaded_specs['wkhtmltopdf-binary'].version}/bin/wkhtmltopdf"
+}

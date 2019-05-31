@@ -1,4 +1,5 @@
 <%= render  'shared/card' do %>
+<div id="appointments_index">
   <div class="flex px-4">
     <div class="w-2/3">
     </div>
@@ -36,27 +37,60 @@
     <% end %>
     <% @appointments.each do |appointment| %>
     <div class="flex flex-wrap w-full justify-between mb-2">
-      <div class="flex w-1/5 items-center">
+      <div class="flex w-1/6 items-center">
         <%= icon('fas','calendar', class: 'fa-md mr-2')%>
-        <p><%= appointment.appointment_datetime.strftime("%d %B %Y") %></p>
+        <p><%= l(appointment.appointment_datetime, format: '%d %B %Y') %></p>
       </div>
-      <div class="flex w-1/5 items-center">
+      <div class="flex w-1/6 items-center">
         <%= icon('fas','clock', class: 'fa-md mr-2')%>
         <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
       </div>
-      <div class="flex w-1/5 items-center">
+      <div class="flex w-1/6 items-center">
         <%= icon('fas','medkit', class: 'fa-md mr-2')%>
         <p><%= appointment.procedure_type.procedure_type_name%></p>
       </div>
-      <div class="flex w-1/5 items-center">
+      <div class="flex w-1/6 items-center">
+        <%= icon('fas','user-md', class: 'fa-md mr-2')%>
+        <p><%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%></p>
+      </div>
+      <div class="flex w-1/6 justify-center items-center px-8">
         <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>        
       </div>
-      <div class="flex w-1/5 justify-end">
-        <%= link_to appointment_path(appointment), method: :delete, class: "btn btn-secondary" do %>
-          <%= icon('fas','calendar-times', class: 'fa-md')%>
-        <% end %>
+      <div class="flex w-1/6 justify-end">
+        <a id="myBtn" @click="modalId('cancel')" class='btn btn-red-light'>
+          <%= icon('fas','calendar-times', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+        </a>
       </div>
     </div>
+
+
+     <%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put do |form|%>
+
+          <modal-vue i= "cancel" style_modal="width: 45%;">
+            <template v-slot:title>
+              Cancelar cita
+            </template>
+            <template v-slot:content>
+              <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+                <div class="flex w-full">
+                  <p>¿Esta seguro de que desea cancelar esta cita? Esta accion es irreversible</p>
+                </div>
+                <br>
+                <br>
+                <div>
+                  <%= form.hidden_field :current_user_id, value: current_user.id %>
+                </div>
+              </div>
+            </template>
+            <template v-slot:footer>
+              <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('cancel')">Cancelar</button>
+              <%= form.submit "Acceptar", class: 'btn btn-primary' %>
+            </template>
+          </modal-vue>
+
+      <% end %>
+
+
     <% end %>
     <div class="divider"></div>
     <div class="flex w-full mb-4">
@@ -77,7 +111,7 @@
     <div class="flex flex-wrap w-full justify-between mb-2">
       <div class="flex w-1/6 items-center">
         <%= icon('fas','calendar', class: 'fa-md mr-2')%>
-        <p><%= appointment.appointment_datetime.strftime("%d %B %Y") %></p>
+        <p><%= l(appointment.appointment_datetime, format: '%d %B %Y') %></p>
       </div>
       <div class="flex w-1/6 items-center">
         <%= icon('fas','clock', class: 'fa-md mr-2')%>
@@ -92,7 +126,7 @@
         <p><%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%></p>
       </div>
       <div class="flex w-1/6 justify-center items-center px-8">
-        <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>        
+        <span class="flex w-full text-sm justify-center <%= appointment_state(appointment)[1] %> py-1"><%= appointment_state(appointment)[0] %></span>        
       </div>
       <div class="flex w-1/6 justify-end">
         <%= link_to "#", class: "btn btn-secondary w-12 text-center mr-1 #{disabled_button(appointment)}" do %>
@@ -103,4 +137,5 @@
     <% end %>
   </div>
   </div>
+</div>
 <% end %>

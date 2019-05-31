@@ -11,14 +11,15 @@ module ApplicationHelper
 
   def is_users_path
     case request.params[:controller]
-    when 'admin/users' then 'active'
+    when 'admin/users' then 'active' if request.params[:action] == 'index' ||  request.params[:action] == 'new' || request.params[:action] == 'edit'
     end
   end
 
   def is_patients_path
     case request.params[:controller]
-    when 'admin/users' then 'active'
+    when 'admin/users' then 'active' if request.params[:action] == 'patients'
     when 'medical_records' then 'active' if request.params[:action] == 'medical_record'
+    when 'appointments' then 'active' if request.params[:action] == 'schedule_appointment'
     end
   end
 
@@ -44,9 +45,9 @@ module ApplicationHelper
   end
 
   def is_doctors_path
-    case request.path
-    when '/admin/doctores' then 'active'
-    end
+     case request.params[:controller]
+        when 'admin/users' then 'active' if request.params[:action] == 'doctors'
+     end
   end
 
   def is_patient_medical_record_path
@@ -127,7 +128,7 @@ module ApplicationHelper
      user_disabled ? 'disabled_form' : ''
   end
 
-  def disabled_button(user_disabled)
+  def disabled_user_button(user_disabled)
      user_disabled ? 'disabled' : ''
   end
 

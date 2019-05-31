@@ -1,5 +1,5 @@
- <div class="row">
-    <div class="col s12">
+      <div class="row">
+        <div class="col s12">
           <h2 class="center-align"><span >Historial Clinico</span></h2>
               <div class="card">                    
                 <div class="card-content">
@@ -32,13 +32,14 @@
               </table>
               </div>
             </div>
+          </div>
           <div class="row">
             <h4>Listado de reportes registrados del paciente</h4>
           </div>              
           <% @appointment_reports.each_with_index do |appointment_report, index| %>
-          <div class="row" style="page-break-after: always; display: inline-block;">
-            <div class="col s12 m6">
-            <div class="card">
+          <div class="row" style="page-break-after: always; display: inline-block; width: 100%;">
+            <div class="col s12">
+            <div class="card" style="width: 100%">
               <div class="card-content">
                 <div class="row">
                   <div class="section">
@@ -114,7 +115,6 @@
           </div>    
           <% end %>
         </div>
-     </div>
 
 
 

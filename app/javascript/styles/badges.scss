@@ -1,21 +1,20 @@
 .badge-warning{
-  @apply .rounded-full .bg-yellow-light .border-yellow-dark .shadow-md;
+  @apply .rounded-full .font-semibold .bg-yellow-lighter .border-yellow-dark .shadow-md;
   border: 1px;
 }
 
 .badge-success{
-  @apply .rounded-full .bg-teal-light .border-teal-light .shadow-md;
+  @apply .rounded-full .bg-green-lighter .border-teal-light .shadow-md;
   border: 1px;
 }
 
 .badge-danger{
-  @apply .rounded-full .bg-red-light .border-red-light .shadow-md;
+  @apply .rounded-full .bg-red-lighter .border-red-light .shadow-md;
   border: 1px;
 }
 
 .badge-default{
-  @apply .rounded-full .shadow-md;
-  background-color: #e2e8f0;
+  @apply .rounded-full .font-bold .bg-grey-light .shadow-md; 
   border-color: #718096;
 }
 

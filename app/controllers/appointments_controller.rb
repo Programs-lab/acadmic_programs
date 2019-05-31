@@ -23,7 +23,8 @@ class AppointmentsController < ApplicationController
   end
 
   def scheduled_appointments
-    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false).order(:appointment_datetime)
+    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND state = ?', Date.today, 1).order(:appointment_datetime)
+    #@appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false).order(:appointment_datetime)
     @pagy, @appointments = pagy(@appointments, items: 5)
   end
 
@@ -71,7 +72,7 @@ class AppointmentsController < ApplicationController
     if patient.save
       appointment = Appointment.create(appointments_params.merge({patient_id: patient.id, procedure_type_id: ProcedureType.all.first.id, state: :disabled}))
       patient.send_confirmation_instructions
-      AppointmentWorker.perform_in(10.minutes, patient.id)
+      AppointmentWorker.perform_in(30.minutes, patient.id)
       redirect_to user_session_path, notice: 'Su cita esta reservada pero aun no esta activa por favor siga las instrucciones enviadas al correo electronico especificado para concretarla'
     else
       redirect_to schedule_appointment_no_user_path, alert: 'No pudo ser registrado'
@@ -85,7 +86,7 @@ class AppointmentsController < ApplicationController
     unless appointments
       @appointment = Appointment.new(appointments_params.merge({patient_id: patient.id, state: :disabled}))
       if @appointment.save
-        AppointmentWorker.perform_in(1.minutes, patient.id)
+        AppointmentWorker.perform_in(30.minutes, patient.id)
         redirect_to user_session_path, notice: 'Su cita ha sido creada debe iniciar sesion en los proximos 30 minutos para que se confirme'
       else
         redirect_to schedule_appointment_no_user_path, flash: {danger: 'Su cita no pudo ser creada, por favor intente de nuevo'}
@@ -101,18 +102,17 @@ class AppointmentsController < ApplicationController
       redirect_to appointments_path, notice: 'La cita fue eliminada correctamente.'
     end
   end
-  
-  def cancel_appointment
+
+  def cancel_appointment    
+    user = User.find(params[:current_user_id])    
     reason = params[:reason].blank? ? nil : params[:reason]
     appointment = Appointment.find(params[:appointment_id])
-    mail = AppointmentsMailer.canceled_appointment(appointment.patient.id, appointment.id, reason)
+    mail_to = user.doctor? ? appointment.patient.id : appointment.doctor.id
+    path = user.doctor? ? scheduled_appointments_path : appointments_path
+    mail = AppointmentsMailer.canceled_appointment(mail_to, appointment.id, reason)
     appointment.update(state: :canceled)
     mail.deliver_now
-    redirect_to scheduled_appointments_path
-  end
-
-  def scheduled_appointments
-    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND state = ?', DateTime.now, 1)
+    redirect_to path
   end
 
   private

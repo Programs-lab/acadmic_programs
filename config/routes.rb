@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'users/index'
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   namespace :admin do
     resources :users, path: 'usuarios' do
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get 'appointments/schedule_appointment/:patient_id', to: 'appointments#schedule_appointment', as: :schedule_appointment
   post 'appointments/create_schedule_appointment/:patient_id', to: 'appointments#create_schedule_appointment', as: :create_schedule_appointment
 
-  root 'pages#home'
+  root 'redirection#index'
   get 'pages/home'
   get 'pages/medical_record'
   get 'pages/schedule'

@@ -29,6 +29,7 @@ Vue.component('tab-vue', {
           <slot :name="item_id"></slot>
         </a>
       </li>
+      <slot name="default_tab"></slot>
     </ul>
     <div v-for="item_id in ids" v-show="tabItems[item_id]" class="flex py-4">
       <slot :name="'content' + item_id"></slot>

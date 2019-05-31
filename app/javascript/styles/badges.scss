@@ -1,0 +1,24 @@
+.badge-warning{
+  @apply .rounded-full .font-semibold .bg-yellow-lighter .border-yellow-dark .shadow-md;
+  border: 1px;
+}
+
+.badge-success{
+  @apply .rounded-full .bg-green-lighter .border-teal-light .shadow-md;
+  border: 1px;
+}
+
+.badge-danger{
+  @apply .rounded-full .bg-red-lighter .border-red-light .shadow-md;
+  border: 1px;
+}
+
+.badge-default{
+  @apply .rounded-full .font-bold .bg-grey-light .shadow-md; 
+  border-color: #718096;
+}
+
+
+
+
+

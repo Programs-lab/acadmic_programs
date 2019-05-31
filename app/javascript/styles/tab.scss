@@ -1,13 +1,13 @@
 .tab-item{
-  @apply .bg-white .inline-block .py-2 .px-4 .text-primary .font-semibold .no-underline .cursor-pointer;
+  @apply .bg-white .inline-block .py-2 .px-4 .text-black .font-semibold .no-underline .cursor-pointer;
 
   &:hover{
-  @apply .text-black;
+  @apply .text-primary;
   }
 }
 
 .tab-active {
-  @apply .border-l .border-t .border-r .rounded-t .text-black .-mb-px;
+  @apply .border-l .border-t .border-r .rounded-t .text-primary .-mb-px;
 }
 
 .tab{

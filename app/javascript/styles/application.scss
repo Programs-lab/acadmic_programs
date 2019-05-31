@@ -12,6 +12,8 @@
 @import 'tab';
 @import 'froala-editor';
 @import 'pagy';
+@import 'spinner';
+@import 'badges';
 
   *{
     font-family: 'Didact Gothic', sans-serif;
@@ -38,6 +40,12 @@
   .disabled{
     @apply .bg-third .cursor-not-allowed .text-white;
   }
+
+  .disabled-link{
+    @apply .bg-third .cursor-not-allowed .text-white;
+    pointer-events: none;
+  }
+
   .disabled:hover{
     @apply .bg-third; 
   }
@@ -66,10 +74,21 @@
     @apply .rounded-full .h-1 .w-1 .bg-red-light .ml-1;
   }
 
+  .img-circle {
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+  }
+
   #footer {
     position: fixed;
     width: 100%;
     bottom: 0;
     left: 0;
     right: 0;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-inline-start: 0px;
   }

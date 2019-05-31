@@ -22,12 +22,23 @@ class User < ApplicationRecord
   has_many :patient_appointments, class_name: 'Appointment', foreign_key: 'patient_id'
   has_many :patient_medical_records, class_name: 'MedicalRecord', foreign_key: 'patient_id'
   validates_uniqueness_of :id_number
-  has_one_attached :avatar
+  mount_uploader :avatar, ImageUploader
 
 
 
   def active_for_authentication?
     super and !self.disabled?
+  end
+
+  def update_without_password(params, *options)
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result
   end
 
   def name

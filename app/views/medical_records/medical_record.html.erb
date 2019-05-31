@@ -5,7 +5,7 @@
     <div class="w-1/3 text-right">
     </div>
   </div>
-  <div id="medical_record" class="w-full px-4" v-cloak>
+  <div id="medical_record" class="w-full px-4" data-medical-record-id="<%= @patient.patient_medical_records.first.id %>" v-cloak>
     <div class="my-4 flex">
       <div class="w-1/2">
         <h4 class="font-semibold text-g-d4 text-lg">
@@ -18,7 +18,12 @@
     </div>
     <div class="row items-center">
       <div class="flex w-1/3 justify-center">
-        <img class="img-circle" src="https://www.abeautifulsite.net/uploads/2019/03/cory-nh.jpg?thumbnail=256&key=8a001ba9c3a05010834d053723c48b3cd12c119fc141da08f5a40562d52d1ca0" style="border-radius: 50%; width: 80%; height: 80%;">
+        <% if @patient.avatar? %>
+          <%= image_tag @patient.avatar.url, class: "img-circle"%>  
+        <% else %>
+          <%= image_tag gravatar_image_url(current_user.email, size: 100), height:50, width: 50, class: "img-circle" %>
+        <% end %>
+        
       </div>
       <div class="flex w-2/3 justify-center">
           <!-- table heading -->
@@ -49,7 +54,7 @@
         </div>
       </div>
       <div class="divider"></div>
-      <%= form_for('medical_record', url: create_medical_record_path(patient_id: @patient.id), method: :post, class: "w-full",
+      <%= form_for('appointment_report', url: create_medical_record_path(patient_id: @patient.id), method: :post, class: "w-full",
       html: { id: "medical_record_form",
               'appointment' =>  @appointment ? @appointment.to_json(only: [:id, :appointment_datetime]) : {}
       }) do |f| %>
@@ -89,7 +94,7 @@
         </div>
       </div>
       <div id="tab_vue" v-show="show">
-        <tab-vue :ids="[1,2,3,4,5,6]">
+        <tab-vue :ids="[1,2,3,4,5]">
           <template #1>
             <%= icon('fas','file-alt', class: 'fa-md')%>
             Diagnostico
@@ -111,17 +116,14 @@
             <%= icon('fas','wheelchair', class: 'fa-md')%>
             Incapacidad
           </template>
-          <template #6>
-            <%= icon('fas','upload', class: 'fa-md')%>            
-          </template>
           <template #content1>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea class="flex w-full border-t-4 border-primary rounded-t" name="medical_record[diagnosis]"></textarea>
+              <textarea class="flex w-full border-t-4 border-primary rounded-t" name="appointment_report[diagnosis]"></textarea>
             </div>
           </template>
           <template #content2>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[medical_order]">
+              <textarea name="appointment_report[medical_order]">
                 <table class="table" width="100%">
                   <thead>
                     <tr>
@@ -143,7 +145,7 @@
           </template>
           <template #content3>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[examination_request]">
+              <textarea name="appointment_report[examination_request]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -161,7 +163,7 @@
           </template>
           <template #content4>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[reference]">
+              <textarea name="appointment_report[reference]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -179,7 +181,7 @@
           </template>
           <template #content5>
             <div class="flex w-full border-t-4 border-primary rounded-t">
-              <textarea name="medical_record[medical_disability]">
+              <textarea name="appointment_report[medical_disability]">
                 <table class="table" width="100%">
                   <tbody>
                     <tr>
@@ -203,16 +205,14 @@
               </textarea>
             </div>
           </template>
-          <template #content6>
-            <div class="flex w-full">              
-              <vue-dropzone ref="myVueDropzone" v-on:vdropzone-success="updateMediaArray" v-on:vdropzone-removed-file="updateMediaArray" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
-            </div>
-          </template>
         </tab-vue>
       </div>
       <% end %>
       <div class="divider"></div>
       <div class="flex w-full justify-end">
+        <a class="btn btn-secondary" @click="showFileUpload()">
+          Carga de archivos
+        </a>
         <a class="btn btn-secondary" @click="showMedicalRecord">
           Historial medico
         </a>
@@ -222,7 +222,7 @@
         <div class="flex flex-wrap w-full">
           <div class="w-1/2">
             <h4 class="font-semibold text-g-d4 text-lg">
-              <span class="font-medium text-sm text-g-d2">Historial medico de Mark</span>
+              <span class="font-medium text-sm text-g-d2">Historial medico de <%= @patient.first_name %></span>
             </h4>
           </div>
         </div>
@@ -242,6 +242,82 @@
           <% @appointment_reports.each_with_index do |appointment_report, index|%>
             <%= render 'appointment_report', appointment_report: appointment_report, index: index %>
           <% end %>
+          <div class="divider"></div>
+          <div class="flex w-full justify-end">
+              <%= link_to(medical_record_path(id: @medical_record.id, patient_id: @patient.id, format: :pdf), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'file-pdf', 'Descargar como PDF') %>
+              <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="" v-show="showD">        
+          
+          <div class="flex w-full">
+             <vue-dropzone ref="myVueDropzone" v-on:vdropzone-success="fetchMedia(), removeFilesFromDZ()" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+           </div>
+           <br>
+           <paginate v-if="media.length > 0"
+              name="media"
+              :list="media"
+              :per="5"
+           >
+             <div class="px-0 md:px-4 overflow-auto">
+              <table class="table table-responsive">
+                <thead>
+                  <tr>
+                    <th width="20%"></th>
+                    <th width="30%">Fecha/Hora</th>
+                    <th width="50%">Nombre</th>
+                  </tr>
+                </thead>
+                <tbody class="">
+                  <tr v-for="(medium, index) in paginated('media')">
+
+                    <td>
+                      <a v-bind:href="medium.file_name.url" class='btn btn-secondary no-outline' target='_blank'>Ver</a>
+                      <button type="button" class="btn btn-red-light" @click="removeMedium(medium.id, index)">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                    <td>
+                      {{$moment(medium.created_at).format('D/M/YYYY h:mm:ss')}}
+                    </td>
+                    <td>
+                      {{medium.file_name.url.split('/')[medium.file_name.url.split('/').length-1]}}
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>          
+          </paginate>
+          <div class="flex justify-center">
+            <paginate-links for="media" 
+                :async="true" 
+                :show-step-links="true"
+                :step-links="{
+                  next: ' Siguiente »',
+                  prev: '« Anterior '
+                }"
+                :classes="{
+                  'ul': ['flex', 'w-full', 'justify-center'],
+                  'a':  ['pagy-link', 'page'],
+                }"
+            >            
+            </paginate-links>
+          </div>
+        <div class="" v-if="media.length === 0">          
+          <div class="flex w-full justify-center">
+            <div class="alert alert-info w-full mx-4" role="alert">
+              <div class="flex w-full">
+                <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
+                <div class="text-teal-darkest">
+                  <p class="font-bold">Atención.</p>
+                  <p class="text-sm">Aun no hay archivos asociados a este paciente, puede usar el campo de carga de archivos para agregar uno</i></p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

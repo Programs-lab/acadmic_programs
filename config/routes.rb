@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'users/index'
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   namespace :admin do
     resources :users, path: 'usuarios' do
@@ -23,11 +23,15 @@ Rails.application.routes.draw do
   post "medical_records/create_medical_record" , to: 'medical_records#create', as: :create_medical_record
 
   resources :appointments, path: 'citas'
+  put 'citas/cancelar/:appointment_id', to: 'appointments#cancel_appointment', as: :cancel_appointment
+  resources :appointment_reports, path: 'reportes de citas', only: :show
   namespace :api do
     get 'appointments/fetch_appointment_data/:doctor_id/:procedure_type_id', to: 'appointments#fetch_appointment_data'
     get 'appointments/fetch_user/:id_number/:id_type', to: 'appointments#fetch_user'
-    get 'appointments/horario/working_hours/:wh_id/', to: 'appointments#is_available_working_hour'
+    get 'appointments/horario/working_hours/:doctor_id', to: 'appointments#unavialbale_working_hours'
     post 'media/:id', to: 'media#create'
+    get  'media/:id', to: 'media#index'
+    delete  'media/:id', to: 'media#destroy'
   end
 
   get 'appointments/schedule_appointment_no_user', to: 'appointments#schedule_appointment_no_user', as: :schedule_appointment_no_user
@@ -37,7 +41,7 @@ Rails.application.routes.draw do
   get 'appointments/schedule_appointment/:patient_id', to: 'appointments#schedule_appointment', as: :schedule_appointment
   post 'appointments/create_schedule_appointment/:patient_id', to: 'appointments#create_schedule_appointment', as: :create_schedule_appointment
 
-  root 'pages#home'
+  root 'redirection#index'
   get 'pages/home'
   get 'pages/medical_record'
   get 'pages/schedule'

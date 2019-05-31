@@ -61,16 +61,17 @@
         <%= f.number_field :phone_number, class: 'field_input rounded-t' %>
       </div>
       <div class="w-full md:w-1/2 px-3 ">
-        <label class="label_input" for="grid-state">
-          Empresa de afiliación
-        </label>
-        <div class="relative">
-          <select class="block appearance-none w-full border-b text-grey-darker py-3 focus:outline-none bg-white focus:border-grey h-8 " id="grid-state">
-            <option class="bg-primary">Nueva EPS</option>
-            <option>Missouri</option>
-            <option>Texas</option>
-          </select>
-        </div>
+         <%= f.label "Empresa de afiliación", class: 'label_input' %>
+         <%= f.collection_select(
+            :company_id,
+            Company.all,
+            :id,
+            :company_name,
+            { include_blank: true },
+            {
+              class: "block appearance-none w-full border-b text-grey-darker py-3 focus:outline-none bg-white focus:border-grey h-8"
+            }
+         ) %>
       </div>
     </div>
     <div class="flex flex-wrap -mx-3 mb-5">

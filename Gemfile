@@ -38,6 +38,7 @@ gem "fog"
 gem "fog-aws"
 gem 'carrierwave', '~> 1.0'
 gem 'pagy'
+gem 'mailgun-ruby', '~>1.1.6'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem "mini_magick"

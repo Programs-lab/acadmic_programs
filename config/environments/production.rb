@@ -76,7 +76,16 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_options = { from: "sistemas@gastromed.com"}
+
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { :host => "gastromed.com" }
+
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: '975012b936f0e7ca54e79a0ee0c34b1f-1b65790d-cf5067b1',
+    domain: 'mail.silumin.co',
+  }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new

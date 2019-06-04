@@ -8,6 +8,7 @@ class AppointmentsController < ApplicationController
     @appointments = patient.patient_appointments.where(state: :pending).where('appointment_datetime >= ?', DateTime.now)
     medical_record = patient.patient_medical_records.first
     @appointment_history = patient.patient_appointments.where('appointment_datetime <= ? OR state = ? OR state = ?', DateTime.now, 2, 3)
+    @pagy, @appointment_history = pagy(@appointment_history, items: 5)
   end
 
   def new
@@ -29,7 +30,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    appointments = @patient.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).any?
+  appointments = @patient.patient_appointments.where('appointment_datetime > ? AND state = ?', DateTime.now, 1).any?
     unless appointments
       @appointment = @patient.patient_appointments.new(appointments_params)
       if @appointment.save
@@ -81,7 +82,7 @@ class AppointmentsController < ApplicationController
 
   def update_appointment
     patient = User.where(id_number: params[:appointment][:id_number]).first
-    appointments = patient.patient_appointments.where('appointment_datetime > ? AND state = ?', DateTime.now, 1).any?
+    appointments = patient.patient_appointments.where('appointment_datetime > ? AND (state = ? OR state = ?)', DateTime.now, 1, 0).any?
 
     unless appointments
       @appointment = Appointment.new(appointments_params.merge({patient_id: patient.id, state: :disabled}))

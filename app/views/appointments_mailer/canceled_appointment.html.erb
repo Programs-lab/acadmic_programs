@@ -19,7 +19,7 @@
     <% else %>
       <h1>Señor(a) <%= "#{@user.first_name} #{@user.last_name}" %></h1>
       <p>
-        Se le envia ese correo para informarle que la cita previamente programada para el <%= @appointment.appointment_datetime %> a las <%= @appointment.appointment_datetime %> con el paciente <%= "#{@appointment.patient.first_name} #{@appointment.patient.last_name}" %> fue cancelada a peticion del paciente <br>
+        Se le envia ese correo para informarle que la cita previamente programada para el <%= @appointment.appointment_datetime %> a las <%= @appointment.appointment_datetime %> con <%= "#{@appointment.patient.first_name} #{@appointment.patient.last_name}" %> fue cancelada a peticion del paciente <br>
       </p>
       <p>Nos disculpamos por cualquier molestia </p>
     <% end %>

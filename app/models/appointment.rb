@@ -5,6 +5,7 @@ class Appointment < ApplicationRecord
   validate :is_valid_record, on: :create
   enum state: [:disabled, :pending, :completed, :canceled]
   before_create :set_default_state
+  before_create :set_appointment_price
 
 
   private
@@ -12,6 +13,17 @@ class Appointment < ApplicationRecord
 
   def set_default_state
     self.state ||= :pending
+  end
+
+  def set_appointment_price
+    if self.patient.company
+      procedure_company = ProcedureCpmany.where(company_id: self.patient.company.id, procedure_type_id: self.procedure_type.id)
+      if procedure_company.any?
+        self.appointment_price = procedure_company.first.cost
+      end
+    else
+      self.appointment_price = self.procedure_type.cost
+    end     
   end
 
   def is_valid_record

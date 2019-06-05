@@ -227,7 +227,7 @@
           </div>
         </div>
         <br>
-        <div class="row justify-center">
+        <div class="row justify-center" style="z-index: 1">
           <% unless @appointment_reports.any? %>
           <div class="alert alert-info w-full" role="alert" v-cloak>
             <div class="flex">
@@ -244,7 +244,7 @@
           <% end %>
           <div class="divider"></div>
           <div class="flex w-full justify-end">
-              <%= link_to(medical_record_path(id: @medical_record.id, patient_id: @patient.id, format: :pdf), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+              <%= link_to(medical_record_path(id: @medical_record.id, patient_id: @patient.id, format: :pdf), class: 'btn btn-secondary no-underline rounded-full:!important' ) do %>
                 <%= icon('fas', 'file-pdf', 'Descargar como PDF') %>
               <% end %>
           </div>
@@ -320,6 +320,12 @@
           </div>
         </div>
       </div>
+      <div v-if="loading">
+        <div id=overlay>
+          <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+      </div>
     </div>
   </div>
+
 <% end %>

@@ -30,6 +30,7 @@ document.addEventListener('turbolinks:load', () => {
         showD: false,
         algo: false,
         tabItems: {},
+        loading: false,
         modal2: {},
         appointment: appointment,
         media: [],

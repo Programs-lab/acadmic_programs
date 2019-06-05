@@ -79,7 +79,7 @@ Rails.application.configure do
   config.action_mailer.default_options = { from: "sistemas@gastromed.com"}
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => "gastromed.com" }
+  config.action_mailer.default_url_options = { :host => "silumin.co" }
 
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {

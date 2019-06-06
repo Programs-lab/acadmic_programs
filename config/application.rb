@@ -11,10 +11,6 @@ module Gastromed
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
-    console do
-      require "pry"
-      config.console = Pry
-    end
     config.i18n.default_locale = :es
     config.time_zone = 'Bogota'
 

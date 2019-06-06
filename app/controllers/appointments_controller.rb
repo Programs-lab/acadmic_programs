@@ -64,7 +64,7 @@ class AppointmentsController < ApplicationController
   
  def schedule_appointment_no_user
     @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
-    @doctor_id = @doctors.first.id
+    @doctor_id = @doctors.any? ? @doctors.first.id : []
     @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
  end  
 
@@ -124,7 +124,7 @@ class AppointmentsController < ApplicationController
 
   def get_variables_appointment
     @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
-    @doctor_id = @doctors.first.id
+    @doctor_id = @doctors.any? ? @doctors.first.id : []
   end
 
   def user_params

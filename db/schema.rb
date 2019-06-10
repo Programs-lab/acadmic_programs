@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_04_201643) do
+ActiveRecord::Schema.define(version: 2019_06_07_221116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,13 @@ ActiveRecord::Schema.define(version: 2019_06_04_201643) do
     t.integer "company_id", null: false
   end
 
+  create_table "doctor_procedure_types", force: :cascade do |t|
+    t.bigint "doctor_id", null: false
+    t.bigint "procedure_types_id"
+    t.index ["doctor_id"], name: "index_doctor_procedure_types_on_doctor_id"
+    t.index ["procedure_types_id"], name: "index_doctor_procedure_types_on_procedure_types_id"
+  end
+
   create_table "media", force: :cascade do |t|
     t.string "file_name"
     t.datetime "created_at", null: false
@@ -106,6 +113,7 @@ ActiveRecord::Schema.define(version: 2019_06_04_201643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "procedure_duration", null: false
+    t.integer "kind"
   end
 
   create_table "users", force: :cascade do |t|
@@ -189,6 +197,7 @@ ActiveRecord::Schema.define(version: 2019_06_04_201643) do
   add_foreign_key "appointment_reports", "appointments"
   add_foreign_key "appointment_reports", "medical_records"
   add_foreign_key "appointments", "procedure_types"
+  add_foreign_key "doctor_procedure_types", "procedure_types", column: "procedure_types_id"
   add_foreign_key "procedure_companies", "companies"
   add_foreign_key "procedure_companies", "procedure_types"
   add_foreign_key "working_days", "working_weeks"

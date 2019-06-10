@@ -2,7 +2,9 @@ class ProcedureType < ApplicationRecord
   has_many :procedure_companies, dependent: :destroy
   has_many :appointments
   has_many :working_hours
+  has_many :doctor_procedure_types
   after_create :create_procedure_company
+  enum kind: [:consulta, :procedimiento]
 
   def create_procedure_company
 

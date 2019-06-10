@@ -16,8 +16,8 @@ doctor = User.create(first_name: "Jose", last_name: "Peñaranda", id_number: "10
 
 doctor_2 = User.create(first_name: "David", last_name: "Peñaranda", id_number: "10905342245", email: "daviddoctor999@gmail.com", password: "123123123", password_confirmation: "123123123", role: 'doctor', confirmed_at: Date.today)
 
-procedure_type_1 = ProcedureType.create(procedure_type_name: "Consulta", cost: 20000, procedure_duration: 30)
-procedure_type_2 = ProcedureType.create(procedure_type_name: "ECGP", cost: 30000, procedure_duration: 30)
+procedure_type_1 = ProcedureType.create(procedure_type_name: "Consulta", cost: 20000, procedure_duration: 30, kind: :consultation)
+procedure_type_2 = ProcedureType.create(procedure_type_name: "ECGP", cost: 30000, procedure_duration: 30, kind: :proccedure)
 
 working_week = WorkingWeek.create(initial_date: Date.new(2019, 4, 22), end_date: Date.new(2019, 4, 26), doctor_id: doctor.id)
 

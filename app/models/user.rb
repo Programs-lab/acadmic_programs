@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :doctor_appointments, class_name: 'Appointment', foreign_key: 'doctor_id'
   has_many :doctor_working_weeks, class_name: 'WorkingWeek', foreign_key: 'doctor_id'
   has_many :doctor_appointment_reports, class_name: 'AppointmentReport', foreign_key: 'doctor_id'
+  has_many :doctor_procedure_types, class_name: 'DoctorProcedureType', foreign_key: 'doctor_id'
+  has_many :procedure_types, through: :doctor_procedure_types
   has_many :patient_appointments, class_name: 'Appointment', foreign_key: 'patient_id'
   has_many :patient_medical_records, class_name: 'MedicalRecord', foreign_key: 'patient_id'
   validates_uniqueness_of :id_number

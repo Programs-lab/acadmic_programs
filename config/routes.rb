@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get 'appointments/fetch_appointment_data/:doctor_id/:procedure_type_id', to: 'appointments#fetch_appointment_data'
     get 'appointments/fetch_user/:id_number/:id_type', to: 'appointments#fetch_user'
     get 'appointments/horario/working_hours/:doctor_id', to: 'appointments#unavialbale_working_hours'
+    get 'procedure_types/fetch', to: 'procedure_types#fetch_procedure_types'
     post 'media/:id', to: 'media#create'
     get  'media/:id', to: 'media#index'
     delete  'media/:id', to: 'media#destroy'

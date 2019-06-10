@@ -127,7 +127,8 @@ private
       :birthdate,
       :address,
       :email,
-      :role
+      :role,
+      :procedure_type_ids
       )
   end
 

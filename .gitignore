@@ -36,3 +36,6 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+/app/assets/.DS_Store
+/app/views/.DS_Store
+/public/.DS_Store

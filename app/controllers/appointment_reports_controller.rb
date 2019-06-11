@@ -10,9 +10,9 @@ class AppointmentReportsController < ApplicationController
         render pdf: "Historial clinico de #{@patient.first_name} #{@patient.last_name} (#{Date.today})",
         template: "appointment_reports/show.html.erb",
         layout: "pdf.html",
-        zoom: 1,
+        zoom: 0.78125,
         dpi: 75,
-        page_size: 'A4',
+        page_size: 'Letter',
         encoding: 'utf8'
       end
     end

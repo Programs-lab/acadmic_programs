@@ -9,13 +9,13 @@ class MedicalRecordsController < ApplicationController
     @appointment_reports = AppointmentReport.where(medical_record_id: medical_record.pluck(:id))
     respond_to do |format|
       format.html
-      format.pdf do 
+      format.pdf do
         render pdf: "Historial clinico de #{@patient.first_name} #{@patient.last_name} (#{Date.today})",
         template: "medical_records/show.html.erb",
         layout: "pdf.html",
-        zoom: 2,
+        zoom: 0.78125,
         dpi: 75,
-        page_size: 'A4',
+        page_size: 'Letter',
         encoding: 'utf8'
       end
     end

@@ -244,7 +244,7 @@
           <% end %>
           <div class="divider"></div>
           <div class="flex w-full justify-end">
-              <%= link_to(medical_record_path(id: @medical_record.id, patient_id: @patient.id, format: :pdf), class: 'btn btn-secondary no-underline rounded-full:!important' ) do %>
+              <%= link_to(medical_record_path(id: @medical_record.id, patient_id: @patient.id, format: :pdf), target: "_blank", class: 'btn btn-secondary no-underline rounded-full:!important' ) do %>
                 <%= icon('fas', 'file-pdf', 'Descargar como PDF') %>
               <% end %>
           </div>

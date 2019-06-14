@@ -23,7 +23,7 @@ class AppointmentReportsController < ApplicationController
                          },
                      },
             footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
-            zoom: 4,
+            zoom: 0.8,
             dpi: 75,
             encoding: 'utf8',
             locals: {patient: @patient, appointment_report: @appointment_report}
@@ -42,7 +42,7 @@ class AppointmentReportsController < ApplicationController
                         },
                     },
             footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
-            zoom: 4,
+            zoom: 0.8,
             dpi: 75,
             encoding: 'utf8',
             locals: {patient: @patient, appointment_report: @appointment_report, field: @appointment_report.medical_order}
@@ -60,7 +60,7 @@ class AppointmentReportsController < ApplicationController
                           },
                       },
               footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
-              zoom: 4,
+              zoom: 0.8,
               dpi: 75,
               encoding: 'utf8',
               locals: {patient: @patient, appointment_report: @appointment_report, field: @appointment_report.examination_request }
@@ -79,7 +79,7 @@ class AppointmentReportsController < ApplicationController
                                               },
                                           },
                                  footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
-                                 zoom: 4,
+                                 zoom: 0.8,
                                  dpi: 75,
                                  encoding: 'utf8',
                                  locals: {patient: @patient, appointment_report: @appointment_report, field: @appointment_report.medical_disability }
@@ -98,7 +98,7 @@ class AppointmentReportsController < ApplicationController
                                               },
                                           },
                                  footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
-                                 zoom: 4,
+                                 zoom: 0.8,
                                  dpi: 75,
                                  encoding: 'utf8',
                                  locals: {patient: @patient, appointment_report: @appointment_report, field: @appointment_report.reference }

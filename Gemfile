@@ -42,6 +42,7 @@ gem 'mailgun-ruby', '~>1.1.6'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem "mini_magick"
+gem 'combine_pdf'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

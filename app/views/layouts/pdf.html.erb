@@ -7,22 +7,5 @@
     <%#= wicked_pdf_stylesheet_pack_tag 'styles/application.scss' %>
     <%#= wicked_pdf_javascript_pack_tag 'application.js' %>
 </head>
-  <div class="row">
-    <div class="col s6 left-align">
-      <%= wicked_pdf_image_tag('banner.png', size: "940x260") %>
-    </div>
-    <div class="col s6 right-align">
-      <div class="row">
-        <br>
-        <br>
-        <br>
-        <h5><b>DR. JAVIER ALFONSO DE LA ROSA PAREJA</b></h5>        
-        <h6>Gastroenterología-Hepatología-Endoscopia Digestiva</h6>
-        <h6>Universidad de la Republica. Uruguay.</h6>
-      </div>
-    </div>
-  </div>
-  <br>
-  <%= yield %>
-
+    <%= yield %>
 </html>

@@ -1,5 +1,7 @@
 <%= render  'patient_info', patient: patient  %>
 <div class="row">
-<p><b>Fecha: </b><%= "#{appointment_report.appointment_datetime.strftime('%d/%m/%Y')}" %></p>
-      <p><%= appointment_report.diagnosis.html_safe %></p>
+  <div class="col s12">
+    <p><b>Fecha: </b><%= "#{appointment_report.appointment_datetime.strftime('%d/%m/%Y')}" %></p>
+    <p><%= appointment_report.diagnosis.html_safe %></p>
+  </div>
 </div>

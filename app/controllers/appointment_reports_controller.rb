@@ -19,7 +19,7 @@ class AppointmentReportsController < ApplicationController
                       right: 30                },
             header:  {   html: {
                            template: "medical_records/medical_record_header.html.erb",
-                           locals: {title: "HISTORIA CLINICA", patient: @patient}
+                           locals: {title: "HISTORIA CLINICA", patient: @patient, format_code: "MPM-CE-F-01"}
                          },
                      },
             footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
@@ -38,7 +38,7 @@ class AppointmentReportsController < ApplicationController
                       right: 30                },
             header:  {   html: {
                           template: "medical_records/medical_record_header.html.erb",
-                          locals: {title: "ORDENES MEDICAS", patient: @patient}
+                          locals: {title: "ORDENES MEDICAS", patient: @patient, format_code: "MPM-CE-F-02"}
                         },
                     },
             footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
@@ -56,7 +56,7 @@ class AppointmentReportsController < ApplicationController
                         right: 30                },
               header:  {   html: {
                             template: "medical_records/medical_record_header.html.erb",
-                            locals: {title: "SOLICITUD DE EXAMENES", patient: @patient}
+                            locals: {title: "SOLICITUD DE EXAMENES", patient: @patient, format_code: "MPM-CE-F-03"}
                           },
                       },
               footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
@@ -75,7 +75,7 @@ class AppointmentReportsController < ApplicationController
                                            right: 30                },
                                  header:  {   html: {
                                                 template: "medical_records/medical_record_header.html.erb",
-                                                locals: {title: "INCAPACIDAD MEDICA", patient: @patient}
+                                                locals: {title: "INCAPACIDAD MEDICA", patient: @patient, format_code: "MPM-CE-F-05"}
                                               },
                                           },
                                  footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
@@ -94,7 +94,7 @@ class AppointmentReportsController < ApplicationController
                                            right: 30                },
                                  header:  {   html: {
                                                 template: "medical_records/medical_record_header.html.erb",
-                                                locals: {title: "REFERENCIA", patient: @patient}
+                                                locals: {title: "REFERENCIA", patient: @patient, format_code: "MPM-CE-F-04"}
                                               },
                                           },
                                  footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},

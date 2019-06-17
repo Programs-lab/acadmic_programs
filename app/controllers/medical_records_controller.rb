@@ -23,7 +23,7 @@ class MedicalRecordsController < ApplicationController
                      },
                  },
         footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
-        zoom: 4,
+        zoom: 1,
         dpi: 75,
         page_size: 'Letter',
         encoding: 'utf8'

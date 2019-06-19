@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col s12">
+      <table style="border: none; border-collapse: collapse;">
+        <tbody>
+          <tr style="height: 19pt;">
+            <td style="border-right: solid #ffffff 0.5pt; border-left: solid #ffffff 0.5pt; border-top: solid #ffffff 4.5pt; border-bottom: solid #ffffff 4.5pt; vertical-align: top; background-color: #d9d9d9; padding: 0pt 5.75pt 0pt 5.75pt;" colspan="3">
+              <p style="line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;"><strong><span style="font-size: 12pt; font-family: Calibri,sans-serif; color: #000000; background-color: transparent; font-variant: normal; text-decoration: none; vertical-align: center; white-space: pre-wrap;"><b>NOMBRE: &nbsp;</b> <%= "#{patient.first_name} #{patient.last_name}" %></span></strong></p>
+            </td>
+          </tr>
+          <tr style="height: 22pt;">
+            <td style="border-left: solid #808080 0.5pt; border-bottom: solid #ffffff 4.5pt; border-top: solid #ffffff 4.5pt; vertical-align: top; background-color: #bfbfbf; padding: 0pt 5.75pt 0pt 5.75pt;" colspan="1">
+              <p style="line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;"><strong><span style="font-size: 12pt; font-family: Calibri,sans-serif; color: #000000; background-color: transparent; font-variant: normal; text-decoration: none; vertical-align: center; white-space: pre-wrap;"><b>IDENTIFICACI&Oacute;N:</b> <%= patient.id_number %> </span></strong></p>
+            </td>
+            <td style="border-right: solid #808080 0.5pt; border-left: solid #808080 0.5pt; border-bottom: solid #ffffff 4.5pt; border-top: solid #ffffff 4.5pt; vertical-align: top; background-color: #bfbfbf; padding: 0pt 5.75pt 0pt 5.75pt;">
+              <p style="line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;"><strong><span style="font-size: 12pt; font-family: Calibri,sans-serif; color: #000000; background-color: transparent; font-variant: normal; text-decoration: none; vertical-align: center; white-space: pre-wrap;"><b>EDAD:</b> <%= age(patient) %> </span></strong></p>
+            </td>
+          </tr>
+          <tr style="height: 22pt;">
+            <td style="border-left: solid #808080 0.5pt; border-bottom: solid #ffffff 4.5pt; border-top: solid #ffffff 4.5pt; vertical-align: top; background-color: #d9d9d9; padding: 0pt 5.75pt 0pt 5.75pt;">
+              <p style="line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;"><strong><span style="font-size: 12pt; font-family: Calibri,sans-serif; color: #000000; background-color: transparent; font-variant: normal; text-decoration: none; vertical-align: center; white-space: pre-wrap;"><b>FECHA:</b> <%= appointment_report.appointment_datetime.strftime('%d/%m/%Y') %> </span></strong></p>
+            </td>
+            <td style="border-right: solid #808080 0.5pt; border-bottom: solid #ffffff 4.5pt; border-top: solid #ffffff 4.5pt; vertical-align: top; background-color: #d9d9d9; padding: 0pt 5.75pt 0pt 5.75pt;">
+            <p style="line-height: 1.2; margin-top: 0pt; margin-bottom: 0pt;"><strong><span style="font-size: 12pt; font-family: Calibri,sans-serif; color: #000000; background-color: transparent; font-variant: normal; text-decoration: none; vertical-align: center; white-space: pre-wrap;"><b>EMPRESA:</b> <%= if !patient.company.nil? then patient.company.company_name end  %> </span></strong></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>

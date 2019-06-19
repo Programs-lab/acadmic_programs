@@ -45,7 +45,7 @@
         </template>
         <template #default_tab>
           <li class="w-full md:w-auto mr-1">
-            <%= link_to(appointment_report_path(id: appointment_report.id, format: :pdf), class: "tab-item px-1") do %>
+            <%= link_to(appointment_report_path(id: appointment_report.id, format: :pdf), target: "_blank", class: "tab-item px-1") do %>
               <%= icon('fas', 'file-pdf', '') %>
             <% end %>
           </li>

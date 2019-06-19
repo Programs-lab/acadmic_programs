@@ -6,16 +6,26 @@ class MedicalRecordsController < ApplicationController
 
   def show
     medical_record = @patient.patient_medical_records
-    @appointment_reports = AppointmentReport.where(medical_record_id: medical_record.pluck(:id))
+    @appointment_reports = AppointmentReport.where(medical_record_id: medical_record.pluck(:id)).order(appointment_datetime: :desc)
     respond_to do |format|
       format.html
-      format.pdf do 
+      format.pdf do
         render pdf: "Historial clinico de #{@patient.first_name} #{@patient.last_name} (#{Date.today})",
-        template: "medical_records/show.html.erb",
+        template: "medical_records/medical_record_complete.html.erb",
         layout: "pdf.html",
-        zoom: 2,
+        margin: { top:  40,
+                  bottom: 25,
+                  left: 20,
+                  right: 30                },
+        header:  {   html: {
+                       template: "medical_records/medical_record_header.html.erb",
+                       locals: {title: "HISTORIA CLINICA", patient: @patient}
+                     },
+                 },
+        footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
+        zoom: 1,
         dpi: 75,
-        page_size: 'A4',
+        page_size: 'Letter',
         encoding: 'utf8'
       end
     end

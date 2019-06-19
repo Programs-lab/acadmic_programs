@@ -22,12 +22,13 @@ $( document ).on('turbolinks:load',function() {
   setTimeout(function () {
     tinyMCE.init({
       selector: 'textarea.content-no-editable',
-      plugins: 'fullscreen print',
-      toolbar: 'fullscreen print',
+      plugins: 'fullscreen',
+      toolbar: 'fullscreen',
       menubar: false,
       width: '100%',
       height: 409,
       language: 'es_MX',
+      readonly: 1
     })
   }, 10);
 });

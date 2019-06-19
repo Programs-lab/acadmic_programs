@@ -62,7 +62,7 @@ class WorkingWeeksController < ApplicationController
 
 
   def working_week_params
-    params.require(:working_week).permit(:doctor_id, :initial_date, :end_date, working_days_attributes: [:id, :working_date, working_hours_attributes: [:id, :initial_hour, :end_hour, :procedure_type_id, :remember, :_destroy]])
+    params.require(:working_week).permit(:doctor_id, :initial_date, :end_date, working_days_attributes: [:id, :working_date, working_hours_attributes: [:id, :initial_hour, :end_hour, :remember, :_destroy, procedure_type_kinds: []]])
   end
 
 end

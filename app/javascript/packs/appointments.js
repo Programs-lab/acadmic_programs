@@ -40,10 +40,10 @@ document.addEventListener('turbolinks:load', () => {
         return this.anyError || this.invalid || this.appointmentHour == ''
       },
       disabled: function(){
-        return this.doctor != null ? this.indexWeek == this.doctor.doctor_working_weeks.length - 1 : true
+        return this.doctor !== undefined ? this.indexWeek == this.doctor.doctor_working_weeks.length - 1 : true
       },
       renderForm: function(){
-        return this.doctor != null && this.procedureTypeId != ''
+        return this.doctor !== undefined && this.procedureTypeId != ''
       }
     }
     ,

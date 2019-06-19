@@ -60,7 +60,7 @@
               <span> {{$moment(week.working_days_attributes[<%= index %>].working_date).format("MMMM Do YYYY")}} </span>
             </div>
             <div class="row w-1/4 justify-start px-16 mr-1">
-              <a @click="addHour(<%= index %>)">
+              <a @click="addHour(<%= index %>), apply_multiselect_class()">
                 <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
               </a>
             </div>
@@ -70,7 +70,7 @@
           <div class="flex w-full" v-for="(hour, index) in week.working_days_attributes[<%= index %>].working_hours_attributes">
 
             <div class="flex w-full justify-center items-center px-4 my-6" >
-              <div class="flex w-full" v-if="hour._destroy == '1'">
+              <div class="flex w-full" v-show="hour._destroy == '1'">
                 <div class="row w-3/4 mx-4">
                   Este registro se removera al guardar los cambios
                 </div>
@@ -78,7 +78,7 @@
                   <button @click="undoRemove(<%= index %>, index)" class="btn btn-secondary no-outline">Deshacer</button>
                 </div>
               </div>
-              <div class="flex w-full" v-else>
+              <div class="flex w-full" v-show= "hour._destroy != '1'" >
 
 
                 <div class="row w-1/4 focus_form mx-4" :class=disabled_class_field(hour.id)>
@@ -91,12 +91,12 @@
                   <datetime value-zone="local" :minute-step="15" :input-id="`timepicker_end_${hour.id}`" min-datetime= "week.working_days_attributes[<%= index %>].working_date" max-datetime="week.working_days_attributes[<%= index %>].working_date" :phrases= "{ok: 'Acceptar', cancel: 'Cancelar' }" title='Seleccione una hora' v-model=hour.end_hour type=time input-class='field_input' :use12-hour=true></datetime>
                 </div>
 
+
                 <div class="row w-1/4 focus_form mx-4" :class=disabled_class_field(hour.id)>
                   <label class="label_input">Tipo de procedimiento</label>
-                  <select id="procedure_types" class="fblock appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8 field_input" v-model="hour.procedure_type_id" :disabled="disabled_working_hour(hour.id)">
-                    <option label=" "></option>
-                    <option v-for="procedure in procedures" :value="procedure.id"> {{procedure.procedure_type_name}}</option>
-                  </select>
+                  <div class="relative">
+                    <multiselect id="`multiselect_${index}`" :limit='1' :limit-text="count => `+${count}`" value="hour.procedure_type_kinds" v-model="hour.procedure_type_kinds" :options="procedures" :multiple="true" placeholder=" procedimientos..." :select-label="' '" :selected-label="'✓'" :deselect-label= "'✖️'" :disabled="disabled_working_hour(hour.id)" :close-on-select='false'><span slot="noResult">No se encontraron resultados.</span></multiselect>
+                  </div>
                 </div>
 
                 <div class="row w-1/4 justify-end px-16 py-4">

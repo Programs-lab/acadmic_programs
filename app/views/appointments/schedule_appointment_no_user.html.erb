@@ -31,8 +31,8 @@
          </span>
        </div>
      </template>
-     <template #content1 v-if="renderForm">
-       <%= render 'calendar', f: f %>
+     <template #content1>                    
+        <%= render 'calendar', f: f %>>        
      </template>
      <template #content2 v-if="renderForm">
        <div class="flex flex-wrap w-full">
@@ -106,15 +106,15 @@
       </div>
      </template>
    </nav-vue>
-   <div id="" v-if="!renderForm" class="alert alert-info" role="alert" v-cloak>
-     <div class="flex">
-       <%= icon('fa', 'info-circle', class: 'mr-3 fa-2x') %>
-       <div class="text-teal-darkest w-1/2">
-         <p class="font-bold">Atención.</p>
-         <p class="text-sm">No se puede agendar citas en este momento.</p>
-       </div>
+    <div id="" v-if="!renderForm" class="alert alert-info" role="alert" v-cloak>
+    <div class="flex">
+   <%= icon('fa', 'info-circle', class: 'mr-3 fa-2x') %>
+     <div class="text-teal-darkest w-1/2">
+       <p class="font-bold">Atención.</p>
+       <p class="text-sm">No existen horas disponibles que cumplan con el criterio.</p>
      </div>
    </div>
+ </div>
    <% end %>
   </div>
 <% end %>

@@ -16,7 +16,7 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def update
+  def update    
     authorize @company
     if @company.update(company_params)
       redirect_to companies_path, notice: 'La empresa fue actualizado exitosamente.'

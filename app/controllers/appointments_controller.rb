@@ -12,11 +12,11 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
+    @procedure_types = ProcedureType.all
   end
 
   def schedule_appointment_no_user
-    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
+    @procedure_types = ProcedureType.all
   end
 
   def schedule_appointment
@@ -65,7 +65,7 @@ class AppointmentsController < ApplicationController
  def schedule_appointment_no_user
     @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
     @doctor_id = @doctors.any? ? @doctors.first.id : []
-    @procedure_types = ProcedureType.where("lower(procedure_type_name) LIKE ?", "consulta%")
+    @procedure_types = ProcedureType.all
  end  
 
   def create_appointment

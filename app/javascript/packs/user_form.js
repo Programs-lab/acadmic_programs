@@ -1,11 +1,14 @@
 import Vue from 'vue/dist/vue.esm'
 import Vuelidate from 'vuelidate'
 import Datepicker from 'vuejs-datepicker';
+import VueResource from 'vue-resource'
 import TurbolinksAdapter from 'vue-turbolinks';
 import {en, es} from 'vuejs-datepicker/dist/locale'
+import Multiselect from 'vue-multiselect'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators';
 Vue.use(TurbolinksAdapter)
 Vue.use(Vuelidate)
+Vue.use(VueResource)
 document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('user_form')) {
   var app = new Vue({
@@ -14,12 +17,16 @@ document.addEventListener('turbolinks:load', () => {
       emailValue: document.getElementById("user_form").getAttribute('email'),
       firstNameValue: document.getElementById("user_form").getAttribute('firstName'),
       lastNameValue: document.getElementById("user_form").getAttribute('lastName'),
-      birthdateValue: document.getElementById("user_form").getAttribute('birthdate'),
+      birthdateValue: document.getElementById("user_form").getAttribute('birthdate'),      
+      roleValue: document.getElementById("user_form").getAttribute('role'),
       en: en,
       es: es,
-      modal2: {}
+      modal2: {},
+      pre_options: {},
+      options: [],
+      value: JSON.parse(document.getElementById("user_form").getAttribute('procedure_types')) || [],
+      procedure_types: []
     },
-
     validations: {
       emailValue: {
         required,
@@ -33,6 +40,31 @@ document.addEventListener('turbolinks:load', () => {
       },
     },
     methods: {
+
+      setProcedureTypes() {
+        var array = []
+        this.value.forEach(function(val) {
+          array.push(val['id'])
+        })
+        this.procedure_types = array
+      },
+
+      isDoctor(roleValue){
+        this.role = (roleValue === 'doctor')
+      },
+      fetchProcedureTypes(){
+        var self = this
+        self.$http.get(`/api/procedure_types/fetch`).then(response => {self.pre_options = response.body}, response => {console.log(response)})
+      },
+
+      assignOptions(){
+        var self = this
+        Object.keys(this.pre_options).forEach(function(po_key) {        
+          console.log(po_key)
+          console.log(self.pre_options[po_key])
+          self.options.push(self.pre_options[po_key]) 
+        })
+      },
       fieldClass(element, invalid){
          var el = document.getElementById(element)
         if(invalid){
@@ -56,6 +88,16 @@ document.addEventListener('turbolinks:load', () => {
     },
     mounted: function() {
       this.disabledButton()
+      this.fetchProcedureTypes()
+      var self = this
+      setTimeout(function(){ 
+        self.assignOptions()
+      }, 400)
+      var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
+      multiple_select.classList.remove("multiselect__tags")
+      multiple_select.classList.add("field_input")
+      multiple_select.classList.add("rounded-t")
+      multiple_select.id = "multi-select"
     },
     computed: { 
       disabled: function() {
@@ -66,7 +108,8 @@ document.addEventListener('turbolinks:load', () => {
       }
     },
     components: {
-      Datepicker
+      Datepicker,
+      Multiselect
     }
   })
 }})

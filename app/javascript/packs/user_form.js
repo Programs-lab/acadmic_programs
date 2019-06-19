@@ -24,30 +24,8 @@ document.addEventListener('turbolinks:load', () => {
       modal2: {},
       pre_options: {},
       options: [],
-      // options: [
-      //   {
-      //     language: 'Javascript',
-      //     libs: [
-      //       { name: 'Vue.js', category: 'Front-end' },
-      //       { name: 'Adonis', category: 'Backend' }
-      //     ]
-      //   },
-      //   {
-      //     language: 'Ruby',
-      //     libs: [
-      //       { name: 'Rails', category: 'Backend' },
-      //       { name: 'Sinatra', category: 'Backend' }
-      //     ]
-      //   },
-      //   {
-      //     language: 'Other',
-      //     libs: [
-      //       { name: 'Laravel', category: 'Backend' },
-      //       { name: 'Phoenix', category: 'Backend' }
-      //     ]
-      //   }
-      // ],
-    value: []
+      value: JSON.parse(document.getElementById("user_form").getAttribute('procedure_types')) || [],
+      procedure_types: []
     },
     validations: {
       emailValue: {
@@ -62,6 +40,15 @@ document.addEventListener('turbolinks:load', () => {
       },
     },
     methods: {
+
+      setProcedureTypes() {
+        var array = []
+        this.value.forEach(function(val) {
+          array.push(val['id'])
+        })
+        this.procedure_types = array
+      },
+
       isDoctor(roleValue){
         this.role = (roleValue === 'doctor')
       },
@@ -71,7 +58,6 @@ document.addEventListener('turbolinks:load', () => {
       },
 
       assignOptions(){
-        console.log(Object.keys(this.pre_options))
         var self = this
         Object.keys(this.pre_options).forEach(function(po_key) {        
           console.log(po_key)

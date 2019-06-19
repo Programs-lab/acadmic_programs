@@ -134,6 +134,14 @@ document.addEventListener('turbolinks:load', () => {
     }
     ,
     watch: {
+     doctorId(){
+       this.appointmentHour = ''
+       this.fetchData()
+     },
+     procedureTypeId(){
+       this.appointmentHour = ''
+       this.fetchData()
+     },
      schedule(){},
      idNumber(){
        if (this.idType != "") {

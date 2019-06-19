@@ -45,9 +45,9 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
     authorize @user
     @user.skip_confirmation!
+    path = admin_users_path
     if @user.save(context: :admin)
-      @user.invite!
-      path = admin_users_path
+      @user.invite!      
       if user_params[:role] == 'doctor'
         path = admin_doctors_path
       elsif user_params[:role] == 'patient'
@@ -117,6 +117,7 @@ private
   end
 
   def user_params
+    params[:user][:procedure_type_ids] = params[:user][:procedure_type_ids].split(',') if params[:user][:procedure_type_ids].class == String
     params.require(:user).permit(
       :first_name,
       :last_name,
@@ -128,7 +129,7 @@ private
       :address,
       :email,
       :role,
-      :procedure_type_ids
+      procedure_type_ids: []
       )
   end
 

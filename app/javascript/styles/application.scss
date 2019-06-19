@@ -93,6 +93,16 @@
     padding-top: .30rem;
   }
 
+  .multi-select-padded{
+    top: 60%;
+    padding-top: .30rem;
+    width: 150px;
+  }
+
+  .relative{
+    padding-top: 8px;
+  }
+
   .multiselect__option--highlight {
     @apply .bg-primary;
   }
@@ -114,6 +124,36 @@
   }
   .multiselect__option--selected.multiselect__option--highlight:after {
     background: #f9acaa;
+  }
+
+
+  div.vdatetime-overlay {
+    background: rgba(0, 0, 0, .07);
+  }
+  div.vdatetime-popup {
+
+    top: 20%;
+  }
+  div.vdatetime-popup__header {
+    @apply .bg-primary
+  }
+
+  div.vdatetime-popup__actions__button {
+    color: #52b6d0;
+  }
+
+  div.vdatetime-time-picker__item--selected{
+    color: #52b6d0 ;
+  }
+
+  .multiselect--disabled {
+    cursor: not-allowed;
+    background: none;
+
+  }
+  .multiselect--disabled .multiselect__current, .multiselect--disabled .multiselect__select {
+    cursor: not-allowed;
+    background: none;
   }
   
 

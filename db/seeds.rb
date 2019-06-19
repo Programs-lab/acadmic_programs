@@ -16,8 +16,8 @@ doctor = User.create(first_name: "Jose", last_name: "Peñaranda", id_number: "10
 
 doctor_2 = User.create(first_name: "David", last_name: "Peñaranda", id_number: "10905342245", email: "daviddoctor999@gmail.com", password: "123123123", password_confirmation: "123123123", role: 'doctor', confirmed_at: Date.today)
 
-procedure_type_1 = ProcedureType.create(procedure_type_name: "Consulta", cost: 20000, procedure_duration: 30, kind: :consultation)
-procedure_type_2 = ProcedureType.create(procedure_type_name: "ECGP", cost: 30000, procedure_duration: 30, kind: :proccedure)
+procedure_type_1 = ProcedureType.create(procedure_type_name: "Consulta", cost: 20000, procedure_duration: 30, kind: :consulta)
+procedure_type_2 = ProcedureType.create(procedure_type_name: "ECGP", cost: 30000, procedure_duration: 30, kind: :procedimiento)
 
 working_week = WorkingWeek.create(initial_date: Date.new(2019, 4, 22), end_date: Date.new(2019, 4, 26), doctor_id: doctor.id)
 
@@ -27,11 +27,11 @@ working_day_wednesday = WorkingDay.create(working_week_id: working_week.id, work
 working_day_thursday = WorkingDay.create(working_week_id: working_week.id, working_date: Date.new(2019, 4, 25))
 working_day_friday = WorkingDay.create(working_week_id: working_week.id, working_date: Date.new(2019, 4, 26))
 
-working_hour_monday = WorkingHour.create(working_day_id: working_day_monday.id, initial_hour: DateTime.parse("2019-04-22 6:00 -0500"), end_hour: DateTime.parse("2019-04-22 12:00 -0500"), procedure_type_id: procedure_type_1.id)
-working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("2019-04-23 8:00 -0500"), end_hour: DateTime.parse("2019-04-23 10:00 -0500"), procedure_type_id: procedure_type_1.id)
-working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("2019-04-23 14:00 -0500"), end_hour: DateTime.parse("2019-04-23 18:00 -0500"), procedure_type_id: procedure_type_1.id)
-working_hour_wednesday = WorkingHour.create(working_day_id: working_day_wednesday.id, initial_hour: DateTime.parse("2019-04-24 14:00 -0500"), end_hour: DateTime.parse("2019-04-24 18:00 -0500"), procedure_type_id: procedure_type_1.id)
-working_hour_friday = WorkingHour.create(working_day_id: working_day_friday.id, initial_hour: DateTime.parse("2019-04-26 10:00 -0500"), end_hour: DateTime.parse("2019-04-26 12:00 -0500"), procedure_type_id: procedure_type_1.id)
+working_hour_monday = WorkingHour.create(working_day_id: working_day_monday.id, initial_hour: DateTime.parse("2019-04-22 6:00 -0500"), end_hour: DateTime.parse("2019-04-22 12:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
+working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("2019-04-23 8:00 -0500"), end_hour: DateTime.parse("2019-04-23 10:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
+working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("2019-04-23 14:00 -0500"), end_hour: DateTime.parse("2019-04-23 18:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
+working_hour_wednesday = WorkingHour.create(working_day_id: working_day_wednesday.id, initial_hour: DateTime.parse("2019-04-24 14:00 -0500"), end_hour: DateTime.parse("2019-04-24 18:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds:["consulta"])
+working_hour_friday = WorkingHour.create(working_day_id: working_day_friday.id, initial_hour: DateTime.parse("2019-04-26 10:00 -0500"), end_hour: DateTime.parse("2019-04-26 12:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
 
 monday_current_week = Date.parse("Monday")
 friday_current_week = Date.parse("Friday")
@@ -46,12 +46,12 @@ friday_current_week = Date.parse("Friday")
   working_day_thursday = WorkingDay.create(working_week_id: working_week.id, working_date: current_week[3])
   working_day_friday = WorkingDay.create(working_week_id: working_week.id, working_date: current_week[4])
 
-  working_hour_monday = WorkingHour.create(working_day_id: working_day_monday.id, initial_hour: DateTime.parse("#{current_week[0].to_s} 6:00 -0500"), end_hour: DateTime.parse("#{current_week[0].to_s} 12:00 -0500"), procedure_type_id: procedure_type_1.id)
-  working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("#{current_week[1].to_s} 8:00 -0500"), end_hour: DateTime.parse("#{current_week[1].to_s} 10:00 -0500"), procedure_type_id: procedure_type_1.id)
-  working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("#{current_week[1].to_s} 14:00 -0500"), end_hour: DateTime.parse("#{current_week[1].to_s} 18:00 -0500"), procedure_type_id: procedure_type_1.id)
-  working_hour_wednesday = WorkingHour.create(working_day_id: working_day_wednesday.id, initial_hour: DateTime.parse("#{current_week[2].to_s} 14:00 -0500"), end_hour: DateTime.parse("#{current_week[2].to_s} 18:00 -0500"), procedure_type_id: procedure_type_1.id)
-  working_hour_thursday = WorkingHour.create(working_day_id: working_day_thursday.id, initial_hour: DateTime.parse("#{current_week[3].to_s} 06:00 -0500"), end_hour: DateTime.parse("#{current_week[3].to_s} 18:00 -0500"), procedure_type_id: procedure_type_2.id)
-  working_hour_friday = WorkingHour.create(working_day_id: working_day_friday.id, initial_hour: DateTime.parse("#{current_week[4].to_s} 10:00 -0500"), end_hour: DateTime.parse("#{current_week[4].to_s} 12:00 -0500"), procedure_type_id: procedure_type_1.id)
+  working_hour_monday = WorkingHour.create(working_day_id: working_day_monday.id, initial_hour: DateTime.parse("#{current_week[0].to_s} 6:00 -0500"), end_hour: DateTime.parse("#{current_week[0].to_s} 12:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
+  working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("#{current_week[1].to_s} 8:00 -0500"), end_hour: DateTime.parse("#{current_week[1].to_s} 10:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
+  working_hour_tuesday = WorkingHour.create(working_day_id: working_day_tuesday.id, initial_hour: DateTime.parse("#{current_week[1].to_s} 14:00 -0500"), end_hour: DateTime.parse("#{current_week[1].to_s} 18:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
+  working_hour_wednesday = WorkingHour.create(working_day_id: working_day_wednesday.id, initial_hour: DateTime.parse("#{current_week[2].to_s} 14:00 -0500"), end_hour: DateTime.parse("#{current_week[2].to_s} 18:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
+  working_hour_thursday = WorkingHour.create(working_day_id: working_day_thursday.id, initial_hour: DateTime.parse("#{current_week[3].to_s} 06:00 -0500"), end_hour: DateTime.parse("#{current_week[3].to_s} 18:00 -0500"), procedure_type_ids: [procedure_type_2.id], procedure_type_kinds: ["consulta"])
+  working_hour_friday = WorkingHour.create(working_day_id: working_day_friday.id, initial_hour: DateTime.parse("#{current_week[4].to_s} 10:00 -0500"), end_hour: DateTime.parse("#{current_week[4].to_s} 12:00 -0500"), procedure_type_ids: [procedure_type_1.id], procedure_type_kinds: ["consulta"])
 
   monday_current_week = monday_current_week.next_week
   friday_current_week = friday_current_week.next_week.sunday - 2

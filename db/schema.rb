@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_221116) do
+ActiveRecord::Schema.define(version: 2019_06_17_225726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,9 +77,9 @@ ActiveRecord::Schema.define(version: 2019_06_07_221116) do
 
   create_table "doctor_procedure_types", force: :cascade do |t|
     t.bigint "doctor_id", null: false
-    t.bigint "procedure_types_id"
+    t.bigint "procedure_type_id"
     t.index ["doctor_id"], name: "index_doctor_procedure_types_on_doctor_id"
-    t.index ["procedure_types_id"], name: "index_doctor_procedure_types_on_procedure_types_id"
+    t.index ["procedure_type_id"], name: "index_doctor_procedure_types_on_procedure_type_id"
   end
 
   create_table "media", force: :cascade do |t|
@@ -179,9 +179,15 @@ ActiveRecord::Schema.define(version: 2019_06_07_221116) do
     t.boolean "remember", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "procedure_type_id", null: false
-    t.index ["procedure_type_id"], name: "index_working_hours_on_procedure_type_id"
+    t.string "procedure_type_kinds", default: [], array: true
     t.index ["working_day_id"], name: "index_working_hours_on_working_day_id"
+  end
+
+  create_table "working_hours_procedure_types", force: :cascade do |t|
+    t.bigint "working_hour_id"
+    t.bigint "procedure_type_id"
+    t.index ["procedure_type_id"], name: "index_working_hours_procedure_types_on_procedure_type_id"
+    t.index ["working_hour_id"], name: "index_working_hours_procedure_types_on_working_hour_id"
   end
 
   create_table "working_weeks", force: :cascade do |t|
@@ -197,9 +203,11 @@ ActiveRecord::Schema.define(version: 2019_06_07_221116) do
   add_foreign_key "appointment_reports", "appointments"
   add_foreign_key "appointment_reports", "medical_records"
   add_foreign_key "appointments", "procedure_types"
-  add_foreign_key "doctor_procedure_types", "procedure_types", column: "procedure_types_id"
+  add_foreign_key "doctor_procedure_types", "procedure_types"
   add_foreign_key "procedure_companies", "companies"
   add_foreign_key "procedure_companies", "procedure_types"
   add_foreign_key "working_days", "working_weeks"
   add_foreign_key "working_hours", "working_days"
+  add_foreign_key "working_hours_procedure_types", "procedure_types"
+  add_foreign_key "working_hours_procedure_types", "working_hours"
 end

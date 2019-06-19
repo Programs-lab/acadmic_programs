@@ -9,11 +9,13 @@ document.addEventListener('turbolinks:load', () => {
     var app = new Vue({
       el: '#procedure_types_index',
       data: {
-        modal2: {}
+        modal2: {},
+        alert: false
       },
       methods: {
         modalId(i){
           Vue.set(this.modal2, i , !this.modal2[i]);
+          this.alert = false
         }
       }
     })

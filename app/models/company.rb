@@ -3,7 +3,7 @@ class Company < ApplicationRecord
   has_many :procedure_companies, dependent: :destroy
   after_create :create_procedure_companies
 
-  def self.update_procdure_companies(params)
+  def self.update_procdure_companies(params)    
     ProcedureCompany.update(params.keys, params.values)
   end
 

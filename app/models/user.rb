@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :doctor_appointments, class_name: 'Appointment', foreign_key: 'doctor_id'
   has_many :doctor_working_weeks, class_name: 'WorkingWeek', foreign_key: 'doctor_id'
   has_many :doctor_appointment_reports, class_name: 'AppointmentReport', foreign_key: 'doctor_id'
-  has_many :doctor_procedure_types, class_name: 'DoctorProcedureType', foreign_key: 'doctor_id'
+  has_many :doctor_procedure_types, foreign_key: 'doctor_id', inverse_of: :user, dependent: :destroy
   has_many :procedure_types, through: :doctor_procedure_types
   has_many :patient_appointments, class_name: 'Appointment', foreign_key: 'patient_id'
   has_many :patient_medical_records, class_name: 'MedicalRecord', foreign_key: 'patient_id'
@@ -37,7 +37,6 @@ class User < ApplicationRecord
       params.delete(:password)
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
     end
-
     result = update_attributes(params, *options)
     clean_up_passwords
     result

@@ -34,6 +34,7 @@ require('./appointments');
 require('./scheduled_appointments');
 require('./medical_record_index');
 require('./appointments_index');
+require('./profile');
 
 //components
 

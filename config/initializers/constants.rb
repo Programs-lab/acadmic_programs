@@ -13,8 +13,7 @@ ROLES = {
   
 PROCEDURE_KINDS = {
  consulta:  "Consulta",
- procedimiento: "Procedimiento",
- somethingelse: "IDK"
+ procedimiento: "Procedimiento"
 }  
 
 DAYS = {

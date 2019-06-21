@@ -29,7 +29,7 @@ class AppointmentsController < ApplicationController
     @pagy, @appointments = pagy(@appointments, items: 5)
   end
 
-  def create
+  def create    
   appointments = @patient.patient_appointments.where('appointment_datetime > ? AND state = ?', DateTime.now, 1).any?
     unless appointments
       @appointment = @patient.patient_appointments.new(appointments_params)
@@ -44,11 +44,10 @@ class AppointmentsController < ApplicationController
   end
 
   def create_schedule_appointment
-    appointments = @patient.patient_appointments.where('appointment_datetime > ? AND attended = ?', DateTime.now, false).includes(:procedure_type)
-    procedure_types = appointments.pluck(:procedure_type_name)
-    checkup_apointment_count = procedure_types.map(&:downcase).count("consulta")
-    procedure_type = ProcedureType.find(appointments_params[:procedure_type_id]).procedure_type_name
-    condition = procedure_type.downcase == "consulta" ? checkup_apointment_count < 1 : true
+    appointments = @patient.patient_appointments.where('appointment_datetime > ? AND state = ?', DateTime.now, 1).includes(:procedure_type)
+    checkup_apointment_count = appointments.includes(:procedure_type).where(procedure_types: {kind: :consulta}).references(:procedure_type).count
+    procedure_type = ProcedureType.find(appointments_params[:procedure_type_id])
+    condition = procedure_type.consulta? ? checkup_apointment_count < 1 : true
 
     if condition
       @appointment = @patient.patient_appointments.new(appointments_params)
@@ -104,16 +103,15 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def cancel_appointment    
+  def cancel_appointment
     user = User.find(params[:current_user_id])    
     reason = params[:reason].blank? ? nil : params[:reason]
     appointment = Appointment.find(params[:appointment_id])
-    mail_to = user.doctor? ? appointment.patient.id : appointment.doctor.id
-    path = user.doctor? ? scheduled_appointments_path : appointments_path
+    mail_to = user.doctor? ? appointment.patient.id : appointment.doctor.id    
     mail = AppointmentsMailer.canceled_appointment(mail_to, appointment.id, reason)
     appointment.update(state: :canceled)
     mail.deliver_now
-    redirect_to path
+    redirect_to request.referer
   end
 
   private

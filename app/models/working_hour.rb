@@ -14,9 +14,10 @@ class WorkingHour < ApplicationRecord
   end
 
   def assign_procedure_types
+    procedure_types = self.working_day.working_week.doctor.procedure_types
     procedure_type_ids = []
     self.procedure_type_kinds.each do |pk|
-      procedure_type_ids.push(ProcedureType.where(kind: pk.to_sym).pluck(:id))      
+      procedure_type_ids.push(procedure_types.where(kind: pk.to_sym).pluck(:id))      
     end
     self.procedure_type_ids = procedure_type_ids.flatten
   end

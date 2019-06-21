@@ -83,8 +83,8 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
-    api_key: '975012b936f0e7ca54e79a0ee0c34b1f-1b65790d-cf5067b1',
-    domain: 'mail.silumin.co',
+    api_key: ENV['MAILGUN_API_KEY'],
+    domain: ENV['MAILGUN_DOMAIN'],
   }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.

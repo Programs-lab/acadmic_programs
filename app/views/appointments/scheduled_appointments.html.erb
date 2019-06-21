@@ -55,7 +55,7 @@
       </div>
 
 
-        <%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put do |form|%>
+        <%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put, local: true do |form|%>
 
           <modal-vue i= "cancel" style_modal="width: 45%;">
             <template v-slot:title>

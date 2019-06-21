@@ -27,8 +27,8 @@ export const CalendarMixin = {
     fetchData: function(){
       this.$http.get(`/api/appointments/fetch_appointment_data/${this.doctorId}/${this.procedureTypeId}`).then(response => {
         this.doctor = JSON.parse(response.body.doctor)[0];
-        this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
-        this.doctorWorkingWeek = this.doctor.doctor_working_weeks[this.indexWeek]
+        this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);        
+        this.doctorWorkingWeek = this.doctor !== undefined ? this.doctor.doctor_working_weeks[this.indexWeek] : ""
         this.matrixWorkingHours()
       }, response => { console.log(response) });
     }
@@ -69,7 +69,7 @@ export const CalendarMixin = {
     }
     ,
     matrixWorkingHours: function(){
-      var working_days = this.doctorWorkingWeek.working_days
+      var working_days = this.doctorWorkingWeek !== '' ? this.doctorWorkingWeek.working_days : []
       if (working_days.length == 0 || !this.renderForm) {
         this.workingHours = Array(5).fill(null).map(()=>Array(this.hours.length).fill([]))
       }

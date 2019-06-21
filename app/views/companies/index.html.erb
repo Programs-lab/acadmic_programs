@@ -15,7 +15,7 @@
       </a>
     </div>
 
-      <%= form_with scope: :company, url: companies_path, method: :post do |form|%>
+      <%= form_with scope: :company, url: companies_path, method: :post, local: true do |form|%>
 
         <modal-vue i= "create" style_modal="width: 45%;">
           <template v-slot:title>
@@ -70,36 +70,37 @@
         <% end %>
       </template>
      </collapse-vue>
+     <form></form>
      <%= form_with scope: :company, url: company_path(company.id), method: 'put', class: ""  do |f2| %>
-      <modal-vue i="modal_<%= index %>" style_modal="width: 45%;">
-        <template v-slot:title>
-          <%= "Editar empresa #{company.company_name}" %>
-        </template>
-        <template v-slot:content>
-          <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
-            <div  class="w-full mb-6 focus_form">
-              <%= f2.label "Nombre de la empresa", class: 'label_input' %>
-              <%= f2.text_field :company_name, value: company.company_name, class: 'field_input rounded-t' %>
+        <modal-vue i="modal_<%= index %>" style_modal="width: 45%;">          
+          <template v-slot:title>
+            <%= "Editar empresa #{company.company_name}" %>
+          </template>
+          <template v-slot:content>          
+            <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+              <div  class="w-full mb-6 focus_form">
+                <%= f2.label "Nombre de la empresa", class: 'label_input' %>
+                <%= f2.text_field :company_name, value: company.company_name, class: 'field_input rounded-t' %>
+              </div>
+              <div  class="w-full mb-2 focus_form">
+                <%= f2.label :NIT, class: 'label_input' %>
+                <%= f2.number_field :company_id, value: company.company_id, class: 'field_input rounded-t'%>
+              </div>
             </div>
-            <div  class="w-full mb-2 focus_form">
-              <%= f2.label :NIT, class: 'label_input' %>
-              <%= f2.number_field :company_id, value: company.company_id, class: 'field_input rounded-t'%>
+          </template>
+          <template v-slot:footer>
+            <div class="flex justify-start w-1/2">
+              <%= link_to company_path(company.id), method: 'delete', data: {confirm: 'Esto elimnara el registro, ¿esta seguro?'}, class: "btn btn-red-light mx-1"  do %>
+                <%= icon('fas', 'trash') %>
+              <% end %>
             </div>
-          </div>
-        </template>
-        <template v-slot:footer>
-          <div class="flex justify-start w-1/2">
-            <%= link_to company_path(company.id), method: 'delete', data: {confirm: 'Esto elimnara el registro, ¿esta seguro?'}, class: "btn btn-red-light mx-1"  do %>
-              <%= icon('fas', 'trash') %>
-            <% end %>
-          </div>
-          <div class="flex justify-end w-1/2">
-            <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('modal_<%= index %>')">Cancelar</button>
+            <div class="flex justify-end w-1/2">
+              <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('modal_<%= index %>')">Cancelar</button>
             <%= f2.submit "Registrar", class: "btn btn-primary"%>
-          </div>
-        </template>
-      </modal-vue>
-      <% end %>
+            </div>
+          </template>
+        </modal-vue> 
+      <% end %>     
     </div>
     <% end %>
     <br>

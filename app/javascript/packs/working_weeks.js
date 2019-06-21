@@ -6,9 +6,10 @@ import Datetime from 'vue-datetime'
 import Vuelidate from 'vuelidate'
 import VueMoment from 'vue-moment'
 import moment from 'moment'
-import { required } from 'vuelidate/lib/validators';
+import { required, requiredIf } from 'vuelidate/lib/validators';
 import 'vue-datetime/dist/vue-datetime.css'
 import { Settings } from 'luxon'
+import Multiselect from 'vue-multiselect'
 Settings.defaultLocale = 'es'
 Vue.use(Datetime)
 Vue.use(TurbolinksAdapter)
@@ -72,9 +73,15 @@ document.addEventListener('turbolinks:load', () => {
       week: weeks[i],
       last_week: weeks[weeks.length - 1],
       procedures: pt,
+      value: [],
       errors: false,
       modal2: {},
       unavailable_working_hours: []
+    },
+
+
+    components: {
+      Multiselect
     },
 
     validations: {
@@ -86,20 +93,18 @@ document.addEventListener('turbolinks:load', () => {
             working_hours_attributes: {
               $each: {
                 initial_hour: { 
-                  required,
-                  isBefore: (value, working_hours_attribute) => {
-                    console.log(moment(value).isSameOrBefore(working_hours_attribute.end_hour) && working_hours_attribute._destroy !== '1')
-                    return moment(value).isSameOrBefore(working_hours_attribute.end_hour) && working_hours_attribute._destroy !== '1'
+                    required: requiredIf((working_hours_attribute) => {return working_hours_attribute._destroy !== "1"}),
+                    isBefore: (value, working_hours_attribute) => {
+                      return moment(value).isSameOrBefore(working_hours_attribute.end_hour) 
                   }
                 },
                 end_hour: { 
-                  required,
+                  required: requiredIf((working_hours_attribute) => {working_hours_attribute._destroy !== "1"}),
                   isBefore: (value, working_hours_attribute) => {
-                    console.log(moment(value).isSameOrAfter(working_hours_attribute.initial_hour) && working_hours_attribute._destroy !== '1')
-                    return moment(value).isSameOrAfter(working_hours_attribute.initial_hour) && working_hours_attribute._destroy !== '1'
+                    return moment(value).isSameOrAfter(working_hours_attribute.initial_hour) 
                   }
                 },
-                procedure_type_id: { required }
+                procedure_type_kinds: { required: requiredIf((working_hours_attribute) => {return working_hours_attribute._destroy !== "1"}) }
               }
             }
           }
@@ -138,6 +143,18 @@ document.addEventListener('turbolinks:load', () => {
         //   return false
         // }
 
+      },
+
+      apply_multiselect_class(){        
+        setTimeout(function(){
+        var multiple_selects = document.getElementsByClassName('multiselect__tags')
+        console.log(multiple_selects)
+        for (let multiple_select of multiple_selects) {
+          multiple_select.classList.remove("multiselect__tags")
+          multiple_select.classList.add("field_input")
+          multiple_select.classList.add("rounded-t")
+          multiple_select.classList.add("multi-select-padded")
+        }}, 0)
       },
 
       disabled_class_field(id){
@@ -184,7 +201,7 @@ document.addEventListener('turbolinks:load', () => {
           id: null,
           initial_hour: '',
           end_hour: '',
-          procedure_type_id: '',
+          procedure_type_kinds: [],
           remember: true,
           _destroy: null
         })
@@ -228,6 +245,9 @@ document.addEventListener('turbolinks:load', () => {
       mounted: function () {
         this.$nextTick(function () {          
           this.fetch_unavailable_working_hours(user_id);          
+          this.apply_multiselect_class();
+          this.apply_multiselect_class();
+          this.apply_multiselect_class();
         })
       },
 

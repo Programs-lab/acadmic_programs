@@ -3,6 +3,8 @@ class ProcedureTypesController < ApplicationController
   before_action :set_procedure_type, only: [:update, :destroy]
   def index
     @procedure_types = ProcedureType.all.order(:id)
+    @consultations = @procedure_types.where(kind: 0)
+    @procedures = @procedure_types.where(kind: 1)
     authorize @procedure_types
   end
 
@@ -39,7 +41,7 @@ class ProcedureTypesController < ApplicationController
   end
 
   def procedure_type_params
-    params.require(:procedure_type).permit(:procedure_type_name, :cost, :procedure_duration)
+    params.require(:procedure_type).permit(:procedure_type_name, :cost, :procedure_duration, :kind)
   end
 
 end

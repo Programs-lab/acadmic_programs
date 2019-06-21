@@ -10,6 +10,11 @@ ROLES = {
  doctor: "Medico",
  patient:  "Paciente",
 }
+  
+PROCEDURE_KINDS = {
+ consulta:  "Consulta",
+ procedimiento: "Procedimiento"
+}  
 
 DAYS = {
   0 => "Lunes", 

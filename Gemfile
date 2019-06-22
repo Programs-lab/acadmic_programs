@@ -43,6 +43,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem "mini_magick"
 gem 'combine_pdf'
+gem 'redis-namespace'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

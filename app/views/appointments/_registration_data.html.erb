@@ -4,7 +4,7 @@
     <%= f.label :tipo_de_documento, class: 'label_input' %>
       <div class="obligatory"></div>
     </div>
-    <div class="relative">
+    <div class="">
       <%=
       f.collection_select(
         :id_type,
@@ -13,7 +13,7 @@
         :first,
         {include_blank: true},
         {
-          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8","v-model" => 'idType', "@change" => "fieldClass('idTypeField', $v.idType.$invalid), $v.idType.$touch()"
+          class: "block appearance-none w-full border-b text-grey-darker px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8","v-model" => 'idType', "@change" => "fieldClass('idTypeField', $v.idType.$invalid), $v.idType.$touch()"
         }
       )
       %>

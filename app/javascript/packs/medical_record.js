@@ -91,7 +91,7 @@ document.addEventListener('turbolinks:load', () => {
 
       mounted: function () {
         this.$nextTick(function () {          
-          this.fetchMedia();          
+          this.fetchMedia();
         })
       },
 

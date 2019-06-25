@@ -28,7 +28,8 @@ $( document ).on('turbolinks:load',function() {
       width: '100%',
       height: 409,
       language: 'es_MX',
-      readonly: 1
+      readonly: 1,
+      forced_root_block: false
     })
   }, 10);
 });

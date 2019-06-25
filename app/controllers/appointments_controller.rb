@@ -89,7 +89,7 @@ class AppointmentsController < ApplicationController
         AppointmentWorker.perform_in(30.minutes, patient.id)
         redirect_to user_session_path, notice: 'Su cita ha sido creada debe iniciar sesion en los proximos 30 minutos para que se confirme'
       else
-        redirect_to schedule_appointment_no_user_path, flash: {danger: 'Su cita no pudo ser creada, por favor intente de nuevo'}
+        redirect_to schedule_appointment_no_user_path, flash: {danger: @appointment.errors}
       end
     else
       redirect_to schedule_appointment_no_user_path, flash: {danger: 'No se pudo crear la cita debido a que tiene citas activas'}

@@ -37,6 +37,19 @@ $( document ).on('turbolinks:load',function() {
 $( document ).on('turbolinks:load',function() {
   setTimeout(function () {
     tinyMCE.init({
+      selector: 'textarea.simple-content',
+      plugins: 'paste print preview fullpage searchreplace  visualchars fullscreen  table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount',
+      toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
+      width: '100%',
+      height: 104,
+      language: 'es_MX',
+    })
+  }, 10);
+});
+
+$( document ).on('turbolinks:load',function() {
+  setTimeout(function () {
+    tinyMCE.init({
       selector: 'textarea',
       plugins: 'paste print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern help',
       toolbar: 'fullscreen | formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media pageembed | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
@@ -48,3 +61,6 @@ $( document ).on('turbolinks:load',function() {
     })
   }, 10);
 });
+
+
+

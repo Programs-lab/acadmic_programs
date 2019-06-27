@@ -16,6 +16,8 @@ document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('medical_record')) {
     var element = document.getElementById('medical_record')
     var id = element.dataset.medicalRecordId
+    var ar = JSON.parse(element.dataset.appointmentReports)
+    var an = Array(Object.keys(ar).length).fill(false)  
     var appointment = JSON.parse(document.getElementById("medical_record_form").getAttribute('appointment'))
     if (JSON.stringify(appointment) == "{}") {
       appointment['id'] = ""
@@ -28,7 +30,8 @@ document.addEventListener('turbolinks:load', () => {
         showM: false,
         showC: false,
         showD: false,
-        algo: false,
+        appointment_reports: ar,
+        showAnontations: an, 
         tabItems: {},
         loading: false,
         modal2: {},

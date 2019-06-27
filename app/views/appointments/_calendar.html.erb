@@ -5,7 +5,7 @@
       <%=
       f.collection_select(
         :procedure_type_id,
-        @procedure_types,
+        @procedure_types.order(:procedure_type_name),
         :id,
         :procedure_type_name,
         {include_blank: false, selected: :first},

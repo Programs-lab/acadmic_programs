@@ -53,7 +53,7 @@ class AppointmentsController < ApplicationController
       @appointment = @patient.patient_appointments.new(appointments_params)
       if @appointment.save
         redirect_to admin_patients_path, notice: 'La cita fue agendada correctamente'
-      else
+      else        
         redirect_to schedule_appointment_path(@patient), flash: {danger: 'Ocurrio un error al crear la cita, por favor intente de nuevo.'}
       end
     else

@@ -17,10 +17,11 @@ class Api::AppointmentsController < ApplicationController
         }
       }
     )
+    @procedure_type = ProcedureType.find(params[:procedure_type_id])
     @unavailable_working_hours = Appointment.where.not(state: :completed).where.not(state: :canceled).where(doctor_id: params[:doctor_id])
     @unavailable_working_hours = @unavailable_working_hours.where('appointment_datetime >= ?', DateTime.now).to_json(only: [:doctor_id, :appointment_datetime])
 
-    render json: { doctor: @doctor, unavailable_working_hours: @unavailable_working_hours }
+    render json: { doctor: @doctor, unavailable_working_hours: @unavailable_working_hours, procedure_type: @procedure_type}
   end
 
   def fetch_user

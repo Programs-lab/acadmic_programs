@@ -15,7 +15,6 @@ moment.locale('es')
 
 document.addEventListener('turbolinks:load', () => {
 
-
   if(document.getElementById('medical_record')) {
     var element = document.getElementById('medical_record')
     var id = element.dataset.medicalRecordId
@@ -52,8 +51,8 @@ document.addEventListener('turbolinks:load', () => {
         showM: page,
         showC: false,
         showD: false,
-        appointment_reports: ar,
-        showAnontations: an, 
+        // appointment_reports: ar,
+        // showAnontations: an,
         tabItems: {},
         loading: false,
         modal2: {},
@@ -130,12 +129,12 @@ document.addEventListener('turbolinks:load', () => {
         },
 
         fetchMedia(){
-          var self = this 
+          var self = this
           self.$http.get(`/api/media/${id}`).then(response => {self.media = response.body}, response => {console.log(response)})
         },
 
         removeMedium(medium_id, j){
-          var self = this 
+          var self = this
           self.$http.delete(`/api/media/${medium_id}`).then(response => {}, response => {console.log(response)})
           this.media.splice(j, 1);
         },
@@ -167,7 +166,7 @@ document.addEventListener('turbolinks:load', () => {
       },
 
       mounted: function () {
-        this.$nextTick(function () {          
+        this.$nextTick(function () {
           this.fetchMedia();
         })
       },

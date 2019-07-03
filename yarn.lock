@@ -6265,6 +6265,11 @@ vue-datetime@^1.0.0-beta.10:
   resolved "https://registry.yarnpkg.com/vue-datetime/-/vue-datetime-1.0.0-beta.10.tgz#788a1c2deefa3e14fbf549373ec00ebde707596a"
   integrity sha512-/wJkj95JSzWqH0Ja4JpXX6I+fXo2A34GCtsx00vR5RjNxk3++93rg7G4ZlI3MFo807zH9bIxXfIohbAZgnAWbQ==
 
+vue-easy-tinymce@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue-easy-tinymce/-/vue-easy-tinymce-1.0.2.tgz#de2b9c9e715cb9bd26dd9d4cb27e3916cacfc730"
+  integrity sha512-Q7Jb+ncSWHqw3sZYX9YOPSvEzWz6700im8djZH75NooNugZwuyWpLsETpFyV5G19rYCEqkWP4eisJuQMaKqETg==
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"

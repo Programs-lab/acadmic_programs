@@ -34,13 +34,14 @@ class MedicalRecordsController < ApplicationController
   def index
     patient = current_user
     medical_record = patient.patient_medical_records
-    @appointment_reports = AppointmentReport.where(medical_record_id: medical_record.pluck(:id))
-
+    @appointment_reports = AppointmentReport.where(medical_record_id: medical_record.pluck(:id))    
     authorize @appointment_reports
   end
 
   def medical_record
     @appointment_reports = @patient.patient_medical_records.any? ? @patient.patient_medical_records.first.appointment_reports : []
+    @appointment_reports_annotations = @appointment_reports.select(:id).to_json(include: {appointment_report_annotations: {except: [:updated_at]}})
+    @pagy, @appointment_reports = pagy(@appointment_reports, items: 5)
   end
 
   def create    

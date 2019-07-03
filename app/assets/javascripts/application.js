@@ -34,6 +34,15 @@ $( document ).on('turbolinks:load',function() {
   }, 10);
 });
 
+function initTinyMCE(el) {
+  setTimeout(function () {
+    tinyMCE.init({
+      target: el,
+      menubar: "false"
+    })
+  }, 100);
+};
+
 $( document ).on('turbolinks:load',function() {
   setTimeout(function () {
     tinyMCE.init({
@@ -42,7 +51,7 @@ $( document ).on('turbolinks:load',function() {
       toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
       width: '100%',
       height: 104,
-      language: 'es_MX',
+      language: 'es_MX',      
     })
   }, 10);
 });

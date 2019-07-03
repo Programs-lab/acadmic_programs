@@ -1,7 +1,8 @@
 # coding: utf-8
 class AppointmentReportsController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:show]
+  before_action :set_appointment_report, only: [:index, :update]
 
   def show
     @appointment_report = AppointmentReport.find(params[:id])
@@ -117,4 +118,28 @@ class AppointmentReportsController < ApplicationController
       end
     end
   end
+
+  def index
+    @medical_record = MedicalRecord.find(params[:medical_record_id])
+
+    @appointment_report_annotations = @appointment_report.appointment_report_annotations
+    render json: {appointment_report_annotations: @appointment_report_annotations.to_json(except: [:updated_at]) }
+  end
+
+  def update
+    unless @appointment_report.update(appointment_report_params)
+      redirect_to working_weeks_path, alert: "Hubo un error al tratar de actualizar por favor intente de nuevo"
+    end
+  end
+
+  private
+
+  def set_appointment_report
+    @appointment_report = AppointmentReport.find(params[:id])
+  end
+
+  def appointment_report_params
+    params.require(:appointment_report).permit(appointment_report_annotations_attributes: [:id, :content, :_destroy])
+  end
+
 end

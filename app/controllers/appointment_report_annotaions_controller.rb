@@ -35,11 +35,11 @@ class AppointmentReportAnnotationsController < ApplicationController
   private
 
   def set_appointment_report
-    @@appointment_report = AppointmentReport.find(params[:id] 
+    @@appointment_report = AppointmentReport.find(params[:id])
   end
 
   def set_appointment_report_annotation
-    @@appointment_report_annotation = AppointmentReportAnnotation.find(params[:id] 
+    @@appointment_report_annotation = AppointmentReportAnnotation.find(params[:id])
   end
 
   def appointment_report_annotation_params

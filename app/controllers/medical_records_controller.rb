@@ -19,7 +19,7 @@ class MedicalRecordsController < ApplicationController
                   right: 30                },
         header:  {   html: {
                        template: "medical_records/medical_record_header.html.erb",
-                       locals: {title: "HISTORIA CLINICA", patient: @patient}
+                       locals: {title: "HISTORIA CLINICA", patient: @patient, format_code: "MPM-CE-F-01"}
                      },
                  },
         footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},

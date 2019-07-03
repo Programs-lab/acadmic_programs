@@ -12,12 +12,12 @@ Vue.use(VueResource)
 Vue.use(VueMoment, { moment } );
 moment.locale('es')
 
-document.addEventListener('turbolinks:load', () => {  
+document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('medical_record')) {
     var element = document.getElementById('medical_record')
     var id = element.dataset.medicalRecordId
-    var ar = JSON.parse(element.dataset.appointmentReports)
-    var an = Array(Object.keys(ar).length).fill(false)  
+    //var ar = JSON.parse(element.dataset.appointmentReports)
+    // var an = Array(Object.keys(ar).length).fill(false)
     var appointment = JSON.parse(document.getElementById("medical_record_form").getAttribute('appointment'))
     if (JSON.stringify(appointment) == "{}") {
       appointment['id'] = ""
@@ -30,8 +30,8 @@ document.addEventListener('turbolinks:load', () => {
         showM: false,
         showC: false,
         showD: false,
-        appointment_reports: ar,
-        showAnontations: an, 
+        // appointment_reports: ar,
+        // showAnontations: an,
         tabItems: {},
         loading: false,
         modal2: {},
@@ -59,12 +59,12 @@ document.addEventListener('turbolinks:load', () => {
         },
 
         fetchMedia(){
-          var self = this 
+          var self = this
           self.$http.get(`/api/media/${id}`).then(response => {self.media = response.body}, response => {console.log(response)})
         },
 
         removeMedium(medium_id, j){
-          var self = this 
+          var self = this
           self.$http.delete(`/api/media/${medium_id}`).then(response => {}, response => {console.log(response)})
           this.media.splice(j, 1);
         },
@@ -93,7 +93,7 @@ document.addEventListener('turbolinks:load', () => {
       },
 
       mounted: function () {
-        this.$nextTick(function () {          
+        this.$nextTick(function () {
           this.fetchMedia();
         })
       },

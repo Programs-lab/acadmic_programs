@@ -55,6 +55,9 @@
     @apply .text-white .bg-secondary;
   }
 
+  .active-button{
+    @apply .bg-grey-dark .text-white;
+  }
   .active:hover{
     @apply .bg-secondary;
   }
@@ -157,7 +160,7 @@
   
 
   #overlay{
-    position: absolute;
+    position: fixed;
     z-index: 999;
     top:0px;
     left:0px;

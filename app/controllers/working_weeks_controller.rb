@@ -1,6 +1,7 @@
 class WorkingWeeksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_working_week, only: [:update, :update_all]
+  protect_from_forgery with: :null_session
 
   def index
     unproccessed_working_weeks = current_user.doctor_working_weeks.where("end_date >= ?", Date.today).order(:initial_date)

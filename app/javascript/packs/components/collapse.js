@@ -1,13 +1,18 @@
 import Vue from 'vue/dist/vue.esm'
 Vue.component('collapse-vue', {
-  props: ['i', 'collapse_type'],
+  props: ['i', 'collapse_type', 'open'],
   data: function() {
     return {
-       show: false,
-       heightC: ''
+       show: false,       
+       heightC: '',
      };
   },
   methods: {
+    triggerClose(){
+      if(this.open != undefined) {
+        this.$root.trigger_close(this.i);
+      }
+    },
     close() {
           this.show =! this.show;
     }
@@ -22,14 +27,15 @@ Vue.component('collapse-vue', {
     }
   },
   watch: {
-   heightC(){}
+   heightC(){},
+   open(){if (this.open) this.show = true}
   }
   ,
   template: `
   <div :id="i" class="collapse" :class="transformClass">
     <div class="row w-full shadow-md">
       <div class="collapse-title">
-        <div class="flex w-full justify-start px-4 items-center" v-on:click="close()">
+        <div class="flex w-full justify-start px-4 items-center" v-on:click="close(), triggerClose()">
           <div class="flex w-full justify-start">
             <slot name="title-left"></slot>
           </div>

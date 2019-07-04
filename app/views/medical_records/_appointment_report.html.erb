@@ -1,4 +1,4 @@
-<collapse-vue i="myCollpase<%= index %>" collapse_type="semi_popup">
+<collapse-vue i="myCollpase<%= index %>" collapse_type="semi_popup" :open="opens['myCollpase<%= index %>']">
   <template v-slot:title-left>
     <div class="flex w-full justify-between ">
       <div class="flex w-2/6">
@@ -13,86 +13,174 @@
           %>
         </span>
       </div>
-      <div class="flex w-2/6">
+      <div class="flex w-1/6">
         <%= icon('fas','user-md', class: 'fa-md mr-2') %>
         <span><%= "Dr. #{appointment_report.doctor.first_name}" %></span>
       </div>
     </div>
   </template>
+  <template v-slot:title-right>
+    <div class="flex w-1/6 pr-16">
+      <button id= "toggle_<%= index %>" class="btn btn-secondary focus:outline-none" @click="toggle_annotations(<%= index %>), trigger_open('myCollpase<%= index %>')"><i class="fas fa-sticky-note"></i></button>
+    </div>
+  </template>
   <template v-slot:content>
-    <div id="tab_vue">
-      <tab-vue :ids="[1,2,3,4,5]">
-        <template #1>
-          <%= icon('fas','file-alt', class: 'fa-md')%>
-          Diagnostico
-        </template>
-        <template #2>
-          <%= icon('fas','list', class: 'fa-md')%>
-          Ord Medica
-        </template>
-        <template #3>
-          <%= icon('fas','file', class: 'fa-md')%>
-          Sol Examen
-        </template>
-        <template #4>
-          <%= icon('fas','address-book', class: 'fa-md')%>
-          Referencias
+   <div v-if="spinner">
+    <div id=overlay>
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+    <div v-if="showAnontations[<%= index %>] && !spinner">
+      <div class="row w-full items-center pl-4 mr-1">
+        <div class="flex w-1/2 justify-start">
+          <h3>Anotaciones Extra</h3>
+        </div>
+        <div class="flex w-1/2 justify-end">
+          <a @click="addAnnotaion(<%= index %>)">
+            <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md mr-5', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+          </a>
+        </div>
+      </div>      
+      <br>
+        <div v-show="appointment_reports[<%= index %>].appointment_report_annotations_attributes.length > 0">
+         <div class="flex w-full" v-for="(appn, index) in appointment_reports[<%= index %>].appointment_report_annotations_attributes">          
+          <div class="flex w-full justify-center items-center px-4 my-6" >
+            <div class="flex w-full items-center" v-show="appn._destroy == '1'">              
+              <div class="row w-1/2 mx-4">
+                Este registro se removera al guardar los cambios
+              </div>
+              <div class="row w-1/2 justify-end px-4">
+                <button @click="undoRemove(<%= index %>, index)" class="btn btn-secondary no-outline">Deshacer</button>
+              </div>
+            </div>
 
-        </template>
-        <template #5>
-          <%= icon('fas','wheelchair', class: 'fa-md')%>
-          Incapacidad
-        </template>
-        <template #default_tab>
-          <li class="w-full md:w-auto mr-1">
-            <%= link_to(appointment_report_path(id: appointment_report.id, format: :pdf), target: "_blank", class: "tab-item px-1") do %>
-              <%= icon('fas', 'file-pdf', '') %>
-            <% end %>
-          </li>
-        </template>
-        <template #content1>
-          <div class="flex w-full border-t-4 border-primary rounded-t">
-            <textarea class="content-no-editable">
-              <%= appointment_report.diagnosis %>
-            </textarea>
+            <div class="flex w-full items-center" v-show="!appn._destroy == '1'" >
+              <div class="row w-full focus_form">
+                <label class="label_input pb-2"> <h3>{{appn.created_at != null ? $moment(appn.created_at).format("MMMM Do YYYY") : $moment().format("MMMM Do YYYY")}}</h3></label>
+                <tinymce v-model="appn.content"
+                  :plugins="tinyPlugins" :toolbar1="appn.id == null ? tinyToolbar : ''" :toolbar2="tinyToolbar2"
+                  :other="appn.id != null ? postOtherOptions : otherOptions">
+                </tinymce>
+              </div>
+
+              <div class="row w-1/7 justify-end pl-8 py-4">
+                <button class="btn btn-red-light" @click="removeAnnotation(<%= index %>, index)">
+                  <%= icon('fas', 'trash') %>
+                </button>
+              </div>
+            </div>
+
           </div>
-        </template>
-        <template #content2>
-          <div class="flex w-full border-t-4 border-primary rounded-t">
-            <textarea class="content-no-editable">
-              <%= appointment_report.medical_order %>
-            </textarea>
-          </div>
-        </template>
-        <template #content3>
-          <div class="flex w-full border-t-4 border-primary rounded-t">
-            <textarea class="content-no-editable">
-              <%= appointment_report.examination_request %>
-            </textarea>
-          </div>
-        </template>
-        <template #content4>
-          <div class="flex w-full border-t-4 border-primary rounded-t">
-            <textarea class="content-no-editable">
-              <%= appointment_report.reference %>
-            </textarea>
-          </div>
-        </template>
-        <template #content5>
-          <div class="flex w-full border-t-4 border-primary rounded-t">
-            <textarea class="content-no-editable">
-              <%= appointment_report.medical_disability %>
-            </textarea>
-          </div>
-        </template>
-        <template #content6>
-          <div class="flex w-full justify-center">
-            <div class="flex w-full justify-center">
-              <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+      </div>
+      <div v-show = "!appointment_reports[<%= index %>].appointment_report_annotations_attributes.length > 0">
+        <div class="row w-full">
+         <div class="flex w-full justify-center">
+          <div class="alert alert-info w-full mx-4" role="alert">
+            <div class="flex w-full">
+              <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
+              <div class="text-teal-darkest">
+                <p class="font-bold">Atención.</p>
+                <p class="text-sm">Esta cita no tiene ninguna anotación adicional, si necesita agregar alguna utilize el botón "+"</i></p>
             </div>
           </div>
-        </template>
-      </tab-vue>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  <div class="divider"></div>
+    <div class="row w-full px-4">
+
+      <div class="flex w-full">
+        <div class="flex w-full">
+
+          <div class="flex justify-end w-full">
+           <a class="btn btn-primary" @click= 'saveAnnotations(<%= index %>)'>
+             Guardar
+           </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    </div>    
+    <div v-show="!showAnontations[<%= index %>]">
+      <div id="tab_vue">
+        <tab-vue :ids="[1,2,3,4,5]">
+          <template #1>
+            <%= icon('fas','file-alt', class: 'fa-md')%>
+            Diagnostico
+          </template>
+          <template #2>
+            <%= icon('fas','list', class: 'fa-md')%>
+            Ord Medica
+          </template>
+          <template #3>
+            <%= icon('fas','file', class: 'fa-md')%>
+            Sol Examen
+          </template>
+          <template #4>
+            <%= icon('fas','address-book', class: 'fa-md')%>
+            Referencias
+
+          </template>
+          <template #5>
+            <%= icon('fas','wheelchair', class: 'fa-md')%>
+            Incapacidad
+          </template>
+          <template #default_tab>
+            <li class="w-full md:w-auto mr-1">
+              <%= link_to(appointment_report_path(id: appointment_report.id, format: :pdf), target: "_blank", class: "tab-item px-1") do %>
+                <%= icon('fas', 'file-pdf', '') %>
+              <% end %>
+            </li>
+          </template>
+          <template #content1>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea class="content-no-editable">
+                <%= appointment_report.diagnosis %>
+              </textarea>
+            </div>
+          </template>
+          <template #content2>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea class="content-no-editable">
+                <%= appointment_report.medical_order %>
+              </textarea>
+            </div>
+          </template>
+          <template #content3>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea class="content-no-editable">
+                <%= appointment_report.examination_request %>
+              </textarea>
+            </div>
+          </template>
+          <template #content4>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea class="content-no-editable">
+                <%= appointment_report.reference %>
+              </textarea>
+            </div>
+          </template>
+          <template #content5>
+            <div class="flex w-full border-t-4 border-primary rounded-t">
+              <textarea class="content-no-editable">
+                <%= appointment_report.medical_disability %>
+              </textarea>
+            </div>
+          </template>
+          <template #content6>
+            <div class="flex w-full justify-center">
+              <div class="flex w-full justify-center">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+              </div>
+            </div>
+          </template>
+        </tab-vue>
+      </div>
     </div>
   </template>
 </collapse-vue>

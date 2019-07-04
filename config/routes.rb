@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   resources :appointments, path: 'citas'
   put 'citas/cancelar/:appointment_id', to: 'appointments#cancel_appointment', as: :cancel_appointment
-  resources :appointment_reports, path: 'reportes de citas', only: :show
+  resources :appointment_reports, path: 'reportes de citas', only: [:show, :update, :index]
   namespace :api do
     get 'appointments/fetch_appointment_data/:doctor_id/:procedure_type_id', to: 'appointments#fetch_appointment_data'
     get 'appointments/fetch_user/:id_number/:id_type', to: 'appointments#fetch_user'

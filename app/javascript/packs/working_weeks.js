@@ -147,8 +147,7 @@ document.addEventListener('turbolinks:load', () => {
 
       apply_multiselect_class(){        
         setTimeout(function(){
-        var multiple_selects = document.getElementsByClassName('multiselect__tags')
-        console.log(multiple_selects)
+        var multiple_selects = document.getElementsByClassName('multiselect__tags')        
         for (let multiple_select of multiple_selects) {
           multiple_select.classList.remove("multiselect__tags")
           multiple_select.classList.add("field_input")

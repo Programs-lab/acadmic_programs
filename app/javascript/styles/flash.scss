@@ -17,3 +17,14 @@
 .alert{
   @apply .border-t-4 .rounded-b .px-4 .py-3 .shadow-md;
 }
+
+.custom-toasted-container {
+  top: 300px !important;
+  margin-left: 150px;
+}
+
+.toasted .primary, .toasted.toasted-primary {
+  color: #4dc0b5 !important;
+  border-color: #64d5ca !important;
+  background: #e3fcec !important;
+}

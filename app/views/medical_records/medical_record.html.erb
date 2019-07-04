@@ -5,7 +5,7 @@
     <div class="w-1/3 text-right">
     </div>
   </div>
-  <div id="medical_record" class="w-full px-4" data-medical-record-id="<%= @patient.patient_medical_records.first.id %>" v-cloak>
+  <div id="medical_record" class="w-full px-4" data-medical-record-id="<%= @patient.patient_medical_records.first.id %>" data-appointment-reports="<%= @appointment_reports_annotations %>" data-page="<%= !params[:page].blank? %>" v-cloak>
     <div class="my-4 flex">
       <div class="w-1/2">
         <h4 class="font-semibold text-g-d4 text-lg">
@@ -238,9 +238,11 @@
               </div>
             </div>
           </div>
-          <% end %>
-          <% @appointment_reports.each_with_index do |appointment_report, index|%>
-            <%= render 'appointment_report', appointment_report: appointment_report, index: index %>
+          <% else %>
+            <% @appointment_reports.each_with_index do |appointment_report, index|%>
+              <%= render 'appointment_report', appointment_report: appointment_report, index: index %>
+            <% end %>
+            <%== render 'pagy/nav', pagy: @pagy %>
           <% end %>
           <div class="divider"></div>
           <div class="flex w-full justify-end">

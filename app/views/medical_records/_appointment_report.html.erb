@@ -1,4 +1,4 @@
-<collapse-vue i="myCollpase<%= index %>" collapse_type="semi_popup">
+<collapse-vue i="myCollpase<%= index %>" collapse_type="semi_popup" :open="opens['myCollpase<%= index %>']">
   <template v-slot:title-left>
     <div class="flex w-full justify-between ">
       <div class="flex w-2/6">
@@ -21,18 +21,16 @@
   </template>
   <template v-slot:title-right>
     <div class="flex w-1/6 pr-16">
-      <button class="btn btn-secondary" @click="toggle_annotations(<%= index %>)"><i class="fas fa-sticky-note"></i></button>
+      <button id= "toggle_<%= index %>" class="btn btn-secondary focus:outline-none" @click="toggle_annotations(<%= index %>), trigger_open('myCollpase<%= index %>')"><i class="fas fa-sticky-note"></i></button>
     </div>
   </template>
   <template v-slot:content>
-    <div v-show="showAnontations[<%= index %>]">
-
-     <div v-if="spinner">
-        <div id=overlay>
-          <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-        </div>
-      </div>
-
+   <div v-if="spinner">
+    <div id=overlay>
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+    <div v-if="showAnontations[<%= index %>] && !spinner">
       <div class="row w-full items-center pl-4 mr-1">
         <div class="flex w-1/2 justify-start">
           <h3>Anotaciones Extra</h3>
@@ -57,11 +55,11 @@
             </div>
 
             <div class="flex w-full items-center" v-show="!appn._destroy == '1'" >
-              <div class="row w-6/7 focus_form">
+              <div class="row w-full focus_form">
                 <label class="label_input pb-2"> <h3>{{appn.created_at != null ? $moment(appn.created_at).format("MMMM Do YYYY") : $moment().format("MMMM Do YYYY")}}</h3></label>
                 <tinymce v-model="appn.content"
-                  :plugins="tinyPlugins" :toolbar1="tinyToolbar" :toolbar2="tinyToolbar2"
-                  :other="otherOptions">
+                  :plugins="tinyPlugins" :toolbar1="appn.id == null ? tinyToolbar : ''" :toolbar2="tinyToolbar2"
+                  :other="appn.id != null ? postOtherOptions : otherOptions">
                 </tinymce>
               </div>
 
@@ -83,7 +81,7 @@
               <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
               <div class="text-teal-darkest">
                 <p class="font-bold">Atención.</p>
-                <p class="text-sm">Esta cita no tiene ninguna anotación adicional, si necesira agregar alguna utilize el botón "+"</i></p>
+                <p class="text-sm">Esta cita no tiene ninguna anotación adicional, si necesita agregar alguna utilize el botón "+"</i></p>
             </div>
           </div>
         </div>

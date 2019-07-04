@@ -55,6 +55,9 @@
     @apply .text-white .bg-secondary;
   }
 
+  .active-button{
+    @apply .bg-grey-dark .text-white;
+  }
   .active:hover{
     @apply .bg-secondary;
   }

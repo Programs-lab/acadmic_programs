@@ -7,6 +7,7 @@ import VueResource from 'vue-resource'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import VuePaginate from 'vue-paginate'
 import VueEasyTinyMCE from 'vue-easy-tinymce';
+import Toasted from 'vue-toasted';
 Vue.use(VuePaginate)
 Vue.use(TurbolinksAdapter)
 Vue.use(VueResource)
@@ -14,7 +15,7 @@ Vue.use(VueMoment, { moment } );
 moment.locale('es')
 
 document.addEventListener('turbolinks:load', () => {
-
+  Vue.use(Toasted, {iconPack: 'fontawesome', icon : 'check-circle', duration : 2000, position : "top-center", containerClass : "custom-toasted-container", action : {text : "✖️", onClick : (e, toastObject) => {toastObject.goAway(0);}}})
 
   if(document.getElementById('medical_record')) {
     var element = document.getElementById('medical_record')
@@ -47,7 +48,17 @@ document.addEventListener('turbolinks:load', () => {
           language: 'es_MX',
           menubar: "false"
         },
+        postOtherOptions: {
+          width: '100%',
+          height: 104,
+          language: 'es_MX',
+          menubar: "false",
+          toolbar: "false",          
+          readonly: 1,
+          forced_root_block: false
+        },
         show: false,
+        opens: {},
         spinner: false,
         showM: page,
         showC: false,
@@ -75,10 +86,17 @@ document.addEventListener('turbolinks:load', () => {
 
       components: {
          vueDropzone: vue2Dropzone,
-         'tinymce': VueEasyTinyMCE
+         tinymce: VueEasyTinyMCE
       },
 
       methods: {
+        trigger_open(index){
+          Vue.set(this.opens, index, true)
+        },
+
+        trigger_close(index){
+          Vue.set(this.opens, index, false)
+        },
 
         fetchAnnotations(index){
           var self = this
@@ -86,9 +104,12 @@ document.addEventListener('turbolinks:load', () => {
             var annotations = JSON.parse(response.body.appointment_report_annotations)
             annotations.forEach(function(ann) {
               ann._destroy = null
-            }) 
-            self.appointment_reports[index].appointment_report_annotations_attributes = annotations
-            setTimeout(function(){self.spinner = false}, 200)            
+            })   
+            self.appointment_reports[index].appointment_report_annotations_attributes = annotations            
+            setTimeout(function(){
+              self.spinner = false
+              Vue.toasted.show('Reporte actualizado')                       
+            }, 200)
           }, response => {console.log(response)
           })
         },
@@ -156,7 +177,9 @@ document.addEventListener('turbolinks:load', () => {
           }
         },
         toggle_annotations(index){
+          var element = document.getElementById(`toggle_${index}`)                    
           Vue.set(this.showAnontations, index, !this.showAnontations[index])
+          element.classList.toggle("active-button");
         },
         showFileUpload(){
           this.showD =! this.showD

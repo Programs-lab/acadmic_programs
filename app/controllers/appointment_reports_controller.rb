@@ -122,7 +122,7 @@ class AppointmentReportsController < ApplicationController
   def index
     @medical_record = MedicalRecord.find(params[:medical_record_id])
 
-    @appointment_report_annotations = @appointment_report.appointment_report_annotations
+    @appointment_report_annotations = @appointment_report.appointment_report_annotations.order(:created_at)
     render json: {appointment_report_annotations: @appointment_report_annotations.to_json(except: [:updated_at]) }
   end
 

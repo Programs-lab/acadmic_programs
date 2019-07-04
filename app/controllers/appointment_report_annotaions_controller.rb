@@ -2,7 +2,7 @@ class AppointmentReportAnnotationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_procedure_type, only: [:update, :destroy]
   def index
-    @appointment_report_annotations = @appointment_report.all.order(:id)        
+    @appointment_report_annotations = @appointment_report.all.order(:id)
     authorize @appointment_report_annotations
   end
 
@@ -13,7 +13,7 @@ class AppointmentReportAnnotationsController < ApplicationController
       redirect_to procedure_types_path, notice: 'El tipo de estudio fue agregado exitosamente.'
     else
       redirect_to procedure_typea_path, alert: 'No fue posible concretar el registro, por favor revise los campos nuevamente'
-    end    
+    end
   end
 
   def update
@@ -35,11 +35,11 @@ class AppointmentReportAnnotationsController < ApplicationController
   private
 
   def set_appointment_report
-    @@appointment_report = AppointmentReport.find(params[:id] 
+    @@appointment_report = AppointmentReport.find(params[:id])
   end
 
   def set_appointment_report_annotation
-    @@appointment_report_annotation = AppointmentReportAnnotation.find(params[:id] 
+    @@appointment_report_annotation = AppointmentReportAnnotation.find(params[:id])
   end
 
   def appointment_report_annotation_params

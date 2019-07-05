@@ -4,6 +4,6 @@ class ChangeCompanyIdType < ActiveRecord::Migration[5.2]
   end
 
   def down
-    change_column :companies, :company_id, 'integer USING CAST(column_name AS integer)'
+    change_column :companies, :company_id, 'integer USING CAST(company_id AS integer)'
   end
 end

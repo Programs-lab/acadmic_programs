@@ -6,6 +6,13 @@
     <p><b>Fecha: </b><%= "#{appointment_report.appointment_datetime.strftime('%d/%m/%Y')}" %></p>
     <p><%= appointment_report.diagnosis.html_safe %></p>
     </div>
+    <% appointment_report.appointment_report_annotations.each do |ar| %>
+      <div class="col s12">
+        <p><b>Anotacion despues de cerrada la atencion</p></b>
+        <p><b>Fecha: </b><%= "#{ar.created_at.strftime('%d/%m/%Y')}" %></p>
+        <p><%= ar.content.html_safe %></p>
+      </div>
+    <% end %>
   </div>
   <% end %>
 

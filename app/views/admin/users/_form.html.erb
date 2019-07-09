@@ -25,7 +25,7 @@
           :first,
           {include_blank: true},
           {
-            class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", disabled: @user.disabled
+            class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", disabled: @user.disabled
           }
         )
         %>
@@ -41,7 +41,7 @@
       <%= f.label "Telefono", class: 'label_input' %>
       <%= f.number_field :phone_number, class: 'field_input rounded-t', disabled: @user.disabled %>
     </div>
-    <div class="w-full md:w-1/2 px-3 "  v-if="roleValue !== 'doctor'">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0"  v-if="roleValue !== 'doctor'">
        <%= f.label "Empresa de afiliación", class: 'label_input' %>
        <%= f.collection_select(
           :company_id,
@@ -50,7 +50,7 @@
           :company_name,
           { include_blank: true },
           {
-            class: "block appearance-none w-full border-b text-grey-darker py-3 focus:outline-none bg-white focus:border-grey h-8"
+            class: "block appearance-none w-full border-b text-grey-darker md:py-3 focus:outline-none bg-white focus:border-grey h-8"
           }
        ) %>
     </div>
@@ -89,7 +89,7 @@
           :last,
           {include_blank: false, selected: params[:role]},
           {
-            class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", "v-model" => "roleValue", disabled: @user.disabled || params[:role]
+            class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", "v-model" => "roleValue", disabled: @user.disabled || params[:role]
           }
         )
         %>
@@ -118,7 +118,7 @@
   <% unless @user.new_record? %>
 
       <div class="w-full md:w-1/2 px-3 py-4 mb-5 md:mb-0 items-center">
-        <%= link_to(admin_user_invite_path(@user.id), method: :post, class: "flex w-full btn btn-secondary #{disabled_user_button(user.disabled)}", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'", disabled: @user.disabled) do %>
+        <%= link_to(admin_user_invite_path(@user.id), method: :post, class: "flex w-full btn btn-secondary justify-center #{disabled_user_button(user.disabled)}", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'", disabled: @user.disabled) do %>
           <%= icon('fas', 'paper-plane', 'enviar invitacion', class: "mr-2") %>
         <% end %>
         <% if user.invitation_sent_at.present? %>
@@ -145,11 +145,11 @@
   <% end %>
 
 
-  <div class="md:flex md:items-center mt-6">  
-      <div class="flex justify-start w-1/2">
+  <div class="flex flex-wrap md:items-center mt-6">
+      <div class="flex justify-start w-full md:w-1/2">
       <% unless @user.new_record? %>
 
-      <a id="myBtn" @click="modalId('disable')" class="btn btn-secondary" v-ripple="'rgba(0, 0, 0, 0.20)'">
+      <a id="myBtn" @click="modalId('disable')" class="btn btn-secondary w-full text-center md:text-left md:w-auto" v-ripple="'rgba(0, 0, 0, 0.20)'">
         <% if user.disabled %>
           Habilitar
         <% else %>
@@ -176,13 +176,13 @@
       <% end %>
     </div>
 
-    <div class="flex justify-end w-1/2">
-      <div class="flex justify-between w-full">
-        <div class="flex justify-end w-3/4">
-         <%= link_to("Cancelar", request.referer, class: "btn btn-secondary no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
+    <div class="flex justify-end w-full md:w-1/2 mt-2 md:mt-0">
+      <div class="flex justify-end w-full">
+        <div class="flex justify-end w-1/2 md:w-auto mr-1">
+         <%= link_to("Cancelar", request.referer, class: "btn btn-secondary w-full text-center md:w-auto md:text-left no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
         </div>
-        <div class="flex justify-end w-32">
-         <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary", ":class"=>"disabled", ':disabled' => "$v.$anyError || $v.$invalid" %>
+        <div class="flex justify-end w-1/2 md:w-auto ml-1">
+         <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary w-full text-center md:w-auto md:text-left", ":class"=>"disabled", ':disabled' => "$v.$anyError || $v.$invalid" %>
         </div>
       </div>
     </div>

@@ -1,8 +1,11 @@
+# coding: utf-8
 ID_TYPES = {
  "Cédula de Ciudadanía" => "CC",
  "Cédula de Extranjería" => "CE",
  "Registro civil de nacimiento" => "RCN",
- "Tarjeta de identidad" => "TI"
+ "Tarjeta de identidad" => "TI",
+ "Pasaporte" => "PA",
+ "Permiso especial de permanencia" => "PE"
 }
 
 ROLES = {

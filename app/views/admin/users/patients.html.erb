@@ -54,22 +54,37 @@
         <% @patients.each do |user| %>
         <tr>
           <td>
-            <div class="py-2">
-              <%= link_to(edit_admin_user_path(user.id), class: 'btn btn-secondary no-underline') do %>
-                <%= icon('fas', 'pencil-alt', '') %>
+            <div class="py-2 hidden md:table-cell">
+              <%= link_to(edit_admin_user_path(user.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'pencil-alt') %>
+              <% end %>
+            </div>
+            <div class="flex px-2 md:hidden">
+              <%= link_to(edit_admin_user_path(user.id), class: 'btn-flat text-black') do %>
+                <%= icon('fas', 'pencil-alt') %>
               <% end %>
             </div>
           </td>
           <td>
-            <div class="py-2">
-              <%= link_to(patient_medical_record_path(user.id, nil), class: 'btn btn-secondary no-underline') do %>
+            <div class="py-2 hidden md:table-cell">
+              <%= link_to(patient_medical_record_path(user.id, nil), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'clipboard', '') %>
+              <% end %>
+            </div>
+            <div class="flex px-2 md:hidden -mx-8">
+              <%= link_to(patient_medical_record_path(user.id, nil), class: 'btn-flat text-black') do %>
                 <%= icon('fas', 'clipboard', '') %>
               <% end %>
             </div>
           </td>
           <td>
-            <div class="py-2">
-              <%= link_to(schedule_appointment_path(user), class: 'btn btn-secondary no-underline') do %>
+            <div class="py-2 hidden md:table-cell">
+              <%= link_to(schedule_appointment_path(user), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'clock', '') %>
+              <% end %>
+            </div>
+            <div class="flex px-2 md:hidden">
+              <%= link_to(schedule_appointment_path(user), class: 'btn-flat text-black') do %>
                 <%= icon('fas', 'clock', '') %>
               <% end %>
             </div>

@@ -49,12 +49,13 @@ es:
     mailer:
       confirmation_instructions:
         action: Confirmar mi cuenta
-        greeting: "¡Bienvenido %{recipient}!"
-        instruction: 'Usted puede confirmar el correo electrónico de su cuenta a través de este enlace:'
+        greeting: "¡Bienvenido"
+        instruction: 'Puedes confirmar el correo electrónico de su cuenta a través de este enlace:'
         subject: Instrucciones de confirmación
       email_changed:
         greeting: "¡Hola %{recipient}! "
-        message: Estamos contactando contigo para notificarte que tu email ha sido cambiado a %{email}.
+        message1: Estamos contactando contigo para notificarte que tu email ha sido cambiado a %{email}.
+        message2: Estamos contactando contigo para notificarte que tu email está siendo cambiado a %{email}.
         subject: Email cambiado
       password_change:
         greeting: Hola %{recipient}!

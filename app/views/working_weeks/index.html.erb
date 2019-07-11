@@ -124,7 +124,7 @@
 
 
           <div class="flex justify-end w-full">
-           <a class="btn btn-primary" @click="modalId('update')">
+           <a class="btn btn-primary" @click="modalId('update'), apply_multiselect_class()">
              Cambiar horario
            </a>
           </div>
@@ -220,12 +220,11 @@
                       <datetime  value-zone="local" :minute-step="15" :min-datetime= "week.working_days_attributes[<%= index %>].working_date" :max-datetime="week.working_days_attributes[<%= index %>].working_date" :phrases= "{ok: 'Acceptar', cancel: 'Cancelar' }" title='Seleccione una hora' v-model=hour.end_hour type=time input-class='field_input' :use12-hour=true></datetime>
                     </div>
 
-                    <div class="row w-1/4 focus_form mx-4">
+                    <div class="row w-1/4 focus_form mx-4" :class=disabled_class_field(hour.id)>
                       <label class="label_input">Tipo de procedimiento</label>
-                      <select id="procedure_types" class="fblock appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8" v-model="hour.procedure_type_id">
-                        <option label=" "></option>
-                        <option v-for="procedure in procedures" :value="procedure.id"> {{procedure.procedure_type_name}}</option>
-                      </select>
+                      <div class="relative">
+                        <multiselect id="`multiselect_${index}`" :limit='1' :limit-text="count => `+${count}`" value="hour.procedure_type_kinds" v-model="hour.procedure_type_kinds" :options="procedures" :multiple="true" placeholder=" procedimientos..." :select-label="' '" :selected-label="'✓'" :deselect-label= "'✖️'" :disabled="disabled_working_hour(hour.id)" :close-on-select='false'><span slot="noResult">No se encontraron resultados.</span></multiselect>
+                      </div>
                     </div>
 
                     <div class="row w-1/4 justify-end px-16 py-4">

@@ -29,7 +29,7 @@ export const CalendarMixin = {
         console.log(response.body)
         this.doctor = JSON.parse(response.body.doctor)[0];
         this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
-        this.procedureDuration = response.body.procedure_type.procedure_duration;        
+        this.procedureDuration = response.body.procedure_type.procedure_duration;
         this.doctorWorkingWeek = this.doctor !== undefined ? this.doctor.doctor_working_weeks[this.indexWeek] : ""
         this.matrixWorkingHours()
       }, response => { console.log(response) });
@@ -43,7 +43,7 @@ export const CalendarMixin = {
       var arrayHours = []
       var date = working_day.working_date
       var datetime = moment(`${date} ${hour}`)
-      if (datetime.isAfter(moment().add(0, 'hour'))) {
+      if (datetime.isAfter(moment())) {
         var limit_datetime = moment(`${date} ${hour}`).add(1,'hour')
         var wh = working_day.working_hours
         for (var i = 0; i < wh.length; i++) {
@@ -52,7 +52,7 @@ export const CalendarMixin = {
           if (datetime.isBetween(initial_hour, end_hour, null, '[)')) {
             initial_hour = datetime
             while (initial_hour.isBefore(end_hour) && initial_hour.isBefore(limit_datetime)) {
-              if (this.isAvailableHour(initial_hour) && initial_hour.isAfter(moment().add(1, 'day'))) {
+              if (this.isAvailableHour(initial_hour) && initial_hour.isAfter(moment().endOf('day'))) {
                 arrayHours.push(initial_hour.format())
               }
               initial_hour.add(this.procedureDuration,'minutes')

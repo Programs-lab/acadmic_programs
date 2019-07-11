@@ -18,10 +18,10 @@
     </div>
     <div class="flex justify-between w-1/12">
       <div class="flex justify-end w-1/12">
-        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='prevWeek' :disabled="index === 0"><i class="fas fa-arrow-left"></i></button>
+        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='prevWeek(), apply_multiselect_class()' :disabled="index === 0"><i class="fas fa-arrow-left"></i></button>
       </div>
       <div class="flex justify-end w-1/12">
-        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='nextWeek' :disabled="index >= weeks.length -2 "><i class="fas fa-arrow-right"></i></button>
+        <button v-ripple="'rgba(0, 0, 0, 0.20)'" class="btn-flat" @click ='nextWeek(), apply_multiselect_class()' :disabled="index >= weeks.length -2 "><i class="fas fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -191,7 +191,7 @@
           <template v-slot:content>
               <div class="flex w-full justify-center items-center">
                 <div class="row w-full justify-end px-20 mr-1">
-                  <a @click="addHour(<%= index %>)">
+                  <a @click="addHour(<%= index %>), apply_multiselect_class()">
                     <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
                   </a>
                 </div>

@@ -1,6 +1,6 @@
 <div class="flex flex-wrap w-full mt-4">
   <div class="flex w-full justify-end mb-6">
-    <div class="w-1/4 focus_form mr-1">
+    <div class="w-1/2 md:w-1/4 focus_form mr-1">
       <%= f.label :tipo_de_cita, class: 'label_input' %>
       <%=
       f.collection_select(
@@ -10,12 +10,12 @@
         :procedure_type_name,
         {include_blank: false, selected: :first},
         {
-          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId',
+          class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId',
         }
       )
       %>
     </div>
-    <div class="w-1/4 focus_form ml-1">
+    <div class="w-1/2 md:w-1/4 focus_form ml-1">
       <%= f.label :doctor, class: 'label_input' %>
       <%=
       f.collection_select(
@@ -25,7 +25,7 @@
         :first_name,
         {include_blank: false},
         {
-          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctorId'
+          class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctorId'
         }
       )
       %>
@@ -39,12 +39,15 @@
           <p>{{ value }}</p>
         </div>
         <div class="flex w-full justify-center">
-          <p class="font-medium text-sm text-g-d2">
+          <p class="font-medium text-sm text-g-d2 hidden md:block">
             {{ doctor != null ? $moment(week[index]).format("DD MMM YYYY") : '' }}
+          </p>
+          <p class="font-medium text-sm text-g-d2 md:hidden">
+            {{ doctor != null ? $moment(week[index]).format("DD MMM") : '' }}
           </p>
         </div>
       </div>
-      <div class="flex flex-wrap w-full mb-4 justify-center" v-for="(hour, i) in hours">
+      <div class="flex flex-wrap w-full mb-4 md:justify-center" v-for="(hour, i) in hours">
         <dropdown-vue btn_class="btn-flat" dropdown_style="width: 70%;">
           <template #title>
             <p :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'">
@@ -93,6 +96,26 @@
           </template>
         </dropdown-vue>
       </div>
+    </div>
+    <div class="my-8 flex px-4 items-center">
+      <div class="flex w-1/2 justify-end">
+        <a id="myBtn" @click="modalBottomId('create')">
+          <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+        </a>
+      </div>
+      <modal-bottom-vue i="create">
+        <template v-slot:content>
+            <%= link_to('#', class: "bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4", 'data-turbolinks' => false) do %>
+              button 1
+            <% end %>
+            <%= link_to('#', class: "bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4", 'data-turbolinks' => false) do %>
+              button 2
+            <% end %>
+            <%= link_to('#', class: "bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4", 'data-turbolinks' => false) do %>
+              button 3
+            <% end %>
+        </template>
+      </modal-bottom-vue>
     </div>
     <%= f.hidden_field :appointment_datetime, value: "appointmentHour", 'v-model' => 'appointmentHour' %>
   </div>

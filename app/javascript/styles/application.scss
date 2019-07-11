@@ -7,6 +7,7 @@
 @import 'list-group-menu';
 @import 'collapse';
 @import 'modal';
+@import 'modal-bottom';
 @import 'dropdown';
 @import 'card';
 @import 'tab';
@@ -48,7 +49,7 @@
   }
 
   .disabled:hover{
-    @apply .bg-third; 
+    @apply .bg-third;
   }
 
   .active{
@@ -118,7 +119,7 @@
     @apply .bg-primary;
   }
   .multiselect__tag-icon:hover {
-    
+
     @apply .bg-secondary
   }
 
@@ -157,7 +158,7 @@
     cursor: not-allowed;
     background: none;
   }
-  
+
 
   #overlay{
     position: fixed;

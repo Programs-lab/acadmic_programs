@@ -1,0 +1,38 @@
+.modal-bottom {
+  position: fixed;
+  z-index: 51;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-bottom-content {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  animation-duration: 0.2s;
+}
+
+.modal-bottom-title{
+  @apply .items-center .border-b .border-grey-light .pb-2;
+}
+
+.modal-bottom-footer{
+  @apply .justify-end .border-t .border-grey-light .pt-2;
+}
+
+.transition-modal-bottom-enter-active, .transition-modal-bottom-leave-active {
+  transition: opacity .5s;
+}
+
+.transition-modal-bottom-enter, .transition-modal-bottom-leave-to {
+  opacity: 0;
+}

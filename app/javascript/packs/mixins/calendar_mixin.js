@@ -22,14 +22,18 @@ export const CalendarMixin = {
     indexWeek: 0,
     hiddenDropdown: false,
     week: [],
+    modalBottom: {}
   },
   methods: {
+    modalBottomId(i){
+      setTimeout(() => { Vue.set(this.modalBottom, i , true); }, 0)
+    },
     fetchData: function(){
       this.$http.get(`/api/appointments/fetch_appointment_data/${this.doctorId}/${this.procedureTypeId}`).then(response => {
         console.log(response.body)
         this.doctor = JSON.parse(response.body.doctor)[0];
         this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
-        this.procedureDuration = response.body.procedure_type.procedure_duration;        
+        this.procedureDuration = response.body.procedure_type.procedure_duration;
         this.doctorWorkingWeek = this.doctor !== undefined ? this.doctor.doctor_working_weeks[this.indexWeek] : ""
         this.matrixWorkingHours()
       }, response => { console.log(response) });

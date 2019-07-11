@@ -9,6 +9,7 @@ Vue.component('modal-bottom-vue', {
       this.$root.modalBottomId(this.i);
     },
     close(){
+      if(this.$root.modalBottom[this.i])
       Vue.set(this.$root.modalBottom, this.i , false)
       return this.$root.modalBottom[this.i];
     }
@@ -28,9 +29,9 @@ Vue.component('modal-bottom-vue', {
   <div class="flex flex-wrap">
     <transition name="transition-modal-bottom" >
       <div id="myModalBottom" class="modal-bottom" v-show="show" v-cloak>
-        <div :class="classAnimatedContent" class="modal-bottom-content flex flex-wrap w-full" v-click-outside="close">
+        <div :class="classAnimatedContent" class="modal-bottom-content flex flex-wrap w-full">
           <div class="flex w-full">
-            <div class="flex flex-wrap w-full">
+            <div class="flex flex-wrap w-full" v-click-outside="close">
               <slot name="content"></slot>
             </div>
           </div>

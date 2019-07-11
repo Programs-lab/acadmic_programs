@@ -47,7 +47,7 @@
           </p>
         </div>
       </div>
-      <div class="flex flex-wrap w-full mb-4 md:justify-center" v-for="(hour, i) in hours">
+      <div class="md:flex md:flex-wrap w-full mb-4 md:justify-center hidden" v-for="(hour, i) in hours">
         <dropdown-vue btn_class="btn-flat" dropdown_style="width: 70%;">
           <template #title>
             <p :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'">
@@ -96,26 +96,20 @@
           </template>
         </dropdown-vue>
       </div>
-    </div>
-    <div class="my-8 flex px-4 items-center">
-      <div class="flex w-1/2 justify-end">
-        <a id="myBtn" @click="modalBottomId('create')">
-          <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+      <div class="flex flex-wrap w-full mb-4 md:hidden md:justify-center " v-for="(hour, i) in hours">
+        <a id="myBtn" class="btn-flat" @click="modalBottomId(`${index}${i}`)" :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'" v-ripple= "'rgba(255, 255, 255, 0.20)'">
+          {{ hour }}
         </a>
+        <modal-bottom-vue :i="`${index}${i}`">
+          <template v-slot:content>
+            <div class="flex w-full" v-for="(working_hour, j) in workingHours[index][i]">
+              <button class="bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                {{$moment(working_hour).format("hh:mm a")}}
+              </button>
+            </div>
+          </template>
+        </modal-bottom-vue>
       </div>
-      <modal-bottom-vue i="create">
-        <template v-slot:content>
-            <%= link_to('#', class: "bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4", 'data-turbolinks' => false) do %>
-              button 1
-            <% end %>
-            <%= link_to('#', class: "bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4", 'data-turbolinks' => false) do %>
-              button 2
-            <% end %>
-            <%= link_to('#', class: "bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4", 'data-turbolinks' => false) do %>
-              button 3
-            <% end %>
-        </template>
-      </modal-bottom-vue>
     </div>
     <%= f.hidden_field :appointment_datetime, value: "appointmentHour", 'v-model' => 'appointmentHour' %>
   </div>

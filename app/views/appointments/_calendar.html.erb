@@ -96,14 +96,14 @@
           </template>
         </dropdown-vue>
       </div>
-      <div class="flex flex-wrap w-full mb-4 md:hidden md:justify-center " v-for="(hour, i) in hours">
-        <a id="myBtn" class="btn-flat" @click="modalBottomId(`${index}${i}`)" :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'" v-ripple= "'rgba(255, 255, 255, 0.20)'">
-          {{ hour }}
-        </a>
+      <div class="flex flex-wrap w-full mb-4 md:hidden justify-center" v-for="(hour, i) in hours">
+        <button id="myBtn" class="w-full flex justify-center rounded h-6 items-center focus:outline-none" @click="modalBottomId(`${index}${i}`)" :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'" v-ripple= "'rgba(255, 255, 255, 0.20)'" type="button" :disabled="workingHours[index][i].length == 0">
+          {{ $moment( `<%= Date.today %> ${hour}`).format("hh a") }}
+        </button>
         <modal-bottom-vue :i="`${index}${i}`">
           <template v-slot:content>
             <div class="flex w-full" v-for="(working_hour, j) in workingHours[index][i]">
-              <button class="bg-white text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+              <button class="bg-white border-t text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none" name="button" v-ripple.mouseover.100 v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
                 {{$moment(working_hour).format("hh:mm a")}}
               </button>
             </div>

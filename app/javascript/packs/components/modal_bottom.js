@@ -1,7 +1,5 @@
 import Vue from 'vue/dist/vue.esm'
-import Ripple from 'vue-ripple-directive'
 import vClickOutside from 'v-click-outside'
-Vue.directive('ripple', Ripple);
 Vue.component('modal-bottom-vue', {
   props: ['style_button','i'],
   methods: {

@@ -1,6 +1,6 @@
 class Api::AppointmentsController < ApplicationController
-  def fetch_appointment_data    
-    @doctor = User.where(id: params[:doctor_id]).includes(doctor_working_weeks: { working_days: {working_hours: [:procedure_types, :working_hours_procedure_types] } }).where("working_weeks.end_date >= ? AND procedure_types.id = ?", (Date.today + 1), params[:procedure_type_id]).references(:doctor_working_weeks).to_json(
+  def fetch_appointment_data
+    @doctor = User.where(id: params[:doctor_id]).includes(doctor_working_weeks: { working_days: {working_hours: [:procedure_types, :working_hours_procedure_types] } }).where("working_weeks.end_date >= ?", (Date.today + 1)).references(:doctor_working_weeks).to_json(
       only: [:first_name, :last_name, :id],
       include:
       { doctor_working_weeks:

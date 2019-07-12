@@ -31,8 +31,8 @@
          </span>
        </div>
      </template>
-     <template #content1>                    
-        <%= render 'calendar', f: f %>        
+     <template #content1>
+        <%= render 'calendar', f: f %>
      </template>
      <template #content2 v-if="renderForm">
        <div class="flex flex-wrap w-full">
@@ -75,8 +75,8 @@
           </div>
         </div>
         <div class="divider"></div>
-        <div class="flex justify-end items-center w-full">
-          <div class="flex justify-start w-full">
+        <div class="flex flex-wrap md:flex-no-wrap justify-end items-center w-full">
+          <div class="flex justify-start w-full mb-2">
             <div class="p-1 pl-0 pt-2 text-red-light text-xs" v-if="validSubmit">
               <i class="fas fa-exclamation-circle mr-1"></i>
               <span>

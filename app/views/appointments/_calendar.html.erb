@@ -103,9 +103,15 @@
         <modal-bottom-vue :i="`${index}${i}`">
           <template v-slot:content>
             <div class="flex w-full" v-for="(working_hour, j) in workingHours[index][i]">
-              <button class="bg-white border-t text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none" name="button" v-ripple.mouseover.100 v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
-                {{$moment(working_hour).format("hh:mm a")}}
-              </button>
+              <% unless current_user %>
+                <%= button_tag('#',type: 'button', class: "bg-white border-t text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour", 'v-ripple' => "'rgba(0, 0, 0, 0.10)'", 'v-ripple.mouseover.100' => 'true') do %>
+                  {{$moment(working_hour).format("hh:mm a")}}
+                <% end %>
+              <% else %>
+                <button class="bg-white border-t text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none" name="button" v-ripple.mouseover.100 v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                  {{$moment(working_hour).format("hh:mm a")}}
+                </button>
+              <% end %>
             </div>
           </template>
         </modal-bottom-vue>

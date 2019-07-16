@@ -129,6 +129,7 @@ private
       :address,
       :email,
       :role,
+      :company_id,
       procedure_type_ids: []
       )
   end

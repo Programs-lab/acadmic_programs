@@ -1,4 +1,4 @@
-<p><%= t("devise.mailer.email_changed.greeting", recipient: "#{@resource.first_name @resource.last_name}") %></p>
+<p><%= t("devise.mailer.email_changed.greeting", recipient: "#{@resource.first_name}") %></p>
 
 <% unless @resource.try(:unconfirmed_email?) %>
   <p><%= t("devise.mailer.email_changed.message1") %>.</p>

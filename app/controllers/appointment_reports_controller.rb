@@ -24,7 +24,7 @@ class AppointmentReportsController < ApplicationController
                          },
                      },
             footer:  {   html: { template: "medical_records/medical_record_footer.html.erb" }},
-            zoom: 4,
+            zoom: 1,
             dpi: 75,
             encoding: 'utf8',
             locals: {patient: @patient, appointment_report: @appointment_report}

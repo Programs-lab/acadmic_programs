@@ -47,7 +47,7 @@
               </tr>
               <tr>
                 <th scope="row">Afiliado a</th>
-                <td><%= @patient.company.company_name %></td>
+                <td><%= @patient.company.company_name unless @patient.company.nil? %></td>
               </tr>
             </tbody>
           </table>

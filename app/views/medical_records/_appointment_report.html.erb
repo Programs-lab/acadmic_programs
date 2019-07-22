@@ -21,7 +21,7 @@
   </template>
   <template v-slot:title-right>
     <div class="flex w-1/6 pr-16">
-      <button id= "toggle_<%= index %>" class="btn btn-secondary focus:outline-none" @click="toggle_annotations(<%= index %>), trigger_open('myCollpase<%= index %>')"><i class="fas fa-sticky-note"></i></button>
+      <button id= "toggle_<%= index %>" class="btn btn-secondary focus:outline-none <%= current_user.id == appointment_report.doctor.id ? "" : "disabled" %>" :disabled= "<%= current_user.id != appointment_report.doctor.id %>" @click="toggle_annotations(<%= index %>), trigger_open('myCollpase<%= index %>')"><i class="fas fa-sticky-note"></i></button>
     </div>
   </template>
   <template v-slot:content>
@@ -36,7 +36,7 @@
           <h3>Anotaciones Extra</h3>
         </div>
         <div class="flex w-1/2 justify-end">
-          <a @click="addAnnotaion(<%= index %>)">
+          <a @click="addAnnotaion(<%= index %>)" >
             <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md mr-5', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
           </a>
         </div>

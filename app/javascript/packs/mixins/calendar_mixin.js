@@ -12,6 +12,7 @@ export const CalendarMixin = {
   data: {
     appointmentHour: '',
     doctor: "",
+    doctors: {},
     doctorWorkingWeek: '',
     weekDays: ['Lunes','Martes','Miercoles','Jueves','Viernes'],
     hours: [],
@@ -27,14 +28,15 @@ export const CalendarMixin = {
     fetchData: function(){
       this.$http.get(`/api/appointments/fetch_appointment_data/${this.doctorId}/${this.procedureTypeId}`).then(response => {
         console.log(response.body)
+        this.doctors = JSON.parse(response.body.doctors)
         this.doctor = JSON.parse(response.body.doctor)[0];
         this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
         this.procedureDuration = response.body.procedure_type.procedure_duration;
         this.doctorWorkingWeek = this.doctor !== undefined ? this.doctor.doctor_working_weeks[this.indexWeek] : ""
         this.matrixWorkingHours()
       }, response => { console.log(response) });
-    }
-    ,
+    },
+
     selectHour: function(){
       var a = event.currentTarget.attributes.id.value
       this.appointmentHour = a

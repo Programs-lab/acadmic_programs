@@ -1,7 +1,9 @@
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
-@import 'button';
+@responsive {
+  @import 'button';  
+}
 @import 'form';
 @import 'flash';
 @import 'list-group-menu';

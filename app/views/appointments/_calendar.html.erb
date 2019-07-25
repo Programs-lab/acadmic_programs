@@ -10,7 +10,7 @@
         :procedure_type_name,
         {include_blank: false, selected: :first},
         {
-          class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId',
+          class: "block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId',
         }
       )
       %>
@@ -25,7 +25,7 @@
         :first_name,
         {include_blank: false},
         {
-          class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctorId'
+          class: "block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctorId'
         }
       )
       %>
@@ -62,15 +62,15 @@
               <div class="hidden md:block">
                 <div class="dropdown-item items-center flex-wrap" v-show="schedule[index][i][j]" :class="schedule[index][i][j] ? 'animated fadeIn' : 'animated fadeOut'">
                   <div class="flex w-full justify-center">
-                    <%= icon('fas','clock', class: 'fa-md mr-2')%>
-                    Agendar
+                    <%= icon('fas','clock', class: 'fa-md md:mr-0 lg:mr-2 xl:mr-2')%>
+                    <span class="lg:block xl:block md:hidden">Agendar</span>
                   </div>
-                  <div class="flex w-full mt-2 items-center" >
-                    <%= icon('fas','times', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
+                  <div class="flex w-full mt-2 items-center justify-center" >
+                    <%= icon('fas','times', class: "fa-md md:cursor-pointer md:mr-2 lg:mr-0 xl:mr-0 lg:btn-flat xl:btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
                     <% unless current_user %>
-                      <%= icon('fas','check', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
+                      <%= icon('fas','check', class: "fa-md lg:btn-flat xl:btn-flat md:cursor-pointer lg:ml-0 xl:ml-0 md:ml-2 text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
                     <% else %>
-                      <button class="btn-flat" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                      <button class="md:cursor-pointer lg:ml-0 xl:ml-0 md:ml-2 lg:btn-flat xl:btn-flat" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
                         <%= icon('fas','check', class: "fa-md text-black")%>
                       </button>
                     <% end %>

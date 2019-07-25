@@ -17,7 +17,7 @@ class Appointment < ApplicationRecord
 
   def set_appointment_price
     if self.patient.company
-      procedure_company = ProcedureCpmany.where(company_id: self.patient.company.id, procedure_type_id: self.procedure_type.id)
+      procedure_company = ProcedureCompany.where(company_id: self.patient.company.id, procedure_type_id: self.procedure_type.id)
       if procedure_company.any?
         self.appointment_price = procedure_company.first.cost
       end

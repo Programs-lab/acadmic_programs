@@ -109,7 +109,7 @@
         <div class="w-full md:w-full mb-5 md:mb-0 focus_form">
           <%= f.label :procedimientos, class: 'label_input' %>
           <div class="relative">
-            <multiselect v-model="value" value="procedure_types" :options="options" :multiple="true" group-values="procedures" group-label="p_kind" :group-select="true" placeholder=" " track-by="id" label="procedure_type_name" :select-label="' '" :select-group-label="' '" :selected-label="'✓'" :deselect-label= "'✖️'" :deselect-group-label="'✖️'" :close-on-select='false' @input='setProcedureTypes'><span slot="noResult">No se encontraron resultados.</span></multiselect>
+            <multiselect v-model="value" value="procedure_types" :options="options" :limit='2' :limit-text="count => `+${count}`" :multiple="true" group-values="procedures" group-label="p_kind" :group-select="true" placeholder=" " track-by="id" label="procedure_type_name" :select-label="' '" :select-group-label="' '" :selected-label="'✓'" :deselect-label= "'✖️'" :deselect-group-label="'✖️'" :close-on-select='false' @input='setProcedureTypes'><span slot="noResult">No se encontraron resultados.</span></multiselect>
           </div>
         </div>
       <div>

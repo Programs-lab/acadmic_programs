@@ -3,6 +3,7 @@ class CompaniesController < ApplicationController
   before_action :set_company, only: [:update, :destroy]
   def index
     @companies = Company.all.order(:id)
+    @pagy, @companies = pagy(@companies, items: 8)
     authorize @companies
   end
 

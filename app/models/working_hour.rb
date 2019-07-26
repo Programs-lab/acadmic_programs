@@ -5,6 +5,7 @@ class WorkingHour < ApplicationRecord
   validate :is_updatable
   validate :hour_limits_make_sense
   before_validation :assign_procedure_types
+  scope :between_datetime, ->(date) { where('initial_hour <= :date AND end_hour > :date', date: date) }
 
   def is_updatable
      appointments = Appointment.where(appointment_datetime: self.initial_hour_was..self.end_hour_was, state: :pending, state: :disabled)

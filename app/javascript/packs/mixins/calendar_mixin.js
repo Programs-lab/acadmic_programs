@@ -26,7 +26,6 @@ export const CalendarMixin = {
   methods: {
     fetchData: function(){
       this.$http.get(`/api/appointments/fetch_appointment_data/${this.doctorId}/${this.procedureTypeId}`).then(response => {
-        console.log(response.body)
         this.doctor = JSON.parse(response.body.doctor)[0];
         this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
         this.procedureDuration = response.body.procedure_type.procedure_duration;
@@ -39,27 +38,23 @@ export const CalendarMixin = {
       var a = event.currentTarget.attributes.id.value
       this.appointmentHour = a
     },
-    selectWorkingHour: function(working_day, hour){
+    selectWorkingHour: function(working_day, hour, hours_to_schedule){
       var arrayHours = []
       var date = working_day.working_date
       var datetime = moment(`${date} ${hour}`)
-      if (datetime.isAfter(moment())) {
-        var limit_datetime = moment(`${date} ${hour}`).add(1,'hour')
-        var wh = working_day.working_hours
-        for (var i = 0; i < wh.length; i++) {
-          let initial_hour = moment(wh[i].initial_hour)
-          let end_hour = moment(wh[i].end_hour)
-          if (datetime.isBetween(initial_hour, end_hour, null, '[)')) {
-            initial_hour = datetime
-            while (initial_hour.isBefore(end_hour) && initial_hour.isBefore(limit_datetime)) {
-              if (this.isAvailableHour(initial_hour) && initial_hour.isAfter(moment().endOf('day'))) {
-                arrayHours.push(initial_hour.format())
-              }
-              initial_hour.add(this.procedureDuration,'minutes')
-            }
-            break;
+      var limit_datetime = moment(`${date} ${hour}`).add(1,'hour')
+      var length = hours_to_schedule.length
+      var clone_hours = hours_to_schedule.slice(0)
+
+      for (var i = 0; i < length; i++) {
+        let hour_to_schedule = moment(clone_hours[i])
+        if (hour_to_schedule.isBetween(datetime, limit_datetime, null, '[)')) {
+          if (this.isAvailableHour(hour_to_schedule) && hour_to_schedule.isAfter(moment().endOf('day'))){
+            arrayHours.push(hour_to_schedule.format())
           }
+          hours_to_schedule.shift()
         }
+        else { break; }
       }
       return arrayHours;
     },
@@ -81,16 +76,32 @@ export const CalendarMixin = {
           this.workingHours[i] = []
           this.schedule [i] = []
           var wdays = working_days.find(wd => moment(wd.working_date).isSame(this.week[i]))
+          var availableHour = this.hoursToSchedule(wdays)
+
           for (var j = 0; j < this.hours.length; j++) {
             var wh = []
             if (wdays != null) {
-              wh = !this.isHoliday(wdays.working_date) ? this.selectWorkingHour(wdays, this.hours[j]) : []
+              wh = this.selectWorkingHour(wdays, this.hours[j], availableHour)
             }
             this.workingHours[i][j] = wh
             this.schedule [i][j] = Array(wh.length).fill(false)
           }
         }
       }
+    },
+    hoursToSchedule: function(working_day){
+      if(this.isHoliday(working_day.working_date)) return []
+      var available_hours = []
+      var working_hours = working_day.working_hours
+      for (var i = 0; i < working_hours.length; i++) {
+        let initial_hour = moment(working_hours[i].initial_hour)
+        let end_hour = moment(working_hours[i].end_hour)
+        while (initial_hour.isBefore(end_hour)) {
+          available_hours.push(initial_hour.format())
+          initial_hour.add(this.procedureDuration,'minutes')
+        }
+      }
+      return available_hours.sort()
     },
     showOptions: function(i, j, k){
       var schedule = this.schedule

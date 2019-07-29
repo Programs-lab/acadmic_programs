@@ -3,8 +3,7 @@ class Appointment < ApplicationRecord
   belongs_to :patient, class_name: 'User', foreign_key: 'patient_id'
   belongs_to :procedure_type
   validate :available_appointment_hour, on: :create
-  validate :appointment_hour_is_valid?
-  validate :datetime_between_working_hour?
+  validate :scheduled_appointment_is_valid?
   enum state: [:disabled, :pending, :completed, :canceled]
   before_create :set_default_state
   before_create :set_appointment_price
@@ -34,20 +33,25 @@ class Appointment < ApplicationRecord
     errors.add(:appointments, message: "there are not available appointments for this hour") if appointments_any
   end
 
-  def appointment_hour_is_valid?
-    valid_hour = DateTime.parse(appointment_datetime.to_s).minute % procedure_type.procedure_duration == 0
-    valid_hour = valid_hour && DateTime.now < appointment_datetime
-
-    errors.add(:appointments, message: "The appointment hour is not valid.") unless valid_hour
-  end
-
-  def datetime_between_working_hour?
+  def scheduled_appointment_is_valid?
     working_week = doctor.doctor_working_weeks.between_date(appointment_datetime).first
 
     working_day = working_week ? working_week.working_days.find_by_working_date(appointment_datetime) : nil
 
     working_hour = working_day ? working_day.working_hours.between_datetime(appointment_datetime) : nil
 
-    errors.add(:appointments, message: "The doctor is not available at #{appointment_datetime}") unless working_hour.present?
+    errors.add(:appointments,message: "The scheduled appointment is not valid.") unless appointment_datetime_is_valid?(working_hour.first)
+  end
+
+  def appointment_datetime_is_valid?(working_hour)
+    return false unless working_hour
+    
+    initial_hour = DateTime.parse(working_hour.initial_hour.to_s)
+    appointment_hour = DateTime.parse(appointment_datetime.to_s)
+    difference_between_hours = (appointment_hour - initial_hour) * 1440
+    valid_hour = difference_between_hours % procedure_type.procedure_duration == 0
+    valid_hour = valid_hour && DateTime.now < appointment_datetime
+
+    valid_hour
   end
 end

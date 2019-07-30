@@ -26,6 +26,7 @@ class User < ApplicationRecord
   has_many :patient_medical_records, class_name: 'MedicalRecord', foreign_key: 'patient_id'
   validates_uniqueness_of :id_number
   mount_uploader :avatar, ImageUploader
+  mount_uploader :signature, SignatureUploader
 
 
 

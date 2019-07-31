@@ -131,6 +131,7 @@ private
       :email,
       :role,
       :company_id,
+      :signature,
       procedure_type_ids: []
       )
   end

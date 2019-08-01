@@ -104,7 +104,7 @@
 
         <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form <%= disabled(user.disabled) %>" v-show="roleValue === 'doctor'">
           <%= f.label :procedimientos, class: 'label_input' %>
-          <div class="relative">
+          <div class="">
             <multiselect v-model="value" value="procedure_types" :options="options" :limit='1' :limit-text="count => `+${count}`" :multiple="true" group-values="procedures" group-label="p_kind" :group-select="true" placeholder=" " track-by="id" label="procedure_type_name" :select-label="' '" :select-group-label="' '" :selected-label="'✓'" :deselect-label= "'✖️'" :deselect-group-label="'✖️'" :close-on-select='false' @input='setProcedureTypes'><span slot="noResult">No se encontraron resultados.</span></multiselect>
           </div>
         </div>
@@ -127,6 +127,38 @@
             <% if user.invitation_sent_at.present? %>
               <small style="color: #909292;">Ultima invitaci&oacute;n <%= user.invitation_sent_at.strftime("enviada en la fecha: %m/%d/%Y a las %I:%M%p") %></small>
             <% end %>
+          </div>
+        <% end %>
+
+
+        <% if @user.doctor? %>
+        <div class="flex w-full mx-3 pt-8">
+          <label class="label_input">
+            Firma
+          </label>
+        </div>
+          <div class="flex w-full mx-3">
+
+          <div class="flex w-full mr-2 pt-2 justify-start">
+            <% if @user.signature? %>        
+              <%= image_tag @user.signature.thumb.url%>
+            <% else %>
+            <div class="alert alert-warning" role="alert">
+              <div class="flex">
+                <%= icon('fa', icon_alert['warning'], class: 'mr-3 fa-2x') %>
+                <div class="text-teal-darkest w-full">
+                  <p class="font-bold">Atención.</p>
+                  <p class="text-sm">Este usuario aun no tiene una firma registrada</p>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+          </div>
+          <div id="image-upload" class="flex w-full mb-5">
+            <div class="w-1/3 justify-center  px-3 mb-5 md:mb-0 focus_form">
+              <%= f.file_field :signature, autofocus: true, class: "field_input" %>
+            </div>
           </div>
         <% end %>
 

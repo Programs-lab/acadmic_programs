@@ -12,7 +12,7 @@
   <div class="my-8 flex px-4 items-center">
     <div class="flex w-full">
       <h4 class="font-semibold text-g-d4 text-lg">
-        <span>Horarios de atencion</span>
+        <span>Horarios de atencion <%= "para el doctor: #{@doctor.first_name} #{@doctor.last_name}" if params[:doctor_id] && current_user.admin?  %> </span>
         <br>
       </h4>
     </div>

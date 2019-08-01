@@ -36,35 +36,8 @@
     </div>
     <% end %>
     <% @appointments.each do |appointment| %>
-    <div class="flex flex-wrap w-full justify-between mb-2">
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','calendar', class: 'fa-md mr-2')%>
-        <p><%= l(appointment.appointment_datetime, format: '%d %B %Y') %></p>
-      </div>
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','clock', class: 'fa-md mr-2')%>
-        <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
-      </div>
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','medkit', class: 'fa-md mr-2')%>
-        <p><%= appointment.procedure_type.procedure_type_name%></p>
-      </div>
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','user-md', class: 'fa-md mr-2')%>
-        <p><%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%></p>
-      </div>
-      <div class="flex w-1/6 justify-center items-center px-8">
-        <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>        
-      </div>
-      <div class="flex w-1/6 justify-end">
-        <a id="myBtn" @click="modalId('cancel')" class='btn btn-red-light'>
-          <%= icon('fas','calendar-times', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
-        </a>
-      </div>
-    </div>
-
-
-     <%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put, local: true do |form|%>
+      <%= render 'info_appointment', appointment: appointment, history: false %>
+      <%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put, local: true do |form|%>
 
           <modal-vue i= "cancel" style_modal="width: 45%;">
             <template v-slot:title>
@@ -108,32 +81,7 @@
     </div>
     <% end %>
     <% @appointment_history.each do |appointment| %>
-    <div class="flex flex-wrap w-full justify-between mb-2">
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','calendar', class: 'fa-md mr-2')%>
-        <p><%= l(appointment.appointment_datetime, format: '%d %B %Y') %></p>
-      </div>
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','clock', class: 'fa-md mr-2')%>
-        <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
-      </div>
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','medkit', class: 'fa-md mr-2')%>
-        <p><%= appointment.procedure_type ? appointment.procedure_type.procedure_type_name : "-" %></p>
-      </div>
-      <div class="flex w-1/6 items-center">
-        <%= icon('fas','user-md', class: 'fa-md mr-2')%>
-        <p><%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%></p>
-      </div>
-      <div class="flex w-1/6 justify-center items-center px-8">
-        <span class="flex w-full text-sm justify-center <%= appointment_state(appointment)[1] %> py-1"><%= appointment_state(appointment)[0] %></span>        
-      </div>
-      <div class="flex w-1/6 justify-end">
-        <%= link_to "#", class: "btn btn-secondary w-12 text-center mr-1 #{disabled_button(appointment)}" do %>
-          <%= icon('fas','info', class: 'fa-md')%>
-        <% end %>
-      </div>
-    </div>
+      <%= render 'info_appointment', appointment: appointment, history: true %>
     <% end %>
     <br>
     <%== render 'pagy/nav', pagy: @pagy %>

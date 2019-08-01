@@ -15,7 +15,7 @@
     <div class="w-full mb-5 md:mb-0 focus_form">
     <div class="flex">
       <div class="flex w-1/4 mr-2 justify-start">
-        <% if resource.avatar? %>        
+        <% if resource.avatar? %>
           <%= image_tag resource.avatar.thumb.url, style: "border-radius: 50%;"%>
         <% else %>
           <%= image_tag gravatar_image_url(current_user.email, size: 200), height:150, width: 200, style: "border-radius: 50%;" %>
@@ -25,13 +25,13 @@
           <table class="table">
             <tbody>
               <tr>
-                <th scope="row">Nombre</th>                
+                <th scope="row">Nombre</th>
                 <td><%= "#{resource.first_name} #{resource.last_name}" %></td>
               </tr>
               <tr>
                 <th scope="row">Edad</th>
                 <td><%= age(resource) %></td>
-              </tr>   
+              </tr>
               <tr>
                 <th scope="row">Dirrecion</th>
                 <td  style='padding-bottom: 3px; padding-top: 8px'>
@@ -45,10 +45,10 @@
                       </a>
                     </div>
                   </div>
-                </td>                 
-              </tr>           
+                </td>
+              </tr>
               <tr>
-                <th scope="row">Afiliado a</th>                
+                <th scope="row">Afiliado a</th>
                 <td style="padding-left: 7px; padding-top: 5px">
                   <div class="row">
                     <div class="flex w-5/6">
@@ -59,7 +59,7 @@
                       :company_name,
                       { include_blank: "No registra", selected: resource.company_id },
                       {
-                        class: "block appearance-none w-full border-b text-grey-darker py-3 px-0 focus:outline-none bg-white focus:border-grey h-8 select_flat",  style: 'border-bottom: 0px;', disabled: true
+                        class: "block appearance-none w-full border-b text-grey-darker focus:outline-none bg-white focus:border-grey h-8 select_flat",  style: 'border-bottom: 0px;', disabled: true
                       }
                    ) %>
                   </div>
@@ -69,12 +69,12 @@
                       </a>
                     </div>
                  </div>
-               </td>        
+               </td>
               </tr>
             </tbody>
           </table>
 
-      </div>  
+      </div>
     </div>
     </div>
   </div>
@@ -103,7 +103,7 @@
           <%= f.label "Ocupación", class: 'label_input' %>
           <%= f.text_field :occupation, class: 'field_input rounded-t' %>
       </div>
-      <br>        
+      <br>
       <% end %>
       <% if resource.doctor? %>
         <div class="w-full md:w-full mb-5 md:mb-0 focus_form">
@@ -120,7 +120,7 @@
     <% end %>
     <div class="flex justify-end">
       <a class="btn btn-secondary" @click="editPassword = !editPassword">
-        <span>Cambiar contraseña </span>  
+        <span>Cambiar contraseña </span>
       </a>
     </div>
 

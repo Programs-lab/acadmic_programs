@@ -45,9 +45,9 @@
           <th scope="col" class="w-16"></th>
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
-          <th scope="col" class="hidden md:table-cell">N° Telefónico</th>
+          <th scope="col" class="hidden lg:table-cell xl:table-cell">N° Telefónico</th>
           <th scope="col">N° identificación</th>
-          <th scope="col" class="hidden md:table-cell">Afiliado a</th>
+          <th scope="col" class="hidden lg:table-cell xl:table-cell">Afiliado a</th>
         </tr>
       </thead>
       <tbody class="">
@@ -91,9 +91,9 @@
           </td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
-          <td class="hidden md:table-cell"><%= user.phone_number %></td>
+          <td class="hidden lg:table-cell xl:table-cell"><%= user.phone_number %></td>
           <td><%= user.id_number %></td>
-          <td class="hidden md:table-cell"><%= user.company ? user.company.company_name : "-" %></td>
+          <td class="hidden lg:table-cell xl:table-cell"><%= user.company ? user.company.company_name : "-" %></td>
         </tr>
        <% end %>
       </tbody>

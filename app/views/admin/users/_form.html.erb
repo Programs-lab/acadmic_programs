@@ -16,20 +16,18 @@
   <div class="flex flex-wrap -mx-3 mb-5">
     <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form <%= disabled(user.disabled) %>">
       <%= f.label :tipo_de_documento, class: 'label_input' %>
-      <div class="relative">
-        <%=
-        f.collection_select(
-          :id_type,
-          ID_TYPES,
-          :last,
-          :first,
-          {include_blank: true},
-          {
-            class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", disabled: @user.disabled
-          }
-        )
-        %>
-      </div>
+      <%=
+      f.collection_select(
+        :id_type,
+        ID_TYPES,
+        :last,
+        :first,
+        {include_blank: true},
+        {
+          class: "block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8", disabled: @user.disabled
+        }
+      )
+      %>
     </div>
     <div class="w-full md:w-1/2 px-3 focus_form <%= disabled(user.disabled) %>">
       <%= f.label "N° de documento", class: 'label_input' %>
@@ -37,11 +35,11 @@
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-5">
-    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form <%= disabled(user.disabled) %>">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 lg:mb-0 xl:mb-0 focus_form <%= disabled(user.disabled) %>">
       <%= f.label "Telefono", class: 'label_input' %>
       <%= f.number_field :phone_number, class: 'field_input rounded-t', disabled: @user.disabled %>
     </div>
-    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0"  v-if="roleValue !== 'doctor'">
+    <div class="w-full md:w-1/2 px-3 mb-5"  v-if="roleValue !== 'doctor'">
        <%= f.label "Empresa de afiliación", class: 'label_input' %>
        <%= f.collection_select(
           :company_id,
@@ -50,11 +48,11 @@
           :company_name,
           { include_blank: true },
           {
-            class: "block appearance-none w-full border-b text-grey-darker md:py-3 focus:outline-none bg-white focus:border-grey h-8"
+            class: "block appearance-none w-full border-b text-grey-darker focus:outline-none bg-white focus:border-grey h-8"
           }
        ) %>
     </div>
-    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 focus_form <%= disabled(user.disabled) %>" v-if="roleValue !== 'doctor'">
+    <div class="w-full md:w-1/2 px-3 mb-5 md:mb-0 lg:mb-0 xl:mb-0 focus_form <%= disabled(user.disabled) %>" v-if="roleValue !== 'doctor'">
       <%= f.label "Ocupación", class: 'label_input' %>
       <%= f.text_field :occupation, class: 'field_input rounded-t', disabled: @user.disabled %>
     </div>
@@ -89,7 +87,7 @@
           :last,
           {include_blank: false, selected: params[:role]},
           {
-            class: "block appearance-none w-full border-b text-grey-darker md:py-3 md:px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", "v-model" => "roleValue", disabled: @user.disabled || params[:role]
+            class: "block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8", "v-model" => "roleValue", disabled: @user.disabled || params[:role]
           }
         )
         %>
@@ -117,7 +115,7 @@
 
   <% unless @user.new_record? %>
 
-      <div class="w-full md:w-1/2 px-3 py-4 mb-5 md:mb-0 items-center">
+      <div class="w-full md:w-1/2 px-3 py-4 items-center">
         <%= link_to(admin_user_invite_path(@user.id), method: :post, class: "flex w-full btn btn-secondary justify-center #{disabled_user_button(user.disabled)}", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'", disabled: @user.disabled) do %>
           <%= icon('fas', 'paper-plane', 'enviar invitacion', class: "mr-2") %>
         <% end %>
@@ -144,8 +142,9 @@
     </div>
   <% end %>
 
+  <div class="divider md:hidden lg:hidden xl:hidden"></div>
 
-  <div class="flex flex-wrap md:items-center mt-6">
+  <div class="flex flex-wrap md:items-center">
       <div class="flex justify-start w-full md:w-1/2">
       <% unless @user.new_record? %>
 

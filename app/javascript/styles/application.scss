@@ -170,6 +170,11 @@
     opacity: .5;
   }
 
+  a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
   ul {
     list-style-type: none;
     padding-inline-start: 0px;

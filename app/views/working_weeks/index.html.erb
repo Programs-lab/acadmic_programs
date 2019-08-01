@@ -3,7 +3,7 @@
   id: 'working_week_index',
   "v-cloak" => "true",
   data: {
-    user_id: current_user.id,
+    user_id: @doctor.id,
     weeks: @working_weeks,
     procedure_types: fetch_procedure_types,
     index: params[:index]

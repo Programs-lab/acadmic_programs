@@ -78,7 +78,7 @@ export const CalendarMixin = {
           this.workingHours[i] = []
           this.schedule [i] = []
           var wdays = working_days.find(wd => moment(wd.working_date).isSame(this.week[i]))
-          var availableHour = this.hoursToSchedule(wdays)
+          var availableHour = wdays != null ? this.hoursToSchedule(wdays) : []
 
           for (var j = 0; j < this.hours.length; j++) {
             var wh = []

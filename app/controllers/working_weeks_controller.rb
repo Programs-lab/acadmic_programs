@@ -4,7 +4,16 @@ class WorkingWeeksController < ApplicationController
   protect_from_forgery with: :null_session
 
   def index
-    unproccessed_working_weeks = current_user.doctor_working_weeks.where("end_date >= ?", Date.today).order(:initial_date)
+    @doctor = current_user
+    if params[:doctor_id]
+      if current_user.admin?
+        @doctor = User.find(params[:doctor_id])
+      else
+        flash[:danger] = 'No se encuentra autorizado para completar esta acción'
+        redirect_to root_path || request.referrer
+      end
+    end
+    unproccessed_working_weeks = @doctor.doctor_working_weeks.where("end_date >= ?", Date.today).order(:initial_date)
     @working_weeks = unproccessed_working_weeks.to_json(include: {working_days: { include: {working_hours: {except: [:created_at, :updated_at]}}, except: [:created_at, :updated_at]}})
     authorize unproccessed_working_weeks
   end

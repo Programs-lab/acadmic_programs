@@ -38,7 +38,7 @@ document.addEventListener('turbolinks:load', () => {
     for (var j = 1; j < 6; j++){
       new_week.push({
         id: null,
-        working_date: moment().day(j),
+        working_date: moment().day(j).startOf('day'),
         working_hours: []
       })
     }
@@ -229,7 +229,7 @@ document.addEventListener('turbolinks:load', () => {
         var self = this
         if (week_to_update.id !== null) {
         self.$http.put("horarios/" + week_to_update.id, {working_week: week_to_update}).then(response => {
-          Turbolinks.visit(location.origin + location.pathname + "?index=" + self.index)}, response => {console.log(response)
+          Turbolinks.visit(location.origin + location.pathname + "?index=" + self.index + "&doctor_id=" + user_id)}, response => {console.log(response)
           })
         }
         else {

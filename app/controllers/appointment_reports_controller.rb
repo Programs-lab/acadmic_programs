@@ -113,7 +113,7 @@ class AppointmentReportsController < ApplicationController
         pdf << CombinePDF.parse(pdf3)
         pdf << CombinePDF.parse(pdf4)
         pdf << CombinePDF.parse(pdf5)
-        send_data pdf.to_pdf, filename: "Reporte cita de #{@patient.first_name} #{@patient.last_name} (#{@appointment_report.appointment_datetime.strftime('%d/%m/%Y')})", type: "application/pdf"
+        send_data pdf.to_pdf, disposition: 'inline', filename: "Reporte cita de #{@patient.first_name} #{@patient.last_name} (#{@appointment_report.appointment_datetime.strftime('%d/%m/%Y')})", type: "application/pdf"
 
       end
     end

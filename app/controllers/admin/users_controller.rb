@@ -1,3 +1,4 @@
+# coding: utf-8
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:edit, :update, :destroy, :enable, :disable, :invite]
@@ -129,6 +130,8 @@ private
       :address,
       :email,
       :role,
+      :company_id,
+      :signature,
       procedure_type_ids: []
       )
   end

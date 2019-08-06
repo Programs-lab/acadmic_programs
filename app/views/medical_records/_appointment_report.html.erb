@@ -5,7 +5,7 @@
         <%= icon('fas','file-medical', class: 'fa-md mr-2') %>
         <span>{{$moment("<%= appointment_report.appointment_datetime %>").format("MMMM Do YYYY")}}</span>
       </div>
-      <div class="flex w-2/6">
+      <div class="flex w-2/6 ">
         <%= icon('fas','medkit', class: 'fa-md mr-2') %>
         <span>
           <%=
@@ -21,7 +21,7 @@
   </template>
   <template v-slot:title-right>
     <div class="flex w-1/6 pr-16">
-      <button id= "toggle_<%= index %>" class="btn btn-secondary focus:outline-none" @click="toggle_annotations(<%= index %>), trigger_open('myCollpase<%= index %>')"><i class="fas fa-sticky-note"></i></button>
+      <button id= "toggle_<%= index %>" class="btn btn-secondary focus:outline-none <%= current_user.id == appointment_report.doctor.id ? "" : "disabled" %>" :disabled= "<%= current_user.id != appointment_report.doctor.id %>" @click="toggle_annotations(<%= index %>), trigger_open('myCollpase<%= index %>')"><i class="fas fa-sticky-note"></i></button>
     </div>
   </template>
   <template v-slot:content>
@@ -36,7 +36,7 @@
           <h3>Anotaciones Extra</h3>
         </div>
         <div class="flex w-1/2 justify-end">
-          <a @click="addAnnotaion(<%= index %>)">
+          <a @click="addAnnotaion(<%= index %>)" >
             <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md mr-5', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
           </a>
         </div>
@@ -132,7 +132,7 @@
           </template>
           <template #default_tab>
             <li class="w-full md:w-auto mr-1">
-              <%= link_to(appointment_report_path(id: appointment_report.id, format: :pdf), target: "_blank", class: "tab-item px-1") do %>
+              <%= link_to(appointment_report_path(id: appointment_report.id, format: :pdf), target: "_blank", class: "tab-item px-1 #{appointment_report.doctor.signature.blank? ? 'disabled' : '' }") do %>
                 <%= icon('fas', 'file-pdf', '') %>
               <% end %>
             </li>

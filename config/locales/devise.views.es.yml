@@ -1,5 +1,13 @@
 es:
   activerecord:
+    errors: 
+      models:
+        user:        
+          attributes:
+            email:
+              taken: "El correo electrónico ya se encuentra en uso"
+            password:
+              too_short: "debe contener al menos 8 caracteres"
     attributes:
       user:
         confirmation_sent_at: Confirmación enviada a
@@ -29,6 +37,9 @@ es:
       user:
         one: Usuario
         other: Usuarios
+        attributes:
+          email:
+            taken: "El correo electrónico ya se encuentra en uso"
   devise:
     confirmations:
       confirmed: Tu cuenta ha sido confirmada satisfactoriamente.
@@ -96,7 +107,7 @@ es:
         are_you_sure: "¿Está usted seguro?"
         cancel_my_account: Anular mi cuenta
         currently_waiting_confirmation_for_email: 'Actualmente esperando la confirmacion de: %{email} '
-        leave_blank_if_you_don_t_want_to_change_it: dejar en blanco si no desea cambiarla
+        leave_blank_if_you_don_t_want_to_change_it: dejar en blanco si no desea cambiarlo
         title: Editar %{resource}
         unhappy: "¿Disconforme?"
         update: Actualizar

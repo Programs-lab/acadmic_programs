@@ -17,19 +17,12 @@
     </div>
     <div class="w-1/2 md:w-1/4 focus_form ml-1">
       <%= f.label :doctor, class: 'label_input' %>
-      <%=
-      f.collection_select(
-        :doctor_id,
-        @doctors,
-        :id,
-        :first_name,
-        {include_blank: false},
-        {
-          class: "block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'doctorId'
-        }
-      )
-      %>
+      <select id="doctor_list" class="block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8" v-model="doctorId">
+        <option label=" "></option>
+        <option v-for="doctor in doctors" :value="doctor.id"> {{`${doctor.first_name} ${doctor.last_name}`}}</option>
+      </select>
     </div>
+    <%= f.hidden_field :doctor_id, {"v-model" => "doctorId"} %>
   </div>
   <div class="flex border-t w-full"></div>
   <div class="flex flex-wrap w-full mt-6">

@@ -44,9 +44,9 @@ class MedicalRecordsController < ApplicationController
     @pagy, @appointment_reports = pagy(@appointment_reports, items: 5)
   end
 
-  def create    
+  def create
     @appointment_report = @medical_record.appointment_reports.new(appointment_report_params)
-    if @appointment_report.save     
+    if @appointment_report.save
       redirect_to patient_medical_record_path(@medical_record.patient_id), notice: "El diagnostico del paciente fue creado correctamente"
     else
       redirect_to patient_medical_record_path(@medical_record.patient_id), flash: { danger: "El diagnostico del paciente no pudo ser creado"}

@@ -5,7 +5,9 @@ ID_TYPES = {
  "Registro civil de nacimiento" => "RCN",
  "Tarjeta de identidad" => "TI",
  "Pasaporte" => "PA",
- "Permiso especial de permanencia" => "PE"
+ "Permiso especial de permanencia" => "PE",
+ "Adulto sin identificación" => "AS",
+ "Menor sin identificación" => "MS"
 }
 
 ROLES = {

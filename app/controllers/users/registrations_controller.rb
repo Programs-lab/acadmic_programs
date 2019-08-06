@@ -52,7 +52,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     params[:user][:procedure_type_ids] = params[:user][:procedure_type_ids].split(',') if params[:user][:procedure_type_ids].class == String
-    devise_parameter_sanitizer.permit(:account_update, keys: [:phone_number, :occupation, :address, :company_id, procedure_type_ids: []])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:phone_number, :occupation, :address, :company_id, :signature, procedure_type_ids: []])
   end
 
   def after_update_path_for(resource)

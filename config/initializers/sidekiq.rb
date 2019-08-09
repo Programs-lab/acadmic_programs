@@ -1,5 +1,3 @@
-
-
 def sidekiq_cron
   schedule_file = "config/schedule.yml"
   if File.exist?(schedule_file) && Sidekiq.server?
@@ -9,7 +7,7 @@ end
 
 
 Sidekiq.configure_server do |config|
-  config.redis = { :size => 12, url: ENV.fetch("REDISTOGO_URL", "redis://localhost:6379"), namespace: "Gastromed_sidekiq_#{Rails.env}" }
+  config.redis = { :size => 7, url: ENV.fetch("REDISTOGO_URL", "redis://localhost:6379"), namespace: "Gastromed_sidekiq_#{Rails.env}" }
   sidekiq_cron
 end
 

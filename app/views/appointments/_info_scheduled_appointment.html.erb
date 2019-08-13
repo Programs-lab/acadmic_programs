@@ -1,0 +1,85 @@
+<div class="hidden flex-wrap w-full xl:flex lg:flex">
+  <div class="flex flex-wrap w-full mb-4">
+    <h3 class="font-semibold text-grey-darkest text-lg">
+      <%= "#{appointment.patient.first_name} #{appointment.patient.last_name}" %>
+    </h3>
+  </div>
+  <div class="flex flex-wrap w-full">
+    <div class="flex w-2/3 md:w-1/3 justify-between">
+      <div class="flex w-3/6 mr-2 items-center">
+        <%= icon('fas','calendar', class: 'fa-xs mr-1')%>
+        {{ $moment("<%= appointment.appointment_datetime %>").format("MM dddd DD") }}
+      </div>
+      <div class="flex w-2/6 ml-2 items-center">
+        <%= icon('fas','clock', class: 'fa-xs mr-1')%>
+        {{ $moment("<%= appointment.appointment_datetime %>").format("hh:mm a") }}
+      </div>
+      <div class="flex w-1/6 pl-8">
+        <%= link_to patient_medical_record_path(appointment.patient, appointment), class: 'btn btn-primary mr-1' do %>
+          <%= icon('fas','paper-plane', class: 'fa-xs')%>
+        <% end %>
+        <a id="myBtn" @click="modalId('cancel')" class='btn btn-red-light'>
+          <%= icon('fas','ban', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap w-full mt-4">
+    <h3 class="text-grey-darker text-sm">
+      Motivo de cita: <%= appointment.procedure_type.procedure_type_name %>
+    </h3>
+  </div>
+</div>
+
+<div @click="visitLocation('<%= patient_medical_record_path(appointment.patient, appointment) %>')" class="bg-white overflow-hidden rounded-lg mb-2 h-24 flex w-full lg:hidden xl:hidden items-center justify-center cursor-pointer" v-ripple="'rgba(0, 0, 0, 0.20)'">
+  <img class="block h-16 sm:h-18 md:h-18 rounded-full mx-auto md:mr-0 sm:mb-0 sm:mr-4 sm:ml-0" src="<%= appointment.patient.avatar? ? appointment.patient.avatar.url : gravatar_image_url(appointment.patient.email) %>" alt="">
+  <div class="flex flex-wrap w-full ml-4 justify-between border-b pb-5 pt-3">
+    <div class="flex flex-wrap w-3/4">
+      <div class="flex w-full items-center text-xl mb-2">
+        <%= "#{appointment.patient.first_name} #{appointment.patient.last_name}" %>
+      </div>
+      <div class="flex w-full items-center text-sm text-grey-dark">
+        <%= icon('fas','clock', class: 'fa-md mr-2 text-xs')%>
+        <%= appointment.appointment_datetime.strftime("%D %I:%M %P") %>
+      </div>
+      <div class="flex w-full items-center text-sm text-grey-dark">
+        <%= icon('fas','medkit', class: 'fa-md mr-2 text-xs')%>
+        <%= appointment.procedure_type ? appointment.procedure_type.procedure_type_name : "-" %>
+      </div>
+    </div>
+
+    <div class="flex items-start -mr-1">
+      <a id="cancelBtn" @click="modalId('cancel')" class='btn-flat -my-3 text-grey-dark'>
+        <%= icon('fas','times', class: 'fa-md', id: 'cancelBtn')%>
+      </a>
+    </div>
+  </div>
+</div>
+
+<%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put, local: true do |form|%>
+  <modal-vue i= "cancel" style_modal="width: 45%;">
+    <template v-slot:title>
+      Cancelar cita
+    </template>
+    <template v-slot:content>
+      <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+        <div class="flex w-full">
+          <p>¿Esta seguro de que desea cancelar esta cita? Esta accion es irreversible</p>
+        </div>
+        <br>
+        <br>
+        <div class="w-full mb-6 focus_form">
+          <%= form.label "Razon de cancelacion (recomendado)", class: 'label_input' %>
+          <%= form.text_area :reason, class: 'simple-content' %>
+        </div>
+        <div>
+          <%= form.hidden_field :current_user_id, value: current_user.id %>
+        </div>
+      </div>
+    </template>
+    <template v-slot:footer>
+      <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('cancel')">Cancelar</button>
+      <%= form.submit "Acceptar", class: 'btn btn-primary' %>
+    </template>
+  </modal-vue>
+<% end %>

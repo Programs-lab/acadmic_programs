@@ -3,31 +3,33 @@
     <span class="text-4xl w-full text-primary"><%= appointment.appointment_datetime.strftime("%d") %></span>
     <span class="text-lg w-full text-grey-darker font-extrabold"><%= l(appointment.appointment_datetime, format: '%b') %></span>
   </div>
-  <div class="flex flex-wrap w-3/4 ml-2">
-    <div class="flex w-full items-center text-sm text-grey-dark">
-      <%= icon('fas','clock', class: 'fa-md mr-2 text-xs')%>
-      <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
+  <div class="flex flex-wrap w-full ml-2 justify-between">
+    <div class="flex flex-wrap w-3/4">
+      <div class="flex w-full items-center text-sm text-grey-dark">
+        <%= icon('fas','clock', class: 'fa-md mr-2 text-xs')%>
+        <%= appointment.appointment_datetime.strftime("%I:%M %P") %>
+      </div>
+      <div class="flex w-full items-center text-sm text-grey-dark">
+        <%= icon('fas','medkit', class: 'fa-md mr-2 text-xs')%>
+        <%= appointment.procedure_type ? appointment.procedure_type.procedure_type_name : "-" %>
+      </div>
+      <div class="flex w-full items-center text-sm text-grey-dark">
+        <%= icon('fas','user-md', class: 'fa-md mr-2')%>
+        <%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%>
+      </div>
+      <div class="flex w-full items-center text-xs mt-2">
+        <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>
+      </div>
     </div>
-    <div class="flex w-full items-center text-sm text-grey-dark">
-      <%= icon('fas','medkit', class: 'fa-md mr-2 text-xs')%>
-      <%= appointment.procedure_type ? appointment.procedure_type.procedure_type_name : "-" %>
-    </div>
-    <div class="flex w-full items-center text-sm text-grey-dark">
-      <%= icon('fas','user-md', class: 'fa-md mr-2')%>
-      <%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%>
-    </div>
-    <div class="flex w-full items-center text-xs mt-2">
-      <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>
-    </div>
-  </div>
 
-  <% unless history %>
-  <div class="flex items-start">
-    <a id="myBtn" @click="modalId('cancel')" class='btn-flat -my-3 text-grey-dark'>
-      <%= icon('fas','times', class: 'fa-md')%>
-    </a>
+    <% unless history %>
+    <div class="flex items-start">
+      <a id="myBtn" @click="modalId('cancel')" class='btn-flat -my-3 text-grey-dark'>
+        <%= icon('fas','times', class: 'fa-md')%>
+      </a>
+    </div>
+    <% end %>
   </div>
-  <% end %>
 </div>
 <div class="flex-wrap w-full justify-between mb-2 hidden lg:flex xl:flex">
   <div class="flex w-1/6 items-center">

@@ -18,8 +18,11 @@ document.addEventListener('turbolinks:load', () => {
       methods: {
         modalId(i){
           Vue.set(this.modal2, i , !this.modal2[i]);
+        },
+        visitLocation(path){
+          if (event.target.id != "cancelBtn") Turbolinks.visit(path)
         }
-      }      
+      }
     })
   }
 })

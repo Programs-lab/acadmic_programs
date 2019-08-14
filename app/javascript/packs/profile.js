@@ -30,10 +30,10 @@ document.addEventListener('turbolinks:load', () => {
         },
         assignOptions(){
           var self = this
-          Object.keys(this.pre_options).forEach(function(po_key) {        
+          Object.keys(this.pre_options).forEach(function(po_key) {
             console.log(po_key)
             console.log(self.pre_options[po_key])
-            self.options.push(self.pre_options[po_key]) 
+            self.options.push(self.pre_options[po_key])
           })
         },
         fetchProcedureTypes(){
@@ -51,13 +51,24 @@ document.addEventListener('turbolinks:load', () => {
             if(field.type === 'select-one'){
               field.classList.add('select_flat')
             }
-          }          
+          }
+        },
+        previewAvatar(){
+          var input_file = event.target
+
+          if (input_file.files && input_file.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $('#avatar').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input_file.files[0]);
+          }
         }
       },
       mounted: function() {
         this.fetchProcedureTypes()
         var self = this
-        setTimeout(function(){ 
+        setTimeout(function(){
           self.assignOptions()
         }, 400)
         var multiple_select = document.getElementsByClassName('multiselect__tags')[0]

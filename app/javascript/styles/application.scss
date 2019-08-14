@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @responsive {
-  @import 'button';  
+  @import 'button';
 }
 @import 'form';
 @import 'flash';
@@ -31,7 +31,10 @@
     @apply .flex .flex-wrap .w-full .rounded .justify-center .border .border-primary .border-dashed .items-center;
   }
 
-
+  input[type="file"] {
+      display: none;
+  }
+  
   .focus_form:focus-within {
     label { @apply .text-primary; }
     input { @apply .border-primary; }

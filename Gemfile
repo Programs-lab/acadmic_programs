@@ -42,6 +42,7 @@ gem 'pagy'
 gem 'mailgun-ruby', '~>1.1.6'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-heroku', '2.12.5.0'
 gem "mini_magick"
 gem 'combine_pdf'
 gem 'redis-namespace'

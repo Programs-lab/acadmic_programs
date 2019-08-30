@@ -39,9 +39,15 @@ module ApplicationHelper
   end
 
   def is_schedule_path
+    state = ''
     case request.path
-    when '/appointments/scheduled_appointments' then 'active'
+    when '/appointments/scheduled_appointments' then state = 'active'
+    when '/citas/todas' then state ='active'    
     end
+    if request.params[:action] == 'summary' && request.params[:controller] == 'appointments'
+      state = 'active'
+    end
+    state
   end
 
   def is_doctors_path
@@ -107,8 +113,7 @@ module ApplicationHelper
 
           day.working_hours.each_with_index do |hour, n|
 
-             working_hours_attributes[n] = hour.attributes.except!("id", "created_at", "updated_at", "working_day_id")
-             binding.pry
+             working_hours_attributes[n] = hour.attributes.except!("id", "created_at", "updated_at", "working_day_id")             
              working_hours_attributes[n]["initial_hour"] = DateTime.parse("#{day["working_date"].to_s} #{DateTime.parse(hour["initial_hour"].to_s).strftime("%H:%M%p")} -0500")
              working_hours_attributes[n]["end_hour"] = DateTime.parse("#{day["working_date"].to_s} #{DateTime.parse(hour["end_hour"].to_s).strftime("%H:%M%p")} -0500")
              working_days_attributes[i]["working_hours_attributes"] = {}

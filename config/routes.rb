@@ -22,8 +22,11 @@ Rails.application.routes.draw do
   get "medical_records/patient_record/:patient_id(/:appointment_id)" , to: 'medical_records#medical_record', as: :patient_medical_record
   post "medical_records/create_medical_record" , to: 'medical_records#create', as: :create_medical_record
 
-  resources :appointments, path: 'citas'
+  resources :appointments, path: 'citas', except: [:show]
   put 'citas/cancelar/:appointment_id', to: 'appointments#cancel_appointment', as: :cancel_appointment
+  put 'citas/cumplir/:appointment_id', to: 'appointments#attend_appointment', as: :attend_appointment
+  get 'citas/resumen/:appointment_id', to: 'appointments#summary', as: :appointment_summary
+  get 'citas/todas', to: 'appointments#all_appointments', as: :all_appointments
   resources :appointment_reports, path: 'reportes de citas', only: [:show, :update, :index]
   namespace :api do
     get 'appointments/fetch_appointment_data/:doctor_id/:procedure_type_id', to: 'appointments#fetch_appointment_data'

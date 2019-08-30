@@ -22,6 +22,10 @@ class AppointmentPolicy
     is_doctor
   end
 
+  def all_appointments?
+    is_admin    
+  end
+
   private
 
   def is_admin

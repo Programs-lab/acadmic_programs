@@ -1,10 +1,17 @@
 class Appointment < ApplicationRecord
+  include PgSearch
+
+  pg_search_scope :search_by_details, associated_against:{
+    doctor: [:first_name, :last_name, :id_number],
+    patient: [:first_name, :last_name, :id_number],
+  } 
   belongs_to :doctor, class_name: 'User', foreign_key: 'doctor_id'
   belongs_to :patient, class_name: 'User', foreign_key: 'patient_id'
   belongs_to :procedure_type
+  has_one :appointment_report
   validate :available_appointment_hour, on: :create
   validate :scheduled_appointment_is_valid?
-  enum state: [:disabled, :pending, :completed, :canceled]
+  enum state: [:disabled, :pending, :completed, :canceled, :attended]
   before_create :set_default_state
   before_create :set_appointment_price
 

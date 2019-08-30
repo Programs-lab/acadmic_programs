@@ -38,7 +38,7 @@ document.addEventListener('turbolinks:load', () => {
     for (var j = 1; j < 6; j++){
       new_week.push({
         id: null,
-        working_date: moment().day(j).startOf('day'),
+        working_date: moment().day(j).startOf('day6'),
         working_hours: []
       })
     }

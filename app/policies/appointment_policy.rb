@@ -26,7 +26,7 @@ class AppointmentPolicy
     is_admin    
   end
 
-  def attend_appointment
+  def attend_appointment?
     is_admin
   end
 

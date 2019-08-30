@@ -26,6 +26,10 @@ class AppointmentPolicy
     is_admin    
   end
 
+  def attend_appointment
+    is_admin
+  end
+
   private
 
   def is_admin

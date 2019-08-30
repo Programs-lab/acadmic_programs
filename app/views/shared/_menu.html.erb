@@ -111,6 +111,22 @@
   <% end %>
 
   <!-- Option -->
+  <% if policy(Appointment).all_appointments? %>
+    <%= link_to(all_appointments_path, class: "no-underline") do %>
+    <div class="list-group-item <%= is_schedule_path %>">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','clock', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Citas</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+
+  <!-- Option -->
   <% if policy(Appointment).scheduled_appointments? %>
     <%= link_to(scheduled_appointments_path, class: "no-underline") do %>
     <div class="list-group-item <%= is_schedule_path %>">

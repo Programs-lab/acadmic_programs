@@ -175,8 +175,7 @@
               <%= form.submit "Acceptar", class: 'btn btn-primary' %>
             </template>
           </modal-vue>
-      <% end %>
-          </div>
+      <% end %>          
           <% else %>  
           <div class="flex w-1/6 justify-end items-center px-8">
             <%= link_to(appointment_summary_path(appointment.id), class: "btn btn-secondary no-underline rounded-full:!important #{'disabled' unless appointment.appointment_report}") do %>

@@ -23,9 +23,47 @@ class AppointmentsController < ApplicationController
     @procedure_types = ProcedureType.all
   end
 
+  def attend_appointment
+    @appointment = Appointment.find(params[:appointment_id])
+    if @appointment.pending?
+      @appointment.assign_attributes({state: :attended})
+      @appointment.save(validate: false)
+      redirect_to request.referer
+    else
+      @appointment.assign_attributes({state: :pending})
+      @appointment.save(validate: false)
+      redirect_to request.referer
+    end
+    authorize @appointment
+  end
+
   def scheduled_appointments
-    @appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND state = ?', Date.today, 1).order(:appointment_datetime)
-    #@appointments = current_user.doctor_appointments.where('appointment_datetime >= ? AND attended = ? AND disabled = ?', DateTime.now, false, false).order(:appointment_datetime)
+    @date = params[:date].present? ? DateTime.parse(params[:date]) : DateTime.now
+    unless params[:patient_id].present?
+      @appointments = current_user.doctor_appointments.where(appointment_datetime: @date.beginning_of_day..@date.end_of_day).order(:appointment_datetime)
+    else
+      if params[:date].blank?      
+        @appointments = current_user.doctor_appointments.where(state: :pending, patient_id: params[:patient_id]).where('appointment_datetime >= ?', DateTime.now).order(:appointment_datetime)
+      else
+        @appointments = current_user.doctor_appointments.where(appointment_datetime: @date.beginning_of_day..@date.end_of_day).search_by_details(params[:patient_id]).order(:appointment_datetime)  
+      end
+    end
+    @pagy, @appointments = pagy(@appointments, items: 10)
+  end
+
+  def all_appointments
+    @search_params = query_params
+    @date = params[:date].present? ? DateTime.parse(params[:date]) : DateTime.now
+    unless @search_params.present?
+      @appointments = Appointment.where(appointment_datetime: @date.beginning_of_day..@date.end_of_day).order(:appointment_datetime)
+    else
+      if @search_params[:appointment_datetime].present?
+        @search_params[:appointment_datetime] = Date.parse(@search_params[:appointment_datetime]).beginning_of_day..Date.parse(@search_params[:appointment_datetime]).end_of_day
+        @appointments = Appointment.where(@search_params).order(:appointment_datetime)
+      else
+        @appointments = Appointment.where(state: :pending).where('appointment_datetime >= ?', DateTime.now).where(@search_params).order(:appointment_datetime)
+      end                  
+    end
     @pagy, @appointments = pagy(@appointments, items: 5)
   end
 

@@ -15,6 +15,10 @@ class AppointmentsController < ApplicationController
     @procedure_types = ProcedureType.all
   end
 
+  def summary
+    @appointment = Appointment.find(params[:appointment_id])
+  end
+
   def schedule_appointment_no_user
     @procedure_types = ProcedureType.all
   end
@@ -34,6 +38,7 @@ class AppointmentsController < ApplicationController
       @appointment.save(validate: false)
       redirect_to request.referer
     end
+
     authorize @appointment
   end
 
@@ -65,6 +70,7 @@ class AppointmentsController < ApplicationController
       end                  
     end
     @pagy, @appointments = pagy(@appointments, items: 5)
+    authorize @appointments
   end
 
   def create    
@@ -161,6 +167,14 @@ class AppointmentsController < ApplicationController
   def get_variables_appointment
     @doctors = User.where(role: :doctor).includes(:doctor_working_weeks).where("working_weeks.end_date > ?", Date.today).references(:doctor_working_weeks)
     @doctor_id = @doctors.any? ? @doctors.first.id : []
+  end
+
+  def query_params
+    params.permit(
+      :doctor_id,
+      :patient_id,
+      :appointment_datetime
+      ).delete_if {|key, value| value.blank?}
   end
 
   def user_params

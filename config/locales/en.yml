@@ -45,3 +45,20 @@ en:
       october: "Octubre"
       november: "Noviembre"
       december: "Diciembre"
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+  time:
+    am: am
+    pm: pm  

@@ -44,6 +44,9 @@ document.addEventListener('turbolinks:load', () => {
         modalId(i){
           Vue.set(this.modal2, i , !this.modal2[i]);
         },
+        visitLocation(path){
+          if (event.target.id != "cancelBtn") Turbolinks.visit(path)
+        },
         capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         },

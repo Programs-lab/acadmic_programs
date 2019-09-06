@@ -42,5 +42,6 @@ require('./profile');
 require('./components/tab');
 require('./components/nav');
 require('./components/modal');
+require('./components/modal_bottom');
 require('./components/dropdown');
 require('./components/collapse');

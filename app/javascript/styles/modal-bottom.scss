@@ -1,7 +1,6 @@
-.modal {
+.modal-bottom {
   position: fixed;
-  z-index: 99999;
-  position: fixed;
+  z-index: 101;
   top: 50%;
   left: 50%;
   /* bring your own prefixes */
@@ -13,26 +12,27 @@
   background-color: rgba(0,0,0,0.4);
 }
 
-.modal-content {
-  @apply .mx-auto .my-32;
-  padding: 20px;
-  width: auto;
-  max-width: 1024px;
+.modal-bottom-content {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
   animation-duration: 0.2s;
 }
 
-.modal-title{
+.modal-bottom-title{
   @apply .items-center .border-b .border-grey-light .pb-2;
 }
 
-.modal-footer{
+.modal-bottom-footer{
   @apply .justify-end .border-t .border-grey-light .pt-2;
 }
 
-.transition-modal-enter-active, .transition-modal-leave-active {
+.transition-modal-bottom-enter-active, .transition-modal-bottom-leave-active {
   transition: opacity .5s;
 }
 
-.transition-modal-enter, .transition-modal-leave-to {
+.transition-modal-bottom-enter, .transition-modal-bottom-leave-to {
   opacity: 0;
 }

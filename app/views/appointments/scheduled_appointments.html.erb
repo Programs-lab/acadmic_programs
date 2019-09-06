@@ -86,6 +86,11 @@
     </div>
     <% else %> 
     <% @appointments.each_with_index do |appointment| %>
+    <%= render 'info_scheduled_appointment', appointment: appointment %>
+    <div class="hidden lg:block xl:block divider"></div>
+    <% end %>
+    <% if @pagy.pages > 1 %>
+      <div class="mt-6"></div>
     <div class="divider"></div>
     <div class="flex flex-wrap w-full">
       <div class="flex flex-wrap w-full mb-4">
@@ -152,7 +157,6 @@
       </div>
     </div>
     <% end %>
-    <div class="divider"></div>
   </div>
 <% if params[:patient_id].present? %>
   <%== render 'pagy/nav', pagy: @pagy %>

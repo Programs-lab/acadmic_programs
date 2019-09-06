@@ -1,7 +1,7 @@
 module AppointmentHelper
 
   def appointment_state(appointment)
-    if appointment.appointment_datetime < DateTime.now && (!appointment.completed? && !appointment.attended?)
+    if appointment.appointment_datetime < DateTime.now && (!appointment.completed? && !appointment.attended? && !appointment.canceled?)
       return ["Vencida", "badge-default"]
     else
       case appointment.state

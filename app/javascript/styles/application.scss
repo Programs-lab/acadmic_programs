@@ -1,12 +1,15 @@
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
-@import 'button';
+@responsive {
+  @import 'button';
+}
 @import 'form';
 @import 'flash';
 @import 'list-group-menu';
 @import 'collapse';
 @import 'modal';
+@import 'modal-bottom';
 @import 'dropdown';
 @import 'card';
 @import 'tab';
@@ -28,7 +31,10 @@
     @apply .flex .flex-wrap .w-full .rounded .justify-center .border .border-primary .border-dashed .items-center;
   }
 
-
+  input[type="file"] {
+      display: none;
+  }
+  
   .focus_form:focus-within {
     label { @apply .text-primary; }
     input { @apply .border-primary; }
@@ -48,7 +54,7 @@
   }
 
   .disabled:hover{
-    @apply .bg-third; 
+    @apply .bg-third;
   }
 
   .active{
@@ -144,7 +150,7 @@
     @apply .bg-primary;
   }
   .multiselect__tag-icon:hover {
-    
+
     @apply .bg-secondary
   }
 
@@ -183,7 +189,7 @@
     cursor: not-allowed;
     background: none;
   }
-  
+
 
   #overlay{
     position: fixed;

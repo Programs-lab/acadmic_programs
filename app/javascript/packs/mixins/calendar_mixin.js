@@ -23,8 +23,12 @@ export const CalendarMixin = {
     indexWeek: 0,
     hiddenDropdown: false,
     week: [],
+    modalBottom: {}
   },
   methods: {
+    modalBottomId(i){
+      setTimeout(() => { Vue.set(this.modalBottom, i , true); }, 0)
+    },
     fetchData: function(){
       this.$http.get(`/api/appointments/fetch_appointment_data/${this.doctorId}/${this.procedureTypeId}`).then(response => {
         this.doctors = JSON.parse(response.body.doctors)

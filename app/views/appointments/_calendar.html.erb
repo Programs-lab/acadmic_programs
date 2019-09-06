@@ -1,6 +1,6 @@
 <div class="flex flex-wrap w-full mt-4">
   <div class="flex w-full justify-end mb-6">
-    <div class="w-1/4 focus_form mr-1">
+    <div class="w-1/2 md:w-1/4 focus_form mr-1">
       <%= f.label :tipo_de_cita, class: 'label_input' %>
       <%=
       f.collection_select(
@@ -10,14 +10,14 @@
         :procedure_type_name,
         {include_blank: false, selected: :first},
         {
-          class: "block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId',
+          class: "block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8", 'v-model' => 'procedureTypeId',
         }
       )
       %>
     </div>
-    <div class="w-1/4 focus_form ml-1">
+    <div class="w-1/2 md:w-1/4 focus_form ml-1">
       <%= f.label :doctor, class: 'label_input' %>
-      <select id="doctor_list" class="block appearance-none w-full border-b text-grey-darker py-3 px-4 pr-8 focus:outline-none bg-white focus:border-grey h-8" v-model="doctorId">
+      <select id="doctor_list" class="block appearance-none w-full border-b text-grey-darker pr-8 focus:outline-none bg-white focus:border-grey h-8" v-model="doctorId">
         <option label=" "></option>
         <option v-for="doctor in doctors" :value="doctor.id"> {{`${doctor.first_name} ${doctor.last_name}`}}</option>
       </select>
@@ -32,12 +32,15 @@
           <p>{{ value }}</p>
         </div>
         <div class="flex w-full justify-center">
-          <p class="font-medium text-sm text-g-d2">
+          <p class="font-medium text-sm text-g-d2 hidden md:block">
             {{ doctor != null ? $moment(week[index]).format("DD MMM YYYY") : '' }}
+          </p>
+          <p class="font-medium text-sm text-g-d2 md:hidden">
+            {{ doctor != null ? $moment(week[index]).format("DD MMM") : '' }}
           </p>
         </div>
       </div>
-      <div class="flex flex-wrap w-full mb-4 justify-center" v-for="(hour, i) in hours">
+      <div class="md:flex md:flex-wrap w-full mb-4 md:justify-center hidden" v-for="(hour, i) in hours">
         <dropdown-vue btn_class="btn-flat" dropdown_style="width: 70%;">
           <template #title>
             <p :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'">
@@ -52,15 +55,15 @@
               <div class="hidden md:block">
                 <div class="dropdown-item items-center flex-wrap" v-show="schedule[index][i][j]" :class="schedule[index][i][j] ? 'animated fadeIn' : 'animated fadeOut'">
                   <div class="flex w-full justify-center">
-                    <%= icon('fas','clock', class: 'fa-md mr-2')%>
-                    Agendar
+                    <%= icon('fas','clock', class: 'fa-md md:mr-0 lg:mr-2 xl:mr-2')%>
+                    <span class="lg:block xl:block md:hidden">Agendar</span>
                   </div>
-                  <div class="flex w-full mt-2 items-center" >
-                    <%= icon('fas','times', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
+                  <div class="flex w-full mt-2 items-center justify-center" >
+                    <%= icon('fas','times', class: "fa-md md:cursor-pointer md:mr-2 lg:mr-0 xl:mr-0 lg:btn-flat xl:btn-flat text-black", '@click' => 'showOptions(index,i,j)')%>
                     <% unless current_user %>
-                      <%= icon('fas','check', class: "fa-md btn-flat text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
+                      <%= icon('fas','check', class: "fa-md lg:btn-flat xl:btn-flat md:cursor-pointer lg:ml-0 xl:ml-0 md:ml-2 text-black", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour")%>
                     <% else %>
-                      <button class="btn-flat" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                      <button class="md:cursor-pointer lg:ml-0 xl:ml-0 md:ml-2 lg:btn-flat xl:btn-flat" name="button" v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
                         <%= icon('fas','check', class: "fa-md text-black")%>
                       </button>
                     <% end %>
@@ -85,6 +88,26 @@
             </div>
           </template>
         </dropdown-vue>
+      </div>
+      <div class="flex flex-wrap w-full mb-4 md:hidden justify-center" v-for="(hour, i) in hours">
+        <button id="myBtn" class="w-full flex justify-center rounded h-6 items-center focus:outline-none" @click="modalBottomId(`${index}${i}`)" :class="workingHours[index][i].length != 0 ? 'font-black text-primary' : 'text-grey'" v-ripple= "'rgba(255, 255, 255, 0.20)'" type="button" :disabled="workingHours[index][i].length == 0">
+          {{ $moment( `<%= Date.today %> ${hour}`).format("hh a") }}
+        </button>
+        <modal-bottom-vue :i="`${index}${i}`">
+          <template v-slot:content>
+            <div class="flex w-full" v-for="(working_hour, j) in workingHours[index][i]">
+              <% unless current_user %>
+                <%= button_tag('#',type: 'button', class: "bg-white border-t text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none", '@click' => 'showOptions(index,i,j), selectHour(), changeNav()', ":id" => "working_hour", 'v-ripple' => "'rgba(0, 0, 0, 0.10)'", 'v-ripple.mouseover.100' => 'true') do %>
+                  {{$moment(working_hour).format("hh:mm a")}}
+                <% end %>
+              <% else %>
+                <button class="bg-white border-t text-center w-full flex justify-center text-grey-darkest text-base no-underline px-4 py-4 focus:outline-none" name="button" v-ripple.mouseover.100 v-ripple="'rgba(0, 0, 0, 0.10)'" @click='showOptions(index,i,j), selectHour()' :id="working_hour" type="submit">
+                  {{$moment(working_hour).format("hh:mm a")}}
+                </button>
+              <% end %>
+            </div>
+          </template>
+        </modal-bottom-vue>
       </div>
     </div>
     <%= f.hidden_field :appointment_datetime, value: "appointmentHour", 'v-model' => 'appointmentHour' %>

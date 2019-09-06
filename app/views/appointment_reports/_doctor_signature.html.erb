@@ -1,7 +1,6 @@
-<% if File.exist?("#{Rails.root}/app/assets/images/signatures/sign_#{doctor.id_number}.jpg") %>
+<% if doctor.signature %>
 <div class="row">
   <div class="col s6 right">
-    <%= wicked_pdf_image_tag("signatures/sign_#{doctor.id_number}.jpg", width: "300") %>
-  </div>
+    <%= wicked_pdf_image_tag(doctor.signature.full.url, width: 300) %>
 </div>
 <% end %>

@@ -2,6 +2,7 @@ class WeeksWorker
   include Sidekiq::Worker
 
   def perform
+    p "hello"
     week = nil
     new_week_attrs = {}
     working_days_attributes = {}

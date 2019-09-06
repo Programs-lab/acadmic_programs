@@ -116,6 +116,32 @@
     @apply .bg-primary;
   }
 
+  .vdp-datepicker {
+    width: 100%;
+  }
+  div.wrapper div:nth-child(1){
+    @apply .flex .w-full .items-center
+  }
+
+  .multiselect__placeholder {
+    @apply pb-6
+  }
+
+  .vdp-datepicker__calendar-button {
+    @apply .mr-2
+  }
+
+  .vdp-datepicker__clear-button {
+    @apply .pr-6 .text-2xl .text-grey-dark
+  }
+
+
+  .multiselect__input, .multiselect__single {
+    min-height: 0px;
+    line-height: 18px;
+    width: 85%;
+  }
+
   .multiselect__option--highlight:after {
     @apply .bg-primary;
   }
@@ -184,4 +210,8 @@
   ul {
     list-style-type: none;
     padding-inline-start: 0px;
+  }
+
+  a:visited, a:active, a:link {
+    color: inherited;
   }

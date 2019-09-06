@@ -55,7 +55,7 @@ export const CalendarMixin = {
       for (var i = 0; i < length; i++) {
         let hour_to_schedule = moment(clone_hours[i])
         if (hour_to_schedule.isBetween(datetime, limit_datetime, null, '[)')) {
-          if (this.isAvailableHour(hour_to_schedule) && hour_to_schedule.isAfter(moment().endOf('day'))){
+          if (this.isAvailableHour(hour_to_schedule) && hour_to_schedule.isAfter(moment())){
             arrayHours.push(hour_to_schedule.format())
           }
           hours_to_schedule.shift()

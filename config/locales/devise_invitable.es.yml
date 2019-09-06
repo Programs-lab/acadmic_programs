@@ -23,6 +23,7 @@ es:
         accept: "Acceptar invitacion"
         accept_until: "Esta invitacion se vencera el %{due_date}."
         ignore: "Si no quieres acceptar esta invitacion simplemente ignora este email, tu cuenta no sera concretada hasta que acceptes la invitacion"
+        accept_until_format: "%B %d, %Y %I:%M %p"
   time:
     formats:
       devise:

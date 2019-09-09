@@ -13,7 +13,7 @@ class WorkingWeeksController < ApplicationController
         redirect_to root_path || request.referrer
       end
     end
-    unproccessed_working_weeks = @doctor.doctor_working_weeks.where("end_date >= ?", Date.today).order(:initial_date)
+    unproccessed_working_weeks = @doctor.doctor_working_weeks.where("end_date >= ?", Date.today).order(initial_date: :desc)
     @working_weeks = unproccessed_working_weeks.to_json(include: {working_days: { include: {working_hours: {except: [:created_at, :updated_at]}}, except: [:created_at, :updated_at]}})
     authorize unproccessed_working_weeks
   end

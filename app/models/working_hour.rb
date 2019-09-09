@@ -1,6 +1,6 @@
 class WorkingHour < ApplicationRecord
   belongs_to :working_day
-  has_many :working_hours_procedure_types, dependent: :delete_all
+  has_many :working_hours_procedure_types, dependent: :destroy
   has_many :procedure_types, through: :working_hours_procedure_types
   validate :is_updatable
   validate :hour_limits_make_sense

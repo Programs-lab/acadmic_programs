@@ -1,16 +1,16 @@
 class WeeksWorker
   include Sidekiq::Worker
 
-  def perform
-    p "hello"
+  def perform    
     week = nil
     new_week_attrs = {}
     working_days_attributes = {}
     working_hours_attributes = {}
     next_week = []
+    n = nil
 
     User.where(role: :doctor).each do |u|
-      week = u.doctor_working_weeks.last
+      week = u.doctor_working_weeks.last      
       if week
         new_week_attrs = week.attributes.except!("id", "created_at", "updated_at")
         new_week_attrs["initial_date"] = new_week_attrs["initial_date"].next_week
@@ -30,10 +30,10 @@ class WeeksWorker
              working_days_attributes[i]["working_hours_attributes"] = {}
              working_days_attributes[i]["working_hours_attributes"][n] = working_hours_attributes[n]
           end          
-        end
-
-        new_week_attrs["working_days_attributes"] = working_days_attributes
-        WorkingWeek.create(new_week_attrs)
+        end        
+        new_week_attrs["working_days_attributes"] = working_days_attributes        
+        n = WorkingWeek.new(new_week_attrs)
+        n.save(validate: false)
         working_days_attributes = {}
         working_hours_attributes = {}
       end

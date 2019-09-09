@@ -1,5 +1,5 @@
 class WorkingWeek < ApplicationRecord
-  has_many :working_days, dependent: :destroy
+  has_many :working_days, -> { order('working_date') }, dependent: :destroy
   belongs_to :doctor, class_name: "User", foreign_key: "doctor_id"
   #after_create :create_working_days
   accepts_nested_attributes_for :working_days, reject_if: :all_blank

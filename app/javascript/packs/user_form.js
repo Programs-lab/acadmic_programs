@@ -25,7 +25,7 @@ document.addEventListener('turbolinks:load', () => {
       pre_options: {},
       options: [],
       value: JSON.parse(document.getElementById("user_form").getAttribute('procedure_types')) || [],
-      procedure_types: []
+      procedure_types: JSON.parse(document.getElementById("user_form").getAttribute('procedure_types')).map(it => it.id)
     },
     validations: {
       emailValue: {

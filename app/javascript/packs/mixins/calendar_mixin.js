@@ -32,7 +32,7 @@ export const CalendarMixin = {
     fetchData: function(){
       this.$http.get(`/api/appointments/fetch_appointment_data/${this.doctorId}/${this.procedureTypeId}`).then(response => {        
         this.doctors = JSON.parse(response.body.doctors)
-        this.doctor = JSON.parse(response.body.doctor)[0];
+        this.doctor = JSON.parse(response.body.doctor);
         this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
         this.procedureDuration = response.body.procedure_type.procedure_duration;
         console.log(JSON.parse(response.body.doctor))

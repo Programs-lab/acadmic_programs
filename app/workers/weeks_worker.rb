@@ -34,6 +34,7 @@ class WeeksWorker
         new_week_attrs["working_days_attributes"] = working_days_attributes        
         n = WorkingWeek.new(new_week_attrs)
         n.save(validate: false)
+        u.update_working_hours
         working_days_attributes = {}
         working_hours_attributes = {}
       end

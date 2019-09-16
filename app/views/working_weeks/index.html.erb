@@ -84,7 +84,7 @@
                 <div class="row w-1/4 focus_form mx-4" :class=disabled_class_field(hour.id)>
                   <label class="label_input">Hora inicio</label>
                     <datetime 
-                      value-zone="local" :minute-step="15" :input-id="`timepicker_initial_${hour.id}`" 
+                      value-zone="local" :minute-step="15" :input-id="`timepicker_initial_${hour.id}`"
                       :min-datetime= "week.working_days_attributes[<%= index %>].working_date" 
                       :max-datetime="week.working_days_attributes[<%= index %>].working_date" 
                       :phrases= "{ok: 'Aceptar', cancel: 'Cancelar' }" 
@@ -102,7 +102,7 @@
                   <datetime 
                     value-zone="local" :minute-step="15" :input-id="`timepicker_end_${hour.id}`" 
                     :min-datetime= "week.working_days_attributes[<%= index %>].working_date" 
-                    :max-datetime="week.working_days_attributes[<%= index %>].working_date" 
+                    :max-datetime="week.working_days_attributes[<%= index %>].working_date"
                     :phrases= "{ok: 'Acceptar', cancel: 'Cancelar' }" 
                     title='Seleccione una hora' 
                     v-model=hour.end_hour 

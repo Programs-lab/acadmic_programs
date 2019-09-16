@@ -140,7 +140,7 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy  
     @appointment = Appointment.find(params[:id])
     if @appointment.destroy
       redirect_to appointments_path, notice: 'La cita fue eliminada correctamente.'

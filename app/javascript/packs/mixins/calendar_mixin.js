@@ -35,8 +35,7 @@ export const CalendarMixin = {
         this.doctor = JSON.parse(response.body.doctor);
         this.unavailableWorkingHours = JSON.parse(response.body.unavailable_working_hours);
         this.procedureDuration = response.body.procedure_type.procedure_duration;
-        console.log(JSON.parse(response.body.doctor))
-        this.doctorWorkingWeek = this.doctor !== undefined ? this.doctor.doctor_working_weeks[this.indexWeek] : ""
+        this.doctorWorkingWeek = this.doctor === '' ? '' : this.doctor.doctor_working_weeks[this.indexWeek]
         this.matrixWorkingHours()
       }, response => { console.log(response) });
     },

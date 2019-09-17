@@ -40,13 +40,14 @@ document.addEventListener('turbolinks:load', () => {
         return this.anyError || this.invalid || this.appointmentHour == ''
       },
       disabled: function(){
-        return this.doctor !== undefined ? this.indexWeek == this.doctor.doctor_working_weeks.length - 1 : true
+        var emptyDoctor = this.doctor === undefined
+        var emptyWorkingWeek = !emptyDoctor? this.doctor.doctor_working_weeks === undefined : true
+        return !emptyDoctor && ! emptyWorkingWeek ? this.indexWeek == this.doctor.doctor_working_weeks.length - 1 : true
       },
       renderForm: function(){
         return this.doctor !== undefined && this.procedureTypeId != ''
       }
-    }
-    ,
+    },
     watch: {
      doctorId(){
        this.appointmentHour = ''

@@ -114,33 +114,36 @@
       </div>
     </div>
     <% else %>
+    <h3>
+      <%= icon('fas','calendar', class: 'fa-xs mr-1')%>
+      {{ $moment("<%= @date %>").format("dddd DD MMMM") }}
+    </h3>
     <% @appointments.each_with_index do |appointment| %>
     <div class="divider"></div>
     <div class="flex flex-wrap w-full">
       <div class="flex flex-wrap w-full mb-4">
-        <h3 class="font-semibold text-grey-darkest text-lg">
-          <%= "#{appointment.patient.first_name} #{appointment.patient.last_name}" %>
+        <h3 class="font-semibold text-grey-darkest text-lg w-2/3">
+          <div class="flex w-full">
+            <div class="flex flex-wrap w-1/2">
+              <%= icon('fas','clock', class: 'fa-xs mr-1 mt-1')%> {{ $moment("<%= appointment.appointment_datetime %>").format("hh:mm a") }} - {{ $moment("<%= appointment.appointment_datetime + appointment.procedure_type.procedure_duration.minutes %>").format("hh:mm a") }}
+              
+            </div>
+            <div class="flex flex-wrap w-full">
+              <%= icon('fas','pills', class: 'fa-xs mr-1 mt-1')%> <%= appointment.procedure_type.procedure_type_name %> 
+            </div>
+          </div>
         </h3>
       </div>
       <div class="flex flex-wrap w-full">
         <div class="flex w-full justify-between">
-          <div class="flex w-1/5 mr-2 items-center">
-            <%= icon('fas','calendar', class: 'fa-xs mr-1')%>
-            {{ $moment("<%= appointment.appointment_datetime %>").format("dddd DD MMMM") }}
+          <div class="flex w-3/4 ml-1 items-center">            
+            <p><%= icon('fas','user-md', class: 'fa-xs mr-1')%> <%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%></p>              
           </div>
-          <div class="flex w-1/5 ml-2 items-center">
-            <%= icon('fas','clock', class: 'fa-xs mr-1')%>
-            {{ $moment("<%= appointment.appointment_datetime %>").format("hh:mm a") }} - {{ $moment("<%= appointment.appointment_datetime + appointment.procedure_type.procedure_duration.minutes %>").format("hh:mm a") }}
-          </div>
-          <div class="flex w-1/5 items-center">
-            <%= icon('fas','user-md', class: 'fa-md mr-2')%>
-            <p><%= "#{appointment.doctor.first_name} #{appointment.doctor.last_name}"%></p>
-          </div>
-          <div class="flex w-2/6 justify-center items-center px-8">
-            <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>        
+          <div class="flex w-1/4 justify-center items-center px-8">
+            <span class="flex <%= appointment_state(appointment)[1] %> px-2 py-1 mr-3"><%= appointment_state(appointment)[0] %></span>  
           </div>
           <% unless appointment.completed? ||  appointment.canceled?%>
-          <div class="flex w-1/6 justify-end items-center px-8">
+          <div class="flex w-1/4 justify-end items-center px-8">
             <%= link_to(attend_appointment_path(appointment.id), method: :put, class: "btn btn-secondary no-underline rounded-full:!important #{'disabled' if appointment.appointment_datetime > DateTime.now.end_of_day}") do %>
               <%= icon('fas', 'check-circle', '') %>
             <% end %>
@@ -188,7 +191,7 @@
 
       <div class="flex flex-wrap w-full mt-4">
         <h3 class="text-grey-darker text-sm">
-          Motivo de cita: <%= appointment.procedure_type.procedure_type_name %>
+          <p>Paciente: <%= "#{appointment.patient.first_name} #{appointment.patient.last_name}" %></p>
         </h3>
       </div>
     </div>

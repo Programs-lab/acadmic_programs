@@ -2,7 +2,6 @@ class Api::AppointmentsController < ApplicationController
   def fetch_appointment_data
     @doctors = User.where(role: :doctor).includes(doctor_working_weeks: { working_days: {working_hours: [:procedure_types, :working_hours_procedure_types] } }).where("working_weeks.end_date >= ? AND procedure_types.id = ?", (Date.today), params[:procedure_type_id]).order(:initial_date).references(:doctor_working_weeks)
     @doctor = @doctors.find_by(id: params[:doctor_id]) || ""
-    binding.pry
     @doctors_json = @doctors.to_json(only: [:first_name, :last_name, :id])
     @doctor_json = @doctor.to_json(
       only: [:first_name, :last_name, :id],

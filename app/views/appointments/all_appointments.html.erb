@@ -114,9 +114,29 @@
       </div>
     </div>
     <% else %>
-    <h3>
-      <%= icon('fas','calendar', class: 'fa-xs mr-1')%>
-      {{ $moment("<%= @date %>").format("dddd DD MMMM") }}
+    <h3>      
+      <div class="flex w-full items-center">
+        <div class="flex w-5/6">
+          <%= icon('fas','calendar', class: 'fa-xs mr-1 mt-1')%>
+          {{ $moment("<%= @date %>").format("dddd DD MMMM") }} 
+        </div>
+        <div class="felx w-1/6 justify-end">
+          <% unless @search_params.present? %>
+            <div class="flex flex-wrap w-full justify-end">
+              <div class="flex flex-wrap w-1/2 justify-end">
+              <%= link_to(all_appointments_path(date: @date - 1), method: :get, class: "btn-flat  text-black #{@date.beginning_of_day == DateTime.now.beginning_of_day ? 'disabled' : '' }") do %>
+                <%= icon('fas', 'arrow-left', '') %>
+              <% end %>
+              </div>
+              <div class="flex flex-wrap w-1/2">
+              <%= link_to(all_appointments_path(date: @date + 1), method: :get, class: "btn-flat text-black") do %>
+                <%= icon('fas', 'arrow-right', '') %>
+              <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </h3>
     <% @appointments.each_with_index do |appointment| %>
     <div class="divider"></div>
@@ -190,7 +210,7 @@
       </div>
 
       <div class="flex flex-wrap w-full mt-4">
-        <h3 class="text-grey-darker text-sm">
+        <h3 class="text-sm">
           <p>Paciente: <%= "#{appointment.patient.first_name} #{appointment.patient.last_name}" %></p>
         </h3>
       </div>
@@ -199,21 +219,5 @@
     <div class="divider"></div>
   </div>
 <% end %>
-<% if @search_params.present? %>
   <%== render 'pagy/nav', pagy: @pagy %>
-<% else %>
-  <div class="flex flex-wrap w-full justify-center">
-    <div class="flex flex-wrap w-1/2 justify-end">
-    <%= link_to(all_appointments_path(date: @date - 1), method: :get, class: "btn-flat  text-black #{@date.beginning_of_day == DateTime.now.beginning_of_day ? 'disabled' : '' }") do %>
-      <%= icon('fas', 'arrow-left', '') %>
-    <% end %>
-    </div>
-    <div class="flex flex-wrap w-1/2">
-    <%= link_to(all_appointments_path(date: @date + 1), method: :get, class: "btn-flat text-black") do %>
-      <%= icon('fas', 'arrow-right', '') %>
-    <% end %>
-    </div>
-  </div>
-<% end %>
-  
 <% end %>

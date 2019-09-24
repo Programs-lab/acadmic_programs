@@ -69,7 +69,7 @@ class AppointmentsController < ApplicationController
         @appointments = Appointment.where(state: :pending).where('appointment_datetime >= ?', DateTime.now).where(@search_params).order(:appointment_datetime)
       end                  
     end
-    @pagy, @appointments = pagy(@appointments, items: 5)
+    @pagy, @appointments = pagy(@appointments, items: 15)
     authorize @appointments
   end
 

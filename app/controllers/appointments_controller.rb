@@ -53,7 +53,7 @@ class AppointmentsController < ApplicationController
         @appointments = current_user.doctor_appointments.where(appointment_datetime: @date.beginning_of_day..@date.end_of_day).search_by_details(params[:patient_id]).order(:appointment_datetime)  
       end
     end
-    @pagy, @appointments = pagy(@appointments, items: 10)
+    @pagy, @appointments = pagy(@appointments, items: 100)
   end
 
   def all_appointments
@@ -87,7 +87,7 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def create_schedule_appointment
+  def create_schedule_appointment    
     appointments = @patient.patient_appointments.where('appointment_datetime > ? AND state = ?', DateTime.now, 1).includes(:procedure_type)
     checkup_apointment_count = appointments.includes(:procedure_type).where(procedure_types: {kind: :consulta}).references(:procedure_type).count
     procedure_type = ProcedureType.find(appointments_params[:procedure_type_id])

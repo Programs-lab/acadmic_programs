@@ -53,7 +53,7 @@ class AppointmentsController < ApplicationController
         @appointments = current_user.doctor_appointments.where(appointment_datetime: @date.beginning_of_day..@date.end_of_day).search_by_details(params[:patient_id]).order(:appointment_datetime)  
       end
     end
-    @pagy, @appointments = pagy(@appointments, items: 100)
+    @pagy, @appointments = pagy(@appointments, items: 15)
   end
 
   def all_appointments

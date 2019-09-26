@@ -60,7 +60,32 @@
             </div>
           </div>
         </form>
-      </div>    
+      </div>
+      <div class="flex w-full">
+        <div class="flex w-3/4 pt-1">
+          <h3 class="text-black-darker">
+            <%= icon('fas','calendar', class: 'fa-xs mr-1 mt-1')%>
+            {{ $moment("<%= @date %>").format("dddd DD MMMM") }} 
+          </h3>
+        </div>
+        <% unless params[:patient_id] %>                  
+          <div class="flex w-1/4">
+            <div class="flex flex-wrap w-full justify-center">
+              <div class="flex flex-wrap w-1/2 justify-end">
+              <%= link_to(scheduled_appointments_path(date: @date - 1), method: :get, class: "btn-flat  text-black #{@date.beginning_of_day == DateTime.now.beginning_of_day ? 'disabled' : '' }") do %>
+                <%= icon('fas', 'arrow-left', '') %>
+              <% end %>
+              </div>
+              <div class="flex flex-wrap w-1/2">
+              <%= link_to(scheduled_appointments_path(date: @date + 1), method: :get, class: "btn-flat text-black") do %>
+                <%= icon('fas', 'arrow-right', '') %>
+              <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="divider"></div>
     <% unless @appointments.any? %>
     <div class="alert alert-info w-full" role="alert">
       <div class="flex">
@@ -86,94 +111,12 @@
     </div>
     <% else %> 
     <% @appointments.each_with_index do |appointment| %>
-    <%= render 'info_scheduled_appointment', appointment: appointment %>
+      <%= render 'info_scheduled_appointment', appointment: appointment %>
     <div class="hidden lg:block xl:block divider"></div>
     <% end %>
-    <% if @pagy.pages > 1 %>
-      <div class="mt-6"></div>
-    <div class="divider"></div>
-    <div class="flex flex-wrap w-full">
-      <div class="flex flex-wrap w-full mb-4">
-        <h3 class="font-semibold text-grey-darkest text-lg">
-          <%= "#{appointment.patient.first_name} #{appointment.patient.last_name}" %>
-        </h3>
-      </div>
-      <div class="flex flex-wrap w-full">
-        <div class="flex w-2/3 md:w-1/2 justify-between">
-          <div class="flex w-3/6 mr-2 items-center">
-            <%= icon('fas','calendar', class: 'fa-xs mr-1')%>
-            {{ $moment("<%= appointment.appointment_datetime %>").format("dddd DD MMMM") }}
-          </div>
-          <div class="flex w-2/6 ml-2 items-center">
-            <%= icon('fas','clock', class: 'fa-xs mr-1')%>
-            {{ $moment("<%= appointment.appointment_datetime %>").format("hh:mm a") }} - {{ $moment("<%= appointment.appointment_datetime + appointment.procedure_type.procedure_duration.minutes %>").format("hh:mm a") }}
-          </div>
-          <div class="flex w-1/6 pl-8">
-            <%= link_to patient_medical_record_path(appointment.patient, appointment), class: 'btn btn-primary mr-1' do %>
-              <%= icon('fas','paper-plane', class: 'fa-xs')%>
-            <% end %>
-            <a id="myBtn" @click="modalId('cancel')" class='btn btn-red-light'>
-              <%= icon('fas','ban', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
-            </a>
-          </div>
-        </div>
-      </div>
-
-
-        <%= form_with url: cancel_appointment_path(appointment_id: appointment.id), method: :put, local: true do |form|%>
-
-          <modal-vue i= "cancel" style_modal="width: 45%;">
-            <template v-slot:title>
-              Cancelar cita
-            </template>
-            <template v-slot:content>
-              <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
-                <div class="flex w-full">
-                  <p>¿Esta seguro de que desea cancelar esta cita? Esta accion es irreversible</p>
-                </div>
-                <br>
-                <br>
-                <div class="w-full mb-6 focus_form">
-                  <%= form.label "Razon de cancelacion (recomendado)", class: 'label_input' %>
-                  <%= form.text_area :reason, class: 'simple-content' %>
-                </div>
-                <div>
-                  <%= form.hidden_field :current_user_id, value: current_user.id %>
-                </div>
-              </div>
-            </template>
-            <template v-slot:footer>
-              <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('cancel')">Cancelar</button>
-              <%= form.submit "Acceptar", class: 'btn btn-primary' %>
-            </template>
-          </modal-vue>
-
-      <% end %>
-
-      <div class="flex flex-wrap w-full mt-4">
-        <h3 class="text-grey-darker text-sm">
-          Motivo de cita: <%= appointment.procedure_type.procedure_type_name %>
-        </h3>
-      </div>
-    </div>
-    <% end %>
   </div>
-<% if params[:patient_id].present? %>
   <%== render 'pagy/nav', pagy: @pagy %>
-<% else %>
-  <div class="flex flex-wrap w-full justify-center">
-    <div class="flex flex-wrap w-1/2 justify-end">
-    <%= link_to(scheduled_appointments_path(date: @date - 1), method: :get, class: "btn-flat  text-black #{@date.beginning_of_day == DateTime.now.beginning_of_day ? 'disabled' : '' }") do %>
-      <%= icon('fas', 'arrow-left', '') %>
-    <% end %>
-    </div>
-    <div class="flex flex-wrap w-1/2">
-    <%= link_to(scheduled_appointments_path(date: @date + 1), method: :get, class: "btn-flat text-black") do %>
-      <%= icon('fas', 'arrow-right', '') %>
-    <% end %>
-    </div>
   </div>
-  </div>
-<% end %>
+
 <% end %>
 <% end %>

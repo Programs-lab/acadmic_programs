@@ -9,7 +9,7 @@ class Appointment < ApplicationRecord
   belongs_to :patient, class_name: 'User', foreign_key: 'patient_id'
   belongs_to :procedure_type
   has_one :appointment_report
-  validate :available_appointment_hour, on: :create
+  #validate :available_appointment_hour, on: :create
   validate :scheduled_appointment_is_valid?
   enum state: [:disabled, :pending, :completed, :canceled, :attended]
   before_create :set_default_state
@@ -18,7 +18,7 @@ class Appointment < ApplicationRecord
 
   private
 
-
+  
   def set_default_state
     self.state ||= :pending
   end

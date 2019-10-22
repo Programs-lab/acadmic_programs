@@ -24,8 +24,6 @@ document.addEventListener('turbolinks:load', () => {
       modal2: {},
       pre_options: {},
       options: [],
-      value: JSON.parse(document.getElementById("user_form").getAttribute('procedure_types')) || [],
-      procedure_types: JSON.parse(document.getElementById("user_form").getAttribute('procedure_types')).map(it => it.id)
     },
     validations: {
       emailValue: {
@@ -88,16 +86,6 @@ document.addEventListener('turbolinks:load', () => {
     },
     mounted: function() {
       this.disabledButton()
-      this.fetchProcedureTypes()
-      var self = this
-      setTimeout(function(){ 
-        self.assignOptions()
-      }, 400)
-      var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
-      multiple_select.classList.remove("multiselect__tags")
-      multiple_select.classList.add("field_input")
-      multiple_select.classList.add("rounded-t")
-      multiple_select.id = "multi-select"
     },
     computed: { 
       disabled: function() {

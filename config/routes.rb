@@ -12,39 +12,6 @@ Rails.application.routes.draw do
       get  '/pacientes', to: 'users#patients', as: :patients
   end
 
-  resources :companies, path: 'empresas', only: [:index, :create, :update, :destroy]
-  get 'companies/procedure_companies_update', to: 'companies#update_procedure_companies'
-  resources :procedure_types, path: 'tipos_de_estudio', only: [:index, :create, :update, :destroy]
-  resources :working_weeks, path: 'horarios', only: [:index, :create, :update]
-  resources :working_days, only: [:update]
-
-  resources :medical_records, path: 'historial_medico'
-  get "medical_records/patient_record/:patient_id(/:appointment_id)" , to: 'medical_records#medical_record', as: :patient_medical_record
-  post "medical_records/create_medical_record" , to: 'medical_records#create', as: :create_medical_record
-
-  resources :appointments, path: 'citas', except: [:show]
-  put 'citas/cancelar/:appointment_id', to: 'appointments#cancel_appointment', as: :cancel_appointment
-  put 'citas/cumplir/:appointment_id', to: 'appointments#attend_appointment', as: :attend_appointment
-  get 'citas/resumen/:appointment_id', to: 'appointments#summary', as: :appointment_summary
-  get 'citas/todas', to: 'appointments#all_appointments', as: :all_appointments
-  resources :appointment_reports, path: 'reportes de citas', only: [:show, :update, :index]
-  namespace :api do
-    get 'appointments/fetch_appointment_data/:doctor_id/:procedure_type_id', to: 'appointments#fetch_appointment_data'
-    get 'appointments/fetch_user/:id_number/:id_type', to: 'appointments#fetch_user'
-    get 'appointments/horario/working_hours/:doctor_id', to: 'appointments#unavialbale_working_hours'
-    get 'procedure_types/fetch', to: 'procedure_types#fetch_procedure_types'
-    post 'media/:id', to: 'media#create'
-    get  'media/:id', to: 'media#index'
-    delete  'media/:id', to: 'media#destroy'
-  end
-
-  get 'appointments/schedule_appointment_no_user', to: 'appointments#schedule_appointment_no_user', as: :schedule_appointment_no_user
-  post 'appointments/create_appointment', to: 'appointments#create_appointment', as: :create_appointment_user
-  post 'appointments/update_appointment', to: 'appointments#update_appointment', as: :update_appointment_user
-  get 'appointments/scheduled_appointments', to: 'appointments#scheduled_appointments', as: :scheduled_appointments
-  get 'appointments/schedule_appointment/:patient_id', to: 'appointments#schedule_appointment', as: :schedule_appointment
-  post 'appointments/create_schedule_appointment/:patient_id', to: 'appointments#create_schedule_appointment', as: :create_schedule_appointment
-
   root 'redirection#index'
   get 'pages/home'
   get 'pages/medical_record'

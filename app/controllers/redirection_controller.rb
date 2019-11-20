@@ -3,7 +3,7 @@ class RedirectionController < ApplicationController
 
   def index
     path = case current_user.role
-     when 'patient'
+     when 'director'
       appointments_path
      when 'doctor'
       scheduled_appointments_path

@@ -10,9 +10,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.date   :birthdate
       t.string :id_type
       t.string :id_number, null: false, unique: true
-      t.string :address
-      t.string :phone_number
-      t.string :occupation
 
 
       ## Database authenticatable

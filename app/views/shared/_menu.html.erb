@@ -15,6 +15,48 @@
     </div>
   <% end %>
 <% end %>
+
+  <%= link_to(pages_home_path, class: "no-underline") do %>
+    <div class="list-group-item rounded-t  ">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','clipboard', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Programas</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
+  <%= link_to(admin_users_path, class: "no-underline") do %>
+    <div class="list-group-item rounded-t ">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','briefcase', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Departamentos</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to(admin_users_path, class: "no-underline") do %>
+    <div class="list-group-item rounded-t">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','building', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Facultades</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
 </div>
 
 </div>

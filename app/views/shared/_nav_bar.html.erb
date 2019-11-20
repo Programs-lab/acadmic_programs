@@ -8,8 +8,7 @@
       </div>
     </div>
     <% unless current_user %>
-    <div class="w-1/2 flex items-center justify-end relative">
-      <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-primary invisible md:visible' %>
+    <div class="w-1/2 flex items-center justify-end relative">    
 
       <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show =! show">
           <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
@@ -17,13 +16,6 @@
       <%#= link_to 'Iniciar sesion', new_user_session_path, class: 'btn-primary' %>
       <transition name="menu-popover" >
       <div id="dropmenu" v-show="show" class="dropdown" v-cloak>
-
-      <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
-        <div class="w-6 text-center" style="font-size: 0.8rem;">
-          <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
-        </div>
-        <div class="ml-3">Registrarse</div>
-      <% end %>
 
       <%= link_to(new_user_session_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
         <div class="w-6 text-center" style="font-size: 0.8rem;">
@@ -52,7 +44,7 @@
           <div class="w-6 text-center" style="font-size: 0.8rem;">
             <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
           </div>
-          <div class="ml-3">Perfil</div>
+          <div class="ml-3 pr-2">Perfil</div> <span class="flex badge-danger justify-center text-sm px-2 mr-3">+1</span>
         </div>
       <% end %>
 

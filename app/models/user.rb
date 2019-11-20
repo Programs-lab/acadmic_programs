@@ -14,7 +14,7 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :timeoutable, reconfirmable: true
-  enum role: [:patient, :doctor, :admin]
+  enum role: [:director, :admin]
   validates_uniqueness_of :id_number
   mount_uploader :avatar, ImageUploader
   mount_uploader :signature, SignatureUploader
@@ -44,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def set_default_role
-    self.role ||= :patient
+    self.role ||= :director
   end
 
   def generate_password

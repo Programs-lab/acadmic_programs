@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_24_141101) do
+ActiveRecord::Schema.define(version: 2019_11_20_224646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "academic_departments", force: :cascade do |t|
+    t.bigint "faculties_id", null: false
+    t.string "code", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["faculties_id"], name: "index_academic_departments_on_faculties_id"
+  end
+
+  create_table "academic_programs", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.string "email"
+    t.bigint "faculties_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["faculties_id"], name: "index_academic_programs_on_faculties_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -36,92 +55,45 @@ ActiveRecord::Schema.define(version: 2019_07_24_141101) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "appointment_report_annotations", force: :cascade do |t|
-    t.bigint "appointment_report_id"
-    t.text "content"
+  create_table "faculties", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appointment_report_id"], name: "index_appointment_report_annotations_on_appointment_report_id"
-  end
-
-  create_table "appointment_reports", force: :cascade do |t|
-    t.bigint "appointment_id"
-    t.bigint "medical_record_id", null: false
-    t.text "diagnosis"
-    t.text "medical_order"
-    t.text "medical_disability"
-    t.text "reference"
-    t.text "examination_request"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "appointment_datetime", null: false
-    t.bigint "doctor_id", null: false
-    t.index ["appointment_id"], name: "index_appointment_reports_on_appointment_id"
-    t.index ["medical_record_id"], name: "index_appointment_reports_on_medical_record_id"
-  end
-
-  create_table "appointments", force: :cascade do |t|
-    t.bigint "patient_id", null: false
-    t.bigint "doctor_id", null: false
-    t.datetime "appointment_datetime"
-    t.bigint "procedure_type_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "disabled", default: false, null: false
-    t.boolean "attended", default: false, null: false
-    t.integer "state"
-    t.integer "appointment_price"
-    t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
-    t.index ["patient_id"], name: "index_appointments_on_patient_id"
-    t.index ["procedure_type_id"], name: "index_appointments_on_procedure_type_id"
-  end
-
-  create_table "companies", force: :cascade do |t|
-    t.string "company_name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "company_id", null: false
-  end
-
-  create_table "doctor_procedure_types", force: :cascade do |t|
-    t.bigint "doctor_id", null: false
-    t.bigint "procedure_type_id"
-    t.index ["doctor_id"], name: "index_doctor_procedure_types_on_doctor_id"
-    t.index ["procedure_type_id"], name: "index_doctor_procedure_types_on_procedure_type_id"
   end
 
   create_table "media", force: :cascade do |t|
     t.string "file_name"
+    t.bigint "processes_academic_programs_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "medical_record_id"
-    t.index ["medical_record_id"], name: "index_media_on_medical_record_id"
+    t.index ["processes_academic_programs_id"], name: "index_media_on_processes_academic_programs_id"
   end
 
-  create_table "medical_records", force: :cascade do |t|
-    t.bigint "patient_id", null: false
+  create_table "processes", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "year_saces"
+    t.integer "month_saces"
+    t.integer "day_saces"
+    t.integer "year_academic_council"
+    t.integer "month_academic_council"
+    t.integer "day_academic_council"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["patient_id"], name: "index_medical_records_on_patient_id"
   end
 
-  create_table "procedure_companies", force: :cascade do |t|
-    t.decimal "cost", default: "0.0", null: false
-    t.bigint "company_id", null: false
-    t.bigint "procedure_type_id", null: false
+  create_table "processes_academic_programs", force: :cascade do |t|
+    t.date "men_date"
+    t.integer "validity"
+    t.date "expiration_date"
+    t.date "saces_date"
+    t.date "academic_council_date"
+    t.bigint "academic_programs_id"
+    t.bigint "processes_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_procedure_companies_on_company_id"
-    t.index ["procedure_type_id"], name: "index_procedure_companies_on_procedure_type_id"
-  end
-
-  create_table "procedure_types", force: :cascade do |t|
-    t.string "procedure_type_name", null: false
-    t.decimal "cost", default: "0.0", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "procedure_duration", null: false
-    t.integer "kind"
+    t.index ["academic_programs_id"], name: "index_processes_academic_programs_on_academic_programs_id"
+    t.index ["processes_id"], name: "index_processes_academic_programs_on_processes_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -130,9 +102,6 @@ ActiveRecord::Schema.define(version: 2019_07_24_141101) do
     t.date "birthdate"
     t.string "id_type"
     t.string "id_number", null: false
-    t.string "address"
-    t.string "phone_number"
-    t.string "occupation"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -159,13 +128,9 @@ ActiveRecord::Schema.define(version: 2019_07_24_141101) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.bigint "company_id"
     t.string "avatar"
-    t.string "signature"
-    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["id_number"], name: "index_users_on_id_number", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -173,50 +138,10 @@ ActiveRecord::Schema.define(version: 2019_07_24_141101) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "working_days", force: :cascade do |t|
-    t.bigint "working_week_id", null: false
-    t.date "working_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["working_week_id"], name: "index_working_days_on_working_week_id"
-  end
-
-  create_table "working_hours", force: :cascade do |t|
-    t.bigint "working_day_id", null: false
-    t.datetime "initial_hour", null: false
-    t.datetime "end_hour", null: false
-    t.boolean "remember", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "procedure_type_kinds", default: [], array: true
-    t.index ["working_day_id"], name: "index_working_hours_on_working_day_id"
-  end
-
-  create_table "working_hours_procedure_types", force: :cascade do |t|
-    t.bigint "working_hour_id"
-    t.bigint "procedure_type_id"
-    t.index ["procedure_type_id"], name: "index_working_hours_procedure_types_on_procedure_type_id"
-    t.index ["working_hour_id"], name: "index_working_hours_procedure_types_on_working_hour_id"
-  end
-
-  create_table "working_weeks", force: :cascade do |t|
-    t.bigint "doctor_id", null: false
-    t.date "initial_date", null: false
-    t.date "end_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["doctor_id"], name: "index_working_weeks_on_doctor_id"
-  end
-
+  add_foreign_key "academic_departments", "faculties", column: "faculties_id"
+  add_foreign_key "academic_programs", "faculties", column: "faculties_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "appointment_reports", "appointments"
-  add_foreign_key "appointment_reports", "medical_records"
-  add_foreign_key "appointments", "procedure_types"
-  add_foreign_key "doctor_procedure_types", "procedure_types"
-  add_foreign_key "procedure_companies", "companies"
-  add_foreign_key "procedure_companies", "procedure_types"
-  add_foreign_key "working_days", "working_weeks"
-  add_foreign_key "working_hours", "working_days"
-  add_foreign_key "working_hours_procedure_types", "procedure_types"
-  add_foreign_key "working_hours_procedure_types", "working_hours"
+  add_foreign_key "media", "processes_academic_programs", column: "processes_academic_programs_id"
+  add_foreign_key "processes_academic_programs", "academic_programs", column: "academic_programs_id"
+  add_foreign_key "processes_academic_programs", "processes", column: "processes_id"
 end

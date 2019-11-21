@@ -25,7 +25,7 @@ require('./user_form');
 require('./shared');
 require('./home');
 require('./flash');
-require('./companies');
+require('./faculties');
 require('./procedure_types');
 require('./medical_record');
 require('./working_weeks');

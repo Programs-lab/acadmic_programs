@@ -10,12 +10,188 @@
       <div class="my-8 flex px-4">
         <div class="w-1/2">
           <h4 class="font-semibold text-g-d4 text-lg">
-            Ingeniería Biotecnológica
-            <br><span class="font-medium text-sm text-g-d2">Codigo: 11144334</span>
-            <br><span class="font-medium text-sm text-g-d2">Director: Octavia Ahmed</span>
+            Programas academicos
+            <br><span class="font-medium text-sm text-g-d2">Listado de programas academicos</span>
           </h4>
         </div>
+        <div class="w-1/2 text-right">
+          <form class="w-full max-w-sm">
+            <div class="flex items-center border-b border-b-2 border-g-l3 py-2">
+              <input class="appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Nombre...">
+              <button  class="flex-no-shrink bg-white hover:bg-b-d border-b-d text-b-d text-sm border hover:text-white py-1 px-2 rounded" type="button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
+
+      <div class="px-0 md:px-4 overflow-auto">
+        <!-- table heading -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" width="15%"></th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Codigo</th>
+              <th scope="col">Director</th>
+              <th scope="col">Ultima edicion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">
+                <button class="btn btn-default"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-default"><i class="far fa-file-word"></i></button>
+              </th>
+              <td>Ingeniería Biotecnológica</td>            
+              <td>11144334</td>
+              <td>Octavia Ahmed</td>
+              <td><%= rand(-200..200).days.ago.strftime("%Y/%m/%d ") %></td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <button class="btn btn-default"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-default"><i class="far fa-file-word"></i></button>
+              </th>
+              <td>Ingeniería Agronómica</td>
+              <td>18990349</td>
+              <td>Caspian Carlson</td>
+              <td><%= rand(-200..200).days.ago.strftime("%Y/%m/%d ") %></td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <button class="btn btn-default"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-default"><i class="far fa-file-word"></i></button>
+              </th>
+              <td>Ingeniería Ambiental</td>
+              <td>21092093</td>
+              <td>Mikaela Huang</td>
+              <td><%= rand(-200..200).days.ago.strftime("%Y/%m/%d ") %></td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <button class="btn btn-default"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-default"><i class="far fa-file-word"></i></button>
+              </th>
+              <td>Ingeniería Agroindustrial</td>
+              <td>3212981234</td>
+              <td>Shereen Petersen</td>
+              <td><%= rand(-200..200).days.ago.strftime("%Y/%m/%d ") %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Trigger/Open The Modal -->
+      <div class="flex flex-wrap px-4">
+        <div class="flex w-full">
+          <button v-ripple="'rgba(255, 255, 255, 0.20)'" id="myBtn" class="btn btn-primary" @click="btnModal()">Open Modal</button>
+        </div>
+
+        <!-- The Modal -->
+        <transition name="transition-modal" >
+          <div id="myModal" class="modal" v-show="modal" v-cloak>
+            <!-- Modal content -->
+            <div :class="classAnimatedContent" class="card modal-content" leave-active-class="animated bounceOutRight">
+              <div class="row modal-title">
+                <div class="flex w-1/2 justify-start">
+                  <p>Titulo del modal</p>
+                </div>
+                <div class="flex w-1/2 justify-end">
+                  <span class="times" @click="btnModal()">&times;</span>
+                </div>
+              </div>
+              <div class="row my-6">
+                <div class="flex w-full justify-start">
+                  CONTENIDO
+                </div>
+              </div>
+              <div class="row modal-footer">
+                <div class="flex justify-between">
+                  <button type="button" name="button" class="btn btn-red-light mx-1"  @click="btnModal()">Cancelar</button>
+                  <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
+
+
+      <modal-vue style_button="btn btn-secondary cursor-pointer" >
+        <template v-slot:name_button>
+          Open Modal
+        </template>
+        <template v-slot:title>
+          <h1>Hola</h1>
+        </template>
+        <template v-slot:content>
+          CONTENIDO
+        </template>
+        <template v-slot:footer>
+          <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
+        </template>
+      </modal-vue>
+
+
+
+      <!-- <div class="flex flex-wrap" style="position: absolute; width: 15%;">
+        <button type="button" class="btn btn-secondary w-full bg-white" v-click-outside="close" v-on:click="show =! show">
+            <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
+            dropdown
+        </button>
+        <transition name="menu-popover" >
+          <div id="" v-show="show" class="dropdown w-full" v-cloak>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+
+          <%= link_to(new_user_session_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','sign-in-alt', class: 'text-grey-dark fa-lg mr-4') %>
+            </div>
+            <div class="ml-3">Ingresar</div>
+          <% end %>
+
+          <%= link_to("Programar una cita", pages_home_path, class: "dropdown-item dropdown-item-blue bg-blue-lighter font-semibold", 'data-turbolinks' => false)%>
+          </div>
+        </transition>
+      </div> -->
+      <dropdown-vue>
+        <template #title>
+          hola
+        </template>
+        <template v-slot:items>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+          <%= link_to(new_user_registration_path, class: "dropdown-item", 'data-turbolinks' => false) do %>
+            <div class="w-6 text-center" style="font-size: 0.8rem;">
+              <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+            </div>
+            <div class="ml-3">Registrarse</div>
+          <% end %>
+        </template>
+      </dropdown-vue>
+      <div class="my-32">
 
       </div>
       <div id="collapsible" class="row justify-center">
@@ -73,15 +249,11 @@
                     <%= f.text_field :"1", class: 'field_input rounded-t', value: "$ 3000"%>
                   </div>
                 </div>
-          <br>
                 <% end %>
               <!-- </div> -->
               <% end %>
             </div>
           </div>
-          <br>
-          <br>
-          <br>
         </div>
         <modal-vue i= "hola<%= index %>">
           <template v-slot:title>
@@ -102,7 +274,7 @@
         <collapse-vue i="myCollpase">
           <template v-slot:title-left>
             <%= icon('fas','building', class: 'fa-md mr-4') %>
-            <span class="pr-10">LICENCIA INTERNA </span> <span class="flex badge-danger justify-center text-sm px-2 mr-3">Alerta</span>
+            <span class="pr-6">LICENCIA INTERNA </span> <span class="flex badge-success justify-center text-sm px-2 mr-3">Vigenete</span>
           </template>
           <template v-slot:title-right>
             <a @click="modalId('hola')">
@@ -196,5 +368,23 @@
       <!-- END EXAMPLE -->
 
       <!--  EXAMPLE MODAL COMPONENT-->
-      
+      <div class="flex w-16 justify-end items-center px-4">
+        <a id="myBtn" @click="modalId('asasa')">
+          <%= icon('fas','edit', class: 'fa-md')%>
+        </a>
+      </div>
+      <modal-vue i= "asasa">
+        <template v-slot:title>
+          <h1>Hola </h1>
+        </template>
+        <template v-slot:content>
+          CONTENIDO
+        </template>
+        <template v-slot:footer>
+          <button type="button" name="button" class="btn btn-primary mx-1">Aceptar</button>
+        </template>
+      </modal-vue>
+      <!-- END EXAMPLE -->
+    </div>
+  </div>
 <% end %>

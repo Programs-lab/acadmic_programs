@@ -5,6 +5,7 @@ class User < ApplicationRecord
   pg_search_scope :search_by_personal_information, against: [:first_name, :last_name, :id_number]
   before_create :set_default_role
   before_validation :generate_password, on: :admin
+  belongs_to :academic_program
   devise :invitable,
          :database_authenticatable,
          :registerable,

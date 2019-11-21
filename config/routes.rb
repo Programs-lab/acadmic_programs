@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get  '/pacientes', to: 'users#patients', as: :patients
   end
 
+  resources :faculties, path: 'facultades', only: [:index, :new, :edit, :create, :update, :destroy]
   root 'redirection#index'
   get 'pages/home'
   get 'pages/medical_record'

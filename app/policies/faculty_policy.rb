@@ -1,4 +1,4 @@
-class CompanyPolicy
+class FacultyPolicy
   attr_reader :user, :resource
 
   def initialize(user, resource)
@@ -11,6 +11,10 @@ class CompanyPolicy
   end
 
   def new?
+    bt_administration_g
+  end
+
+  def edit?
     bt_administration_g
   end
 

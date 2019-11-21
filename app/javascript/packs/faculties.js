@@ -5,9 +5,9 @@ Vue.use(TurbolinksAdapter)
 Vue.use(vClickOutside)
 
 document.addEventListener('turbolinks:load', () => {
-  if(document.getElementById('companies_index')) {
+  if(document.getElementById('faculties_form')) {
     var app = new Vue({
-      el: '#companies_index',
+      el: '#faculties_form',
       data: {
         modal2: {}
       },

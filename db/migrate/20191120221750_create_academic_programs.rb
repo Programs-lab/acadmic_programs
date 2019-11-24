@@ -4,7 +4,7 @@ class CreateAcademicPrograms < ActiveRecord::Migration[5.2]
       t.string :name, null: false
       t.string :code, null: false
       t.string :email
-      t.references :faculties, null: false, foreign_key: true
+      t.references :faculty, null: false, foreign_key: true
       t.timestamps
     end
   end

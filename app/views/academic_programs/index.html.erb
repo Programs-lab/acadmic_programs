@@ -1,28 +1,28 @@
 <%= render  'shared/card' do %>
   <div class="flex flex-row-reverse px-4">
     <div class="w-2/3 text-right">
-    <%= link_to('Crear una facultad', new_faculty_path, class: "btn btn-primary") %>
+    <%= link_to('Crear un programa academico', new_faculty_academic_program_path(faculty_id: @faculty.id), class: "btn btn-primary") %>
     </div>
   </div>
 
   <div class="my-8 flex px-4">
     <div class="w-1/2">
       <h4 class="font-semibold text-g-d4 text-lg">
-        Facultades
-        <br><span class="font-medium text-sm text-g-d2">Listado de facultades</span>
+        Programas academicos de la facultad <%= "#{@faculty.name}" %>
+        <br><span class="font-medium text-sm text-g-d2">Listado de programas</span>
       </h4>
     </div>
     <div class="w-1/2 text-right">
       <form class="w-full max-w-sm justify-end">
         <div class="flex items-center py-2 justify-end">
-          <%= form_with url: faculties_path, method: :get, class: "w-full max-w-sm" do |f|%>
+          <%= form_with url: faculty_academic_programs_path(@faculty), method: :get, class: "w-full max-w-sm" do |f|%>
           <div class="flex items-center border-b border-b-2 border-g-l3 w-2/3">
             <%= f.text_field :query, class: 'w-full flex rounded-t h-8 focus:outline-none', value: params[:query], placeholder: "Nombre, Codigo...." %>
             <%= button_tag(type: "submit", class: "btn-flat") do %>
               <i class="fas fa-search"></i>
             <% end %>
             <% if params[:query] && params[:query] != "" %>
-              <%= link_to faculties_path, method: :get, class: "btn-flat" do %>
+              <%= link_to faculty_academic_programs_path(@faculty), method: :get, class: "btn-flat" do %>
                 <i class="fas fa-eraser"></i>
               <% end %>
             <% end %>
@@ -40,27 +40,23 @@
         <tr>
           <th scope="col" width="20%"></th>
           <th scope="col" width="30%">Nombre</th>
-          <th scope="col" width="30%">Codigo</th>
+          <th scope="col" width="20%">Codigo</th>
+          <th scope="col" width="30%">Email</th>
         </tr>
       </thead>
       <tbody class="">
-        <% @faculties.each do |faculty| %>
+        <% @academic_programs.each do |ap| %>
         <tr>
           <td>
             <div class="py-2 hidden md:table-cell">
-              <%= link_to(edit_faculty_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+              <%= link_to(edit_faculty_academic_program_path(@faculty, ap), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
                 <%= icon('fas', 'pencil-alt') %>
-              <% end %>
-              <%= link_to(faculty_academic_departments_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
-                <%= icon('fas', 'building') %>
-              <% end %>
-              <%= link_to(faculty_academic_programs_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
-                <%= icon('fas', 'book') %>
               <% end %>
             </div>
           </td>
-          <td><%= faculty.name %></td>
-          <td><%= faculty.code %></td>
+          <td><%= ap.name %></td>
+          <td><%= ap.code %></td>
+          <td><%= ap.email %></td>
         </tr>
        <% end %>
       </tbody>

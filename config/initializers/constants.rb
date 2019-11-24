@@ -3,17 +3,20 @@ ID_TYPES = {
  "Cédula de Ciudadanía" => "CC",
  "Cédula de Extranjería" => "CE",
  "Registro civil de nacimiento" => "RCN",
- "Tarjeta de identidad" => "TI",
  "Pasaporte" => "PA",
  "Permiso especial de permanencia" => "PE",
- "Adulto sin identificación" => "AS",
- "Menor sin identificación" => "MS"
 }
 
 ROLES = {
  admin:  "Administrador",
- doctor: "Medico",
- patient:  "Paciente",
+ director: "Director",
+}
+
+MODALITIES = {
+  preg: "Pregrado",
+  esp: "Especialista",
+  mag: "Maestria",
+  doc: "Doctorado"
 }
   
 PROCEDURE_KINDS = {

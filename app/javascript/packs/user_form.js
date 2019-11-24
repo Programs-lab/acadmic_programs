@@ -23,7 +23,8 @@ document.addEventListener('turbolinks:load', () => {
       es: es,
       modal2: {},
       pre_options: {},
-      options: [],
+      options: JSON.parse(document.getElementById("user_form").getAttribute('academic_departments')),
+      value: ''
     },
     validations: {
       emailValue: {
@@ -86,6 +87,11 @@ document.addEventListener('turbolinks:load', () => {
     },
     mounted: function() {
       this.disabledButton()
+      var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
+      multiple_select.classList.remove("multiselect__tags")
+      multiple_select.classList.add("field_input")
+      multiple_select.classList.add("rounded-t")
+      multiple_select.id = "multi-select"
     },
     computed: { 
       disabled: function() {

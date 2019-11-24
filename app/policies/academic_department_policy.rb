@@ -1,4 +1,4 @@
-class WorkingWeekPolicy
+class AcademicDepartmentPolicy
   attr_reader :user, :resource
 
   def initialize(user, resource)
@@ -10,6 +10,14 @@ class WorkingWeekPolicy
     bt_administration_g
   end
 
+  def new?
+    bt_administration_g
+  end
+
+  def edit?
+    bt_administration_g
+  end
+
   def create?
     bt_administration_g
   end
@@ -18,14 +26,14 @@ class WorkingWeekPolicy
     bt_administration_g
   end
 
-  def update_all?
+  def destroy?
     bt_administration_g
   end
 
   private
 
   def bt_administration_g # Belongs to administration group
-    @user.admin? || @user.doctor?
+    @user.admin?
   end
 
 end

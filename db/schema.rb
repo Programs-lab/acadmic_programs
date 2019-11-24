@@ -10,28 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_214423) do
+ActiveRecord::Schema.define(version: 2019_11_24_225446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "academic_departments", force: :cascade do |t|
-    t.bigint "faculties_id", null: false
+    t.bigint "faculty_id", null: false
     t.string "code", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["faculties_id"], name: "index_academic_departments_on_faculties_id"
+    t.index ["faculty_id"], name: "index_academic_departments_on_faculty_id"
   end
 
   create_table "academic_programs", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
     t.string "email"
-    t.bigint "faculties_id", null: false
+    t.bigint "faculty_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["faculties_id"], name: "index_academic_programs_on_faculties_id"
+    t.index ["faculty_id"], name: "index_academic_programs_on_faculty_id"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -64,10 +64,10 @@ ActiveRecord::Schema.define(version: 2019_11_21_214423) do
 
   create_table "media", force: :cascade do |t|
     t.string "file_name"
-    t.bigint "processes_academic_programs_id"
+    t.bigint "processes_academic_program_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["processes_academic_programs_id"], name: "index_media_on_processes_academic_programs_id"
+    t.index ["processes_academic_program_id"], name: "index_media_on_processes_academic_program_id"
   end
 
   create_table "processes", force: :cascade do |t|
@@ -88,12 +88,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_214423) do
     t.date "expiration_date"
     t.date "saces_date"
     t.date "academic_council_date"
-    t.bigint "academic_programs_id"
-    t.bigint "processes_id"
+    t.bigint "academic_program_id"
+    t.bigint "process_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["academic_programs_id"], name: "index_processes_academic_programs_on_academic_programs_id"
-    t.index ["processes_id"], name: "index_processes_academic_programs_on_processes_id"
+    t.index ["academic_program_id"], name: "index_processes_academic_programs_on_academic_program_id"
+    t.index ["process_id"], name: "index_processes_academic_programs_on_process_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -131,6 +131,8 @@ ActiveRecord::Schema.define(version: 2019_11_21_214423) do
     t.string "avatar"
     t.bigint "academic_program_id"
     t.string "modality"
+    t.bigint "academic_department_id"
+    t.index ["academic_department_id"], name: "index_users_on_academic_department_id"
     t.index ["academic_program_id"], name: "index_users_on_academic_program_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -141,10 +143,10 @@ ActiveRecord::Schema.define(version: 2019_11_21_214423) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "academic_departments", "faculties", column: "faculties_id"
-  add_foreign_key "academic_programs", "faculties", column: "faculties_id"
+  add_foreign_key "academic_departments", "faculties"
+  add_foreign_key "academic_programs", "faculties"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "media", "processes_academic_programs", column: "processes_academic_programs_id"
-  add_foreign_key "processes_academic_programs", "academic_programs", column: "academic_programs_id"
-  add_foreign_key "processes_academic_programs", "processes", column: "processes_id"
+  add_foreign_key "media", "processes_academic_programs"
+  add_foreign_key "processes_academic_programs", "academic_programs"
+  add_foreign_key "processes_academic_programs", "processes"
 end

@@ -1,0 +1,57 @@
+<div id= "faculties_form" class="flex flex-wrap w-full">
+<div class="w-full px-4 shadow rounded-b py-4 border-t-4 border-primary">
+  <%= form_for([@faculty, @academic_program]) do |f| %>
+  <div class="flex w-full">  
+      <div class="w-1/2 mb-6 mr-2 focus_form">
+        <%= f.label "Nombre del programa", class: 'label_input' %>
+        <%= f.text_field :name, class: 'field_input rounded-t' %>
+      </div>
+      <div class="w-1/2 mb-6 ml-2 focus_form">
+        <%= f.label "Codigo del programa", class: 'label_input' %>
+        <%= f.text_field :code, class: 'field_input rounded-t' %>
+      </div>
+  </div>
+  <div class="flex w-full">
+    <div class="w-1/2 mb-6 mr-8 focus_form">
+        <%= f.label "Email del programa", class: 'label_input' %>
+        <%= f.text_field :email, class: 'field_input rounded-t' %>
+    </div>
+  </div>
+    <%= f.hidden_field :faculty_id, value: "#{@faculty.id}" %> 
+  <div class="flex flex-wrap md:items-center">
+    <div class="flex justify-start w-full md:w-1/2">
+  <% unless @academic_program.new_record? %>
+      <a id="myBtn" @click="modalId('delete')" class="btn btn-secondary w-full text-center md:text-left md:w-auto" v-ripple="'rgba(0, 0, 0, 0.20)'">
+        <i class="fas fa-trash"></i>
+      </a>
+
+      <modal-vue i="delete">
+        <template v-slot:title>
+          Eliminar facultad
+        </template>
+        <template v-slot:content>
+          Esta seguro que desea eliminar el departamento <%= "#{@academic_program.code}?" %> Esta accion es permanente
+        </template>
+        <template v-slot:footer>
+          <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('delete')">Cancelar</button>
+            <%= link_to "Eliminar", faculty_academic_department_path(@faculty.id, @academic_program.id), method: :delete, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'" %>
+        </template>
+      </modal-vue>
+    <% end %>
+    </div>
+    <div class="flex justify-end w-full md:w-1/2">
+       <div class="flex justify-end w-full md:w-1/2 mt-2 md:mt-0">
+        <div class="flex justify-end w-full">
+          <div class="flex justify-end w-1/2 md:w-auto mr-1">
+              <%= link_to("Cancelar", request.referer, class: "btn btn-secondary w-full text-center md:w-auto md:text-left no-underline", "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'") %>
+            </div>
+            <div class="flex justify-end w-1/2 md:w-auto ml-1">
+              <%= f.submit "Registrar", id: "submit_button", class: "btn btn-primary w-full text-center md:w-auto md:text-left" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>  
+</div>

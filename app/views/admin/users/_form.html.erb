@@ -104,14 +104,24 @@
       </div>
       <div class="flex flex-wrap mb-5">
 
-        <div class="w-full md:w-1/2 mb-5 md:mb-0 focus_form <%= disabled(user.disabled) %>">
+        <div class="w-full md:w-1/2 mb-5 md:mb-0 pr-2 focus_form <%= disabled(user.disabled) %>">
           <%= f.label :departamento, class: 'label_input' %>
           <div class="relative">
-            <multiselect v-model="value" :options="options" :multiple="false" track-by="id" label="code" :close-on-select='true'><span slot="noResult">No se encontraron resultados.</span></multiselect>
+            <multiselect v-model="value" :options="options" :multiple="false" placeholder=" "  track-by="id" label="code" :close-on-select='true' :select-label="' '" :selected-label="'✓'" :deselect-label= "'✖️'" track-by="id" label="code" :close-on-select='true' @input="fetchPrograms"><span slot="noResult">No se encontraron resultados.</span></multiselect>
           </div>
         </div>
         <div>
           <%= f.hidden_field :academic_department_id, "v-model" => "value"%>
+        </div>
+
+        <div class="w-full md:w-1/2 mb-5 md:mb-0 pl-2 focus_form <%= disabled(user.disabled) %>">
+          <%= f.label :programa, class: 'label_input' %>
+          <div class="relative">
+            <multiselect v-model="other_value" :options="other_options" :multiple="false" placeholder=" " label="name" track-by="id" label="name" :close-on-select='true' :select-label="' '" :selected-label="'✓'" :deselect-label= "'✖️'"><span slot="noResult">No se encontraron resultados.</span></multiselect>
+          </div>
+        </div>
+        <div>
+          <%= f.hidden_field :academic_program_id, "v-model" => "other_value"%>
         </div>
       </div>
 

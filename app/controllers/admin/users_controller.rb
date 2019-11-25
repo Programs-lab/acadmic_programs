@@ -124,15 +124,12 @@ private
       :last_name,
       :id_type,
       :id_number,
-      :phone_number,
-      :occupation,
       :birthdate,
-      :address,
+      :modality,
+      :academic_department_id,
+      :academic_program_id,
       :email,
       :role,
-      :company_id,
-      :signature,
-      procedure_type_ids: []
       )
   end
 

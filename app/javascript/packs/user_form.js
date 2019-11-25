@@ -24,7 +24,9 @@ document.addEventListener('turbolinks:load', () => {
       modal2: {},
       pre_options: {},
       options: JSON.parse(document.getElementById("user_form").getAttribute('academic_departments')),
-      value: ''
+      other_options: [],
+      value: '',
+      other_value: ''
     },
     validations: {
       emailValue: {
@@ -51,19 +53,11 @@ document.addEventListener('turbolinks:load', () => {
       isDoctor(roleValue){
         this.role = (roleValue === 'doctor')
       },
-      fetchProcedureTypes(){
+      fetchPrograms(){
         var self = this
-        self.$http.get(`/api/procedure_types/fetch`).then(response => {self.pre_options = response.body}, response => {console.log(response)})
+        self.$http.get(`/api/academic_programs/fetch_academic_programs/${self.value.id}`).then(response => {self.other_options = response.body}, response => {console.log(response)})
       },
 
-      assignOptions(){
-        var self = this
-        Object.keys(this.pre_options).forEach(function(po_key) {        
-          console.log(po_key)
-          console.log(self.pre_options[po_key])
-          self.options.push(self.pre_options[po_key]) 
-        })
-      },
       fieldClass(element, invalid){
          var el = document.getElementById(element)
         if(invalid){
@@ -87,6 +81,11 @@ document.addEventListener('turbolinks:load', () => {
     },
     mounted: function() {
       this.disabledButton()
+      var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
+      multiple_select.classList.remove("multiselect__tags")
+      multiple_select.classList.add("field_input")
+      multiple_select.classList.add("rounded-t")
+      multiple_select.id = "multi-select"
       var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
       multiple_select.classList.remove("multiselect__tags")
       multiple_select.classList.add("field_input")

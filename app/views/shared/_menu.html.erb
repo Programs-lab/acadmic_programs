@@ -16,33 +16,6 @@
   <% end %>
 <% end %>
 
-  <%= link_to(pages_home_path, class: "no-underline") do %>
-    <div class="list-group-item rounded-t  ">
-      <div class="flex">
-        <div class="w-1/4 text-center">
-          <%= icon('fas','clipboard', class: 'fa-lg') %>
-        </div>
-        <div class="text-left w-3/4">
-          <span>Programas</span>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
-
-  <%= link_to(admin_users_path, class: "no-underline") do %>
-    <div class="list-group-item rounded-t ">
-      <div class="flex">
-        <div class="w-1/4 text-center">
-          <%= icon('fas','briefcase', class: 'fa-lg') %>
-        </div>
-        <div class="text-left w-3/4">
-          <span>Departamentos</span>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
   <%= link_to(faculties_path, class: "no-underline") do %>
     <div class="list-group-item rounded-t">
       <div class="flex">
@@ -55,6 +28,22 @@
       </div>
     </div>
   <% end %>
+
+
+  <%= link_to(academic_processes_path, class: "no-underline") do %>
+    <div class="list-group-item rounded-t ">
+      <div class="flex">
+        <div class="w-1/4 text-center">
+          <%= icon('fas','archive', class: 'fa-lg') %>
+        </div>
+        <div class="text-left w-3/4">
+          <span>Procesos</span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+
 
 
 </div>

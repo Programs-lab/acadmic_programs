@@ -82,13 +82,20 @@ module ApplicationHelper
   end
 
   def roles_names(user)
-    if user.patient?
-      "Paciente"
-    elsif user.doctor?
-      "Doctor"
+    if user.director?
+      "Director"
     else
       "Administrador"
     end
+  end
+
+  def modlities_names(user)
+    case user.modality
+    when "mag" then "Maestria"
+    when "preg" then "Pregrado"
+    when "esp" then "Especialidad"
+    when "doc" then "Doctorado"
+    end        
   end
 
   def testing

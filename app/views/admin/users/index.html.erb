@@ -42,8 +42,7 @@
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
           <th scope="col">N° identificación</th>
-          <th scope="col" class="hidden lg:table-cell xl:table-cell">Numero telefonico</th>
-          <th scope="col" class="hidden lg:table-cell xl:table-cell">Ocupación</th>
+          <th scope="col">Modalidad</th>
           <th scope="col">Rol</th>
         </tr>
       </thead>
@@ -63,8 +62,7 @@
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
           <td><%= user.id_number %></td>
-          <td class="hidden lg:table-cell xl:table-cell"><%= user.phone_number %></td>
-          <td class="hidden lg:table-cell xl:table-cell"><%= user.occupation %></td>
+          <td><%= modlities_names(user) %></td>
           <td><%= roles_names(user) %></td>
         </tr>
        <% end %>

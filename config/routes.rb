@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   get 'users/index'
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
+  namespace :api do
+    get 'academic_programs/fetch_academic_programs/:faculty_id/', to: 'academic_programs#fetch_academic_programs'
+  end
+
   namespace :admin do
     resources :users, path: 'usuarios' do
       post '/invitar', to: 'users#invite', as: :invite
@@ -14,8 +18,11 @@ Rails.application.routes.draw do
 
   resources :faculties, path: 'facultades', only: [:index, :new, :edit, :create, :update, :destroy] do
     resources :academic_departments, path: 'departamentos', except: [:show]
-    resources :academic_programs, path: 'programas', except: [:show]
+    resources :academic_programs, path: 'programas', except: [:show] do 
+      resources :process_academic_programs, path: "procesos", except: [:show]
+    end
   end
+  resources :academic_processes, path: 'procesos', only: [:index, :new, :edit, :create, :update, :destroy]
   root 'redirection#index'
   get 'pages/home'
   get 'pages/medical_record'

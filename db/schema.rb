@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_24_225446) do
+ActiveRecord::Schema.define(version: 2019_11_25_220310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 2019_11_24_225446) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["faculty_id"], name: "index_academic_departments_on_faculty_id"
+  end
+
+  create_table "academic_processes", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "year_saces"
+    t.integer "month_saces"
+    t.integer "day_saces"
+    t.integer "year_academic_council"
+    t.integer "month_academic_council"
+    t.integer "day_academic_council"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "academic_programs", force: :cascade do |t|
@@ -70,18 +82,6 @@ ActiveRecord::Schema.define(version: 2019_11_24_225446) do
     t.index ["processes_academic_program_id"], name: "index_media_on_processes_academic_program_id"
   end
 
-  create_table "processes", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "year_saces"
-    t.integer "month_saces"
-    t.integer "day_saces"
-    t.integer "year_academic_council"
-    t.integer "month_academic_council"
-    t.integer "day_academic_council"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "processes_academic_programs", force: :cascade do |t|
     t.date "men_date"
     t.integer "validity"
@@ -89,11 +89,11 @@ ActiveRecord::Schema.define(version: 2019_11_24_225446) do
     t.date "saces_date"
     t.date "academic_council_date"
     t.bigint "academic_program_id"
-    t.bigint "process_id"
+    t.bigint "academic_process_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["academic_process_id"], name: "index_processes_academic_programs_on_academic_process_id"
     t.index ["academic_program_id"], name: "index_processes_academic_programs_on_academic_program_id"
-    t.index ["process_id"], name: "index_processes_academic_programs_on_process_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -147,6 +147,6 @@ ActiveRecord::Schema.define(version: 2019_11_24_225446) do
   add_foreign_key "academic_programs", "faculties"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "media", "processes_academic_programs"
+  add_foreign_key "processes_academic_programs", "academic_processes"
   add_foreign_key "processes_academic_programs", "academic_programs"
-  add_foreign_key "processes_academic_programs", "processes"
 end

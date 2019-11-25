@@ -1,0 +1,10 @@
+<%= render 'shared/card' do%>
+<div class="flex flex-wrap px-4">
+  <div class="flex felx-wrap mb-4">
+    <div class="w-full">
+      <h3>Editar Proceso: <%= "#{@academic_process.name}" %></h3>
+    </div>
+  </div>
+  <%= render 'form', academic_process: @academic_process %>
+</div>
+<% end %>

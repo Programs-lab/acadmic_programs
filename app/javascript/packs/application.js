@@ -35,7 +35,9 @@ require('./scheduled_appointments');
 require('./medical_record_index');
 require('./appointments_index');
 require('./appointment_summary');
+require('./process_academic_programs');
 require('./profile');
+
 
 //components
 

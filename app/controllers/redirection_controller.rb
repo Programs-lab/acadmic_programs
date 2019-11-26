@@ -4,7 +4,7 @@ class RedirectionController < ApplicationController
   def index
     path = case current_user.role
      when 'director'
-      pages_home_path
+      faculty_academic_program_process_academic_programs_path(current_user.academic_program.faculty, current_user.academic_program)
      when 'doctor'
       scheduled_appointments_path
      when 'admin'     

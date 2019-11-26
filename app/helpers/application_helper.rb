@@ -32,6 +32,21 @@ module ApplicationHelper
     end
   end
 
+  def is_faculty_path
+    case request.params[:controller]
+    when 'faculties' then 'active'
+    when 'process_academic_programs' then 'active'
+    when 'academic_programs' then 'active'
+    when 'academic_departments' then 'active'
+    end
+  end
+
+  def is_processes_path
+    case request.params[:controller]
+    when 'academic_processes' then 'active'
+    end
+  end
+
   def is_medical_record_path
     case request.path
     when '/historial_medico' then 'active'

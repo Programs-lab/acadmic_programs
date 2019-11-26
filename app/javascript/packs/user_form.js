@@ -25,8 +25,8 @@ document.addEventListener('turbolinks:load', () => {
       pre_options: {},
       options: JSON.parse(document.getElementById("user_form").getAttribute('academic_departments')),
       other_options: [],
-      value: '',
-      other_value: ''
+      value: document.getElementById("user_form").getAttribute('department_id'),
+      other_value: document.getElementById("user_form").getAttribute('program_id')
     },
     validations: {
       emailValue: {

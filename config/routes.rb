@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     get 'academic_programs/fetch_academic_programs/:faculty_id/', to: 'academic_programs#fetch_academic_programs'
+    post 'media/:id', to: 'media#create'
+    get  'media/:id', to: 'media#index'
+    delete  'media/:id', to: 'media#destroy'
   end
 
   namespace :admin do

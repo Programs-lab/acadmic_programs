@@ -41,7 +41,7 @@
           <th scope="col" width="20%"></th>
           <th scope="col" width="30%">Nombre</th>
           <th scope="col" width="20%">Codigo</th>
-          <th scope="col" width="30%">Email</th>
+          <th scope="col" width="30%">Director</th>
         </tr>
       </thead>
       <tbody class="">
@@ -52,11 +52,14 @@
               <%= link_to(edit_faculty_academic_program_path(@faculty, ap), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
                 <%= icon('fas', 'pencil-alt') %>
               <% end %>
+              <%= link_to(faculty_academic_program_process_academic_programs_path(faculty_id: @faculty.id, academic_program_id: ap.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'file-archive') %>
+              <% end %>
             </div>
           </td>
           <td><%= ap.name %></td>
           <td><%= ap.code %></td>
-          <td><%= ap.email %></td>
+          <td><%= ap.users.any? ? "#{ap.users.first.first_name}" "#{ap.users.first.last_name}" : "-" %> </td>
         </tr>
        <% end %>
       </tbody>

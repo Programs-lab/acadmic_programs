@@ -1,44 +1,24 @@
 <%= render  'shared/card' do %>
+<div id="program_processes" data-ids-array="<%= @processes_academic_programs.select(:id).to_json %>" data-all-media="<%= @processes_academic_programs.to_json(include: :media) %>">
   <div class="flex flex-row-reverse px-4">
-    <div class="w-2/3 text-right">
-    <%= link_to('Crear un programa academico', new_faculty_academic_program_path(faculty_id: @faculty.id), class: "btn btn-primary") %>
-    </div>
   </div>
 
   <div class="my-8 flex px-4">
     <div class="w-1/2">
       <h4 class="font-semibold text-g-d4 text-lg">
-        Programas academicos de la facultad <%= "#{@faculty.name}" %>
-        <br><span class="font-medium text-sm text-g-d2">Listado de programas</span>
+         <%= "#{@academic_program.name}" %>
+        <br><span class="font-medium text-sm text-g-d2"> Codigo: <%= @academic_program.code %></span>
+        <br><span class="font-medium text-sm text-g-d2"> Director: <%= @academic_program.users.any? ? "#{@academic_program.users.first.first_name}" "#{@academic_program.users.first.last_name}" : "-" %>
       </h4>
-    </div>
-    <div class="w-1/2 text-right">
-      <form class="w-full max-w-sm justify-end">
-        <div class="flex items-center py-2 justify-end">
-          <%= form_with url: faculty_academic_programs_path(@faculty), method: :get, class: "w-full max-w-sm" do |f|%>
-          <div class="flex items-center border-b border-b-2 border-g-l3 w-2/3">
-            <%= f.text_field :query, class: 'w-full flex rounded-t h-8 focus:outline-none', value: params[:query], placeholder: "Nombre, Codigo...." %>
-            <%= button_tag(type: "submit", class: "btn-flat") do %>
-              <i class="fas fa-search"></i>
-            <% end %>
-            <% if params[:query] && params[:query] != "" %>
-              <%= link_to faculty_academic_programs_path(@faculty), method: :get, class: "btn-flat" do %>
-                <i class="fas fa-eraser"></i>
-              <% end %>
-            <% end %>
-          <% end %>
-          </div>
-        </div>
-      </form>
-    </div>
+    </div>  
   </div>
 
-<% @companies.each_with_index do |company, index| %>
+<% @processes_academic_programs.each_with_index do |process, index| %>
   <div class="row justify-center">
      <collapse-vue i="collpase_<%= index %>">
       <template v-slot:title-left>
         <%= icon('fas','building', class: 'fa-md mr-4') %>
-        <span><%= company.company_name %></span>
+        <span><%= process.academic_process.name %></span>
       </template>
       <template v-slot:title-right>
         <a @click="modalId('modal_<%= index %>')">
@@ -47,14 +27,81 @@
       </template>
       <template v-slot:content>
 
+       <div class="overflow-auto">
+        <!-- table heading -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" width="30%">Rsolucion</th>
+              <th scope="col" width="15%">Vigencia</th>
+              <th scope="col" width="25%">Vencimiento</th>
+              <th scope="col" width="25%">Fecha SACES</th>
+              <th scope="col" width="30%">Plazo consejo academico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><%= process.men_date ?  process.men_date.strftime("%Y/%m/%d ") : "-" %></th>
+              <td><%= process.validity || "-"%></td>            
+              <td><%= process.expiration_date ? process.expiration_date.strftime("%Y/%m/%d ") : "-" %></td>
+              <td><%= process.saces_date ? process.saces_date.strftime("%Y/%m/%d ") : "-" %></td>
+              <td><%= process.academic_council_date ? process.academic_council_date.strftime("%Y/%m/%d ") : "-" %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="divider"></div>
 
+          
+          <div class="flex w-full">
+             <vue-dropzone ref="myVueDropzone_<%= index %>" v-on:vdropzone-success="fetchMedia(<%= process.id %>, <%= index %>), removeFilesFromDZ('myVueDropzone_<%= index %>')" id="dropzone" :options="options_array[<%= index %>]"></vue-dropzone>
+           </div>
+           <br>
+             <div class="px-0 md:px-4 overflow-auto" v-show="media_array[<%= index %>].length > 0">
 
+              <table class="table table-responsive">
+                <thead>
+                  <tr>
+                    <th width="30%"></th>
+                    <th width="30%">Fecha/Hora</th>
+                    <th width="50%">Nombre</th>
+                  </tr>
+                </thead>
+                <tbody class="">
+                  <tr v-for="(medium, index) in media_array[<%= index %>]">
 
+                    <td>
+                      <a v-bind:href="medium.file_name.url" class='btn btn-secondary no-outline' target='_blank'>Ver</a>
+                      <button type="button" class="btn btn-red-light" @click="removeMedium(medium.id, <%= index %>, index)">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                    <td>
+                      {{$moment(medium.created_at).format('D/M/YYYY h:mm:ss')}}
+                    </td>
+                    <td>
+                      {{medium.file_name.url.split('/')[medium.file_name.url.split('/').length-1]}}
+                    </td>
 
-
-        
-          HERE IS WHERE THE MAGIC HAPPENS
-
+                  </tr>
+                </tbody>
+              </table>
+            </div> 
+          </div>         
+        <div class="" v-if="media_array[<%= index %>].length === 0">          
+          <div class="flex w-full justify-center">
+            <div class="alert alert-info w-full mx-4" role="alert">
+              <div class="flex w-full">
+                <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
+                <div class="text-teal-darkest">
+                  <p class="font-bold">Atención.</p>
+                  <p class="text-sm">Aun no hay archivos asociados a este paciente, puede usar el campo de carga de archivos para agregar uno</i></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -63,32 +110,62 @@
 
       </template>
      </collapse-vue>
-     <%= form_with scope: :company, url: company_path(company.id), method: 'put', class: ""  do |f2| %>
+     <%= form_with model: process, url: faculty_academic_program_process_academic_program_path(@faculty, @academic_program, process), method: 'put', local: true, class: ""  do |f2| %>
         <modal-vue i="modal_<%= index %>" style_modal="width: 45%;">          
           <template v-slot:title>
-            <%= "Editar empresa #{company.company_name}" %>
+            <%= "Editar fecha de resolucion y vigencia" %>
           </template>
           <template v-slot:content>          
             <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
-              <div  class="w-full mb-6 focus_form">
-                <%= f2.label "Nombre de la empresa", class: 'label_input' %>
-                <%= f2.text_field :company_name, value: company.company_name, class: 'field_input rounded-t' %>
+              <div  class="w-1/2 mb-6 pr-2 focus_form">
+                <%= f2.label "fecha de resolucion", class: 'label_input' %>                
+                <datepicker input-class="field_input rounded-t"  :language="es" v-model="men_date"></datepicker>
+                <%= f2.hidden_field :men_date, {"v-model" => "men_date"} %>
               </div>
-              <div  class="w-full mb-2 focus_form">
-                <%= f2.label :NIT, class: 'label_input' %>
-                <%= f2.number_field :company_id, value: company.company_id, class: 'field_input rounded-t'%>
+              <div  class="w-1/2 mb-6 pl-2 focus_form">
+                <%= f2.label "numero resolucion", class: 'label_input' %>                
+                <%= f2.text_field :resolution, value: process.resolution, class: 'field_input rounded-t'%>
+              </div>
+              <div  class="w-full mb-8 focus_form">
+                <%= f2.label "Vigencia", class: 'label_input' %>
+                <%= f2.number_field :validity, value: process.validity, class: 'field_input rounded-t'%>
+              </div>
+              <div class="flex w-full mb-4">
+                <div class="flex w-full">
+                  <button type="button" class="btn btn-default" @click="show_backups = !show_backups">
+                      Ver Historial de resoulciones
+                  </button>
+                </div>
+              </div>
+              <div class="flex w-full">
+                <div class="flex w-full" v-show="show_backups">
+                <table class="table table-responsive w-full">
+                  <thead>
+                    <tr>
+                      <th scope="col" width="40%">Resolucion</th>
+                      <th scope="col" width="60%">Fecha</th>
+                    </tr>
+                  </thead>
+                  <tbody class="">
+                    <% process.men_backups.each do |b| %>
+                    <tr>
+                      <td><%= b.resolution %></td>
+                      <td><%= b.men_date %> </td>
+                    </tr>
+                   <% end %>
+                  </tbody>
+                </table>
+                </div>
               </div>
             </div>
+
+
+  
           </template>
           <template v-slot:footer>
-            <div class="flex justify-start w-1/2">
-              <%= link_to company_path(company.id), method: 'delete', data: {confirm: 'Esto elimnara el registro, ¿esta seguro?'}, class: "btn btn-red-light mx-1"  do %>
-                <%= icon('fas', 'trash') %>
-              <% end %>
-            </div>
             <div class="flex justify-end w-1/2">
               <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('modal_<%= index %>')">Cancelar</button>
-            <%= f2.submit "Registrar", class: "btn btn-primary"%>
+              <%= f2.submit "Registrar", class: "btn btn-primary"%>
             </div>
           </template>
         </modal-vue> 
@@ -96,4 +173,5 @@
     </div>
     <% end %>
     <%== render 'pagy/nav', pagy: @pagy %>
+  </div>
 <% end %>

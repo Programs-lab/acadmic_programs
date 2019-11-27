@@ -12,7 +12,6 @@ Vue.use(TurbolinksAdapter)
 Vue.use(vClickOutside)
 Vue.use(VuePaginate)
 Vue.use(VueMoment, { moment } );
-moment.locale('es')
 
 document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('program_processes')) {

@@ -85,11 +85,6 @@ document.addEventListener('turbolinks:load', () => {
       })
     },
     computed: { 
-      disabled: function() {
-        return {
-          'disabled': this.$v.$anyError || this.$v.$invalid,
-          '': !(this.$v.$anyError || this.$v.$invalid),
-        }
       }
     },
     components: {

@@ -102,7 +102,7 @@
         <% end %>
 
       </div>
-      <div v-show="roleValue === 'director'">
+      <div v-if="roleValue === 'director'">
         <div class="flex flex-wrap mb-5">
           <div class="w-full md:w-1/2 mb-5 md:mb-0 pr-2 focus_form <%= disabled(user.disabled) %>">
             <%= f.label :departamento, class: 'label_input' %>

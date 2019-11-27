@@ -84,9 +84,6 @@ document.addEventListener('turbolinks:load', () => {
 
       })
     },
-    computed: { 
-      }
-    },
     components: {
       Datepicker,
       Multiselect

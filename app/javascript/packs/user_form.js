@@ -25,8 +25,8 @@ document.addEventListener('turbolinks:load', () => {
       pre_options: {},
       options: JSON.parse(document.getElementById("user_form").getAttribute('academic_departments')),
       other_options: [],
-      value: {id: null},
-      other_value: {id: null}
+      value: '',
+      other_value: ''
     },
     validations: {
       emailValue: {
@@ -80,6 +80,7 @@ document.addEventListener('turbolinks:load', () => {
       }
     },
     mounted: function() {
+      this.disabledButton()
       this.$nextTick(function () {  
         var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
         multiple_select.classList.remove("multiselect__tags")

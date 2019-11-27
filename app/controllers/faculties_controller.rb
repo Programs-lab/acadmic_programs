@@ -32,7 +32,7 @@ class FacultiesController < ApplicationController
 
   def update
     authorize @faculty
-    if @faculty.update(procedure_type_params)
+    if @faculty.update(faculty_params)
       redirect_to faculties_path, notice: 'La facultad fue actualizada exitosamente.'
     else
       redirect_to faculties_path, alert: 'No fue posible concretar el registro, por favor revise los campos nuevamente'

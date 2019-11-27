@@ -1,7 +1,7 @@
 module AppointmentHelper
 
   def process_state(process)
-
+  if process 
     if process + 1.month == Date.today
       ["Alerta", "badge-warning"]
     elsif process + 1.week == Date.today
@@ -11,6 +11,10 @@ module AppointmentHelper
     else
         ["Vigente", "badge-success"]
     end
+  else
+    ["-", "badge-default"]
+  end
+    
 
   end
 

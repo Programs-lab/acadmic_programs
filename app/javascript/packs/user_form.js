@@ -81,8 +81,25 @@ document.addEventListener('turbolinks:load', () => {
     },
     mounted: function() {
       this.$nextTick(function () {  
-
+        var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
+        multiple_select.classList.remove("multiselect__tags")
+        multiple_select.classList.add("field_input")
+        multiple_select.classList.add("rounded-t")
+        multiple_select.id = "multi-select"
+        var multiple_select = document.getElementsByClassName('multiselect__tags')[0]
+        multiple_select.classList.remove("multiselect__tags")
+        multiple_select.classList.add("field_input")
+        multiple_select.classList.add("rounded-t")
+        multiple_select.id = "multi-select"
       })
+    },
+    computed: { 
+      disabled: function() {
+        return {
+          'disabled': this.$v.$anyError || this.$v.$invalid,
+          '': !(this.$v.$anyError || this.$v.$invalid),
+        }
+      }
     },
     components: {
       Datepicker,

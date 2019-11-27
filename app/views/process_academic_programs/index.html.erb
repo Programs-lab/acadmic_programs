@@ -119,7 +119,7 @@
             <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
               <div  class="w-1/2 mb-6 pr-2 focus_form">
                 <%= f2.label "fecha de resolucion", class: 'label_input' %>                
-                <datepicker input-class="field_input rounded-t"  :language="es" v-model="men_date"></datepicker>
+                <datepicker input-class="field_input rounded-t" v-model="men_date"></datepicker>
                 <%= f2.hidden_field :men_date, {"v-model" => "men_date"} %>
               </div>
               <div  class="w-1/2 mb-6 pl-2 focus_form">

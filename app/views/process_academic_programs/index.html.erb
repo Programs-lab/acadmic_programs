@@ -18,7 +18,7 @@
      <collapse-vue i="collpase_<%= index %>">
       <template v-slot:title-left>
         <%= icon('fas','building', class: 'fa-md mr-4') %>
-        <span><%= process.academic_process.name %></span>
+        <span><%= process.academic_process.name %></span>  <span class="flex <%= process_state(process.expiration_date)[1] %> justify-center text-sm px-2 py-1 mr-3"><%= process_state(process.expiration_date)[0] %></span>
       </template>
       <template v-slot:title-right>
         <a @click="modalId('modal_<%= index %>')">

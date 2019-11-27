@@ -8,8 +8,11 @@ class AcademicProgram < ApplicationRecord
 
 
   def create_processes
-    Process.all.each do |p|
-      self.processes_academic_programs.create(academic_process_id: p.id)
+    if Process.any?
+      Process.all.each do |p|
+        self.processes_academic_programs.create(academic_process_id: p.id)
+      end  
     end
+    
   end
 end

@@ -1,10 +1,11 @@
 <%= render  'shared/card' do %>
+<% if current_user.admin?  %>
   <div class="flex flex-row-reverse px-4">
     <div class="w-2/3 text-right">
     <%= link_to('Crear un programa academico', new_faculty_academic_program_path(faculty_id: @faculty.id), class: "btn btn-primary") %>
     </div>
   </div>
-
+<% end %>
   <div class="my-8 flex px-4">
     <div class="w-1/2">
       <h4 class="font-semibold text-g-d4 text-lg">
@@ -50,9 +51,11 @@
         <tr>
           <td>
             <div class="py-2 hidden md:table-cell">
+            <% if current_user.admin?  %>
               <%= link_to(edit_faculty_academic_program_path(@faculty, ap), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
                 <%= icon('fas', 'pencil-alt') %>
               <% end %>
+            <% end %>
               <%= link_to(faculty_academic_program_process_academic_programs_path(faculty_id: @faculty.id, academic_program_id: ap.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
                 <%= icon('fas', 'file-archive') %>
               <% end %>

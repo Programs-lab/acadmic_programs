@@ -22,6 +22,10 @@ class AcademicProcessPolicy
     bt_administration_g
   end
 
+  def documents?
+    bt_administration_g
+  end
+
   def update?
     bt_administration_g
   end
@@ -35,4 +39,5 @@ class AcademicProcessPolicy
   def bt_administration_g # Belongs to administration group
     @user.admin?
   end
+
 end

@@ -10,6 +10,7 @@ ID_TYPES = {
 ROLES = {
  admin:  "Administrador",
  director: "Director",
+ functionary: "Funcionario",
 }
 
 MODALITIES = {
@@ -18,14 +19,14 @@ MODALITIES = {
   mag: "Maestria",
   doc: "Doctorado"
 }
-  
+
 PROCEDURE_KINDS = {
  consulta:  "Consulta",
  procedimiento: "Procedimiento"
-}  
+}
 
 DAYS = {
-  0 => "Lunes", 
+  0 => "Lunes",
   1 => "Martes",
   2 => "Miercoles",
   3 => "Jueves",

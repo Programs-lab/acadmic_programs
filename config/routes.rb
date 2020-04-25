@@ -21,11 +21,13 @@ Rails.application.routes.draw do
 
   resources :faculties, path: 'facultades', only: [:index, :new, :edit, :create, :update, :destroy] do
     resources :academic_departments, path: 'departamentos', except: [:show]
-    resources :academic_programs, path: 'programas', except: [:show] do 
+    resources :academic_programs, path: 'programas', except: [:show] do
       resources :process_academic_programs, path: "procesos", except: [:show]
     end
   end
-  resources :academic_processes, path: 'procesos', only: [:index, :new, :edit, :create, :update, :destroy]
+  resources :academic_processes, path: 'procesos', only: [:index, :new, :edit, :create, :update, :destroy] do
+    get '/documentos', to: 'academic_processes#documents', as: :documents
+  end
   root 'redirection#index'
   get 'pages/home'
   get 'pages/medical_record'

@@ -28,7 +28,7 @@ require('./flash');
 require('./faculties');
 require('./procedure_types');
 require('./medical_record');
-require('./working_weeks');
+require('./documents');
 require('./user_no_registered');
 require('./appointments');
 require('./scheduled_appointments');

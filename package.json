@@ -2,9 +2,12 @@
   "name": "gastromed",
   "private": true,
   "dependencies": {
+    "@ajoelp/json-to-formdata": "^1.1.0",
     "@rails/webpacker": "^4.0.2",
     "colombia-holidays": "^0.0.1",
+    "json-form-data": "^1.7.2",
     "luxon": "^1.12.1",
+    "object-to-formdata": "^3.0.6",
     "tailwindcss": "^0.7.4",
     "tailwindcss-tables": "^0.2.0",
     "v-click-outside": "^2.0.2",

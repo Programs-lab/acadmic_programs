@@ -8,6 +8,7 @@ class AcademicDepartmentPolicy
 
   def index?
     bt_administration_g
+    bt_functionary_g
   end
 
   def new?
@@ -34,6 +35,10 @@ class AcademicDepartmentPolicy
 
   def bt_administration_g # Belongs to administration group
     @user.admin?
+  end
+
+  def bt_functionary_g # Belongs to administration group
+    @user.functionary?
   end
 
 end

@@ -1,0 +1,105 @@
+<%= render  'shared/card' do %>
+<%= content_tag :div ,
+  id: 'documents',
+  "v-cloak" => "true",
+  data: {
+    process: @academic_process.to_json(except: [:created_at, :updated_at]),
+    documents_attributtes: @academic_process.documents.to_json(except: [:academic_process_id, :created_at, :updated_at])
+  } do %>
+
+  <div class="my-8 flex px-4 items-center">
+    <div class="flex w-full">
+      <h4 class="font-semibold text-g-d4 text-lg">
+        <span>Documentos necesarios para el proceso de <%= @academic_process.name %> </span>
+        <br>
+      </h4>
+    </div>
+  </div>
+  <div class="divider px-16"></div>
+      <div class="row w-full justify-start pl-4 text-lg mr-1">Listado de documentos</div>
+  <br>
+  <div class="flex w-full justify-center">
+    <div class="alert alert-warning w-full mx-4" role="alert" v-show= 'showAlert' v-cloak >
+      <div class="flex w-full">
+        <%= icon('fa', icon_alert['warning'], class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm"> Parece que hay un problema revise si hay campos en blanco, si necesita eliminar un documento por favor use el boton <i class="fas fa-trash px-1"></i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="py-4">
+  <div class="row justify-center">
+    <div class="flex w-full justify-center items-center">
+      <div class="row w-full justify-end px-16 mr-1 pb-4">
+        <a @click="addDocument()">
+          <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+        </a>
+      </div>
+    </div>
+
+    <div class="flex w-full py-2" v-for="(doc, index) in ac_process.documents_attributes">
+
+      <div class="flex w-full justify-center items-center py-4 bg-white shadow border border-g-l5 py-4 px-2 md:rounded" >
+        <div class="flex w-full" v-show="doc._destroy == '1'">
+          <div class="row w-3/4 mx-4">
+            Este registro se removera al guardar los cambios
+          </div>
+          <div class="row w-1/4 px-4">
+            <button @click="undoRemove(index)" class="btn btn-secondary no-outline">Deshacer</button>
+          </div>
+        </div>
+        <div class="flex w-full" v-show= "doc._destroy != '1'" >
+
+          <div class="row w-1/4 focus_form mx-4">
+            <label class="label_input">Nombre</label>
+              <input type="text" id="document_name_${doc.id}" v-model=doc.name class="field_input">
+          </div>
+
+          <div class="row w-1/4 focus_form mx-4" >
+            <label class="label_input">Descripcion</label>
+              <input type="text" id="document_description_${doc.id}" v-model=doc.description class=field_input>
+          </div>
+
+          <div class="row w-1/4 focus_form mx-4">
+            <label class="label_input">plantilla</label>
+            <div class="inline-flex">
+              <label for="doc_template_${doc.id}" class="btn btn-secondary text-xs md:text-base">
+                  <i class="fas fa-cloud-upload-alt"></i> Subir documento
+              </label>
+              <div v-if="doc.template !== null && doc.id !== null" class="mt-4">
+                <a v-bind:href="doc.template.url" class='btn btn-secondary no-outline' target='_blank'>Ver</a>
+              </div>
+            </div>
+            <input type="file" id="doc_template_${doc.id}" @change="doc.template = $event.target.files[0]" autofocus= "true" class= "field_input">
+          </div>
+
+          <div class="row w-1/4 justify-center pl-4 pb-2 mt-2">
+              <button class="btn btn-red-light mx-1" @click="removeDocument( index), $v.$reset(), $v.$touch()">
+                <%= icon('fas', 'trash') %>
+              </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="flex w-1/2 justify-end px-12">
+    </div>
+  </div>
+  <br>
+  <div class="divider"></div>
+  <div class="flex w-full justify-end pr-6">
+       <a class="btn btn-primary" @click='save'>
+         Guardar
+       </a>
+  </div>
+
+
+
+
+
+  </div>
+
+<% end %>
+<% end %>

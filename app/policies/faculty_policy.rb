@@ -7,7 +7,7 @@ class FacultyPolicy
   end
 
   def index?
-    bt_administration_g
+    bt_administration_g ||
     bt_functionary_g
   end
 

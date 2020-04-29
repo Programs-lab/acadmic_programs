@@ -10,7 +10,7 @@
         <br><span class="font-medium text-sm text-g-d2"> Codigo: <%= @academic_program.code %></span>
         <br><span class="font-medium text-sm text-g-d2"> Director: <%= @academic_program.users.any? ? "#{@academic_program.users.first.first_name}" "#{@academic_program.users.first.last_name}" : "-" %>
       </h4>
-    </div>  
+    </div>
   </div>
 
 <% @processes_academic_programs.each_with_index do |process, index| %>
@@ -42,7 +42,7 @@
           <tbody>
             <tr>
               <th scope="row"><%= process.men_date ?  process.men_date.strftime("%Y/%m/%d ") : "-" %></th>
-              <td><%= process.validity || "-"%></td>            
+              <td><%= process.validity || "-"%></td>
               <td><%= process.expiration_date ? process.expiration_date.strftime("%Y/%m/%d ") : "-" %></td>
               <td><%= process.saces_date ? process.saces_date.strftime("%Y/%m/%d ") : "-" %></td>
               <td><%= process.academic_council_date ? process.academic_council_date.strftime("%Y/%m/%d ") : "-" %></td>
@@ -52,7 +52,7 @@
       </div>
       <div class="divider"></div>
 
-          
+
           <div class="flex w-full">
              <vue-dropzone ref="myVueDropzone_<%= index %>" v-on:vdropzone-success="fetchMedia(<%= process.id %>, <%= index %>), removeFilesFromDZ('myVueDropzone_<%= index %>')" id="dropzone" :options="options_array[<%= index %>]"></vue-dropzone>
            </div>
@@ -86,9 +86,9 @@
                   </tr>
                 </tbody>
               </table>
-            </div> 
-          </div>         
-        <div class="" v-if="media_array[<%= index %>].length === 0">          
+            </div>
+          </div>
+        <div class="" v-if="media_array[<%= index %>].length === 0">
           <div class="flex w-full justify-center">
             <div class="alert alert-info w-full mx-4" role="alert">
               <div class="flex w-full">
@@ -111,19 +111,19 @@
       </template>
      </collapse-vue>
      <%= form_with model: process, url: faculty_academic_program_process_academic_program_path(@faculty, @academic_program, process), method: 'put', local: true, class: ""  do |f2| %>
-        <modal-vue i="modal_<%= index %>" style_modal="width: 45%;">          
+        <modal-vue i="modal_<%= index %>" style_modal="width: 45%;">
           <template v-slot:title>
             <%= "Editar fecha de resolucion y vigencia" %>
           </template>
-          <template v-slot:content>          
+          <template v-slot:content>
             <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
               <div  class="w-1/2 mb-6 pr-2 focus_form">
-                <%= f2.label "fecha de resolucion", class: 'label_input' %>                
+                <%= f2.label "fecha de resolucion", class: 'label_input' %>
                 <datepicker input-class="field_input rounded-t" v-model="men_date"></datepicker>
                 <%= f2.hidden_field :men_date, {"v-model" => "men_date"} %>
               </div>
               <div  class="w-1/2 mb-6 pl-2 focus_form">
-                <%= f2.label "numero resolucion", class: 'label_input' %>                
+                <%= f2.label "numero resolucion", class: 'label_input' %>
                 <%= f2.text_field :resolution, value: process.resolution, class: 'field_input rounded-t'%>
               </div>
               <div  class="w-full mb-8 focus_form">
@@ -160,7 +160,7 @@
             </div>
 
 
-  
+
           </template>
           <template v-slot:footer>
             <div class="flex justify-end w-1/2">
@@ -168,8 +168,8 @@
               <%= f2.submit "Registrar", class: "btn btn-primary"%>
             </div>
           </template>
-        </modal-vue> 
-      <% end %>     
+        </modal-vue>
+      <% end %>
     </div>
     <% end %>
     <%== render 'pagy/nav', pagy: @pagy %>

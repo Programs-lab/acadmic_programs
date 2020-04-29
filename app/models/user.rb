@@ -16,7 +16,7 @@ class User < ApplicationRecord
          :validatable,
          :confirmable,
          :timeoutable, reconfirmable: true
-  enum role: [:director, :admin]
+  enum role: [:director, :admin, :functionary]
   validates_uniqueness_of :id_number
   mount_uploader :avatar, ImageUploader
   mount_uploader :signature, SignatureUploader

@@ -38,7 +38,8 @@
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th scope="col" width="20%"></th>
+          <th scope="col" width="5%"></th>
+          <th scope="col" width="5%"></th>
           <th scope="col" width="30%">Nombre</th>
           <th scope="col" width="25%">Vigencia SACES</th>
           <th scope="col" width="25%">Vigencia consejo academico</th>
@@ -54,9 +55,16 @@
               <% end %>
             </div>
           </td>
+          <td>
+            <div class="py-2 hidden md:table-cell">
+              <%= link_to(academic_process_documents_path(process.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'file-word') %>
+              <% end %>
+            </div>
+          </td>
           <td><%= process.name %></td>
-          <td><%= process.year_saces %> - <%= process.month_saces %> - <%= process.day_saces %></td>
-          <td><%= process.year_academic_council %> - <%= process.month_academic_council %> - <%= process.day_academic_council %></td></td>
+          <td><%= "#{process.year_saces } Año/s " if process.year_saces > 0 %>   <%= " #{process.month_saces} Mes/es" if process.month_saces > 0 %>   <%= " #{process.day_saces} Dia/s" if process.day_saces > 0 %></td>
+          <td><%= "#{process.year_academic_council} Año/s " if process.year_academic_council > 0 %>   <%= " #{process.month_academic_council} Mes/es " if process.month_academic_council > 0 %>   <%= " #{process.day_academic_council} Dia/s " if process.day_academic_council > 0 %> </td></td>
         </tr>
        <% end %>
       </tbody>

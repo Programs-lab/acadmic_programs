@@ -7,11 +7,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.4.3-jessie-node
         environment: # environment variables for primary container
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
-          BUNDLE_PATH: vendor/bundle
-          PGHOST: 127.0.0.1
-          PGUSER: circleci-demo-ruby
+          BUNDLER_VERSION: 2.0.2
           RAILS_ENV: test
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
@@ -34,14 +30,15 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            gem update --system
-            gem install bundler -v 2.0.2
+            sudo gem update --system
+            sudo gem uninstall bundler
+            sudo rm /usr/local/bin/bundle
+            sudo rm /usr/local/bin/bundler
+            sudo gem install bundler
             
       - run: # Install Ruby dependencies
           name: Bundle Install
-          command: |
-            bundle update --bundler
-            bundle install --deployment
+          command: bundle install --deployment
 
       # Store bundle cache for Ruby dependencies
       - save_cache:

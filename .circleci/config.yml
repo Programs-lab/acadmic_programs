@@ -16,7 +16,11 @@ jobs:
           RAILS_ENV: test
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
-          
+      - run:
+          name: install dependencies
+          command: |
+            sudo gem update --system
+            gem update bundler    
       - run:
           name: Which bundler?
           command: bundle -v
@@ -27,11 +31,6 @@ jobs:
           keys:
             - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
             - rails-demo-bundle-v2-
-      - run:
-          name: install dependencies
-          command: |
-            sudo gem update --system
-            gem update bundler
             
       - run: # Install Ruby dependencies
           name: Bundle Install

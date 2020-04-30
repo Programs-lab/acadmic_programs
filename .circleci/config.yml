@@ -35,8 +35,7 @@ jobs:
           name: install dependencies
           command: |
             gem update --system
-            gem install bundler
-            bundler update --bundler
+            gem install bundler -v 2.0.2
             
       - run: # Install Ruby dependencies
           name: Bundle Install

@@ -29,7 +29,9 @@ jobs:
             - rails-demo-bundle-v2-
       - run:
           name: install dependencies
-          command: sudo gem update --system
+          command: |
+            sudo gem update --system
+            gem update bundler
             
       - run: # Install Ruby dependencies
           name: Bundle Install

@@ -14,8 +14,11 @@ jobs:
 
       # Which version of bundler?
       - run:
-          name: Instal bundle
-          command: gem install bundler:2.0.2
+        name: Configure Bundler
+        command: |
+          echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+          source $BASH_ENV
+          gem install bundler
           
       - run:
           name: Which bundler?
@@ -29,10 +32,7 @@ jobs:
             - rails-demo-bundle-v2-
       - run:
           name: install dependencies
-          command: |
-            sudo gem update --system
-            sudo gem uninstall bundler
-            sudo gem install bundler
+          command: sudo gem update --system
             
       - run: # Install Ruby dependencies
           name: Bundle Install

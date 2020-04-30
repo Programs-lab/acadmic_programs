@@ -6,14 +6,6 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4.3-jessie-node
-        environment: # environment variables for primary container
-          environment: # environment variables for primary container
-          BUNDLE_JOBS: 3
-          BUNDLE_RETRY: 3
-          BUNDLE_PATH: vendor/bundle
-          PGHOST: 127.0.0.1
-          PGUSER: circleci-demo-ruby
-          RAILS_ENV: test
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
       - run:

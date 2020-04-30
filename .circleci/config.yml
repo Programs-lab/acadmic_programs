@@ -5,7 +5,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
+      - image: circleci/ruby:2.4.3-stretch
     executor: ruby/default
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
@@ -13,7 +13,7 @@ jobs:
       # Which version of bundler?
       - run:
           name: Instal bundle
-          command: gem install bundler:2.4.3
+          command: gem install bundler:2.0.2
           
       - run:
           name: Which bundler?

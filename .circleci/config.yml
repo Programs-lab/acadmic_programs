@@ -39,7 +39,9 @@ jobs:
             
       - run: # Install Ruby dependencies
           name: Bundle Install
-          command: bundle install
+          command: |
+            bundle update --bundler
+            bundle install --deployment
 
       # Store bundle cache for Ruby dependencies
       - save_cache:

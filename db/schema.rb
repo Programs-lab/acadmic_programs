@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_215710) do
+ActiveRecord::Schema.define(version: 2020_05_07_051324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,26 @@ ActiveRecord::Schema.define(version: 2020_04_21_215710) do
     t.date "men_date"
     t.bigint "processes_academic_program_id"
     t.index ["processes_academic_program_id"], name: "index_men_backups_on_processes_academic_program_id"
+  end
+
+  create_table "procedure_documents", force: :cascade do |t|
+    t.bigint "procedure_id"
+    t.bigint "document_id"
+    t.bigint "user_id"
+    t.string "procedure_document_file"
+    t.index ["document_id"], name: "index_procedure_documents_on_document_id"
+    t.index ["procedure_id"], name: "index_procedure_documents_on_procedure_id"
+    t.index ["user_id"], name: "index_procedure_documents_on_user_id"
+  end
+
+  create_table "procedures", force: :cascade do |t|
+    t.date "procedure_date"
+    t.integer "state", default: 0
+    t.bigint "processes_academic_program_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "closed_date"
+    t.index ["processes_academic_program_id"], name: "index_procedures_on_processes_academic_program_id"
   end
 
   create_table "processes_academic_programs", force: :cascade do |t|

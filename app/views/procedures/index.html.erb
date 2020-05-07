@@ -1,0 +1,139 @@
+<%= render  'shared/card' do %>
+<div id=procedures_index>
+
+  <div class="my-8 flex px-4 items-center">
+    <div class="flex w-1/2">
+      <h4 class="font-semibold text-g-d4 text-lg">
+        Tramites para <%= @pr_academic_program.academic_process.name %>
+      </h4>
+    </div>
+   </div>
+
+    <div class="flex w-full">
+      <div class="flex w-full justify-end">
+        <a id="myBtn" @click="modalId('create')">
+          <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+        </a>
+      </div>
+    </div>
+    <br>
+    <div class="flex w-full">
+      <div class="flex w-full justify-center">
+        <!-- table heading -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" width="30%">Rsolucion</th>
+              <th scope="col" width="15%">Vigencia</th>
+              <th scope="col" width="25%">Vencimiento</th>
+              <th scope="col" width="25%">Fecha SACES</th>
+              <th scope="col" width="30%">Plazo consejo academico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><%= @pr_academic_program.men_date ?  @pr_academic_program.men_date.strftime("%Y/%m/%d ") : "-" %></th>
+              <td><%= @pr_academic_program.validity || "-"%></td>
+              <td><%= @pr_academic_program.expiration_date ? @pr_academic_program.expiration_date.strftime("%Y/%m/%d ") : "-" %></td>
+              <td><%= @pr_academic_program.saces_date ? @pr_academic_program.saces_date.strftime("%Y/%m/%d ") : "-" %></td>
+              <td><%= @pr_academic_program.academic_council_date ? @pr_academic_program.academic_council_date.strftime("%Y/%m/%d ") : "-" %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+      <%= form_with model: [@pr_academic_program, @procedure], url: faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id), method: :post, local: true do |form|%>
+
+        <modal-vue i= "create" style_modal="width: 45%;">
+          <template v-slot:title>
+            Abrir tramite
+          </template>
+          <template v-slot:content>
+            <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+              <div class="w-full mb-6 focus_form">
+                <%= form.label "Fecha de apertura", class: 'label_input' %>
+                <datepicker input-class="field_input rounded-t" :language="es" v-model="procedureDateValue"></datepicker>
+                <%= form.hidden_field :procedure_date, {"v-model" => "procedureDateValue"} %>
+                <%= form.hidden_field :processes_academic_program_id, value: @pr_academic_program.id %>
+              </div>
+            </div>
+          </template>
+          <template v-slot:footer>
+            <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('create')">Cancelar</button>
+            <%= form.submit "Aceptar", class: 'btn btn-primary' %>
+          </template>
+        </modal-vue>
+      <% end %>
+        <br><span class="font-medium text-sm text-g-d2">Listado de tramites</span>
+        <br>
+        <br>
+<% if @current_procedure.any? %>
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th scope="col" width="10%"></th>
+          <th scope="col" width="30%">Fecha de apertura</th>
+          <th scope="col" width="30%">Fecha de cierre</th>
+          <th scope="col" width="20%">Estado</th>
+        </tr>
+      </thead>
+      <tbody class="">
+        <% @current_procedure.each do |procedure| %>
+        <tr>
+          <td>
+            <div class="py-2 hidden md:table-cell">
+              <%= link_to(faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: procedure.id), method: :get, class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'file-archive') %>
+              <% end %>
+            </div>
+          </td>
+          <td><%= procedure.procedure_date %></td>
+          <td><%= procedure.closed_date.present? ? procedure.closed_date : "n/a" %></td>
+          <td><span class="flex <%= procedure_state(procedure.state)[1] %> justify-center text-sm px-2 py-1 mr-3"><%= procedure_state(procedure.state)[0] %></td>
+       <% end %>
+      </tbody>
+    </table>
+  <% end %>
+<div class="divider"></div>
+  <% if @procedures.any? %>
+      <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th scope="col" width="10%"></th>
+          <th scope="col" width="30%">Fecha de apertura</th>
+          <th scope="col" width="30%">Fecha de cierre</th>
+          <th scope="col" width="20%">Estado</th>
+        </tr>
+      </thead>
+      <tbody class="">
+        <% @procedures.each do |procedure| %>
+        <tr>
+          <td>
+            <div class="py-2 hidden md:table-cell">
+              <%= link_to(faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: procedure.id), method: :get, class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'file-archive') %>
+              <% end %>
+            </div>
+          </td>
+          <td><%= procedure.procedure_date %></td>
+          <td><%= procedure.closed_date.present? ? procedure.closed_date : "n/a" %></td>
+          <td><span class="flex <%= procedure_state(procedure.state)[1] %> justify-center text-sm px-2 py-1 mr-3"><%= procedure_state(procedure.state)[0] %></td>
+       <% end %>
+      </tbody>
+    </table>
+    <%== render 'pagy/nav', pagy: @pagy %>
+  <% else %>
+    <div class="alert alert-info w-full mr-8" role="alert">
+      <div class="flex w-full">
+        <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
+        <div class="text-teal-darkest">
+          <p class="font-bold">Atención.</p>
+          <p class="text-sm">Aun no hay tramites registrados, puede abrir uno con el boton "+"</i></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+<% end %>

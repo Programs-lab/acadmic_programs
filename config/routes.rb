@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   namespace :api do
     get 'academic_programs/fetch_academic_programs/:faculty_id/', to: 'academic_programs#fetch_academic_programs'
     post 'media/:id', to: 'media#create'
-    get  'media/:id', to: 'media#index'
+    get  'procedure_documents/:id', to: 'procedure_documents#fetch'
+    post  'procedure_documents/update/:id', to: 'procedure_documents#update'
+    put  'procedure_documents/remove/:id', to: 'procedure_documents#remove_file'
     delete  'media/:id', to: 'media#destroy'
   end
 
@@ -22,7 +24,13 @@ Rails.application.routes.draw do
   resources :faculties, path: 'facultades', only: [:index, :new, :edit, :create, :update, :destroy] do
     resources :academic_departments, path: 'departamentos', except: [:show]
     resources :academic_programs, path: 'programas', except: [:show] do
-      resources :process_academic_programs, path: "procesos", except: [:show]
+      resources :process_academic_programs, path: "procesos", except: [:show] do
+        resources :procedures, path: "tramites" do
+          get '/diligenciar_documentos', to: 'procedures#procedure_documents', as: :procedure_documents
+          post '/cerrar', to: 'procedures#close_procedure', as: :close
+          post '/completar', to: 'procedures#complete_procedure', as: :complete
+        end
+      end
     end
   end
   resources :academic_processes, path: 'procesos', only: [:index, :new, :edit, :create, :update, :destroy] do

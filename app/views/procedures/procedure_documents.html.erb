@@ -1,0 +1,119 @@
+<%= render  'shared/card' do %>
+<div id="procedure_documents" data-ids-array="<%= @documents.select(:id).to_json %>" data-proc-id = "<%= @procedure.id %>" data-documents = "<%= @documents.to_json %>" >
+  <div class="flex flex-row-reverse px-4">
+  </div>
+
+  <div class="my-8 flex px-4">
+    <div class="w-1/2">
+      <h4 class="font-semibold text-g-d4 text-lg">
+         Tramite <%= "# #{@procedure.id} del #{@pr_academic_program.academic_process.name}" %>
+        <br><span class="font-medium text-sm text-g-d2"> Programa: <%= @pr_academic_program.academic_program.name %></span>
+        <br><span class="font-medium text-sm text-g-d2"> Director: <%= @pr_academic_program.academic_program.users.any? ? "#{@pr_academic_program.academic_program.users.first.first_name}" "#{@pr_academic_program.academic_program.users.first.last_name}" : "-" %>
+      </h4>
+    </div>
+  </div>
+
+<% @documents.each_with_index do |doc, index| %>
+  <div class="row justify-center">
+     <collapse-vue i="collpase_<%= index %>">
+      <template v-slot:title-left>
+        <%= icon('fas','file', class: 'fa-md mr-4') %>
+        <span><%= doc.document.name %></span>
+      </template>
+      <template v-slot:title-right>
+        <% if doc.document.template %>
+          <%= link_to(doc.document.template.url, class: 'w-full btn-flat no-underline rounded-full:!important') do %>
+              <%= icon('fa', 'eye', 'Plantilla') %>
+          <% end %>
+        <% end %>
+      </template>
+      <template v-slot:content>
+
+       <div class="overflow-auto">
+          <div class="w-full py-4">
+            <%= doc.document.description %>
+          </div>
+        <div class="flex w-full" v-if="documents[<%= index %>].procedure_document_file.url === null">
+          <% if current_user.director? %>
+             <vue-dropzone ref="myVueDropzone_<%= index %>" v-on:vdropzone-success="fetchProcedureDocuments(<%= @procedure.id %>), removeFilesFromDZ('myVueDropzone_<%= index %>')" id="dropzone" :options="options_array[<%= index %>]"></vue-dropzone>
+          <% else %>
+              <div class="alert alert-info w-full" role="alert">
+                <div class="flex w-full">
+                  <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
+                  <div class="text-teal-darkest">
+                    <p class="font-bold">Atención.</p>
+                    <p class="text-sm">El directro de este programa aun no ha subido este documento, puede enviar una alerta solicitandolo usando el siguiente boton</i></p>
+                    <button class="btn btn-secondary">Solcitar documento</button>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+
+        </div>
+        <div class="flex flex-col w-full" v-if="documents[<%= index %>].procedure_document_file.url !== null">
+
+          <div class="w-full bg-white shadow border border-g-l5 py-4 px-2 md:rounded">
+            <div class="flex w-full items-center">
+              <div class="flex w-1/2 justify-start">
+                <b class="text-black pr-2">Nombre:</b> {{ documents[<%= index %>].procedure_document_file.url.split("/")[documents[<%= index %>].procedure_document_file.url.split("/").length-1]}}
+              </div>
+              <div class="w-1/2">
+                <b class="text-black pr-2">Fecha:</b> 1/1/2020
+               </div>
+              <div class="flex w-full justify-end">
+                <div class="inline-flex">
+                  <a v-bind:href=`https://docs.google.com/viewerng/viewer?url=${documents[<%= index %>].procedure_document_file.url}` target='_blank' class="no-outline btn btn-secondary"><i class="fas fa-eye text-black">Visualizar</i></a>
+                  <% if current_user.director?%>
+                    <button class="btn btn-secondary" @click="remove_file(<%= doc.id %>, <%= @procedure.id %>)">
+                      <i class="fas fa-upload pr-1"></i>Resubir
+                    </button>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </template>
+     </collapse-vue>
+    </div>
+<% end %>
+<div class="divider"></div>
+      <div class="flex flex-wrap md:items-center">
+        <div class="flex justify-end w-full">
+          <div class="flex w-1/2 justify-start">
+            <%= link_to(faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'arrow-left', 'Volver') %>
+             <% end %>
+          </div>
+          <div class="flex justify-end w-1/2">
+            <div class="flex justify-end w-full md:w-auto mr-1">
+            <% if current_user.admin? %>
+              <a id="myBtn" @click="modalId('close')" class="btn btn-danger w-full text-center md:text-left md:w-auto" v-ripple="'rgba(0, 0, 0, 0.20)'">
+                Cerrar tramite
+              </a>
+            <% end %>
+            <modal-vue i="close">
+              <template v-slot:title>
+                Cerrar Tramite
+              </template>
+              <template v-slot:content>
+                Esta seguro que desea cerar este tramite, Esta accion es irreversible
+              </template>
+              <template v-slot:footer>
+                <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('close')">Cancelar</button>
+                  <%= link_to "Cerrar", faculty_academic_program_process_academic_program_procedure_close_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), method: :post, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'"%>
+              </template>
+            </modal-vue>
+            </div>
+            <div class="flex justify-end w-full md:w-auto ml-1">
+            <% if current_user.admin? %>
+              <%= link_to "Aprobar tramite", faculty_academic_program_process_academic_program_procedure_complete_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), method: :post, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'"%>
+            <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </div>
+<% end %>

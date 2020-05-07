@@ -1,21 +1,33 @@
 module AppointmentHelper
 
   def process_state(process)
-  if process 
-    if process + 1.month == Date.today
-      ["Alerta", "badge-warning"]
-    elsif process + 1.week == Date.today
-        ["Alerta", "badge-danger"]
-    elsif process <= Date.today      
-        ["Vencido", "badge-default"]
+    if process
+      if process + 1.month == Date.today
+        ["Alerta", "badge-warning"]
+      elsif process + 1.week == Date.today
+          ["Alerta", "badge-warning"]
+      elsif process <= Date.today
+          ["Vencido", "badge-default"]
+      else
+          ["Vigente", "badge-success"]
+      end
     else
-        ["Vigente", "badge-success"]
+      ["-", "badge-default"]
     end
-  else
-    ["-", "badge-default"]
   end
-    
 
+  def procedure_state(procedure)
+    if procedure
+      if procedure == 0
+        ["Pendiente", "badge-warning"]
+      elsif procedure == 1
+        ["Cerrado", "badge-danger"]
+      elsif procedure == 2
+        ["Aprobado", "badge-success"]
+      end
+    else
+      ["Pendiente", "badge-warning"]
+    end
   end
 
   def disabled_button(appointment)
@@ -24,7 +36,7 @@ module AppointmentHelper
     else
       ""
     end
-  
+
 
   end
 

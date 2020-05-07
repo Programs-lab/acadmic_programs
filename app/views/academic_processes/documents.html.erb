@@ -54,18 +54,18 @@
 
           <div class="row w-1/4 focus_form mx-4">
             <label class="label_input">Nombre</label>
-              <input type="text" id="document_name_${doc.id}" v-model=doc.name class="field_input">
+              <input type="text" :id="'document_name_' + index" v-model=doc.name class="field_input">
           </div>
 
           <div class="row w-3/5 focus_form mx-4" >
             <label class="label_input">Descripcion</label>
-              <input type="text" id="document_description_${doc.id}" v-model=doc.description class=field_input>
+              <input type="text" :id="'document_description_' + index" v-model=doc.description class=field_input>
           </div>
 
           <div class="row w-1/4 focus_form mx-4">
             <label class="label_input">plantilla</label>
             <div class="flex w-full">
-              <label for="doc_template_${doc.id}" class="btn btn-secondary text-xs md:text-base mr-1">
+              <label :for="'doc_template_' + index" class="btn btn-secondary text-xs md:text-base mr-1">
                   <i class="fas fa-cloud-upload-alt"></i>
               </label>
               <div v-if="doc.template !== null && doc.id !== null" class="btn btn-secondary text-black ml-1">
@@ -73,7 +73,7 @@
               </div>
               <div v-else class="w-12 ml-2"></div>
             </div>
-            <input type="file" id="doc_template_${doc.id}" @change="doc.template = $event.target.files[0]" autofocus= "true" class= "field_input">
+            <input type="file" :id="'doc_template_' + index" @change="updateDocument(index, 'doc_template_' + index)" autofocus= "true" class= "field_input">
           </div>
           <div class="row w-12 justify-center pt-3 mr-3">
               <button class="btn btn-red-light mx-1" @click="removeDocument( index), $v.$reset(), $v.$touch()">

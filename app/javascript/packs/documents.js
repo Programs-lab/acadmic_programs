@@ -87,6 +87,11 @@ document.addEventListener('turbolinks:load', () => {
         this.ac_process.documents_attributes[id]._destroy = null
       },
 
+      updateDocument(doc, event){
+        var input = document.getElementById(event)
+        this.ac_process.documents_attributes[doc].template = input.files[0]
+      },
+
       save(){
         if (this.$v.ac_process.$invalid) {
           this.errors = true

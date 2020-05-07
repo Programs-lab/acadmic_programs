@@ -19,13 +19,13 @@ document.addEventListener('turbolinks:load', () => {
     var ids_arr = JSON.parse(element.dataset.idsArray)
     var testo = JSON.parse(element.dataset.allMedia)
     var media = []
-    for (var i in testo) {            
+    for (var i in testo) {
          media.push(testo[i].media)
     }
     var opt_array = []
-    var pag = [] 
+    var pag = []
     var opt = {}
-    for (var i in ids_arr) {            
+    for (var i in ids_arr) {
             var opt = {
               url: `/api/media/${ids_arr[i].id}`,
               thumbnailWidth: 230,
@@ -35,7 +35,7 @@ document.addEventListener('turbolinks:load', () => {
               dictDefaultMessage: "<i class='fas fa-cloud-upload-alt'> Subir Archivo</i>",
               headers: { "My-Awesome-Header": "header value" }
             }
-            opt_array.push(opt) 
+            opt_array.push(opt)
             pag.push(`media_${i}`)
           }
     var app = new Vue({
@@ -44,7 +44,7 @@ document.addEventListener('turbolinks:load', () => {
         modal2: {},
         men_date: '',
         show_backups: false,
-        ids_array: ids_arr,        
+        ids_array: ids_arr,
         paginate: pag,
         media_array: media,
         options_array: opt_array,
@@ -55,17 +55,17 @@ document.addEventListener('turbolinks:load', () => {
           Vue.set(this.modal2, i , !this.modal2[i]);
         },
         assignOptions(){
-          
+
         },
         fetchAndAssignMedia(){
           var self = this
           var med = []
-          for (var i in this.ids_array) {           
+          for (var i in this.ids_array) {
            self.$http.get(`/api/media/${this.ids_array[i].id}`).then(response => {Vue.set(this.media_array, i, response.body)}, response => {console.log(response)})
-          }          
+          }
         },
-        removeFilesFromDZ(id){  
-          console.log(id)        
+        removeFilesFromDZ(id){
+          console.log(id)
           var dz = this.$refs[id]
           setTimeout(function(){
              dz.removeAllFiles()

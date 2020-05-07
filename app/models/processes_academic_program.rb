@@ -1,6 +1,7 @@
 class ProcessesAcademicProgram < ApplicationRecord
   belongs_to :academic_process
   belongs_to :academic_program
+  has_many :procedures
   has_many :men_backups, dependent: :destroy
   before_update :calculate_dates
   before_update :save_backup

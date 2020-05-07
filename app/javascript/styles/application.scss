@@ -29,12 +29,13 @@
 
    #dropzone {
     @apply .flex .flex-wrap .w-full .rounded .justify-center .border .border-primary .border-dashed .items-center;
+    height: 60px;
   }
 
   input[type="file"] {
       display: none;
   }
-  
+
   .focus_form:focus-within {
     label { @apply .text-primary; }
     input { @apply .border-primary; }

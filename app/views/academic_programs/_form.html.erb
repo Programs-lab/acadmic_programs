@@ -3,7 +3,10 @@
   <%= form_for([@faculty, @academic_program]) do |f| %>
   <div class="flex w-full">  
       <div class="w-1/2 mb-6 mr-2 focus_form">
-        <%= f.label "Nombre del programa", class: 'label_input' %>
+        <div class="flex items-center">
+          <%= f.label "Nombre del programa", class: 'label_input' %>
+          <div class="obligatory"></div>
+        </div>
         <%= f.text_field :name, class: 'field_input rounded-t' %>
       </div>
       <div class="w-1/2 mb-6 ml-2 focus_form">
@@ -34,7 +37,7 @@
         </template>
         <template v-slot:footer>
           <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('delete')">Cancelar</button>
-            <%= link_to "Eliminar", faculty_academic_department_path(@faculty.id, @academic_program.id), method: :delete, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'" %>
+            <%= link_to "Eliminar", faculty_academic_program_path(@faculty.id, @academic_program.id), method: :delete, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'" %>
         </template>
       </modal-vue>
     <% end %>

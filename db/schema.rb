@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_051324) do
+ActiveRecord::Schema.define(version: 2020_05_10_232005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,12 +26,12 @@ ActiveRecord::Schema.define(version: 2020_05_07_051324) do
 
   create_table "academic_processes", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "year_saces"
-    t.integer "month_saces"
-    t.integer "day_saces"
-    t.integer "year_academic_council"
-    t.integer "month_academic_council"
-    t.integer "day_academic_council"
+    t.integer "year_saces", default: 0
+    t.integer "month_saces", default: 0
+    t.integer "day_saces", default: 0
+    t.integer "year_academic_council", default: 0
+    t.integer "month_academic_council", default: 0
+    t.integer "day_academic_council", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -39,32 +39,38 @@
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th scope="col" width="20%"></th>
-          <th scope="col" width="20%">Nombre</th>
-          <th scope="col" width="20%">Codigo</th>
-          <th scope="col" width="20%">Director</th>
-          <th scope="col" width="20%">Estado</th>
+          <th scope="col" class="w-1/3 lg:w-1/5"></th>
+          <th scope="col" class="w-1/3 lg:w-1/5">Nombre</th>
+          <th scope="col" class="hidden lg:table-cell lg:w-1/5" width="20%">Codigo</th>
+          <th scope="col" class="hidden lg:table-cell">Director</th>
+          <th scope="col" class="w-1/3 lg:w-1/5">Estado</th>
         </tr>
       </thead>
       <tbody class="">
         <% @academic_programs.each do |ap| %>
         <tr>
           <td>
-            <div class="py-2 hidden md:table-cell">
+            <div class="py-2">
             <% if current_user.admin?  %>
-              <%= link_to(edit_faculty_academic_program_path(@faculty, ap), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+              <%= link_to(edit_faculty_academic_program_path(@faculty, ap), class: 'btn btn-secondary no-underline rounded-full:!important', id: "edit_academic_program") do %>
                 <%= icon('fas', 'pencil-alt') %>
               <% end %>
             <% end %>
-              <%= link_to(faculty_academic_program_process_academic_programs_path(faculty_id: @faculty.id, academic_program_id: ap.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+              <%= link_to(faculty_academic_program_process_academic_programs_path(faculty_id: @faculty.id, academic_program_id: ap.id), class: 'btn btn-secondary no-underline rounded-full:!important', id: "academic_process_button") do %>
                 <%= icon('fas', 'file-archive') %>
               <% end %>
             </div>
           </td>
           <td><%= ap.name %></td>
-          <td><%= ap.code %></td>
-          <td><%= ap.users.any? ? "#{ap.users.first.first_name}" "#{ap.users.first.last_name}" : "-" %> </td>
-          <td><span class="flex <%= process_state(ap.processes_academic_programs.first.expiration_date)[1] %> justify-center text-sm px-2 py-1 mr-3"><%= process_state(ap.processes_academic_programs.first.expiration_date)[0] %></span></td>
+          <td class="hidden lg:table-cell"><%= ap.code %></td>
+          <td class="hidden lg:table-cell lg:w-1/5"><%= ap.users.any? ? "#{ap.users.first.first_name}" "#{ap.users.first.last_name}" : "-" %> </td>
+          <td>
+          <% if ap.processes_academic_programs.present? %>
+            <span class="flex <%= process_state(ap.processes_academic_programs.first.expiration_date)[1] %> justify-center text-sm px-2 py-1 mr-3"><%= process_state(ap.processes_academic_programs.first.expiration_date)[0] %></span>
+          <% else %>
+            <span class="flex badge-default justify-center text-sm px-2 py-1 mr-3"> - </span>
+          <% end %>  
+          </td>
         </tr>
        <% end %>
       </tbody>

@@ -5,15 +5,13 @@ class AcademicProcess < ApplicationRecord
   has_many :documents
   accepts_nested_attributes_for :documents, reject_if: :all_blank,  allow_destroy: true
   after_create :apply_to_all_programs
-
+  validates :name, presence: true
+  
   def apply_to_all_programs
     if AcademicProgram.any?
       AcademicProgram.all.each do |ap|
         ap.processes_academic_programs.create(academic_process_id: self.id)
       end
     end
-
   end
-
-
 end

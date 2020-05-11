@@ -20,6 +20,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :id_number
   mount_uploader :avatar, ImageUploader
   mount_uploader :signature, SignatureUploader
+  validates :id_number, presence: true
 
 
   def active_for_authentication?

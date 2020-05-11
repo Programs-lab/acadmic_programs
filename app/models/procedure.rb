@@ -2,6 +2,7 @@ class Procedure < ApplicationRecord
   belongs_to :processes_academic_program
   has_many :procedure_documents
   after_create :create_procedure_documents
+  validates :procedure_date, presence: true
 
 
   def create_procedure_documents

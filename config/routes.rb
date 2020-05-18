@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'users/index'
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  mount ActionCable.server => '/cable'
 
   namespace :api do
     get 'academic_programs/fetch_academic_programs/:faculty_id/', to: 'academic_programs#fetch_academic_programs'
@@ -9,6 +10,10 @@ Rails.application.routes.draw do
     post  'procedure_documents/update/:id', to: 'procedure_documents#update'
     put  'procedure_documents/remove/:id', to: 'procedure_documents#remove_file'
     delete  'media/:id', to: 'media#destroy'
+
+    namespace :one_signal do
+      post 'web_push/event', to: 'web_push#event'
+    end
   end
 
   namespace :admin do

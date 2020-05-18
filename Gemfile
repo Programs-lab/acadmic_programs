@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.4.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 gem 'devise'
@@ -38,6 +38,7 @@ gem 'sidekiq-cron'
 gem "fog"
 gem "fog-aws"
 gem 'carrierwave', '~> 1.0'
+gem "onesignal"
 gem 'pagy'
 gem 'mailgun-ruby', '~>1.1.6'
 gem 'wicked_pdf'

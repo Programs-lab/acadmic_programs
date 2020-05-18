@@ -1,0 +1,38 @@
+var OneSignal = window.OneSignal || [];
+
+OneSignal.push(function() {
+  OneSignal.init({
+    appId: "<%= Rails.application.secrets.onesignal_app_id %>",
+    allowLocalhostAsSecureOrigin: true,
+    webhooks: {
+      cors: true
+    }
+  })
+});
+
+function setEmail(userEmail){
+  if(!getEmailId()) OneSignal.setEmail(userEmail)
+}
+
+function getEmailId(){
+  OneSignal.getEmailId()
+}
+
+function notificationPermissionChange(){
+  OneSignal.push(() => {
+    OneSignal.on('notificationPermissionChange', function(permissionChange) {
+      console.log(permissionChange.to)
+    }.bind(this))
+  })
+}
+
+document.addEventListener("turbolinks:load", () => {
+  var element = document.getElementById("menu")
+
+  if(element){
+    var userEmail = element.dataset.email
+    setEmail(userEmail)
+    notificationPermissionChange()
+  }
+})
+

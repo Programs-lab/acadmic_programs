@@ -8,8 +8,7 @@
       </div>
     </div>
     <% unless current_user %>
-    <div class="w-1/2 flex items-center justify-end relative">    
-
+    <div class="w-1/2 flex items-center justify-end relative">
       <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show =! show">
           <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
       </button>
@@ -29,35 +28,38 @@
     </div>
 
     <% else %>
-
-        <div class="w-1/2 flex items-center justify-end relative">
-
-      <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show =! show">
-          <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
-      </button>
-      <%#= link_to 'Iniciar sesion', new_user_session_path, class: 'btn-primary' %>
-      <transition name="menu-popover" >
-      <div id="dropmenu" v-show="show" class="dropdown" v-cloak>
-
-      <%= link_to(edit_user_registration_path, class: "no-underline text-g-d2 text-base", 'data-turbolinks' => false) do %>
-        <div class="flex px-4 py-4 border-r border-l border-b border-g-l4 no-select hover:bg-grey-lighter text-left">
-          <div class="w-6 text-center" style="font-size: 0.8rem;">
-            <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
-          </div>
-          <div class="ml-3 pr-2">Perfil</div> <span class="flex badge-danger justify-center text-sm px-2 mr-3">+1</span>
+      <div class="flex items-center w-1/2 justify-end">
+        <div class="flex items-center pt-2 relative">
+          <%= icon('far','bell', class: 'text-grey-dark', style: "font-size: 1.2em") %>
+          <div id="notification_badge" class="absolute rounded-full h-2 w-2 bg-red-light -mt-2 <%= "hidden" unless current_user.notifications.unseen.present? %>" style="margin-left: .6rem; margin-top: -0.4rem;"></div>
         </div>
-      <% end %>
+        
+        <div class="w-auto flex items-center justify-end relative">
+          <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show =! show">
+              <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>
+          </button>
+          <transition name="menu-popover" >
+            <div id="dropmenu" v-show="show" class="dropdown" v-cloak>
 
-      <%= link_to(destroy_user_session_path,  method: :delete, class: "dropdown-item", 'data-turbolinks' => false) do %>
-        <div class="w-6 text-center" style="font-size: 0.8rem;">
-          <%= icon('fas','sign-out-alt', class: 'text-grey-dark fa-lg mr-4') %>
+            <%= link_to(edit_user_registration_path, class: "no-underline text-g-d2 text-base", 'data-turbolinks' => false) do %>
+              <div class="flex px-4 py-4 border-r border-l border-b border-g-l4 no-select hover:bg-grey-lighter text-left">
+                <div class="w-6 text-center" style="font-size: 0.8rem;">
+                  <%= icon('fas','user-plus', class: 'text-grey-dark fa-lg') %>
+                </div>
+                <div class="ml-3 pr-2">Perfil</div> <span class="flex badge-danger justify-center text-sm px-2 mr-3">+1</span>
+              </div>
+            <% end %>
+
+            <%= link_to(destroy_user_session_path,  method: :delete, class: "dropdown-item", 'data-turbolinks' => false) do %>
+              <div class="w-6 text-center" style="font-size: 0.8rem;">
+                <%= icon('fas','sign-out-alt', class: 'text-grey-dark fa-lg mr-4') %>
+              </div>
+              <div class="ml-3">Cerrar sesion</div>
+            <% end %>
+            </div>
+          </transition>
         </div>
-        <div class="ml-3">Cerrar sesion</div>
-      <% end %>
-
-      </transition>
-    </div>
-
+      <div>
     <% end %>
   </div>
 </nav>

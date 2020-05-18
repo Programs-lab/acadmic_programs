@@ -46,6 +46,7 @@ gem 'wkhtmltopdf-heroku', '2.12.5.0'
 gem "mini_magick"
 gem 'combine_pdf'
 gem 'redis-namespace'
+gem 'cable_ready'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

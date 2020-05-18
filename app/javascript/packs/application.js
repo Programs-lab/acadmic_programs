@@ -16,9 +16,9 @@
 // const imagePath = (name) => images(name, true)
 import 'application.scss';
 import './tinymce/langs/es_MX.js'
-console.log('Hello World from Webpacker')
 
 // entiities
+require("./channels/notification")
 require('./lib/oneSignal.js.erb')
 require('./sign_up');
 require('./user_form');

@@ -7,6 +7,7 @@ class User < ApplicationRecord
   before_validation :generate_password, on: :admin
   belongs_to :academic_program, optional: true
   belongs_to :academic_department, optional: true
+  has_many :notifications
   devise :invitable,
          :database_authenticatable,
          :registerable,

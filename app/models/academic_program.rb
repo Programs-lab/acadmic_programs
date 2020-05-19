@@ -5,6 +5,7 @@ class AcademicProgram < ApplicationRecord
   has_many :processes_academic_programs, dependent: :destroy
   has_many :users
   after_create :create_processes
+  validates :name, presence: true
 
 
   def create_processes

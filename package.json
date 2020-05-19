@@ -3,7 +3,9 @@
   "private": true,
   "dependencies": {
     "@ajoelp/json-to-formdata": "^1.1.0",
+    "@rails/actioncable": "^6.0.3",
     "@rails/webpacker": "^4.0.2",
+    "cable_ready": "^4.1.2",
     "colombia-holidays": "^0.0.1",
     "json-form-data": "^1.7.2",
     "luxon": "^1.12.1",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.4.10",
+    "rails-erb-loader": "^5.5.2",
     "webpack-dev-server": "^3.2.1"
   },
   "version": "1.13.0"

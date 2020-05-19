@@ -16,10 +16,10 @@
 // const imagePath = (name) => images(name, true)
 import 'application.scss';
 import './tinymce/langs/es_MX.js'
-console.log('Hello World from Webpacker')
 
 // entiities
-require('./hello_vue');
+require("./channels/notification")
+require('./lib/oneSignal.js.erb')
 require('./sign_up');
 require('./user_form');
 require('./shared');
@@ -28,14 +28,8 @@ require('./flash');
 require('./faculties');
 require('./procedure_index');
 require('./procedure_documents');
-require('./medical_record');
 require('./documents');
 require('./user_no_registered');
-require('./appointments');
-require('./scheduled_appointments');
-require('./medical_record_index');
-require('./appointments_index');
-require('./appointment_summary');
 require('./process_academic_programs');
 require('./profile');
 

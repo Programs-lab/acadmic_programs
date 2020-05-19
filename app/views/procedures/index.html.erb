@@ -94,7 +94,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col" width="30%">Rsolucion</th>
+              <th scope="col" width="30%">Resolucion</th>
               <th scope="col" width="15%">Vigencia</th>
               <th scope="col" width="25%">Vencimiento</th>
               <th scope="col" width="25%">Fecha SACES</th>
@@ -123,7 +123,10 @@
           <template v-slot:content>
             <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
               <div class="w-full mb-6 focus_form">
+              <div class="flex items-center">
                 <%= form.label "Fecha de apertura", class: 'label_input' %>
+                <div class="obligatory"></div>
+              </div>
                 <datepicker input-class="field_input rounded-t" :language="es" v-model="procedureDateValue"></datepicker>
                 <%= form.hidden_field :procedure_date, {"v-model" => "procedureDateValue"} %>
                 <%= form.hidden_field :processes_academic_program_id, value: @pr_academic_program.id %>

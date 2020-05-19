@@ -1,10 +1,19 @@
-development:
-  adapter: async
-
-test:
-  adapter: async
-
-production:
+base: &base
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: gastromed_production
+
+development:
+  channel_prefix: academic_programs_development
+  <<: *base
+
+staging:
+  channel_prefix: academic_programs_staging
+  <<: *base
+
+test:
+  channel_prefix: academic_programs_test
+  <<: *base
+
+production:
+  channel_prefix: academic_programs_production
+  <<: *base

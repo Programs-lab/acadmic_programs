@@ -12,6 +12,8 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  config.active_job.queue_adapter = :sidekiq
+
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
@@ -37,17 +39,12 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:3000'  }
 
-  config.action_mailer.default_options = { from: "sistemas@gastromed.com"}
+  config.action_mailer.default_options = { from: "sistemas@ufps.edu.co"}
 
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.sendmail_settings = {
-    :address => "smtp.mailgun.org",
-    :port => "587",
-    :user_name => "sistemas@mail.silumin.co",
-    :password => "375f6ec05424c161d7afabde4db2ee56-7caa9475-f285932c",
-    :authentication => "plain",
-    :domain => 'mail.silumin.co',
-    :enable_starttls_auto => true
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: Rails.application.secrets.mailgun_api_key,
+    domain: Rails.application.secrets.mailgun_domain,
   }
 
   config.action_mailer.perform_caching = true

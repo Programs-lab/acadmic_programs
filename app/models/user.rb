@@ -7,6 +7,7 @@ class User < ApplicationRecord
   before_validation :generate_password, on: :admin
   belongs_to :academic_program, optional: true
   belongs_to :academic_department, optional: true
+  has_many :notifications
   devise :invitable,
          :database_authenticatable,
          :registerable,
@@ -20,6 +21,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :id_number
   mount_uploader :avatar, ImageUploader
   mount_uploader :signature, SignatureUploader
+  validates :id_number, presence: true
 
 
   def active_for_authentication?

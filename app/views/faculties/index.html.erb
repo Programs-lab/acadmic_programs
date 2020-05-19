@@ -39,31 +39,31 @@
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th scope="col" width="20%"></th>
+          <th scope="col" class="w-1/3 lg:w-1/4"></th>
           <th scope="col" width="30%">Nombre</th>
-          <th scope="col" width="30%">Codigo</th>
+          <th scope="col" class="hidden md:table-cell" width="30%">Codigo</th>
         </tr>
       </thead>
       <tbody class="">
         <% @faculties.each do |faculty| %>
         <tr>
           <td>
-            <div class="py-2 hidden md:table-cell">
+            <div class="py-2">
             <% if current_user.admin?  %>
-              <%= link_to(edit_faculty_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+              <%= link_to(edit_faculty_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important', id: "edit_faculty") do %>
                 <%= icon('fas', 'pencil-alt') %>
               <% end %>
             <% end %>
-              <%= link_to(faculty_academic_departments_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+              <%= link_to(faculty_academic_departments_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important', id: "academic_department_button") do %>
                 <%= icon('fas', 'building') %>
               <% end %>
-              <%= link_to(faculty_academic_programs_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+              <%= link_to(faculty_academic_programs_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important',id: "academic_program_button") do %>
                 <%= icon('fas', 'book') %>
               <% end %>
             </div>
           </td>
           <td><%= faculty.name %></td>
-          <td><%= faculty.code %></td>
+          <td class="hidden md:table-cell"><%= faculty.code %></td>
         </tr>
        <% end %>
       </tbody>

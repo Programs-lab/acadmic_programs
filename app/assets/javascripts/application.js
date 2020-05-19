@@ -18,6 +18,7 @@
 //= require tinymce
 //= require tinymce/langs/es_MX.js
 
+
 $( document ).on('turbolinks:load',function() {
   setTimeout(function () {
     tinyMCE.init({

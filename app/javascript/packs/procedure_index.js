@@ -12,7 +12,9 @@ document.addEventListener('turbolinks:load', () => {
       el: '#procedures_index',
       data: {
         modal2: {},
-        procedureDateValue: ""
+        procedureDateValue: "",
+        show_backups: false,
+        men_date: null
       },
       components: {
         Datepicker

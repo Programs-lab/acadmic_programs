@@ -2,7 +2,7 @@ class ProcessAcademicProgramsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_faculty
   before_action :set_academic_program
-  before_action :set_process_academic_program, only: [:show, :edit, :update, :destroy] 
+  before_action :set_process_academic_program, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:query] &&  params[:query] != ""
@@ -37,7 +37,7 @@ class ProcessAcademicProgramsController < ApplicationController
 
     respond_to do |format|
       if @process_academic_program.update(process_academic_programs_params)
-        format.html { redirect_to faculty_academic_program_process_academic_programs_path(@faculty, @academic_program), notice: 'El programa fue actualizado exitosamente' }
+        format.html { redirect_to faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @process_academic_program.academic_program.id, process_academic_program_id: @process_academic_program.id), notice: 'Resolucion agregada con exito' }
       else
         format.html { render :edit }
       end

@@ -9,13 +9,84 @@
     </div>
    </div>
 
-    <div class="flex w-full">
-      <div class="flex w-full justify-end">
-        <a id="add_procedure_button" @click="modalId('create')">
-          <%= icon('fas','plus', class: 'btn btn-primary cursor-pointer fa-md', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
-        </a>
-      </div>
+  <div class="flex w-full justify-end">
+    <div class="inline-flex">
+      <a id="myBtn" @click="modalId('men')" class="btn btn-primary cursor-pointer fa-md">
+          <%= icon('fas','plus', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+          Resolucion
+      </a>
+      <a id="myBtn" @click="modalId('create')" class="btn btn-primary cursor-pointer fa-md">
+          <%= icon('fas','plus', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
+          Tramite
+      </a>
     </div>
+  </div>
+
+
+  <%= form_with model: @pr_academic_program, url: faculty_academic_program_process_academic_program_path(@faculty, @pr_academic_program.academic_program, @pr_academic_program), method: 'put', local: true, class: ""  do |f2| %>
+    <modal-vue i="men" style_modal="width: 45%;">
+      <template v-slot:title>
+        <%= "Editar fecha de resolucion y vigencia" %>
+      </template>
+      <template v-slot:content>
+        <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
+          <div  class="w-1/2 mb-6 pr-2 focus_form">
+            <%= f2.label "fecha de resolucion", class: 'label_input' %>
+            <datepicker input-class="field_input rounded-t" v-model="men_date"></datepicker>
+            <%= f2.hidden_field :men_date, {"v-model" => "men_date"} %>
+          </div>
+          <div  class="w-1/2 mb-6 pl-2 focus_form">
+            <%= f2.label "numero resolucion", class: 'label_input' %>
+            <%= f2.text_field :resolution, value: @pr_academic_program.resolution, class: 'field_input rounded-t'%>
+          </div>
+          <div  class="w-full mb-8 focus_form">
+            <%= f2.label "Vigencia", class: 'label_input' %>
+            <%= f2.number_field :validity, value: @pr_academic_program.validity, class: 'field_input rounded-t'%>
+          </div>
+          <div class="flex w-full mb-4">
+            <div class="flex w-full">
+              <button type="button" class="btn btn-default" @click="show_backups = !show_backups">
+                  Ver Historial de resoulciones
+              </button>
+            </div>
+          </div>
+          <div class="flex w-full">
+            <div class="flex w-full" v-show="show_backups">
+            <table class="table table-responsive w-full">
+              <thead>
+                <tr>
+                  <th scope="col" width="40%">Resolucion</th>
+                  <th scope="col" width="60%">Fecha</th>
+                </tr>
+              </thead>
+              <tbody class="">
+                <% @pr_academic_program.men_backups.each do |b| %>
+                <tr>
+                  <td><%= b.resolution %></td>
+                  <td><%= b.men_date %> </td>
+                </tr>
+               <% end %>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+
+
+
+      </template>
+      <template v-slot:footer>
+        <div class="flex justify-end w-1/2">
+          <button type="button" name="button" class="btn btn-red-light mx-1" @click="modalId('men')">Cancelar</button>
+          <%= f2.submit "Registrar", class: "btn btn-primary"%>
+        </div>
+      </template>
+    </modal-vue>
+  <% end %>
+
+
+
+
     <br>
     <div class="flex w-full">
       <div class="flex w-full justify-center">

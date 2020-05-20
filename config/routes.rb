@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'users/index'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   get  '/notificaciones', to: 'notifications#index', as: :user_notifications
-  post  '/notificaciones/:id', to: 'notifications#redirect', as: :user_notifications_redirect
+  get  '/notificaciones/:id', to: 'notifications#redirect', as: :user_notifications_redirect
   delete  '/notificaciones/:id', to: 'notifications#destroy', as: :user_notifications_destroy
 
   mount ActionCable.server => '/cable'

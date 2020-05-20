@@ -29,11 +29,13 @@
 
     <% else %>
       <div class="flex items-center w-1/2 justify-end">
+        <%= link_to(user_notifications_path, class: "no-underline text-g-d2 text-base", 'data-turbolinks' => false) do %>
         <div class="flex items-center pt-2 relative">
           <%= icon('far','bell', class: 'text-grey-dark', style: "font-size: 1.2em") %>
           <div id="notification_badge" class="absolute rounded-full h-2 w-2 bg-red-light -mt-2 <%= "hidden" unless current_user.notifications.unseen.present? %>" style="margin-left: .6rem; margin-top: -0.4rem;"></div>
         </div>
-        
+        <% end %>
+
         <div class="w-auto flex items-center justify-end relative">
           <button type="button" class="flex items-center ml-4 pl-2 focus:outline-none" v-click-outside="close" v-on:click="show =! show">
               <%= icon('fas','ellipsis-v', class: 'text-grey-dark') %>

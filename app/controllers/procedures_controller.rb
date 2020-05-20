@@ -1,7 +1,7 @@
 class ProceduresController < ApplicationController
   before_action :authenticate_user!
   before_action :set_pr_academic_program
-  before_action :set_procedure, only: [:show, :edit, :update, :destroy, :procedure_documents, :close_procedure, :complete_procedure]
+  before_action :set_procedure, only: [:show, :edit, :update, :destroy, :procedure_documents, :close_procedure, :complete_procedure, :request_approval, :request_document]
 
   def index
     @current_procedure = @pr_academic_program.procedures.where(state: 0)
@@ -28,11 +28,53 @@ class ProceduresController < ApplicationController
   def close_procedure
     @procedure.update(state: 1, closed_date: Date.today)
     redirect_to faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id)
+    @pr_academic_program.academic_program.users.last.notifications.create(
+        title: "Tramite cerrado",
+        message: "El tramite de fecha #{@procedure.procedure_date} del proceso #{pr_academic_program.academic_process.name} fue cerrado",
+        launch: faculty_academic_program_process_academic_program_procedures_path(
+          faculty_id: @faculty.id,
+          academic_program_id: @pr_academic_program.academic_program.id,
+          process_academic_program_id: @pr_academic_program.id
+          )
+        )
   end
 
   def complete_procedure
     @procedure.update(state: 2, closed_date: Date.today)
+    @pr_academic_program.academic_program.users.last.notifications.create(
+        title: "Tramite aprobado",
+        message: "El tramite de fecha #{@procedure.strftime("%Y/%m/%d ")} del proceso #{pr_academic_program.academic_process.name} fue aprobado",
+        launch: faculty_academic_program_process_academic_program_procedures_path(
+          faculty_id: @faculty.id,
+          academic_program_id: @pr_academic_program.academic_program.id,
+          process_academic_program_id: @pr_academic_program.id
+          )
+        )
     redirect_to faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id)
+  end
+
+  def request_approval
+    User.where(role: :admin).each do |u|
+      u.notifications.create(
+        title: "Solicitud de revision",
+        message: "El director de programa de #{@pr_academic_program.academic_program.name} ha solicitado la revision del tramite con fecha #{@procedure.procedure_date.strftime("%Y/%m/%d ")}",
+        launch: "#{faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id)}")
+    end
+    redirect_to faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), notice: 'Se solicito la revision de documentos'
+  end
+
+  def request_document
+    document = @procedure.procedure_documents.find(params[:document_id]).document
+    @pr_academic_program.academic_program.users.last.notifications.create(
+        title: "Peticion de documento",
+        message: "Se ha solicitado que se suba el documento #{document.name} para el proceso de #{@pr_academic_program.academic_process.name} en el tramite de #{@procedure.procedure_date.strftime("%Y/%m/%d ")}",
+        launch: faculty_academic_program_process_academic_program_procedure_procedure_documents_path(
+          faculty_id: @faculty.id,
+          academic_program_id: @pr_academic_program.academic_program.id,
+          process_academic_program_id: @pr_academic_program.id,
+          procedure_id: @procedure.id)
+        )
+     redirect_to faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), notice: 'Se solicito el documento'
   end
 
   def create

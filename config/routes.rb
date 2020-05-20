@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   get 'users/index'
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  get  '/notificaciones', to: 'notifications#index', as: :user_notifications
+  post  '/notificaciones/:id', to: 'notifications#redirect', as: :user_notifications_redirect
+  delete  '/notificaciones/:id', to: 'notifications#destroy', as: :user_notifications_destroy
+
   mount ActionCable.server => '/cable'
 
   namespace :api do
@@ -25,7 +29,6 @@ Rails.application.routes.draw do
       get  '/doctores', to: 'users#doctors', as: :doctors
       get  '/pacientes', to: 'users#patients', as: :patients
   end
-
   resources :faculties, path: 'facultades', only: [:index, :new, :edit, :create, :update, :destroy] do
     resources :academic_departments, path: 'departamentos', except: [:show]
     resources :academic_programs, path: 'programas', except: [:show] do
@@ -34,6 +37,8 @@ Rails.application.routes.draw do
           get '/diligenciar_documentos', to: 'procedures#procedure_documents', as: :procedure_documents
           post '/cerrar', to: 'procedures#close_procedure', as: :close
           post '/completar', to: 'procedures#complete_procedure', as: :complete
+          post '/solicitar', to: 'procedures#request_approval', as: :request
+          post '/solicitar_documento', to: 'procedures#request_document', as: :request_document
         end
       end
     end

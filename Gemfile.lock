@@ -70,6 +70,7 @@ GEM
       mime-types (>= 1.16)
     childprocess (1.0.1)
       rake (< 13.0)
+    chronic (0.10.2)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -525,6 +526,8 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     wicked_pdf (1.3.0)
       activesupport
     wkhtmltopdf-heroku (2.12.5.0)
@@ -584,6 +587,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers (~> 4.0)
   webpacker
+  whenever
   wicked_pdf
   wkhtmltopdf-heroku (= 2.12.5.0)
 
@@ -591,4 +595,4 @@ RUBY VERSION
    ruby 2.4.3p205
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

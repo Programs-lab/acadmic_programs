@@ -47,6 +47,7 @@ gem "mini_magick"
 gem 'combine_pdf'
 gem 'redis-namespace'
 gem 'cable_ready'
+gem 'whenever', require: false
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

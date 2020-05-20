@@ -42,8 +42,9 @@
                   <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
                   <div class="text-teal-darkest">
                     <p class="font-bold">Atención.</p>
-                    <p class="text-sm">El directro de este programa aun no ha subido este documento, puede enviar una alerta solicitandolo usando el siguiente boton</i></p>
-                    <button class="btn btn-secondary">Solcitar documento</button>
+                    <p class="text-sm pb-4">El directro de este programa aun no ha subido este documento, puede enviar una alerta solicitandolo usando el siguiente boton</i></p>
+                    <%= link_to "Solicitar documento",  faculty_academic_program_process_academic_program_procedure_request_document_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id, document_id: doc.id), method: :post, class: 'btn btn-secondary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'"%>
+                    <br>
                   </div>
                 </div>
               </div>
@@ -109,6 +110,8 @@
             <div class="flex justify-end w-full md:w-auto ml-1">
             <% if current_user.admin? %>
               <%= link_to "Aprobar tramite", faculty_academic_program_process_academic_program_procedure_complete_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), method: :post, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'"%>
+            <% else %>
+              <%= link_to "Solicitar revision",  faculty_academic_program_process_academic_program_procedure_request_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), method: :post, class: 'btn btn-primary', "v-ripple.350" => "'rgba(0, 0, 0, 0.35)'"%>
             <% end %>
             </div>
           </div>

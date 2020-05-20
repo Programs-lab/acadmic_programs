@@ -6,11 +6,19 @@ class AcademicProcess < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank,  allow_destroy: true
   after_create :apply_to_all_programs
   validates :name, presence: true
-  
+
   def apply_to_all_programs
     if AcademicProgram.any?
       AcademicProgram.all.each do |ap|
         ap.processes_academic_programs.create(academic_process_id: self.id)
+        ap.users.last.notifications.create(
+        title: "Nueva processo",
+        message: "El programa academico tiene un nuevo proceso de nombre: #{self.name}",
+        launch: Rails.application.routes.url_helpers.faculty_academic_program_process_academic_programs_path(
+          faculty_id: ap.faculty.id,
+          academic_program_id: ap.id
+          )
+        )
       end
     end
   end

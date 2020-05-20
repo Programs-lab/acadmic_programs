@@ -1,5 +1,5 @@
 <%= render  'shared/card' do %>
-<div id="procedure_documents" data-ids-array="<%= @documents.select(:id).to_json %>" data-proc-id = "<%= @procedure.id %>" data-documents = "<%= @documents.to_json %>" >
+<div id="procedure_documents" data-ids-array="<%= @documents.select(:id).to_json %>" data-proc-id = "<%= @procedure.id %>" data-documents = "<%= @docs_json %>" >
   <div class="flex flex-row-reverse px-4">
   </div>
 
@@ -74,6 +74,43 @@
             </div>
           </div>
 
+        </div>
+        <div class="divider"></div>
+        <div class="flex w-full">
+          <div class="flex w-full pb-4">
+            Obserbaciones
+          </div>
+        </div>
+
+        <div v-if="documents[<%= index %>].comments.length > 0">
+          <div class="flex w-full pb-4" v-for="(comment, index) in documents[<%= index %>].comments">
+            <div class="w-full bg-white shadow border border-g-l5 py-4 px-2 md:rounded">
+              <div class="flex w-full items-center">
+                <div class="flex w-1/6 justify-center">
+                  <img :src=comment.user.avatar.thumb.url alt="" width="80" height="160" >
+                </div>
+                <div class="w-5/6">
+                  <div v-html="comment.content"> </div>
+                </div>
+              </div>
+              <div class="flex w-full pt-4">
+                <div class="flex w-2/5">
+                  {{comment.user.first_name}} {{comment.user.last_name}}
+                </div>
+                <div class="flex w-3/5 justify-end">
+                  <div class="inline-flex items-center">
+                    {{ $moment(comment.created_at).format("DD MMM h:mm a") }}
+                    <button class="btn-flat text-red" v-if="<%= current_user.id %> === comment.user.id" @click="deleteComment(comment.id,  <%= @procedure.id %> )"><i class="far fa-trash-alt"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="inline-flex w-full">
+          <textarea id="comment_<%= doc.id %>" class="simple-content"></textarea>
+          <button class="btn btn-secondary" @click="submitComment(<%= doc.id %>, <%= @procedure.id %>, <%= current_user.id %> )">Agregar</button>
         </div>
       </template>
      </collapse-vue>

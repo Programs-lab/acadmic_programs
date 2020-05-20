@@ -48,11 +48,20 @@ $( document ).on('turbolinks:load',function() {
   setTimeout(function () {
     tinyMCE.init({
       selector: 'textarea.simple-content',
-      plugins: 'paste print preview fullpage searchreplace  visualchars fullscreen  table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount',
-      toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
+      menubar: '',
+      toolbar: false,
       width: '100%',
-      height: 104,
-      language: 'es_MX',      
+      height: 5,
+      language: 'es_MX',
+      setup: function (ed) {
+        ed.on('init', function(args) {
+            var id = ed.id;
+            var height = 50;
+
+            document.getElementById(id + '_ifr').style.height = height + 'px';
+            document.getElementById(id + '_tbl').style.height = (height + 30) + 'px';
+        });
+},
     })
   }, 10);
 });

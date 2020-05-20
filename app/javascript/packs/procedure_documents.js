@@ -3,8 +3,12 @@ import TurbolinksAdapter from 'vue-turbolinks';
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import vClickOutside from 'v-click-outside'
+import VueMoment from 'vue-moment';
+import moment from 'moment';
+Vue.use(VueMoment, { moment } );
 Vue.use(TurbolinksAdapter)
 Vue.use(vClickOutside)
+moment.locale('es')
 
 document.addEventListener('turbolinks:load', () => {
   if(document.getElementById('procedure_documents')) {
@@ -38,6 +42,24 @@ document.addEventListener('turbolinks:load', () => {
         vueDropzone: vue2Dropzone
       },
       methods: {
+
+        submitComment(id, pr_id, u_id){
+          var content = tinyMCE.get("comment_" + id).getContent()
+          var params = {
+            id: id,
+            user_id: u_id,
+            content: content
+          }
+          var self = this
+          self.$http.post(`/api/procedure_documents/add_comment/${id}`, params).then(response => { self.fetchProcedureDocuments(pr_id)}, response => {console.log(response)})
+          tinyMCE.get("comment_" + id).setContent("")
+        },
+
+        deleteComment(id, pr_id){
+          var self = this
+          self.$http.delete(`/api/procedure_documents/remove_comment/${id}`).then(response => { self.fetchProcedureDocuments(pr_id)}, response => {console.log(response)})
+        },
+
         modalId(i){
           Vue.set(this.modal2, i , !this.modal2[i]);
         },

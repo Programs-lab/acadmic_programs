@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_notification, only: [:edit, :update, :destroy]
   def index
-    @notifications = current_user.notifications.all.order(:created_at)
+    @notifications = current_user.notifications.all.order(created_at: :desc)
     @pagy, @notifications = pagy(@notifications)
   end
 

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     post 'media/:id', to: 'media#create'
     get  'procedure_documents/:id', to: 'procedure_documents#fetch'
     post  'procedure_documents/update/:id', to: 'procedure_documents#update'
+    post  'procedure_documents/add_comment/:id', to: 'procedure_documents#add_comment'
+    delete  'procedure_documents/remove_comment/:id', to: 'procedure_documents#remove_comment'
     put  'procedure_documents/remove/:id', to: 'procedure_documents#remove_file'
     delete  'media/:id', to: 'media#destroy'
 

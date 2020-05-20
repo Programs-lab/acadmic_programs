@@ -23,6 +23,7 @@ class ProceduresController < ApplicationController
 
   def procedure_documents
     @documents = @procedure.procedure_documents
+    @docs_json = @documents.to_json(include: {comments: {include: {user: {only: [:id, :avatar, :first_name, :last_name]}}}})
   end
 
   def close_procedure

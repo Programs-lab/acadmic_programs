@@ -11,10 +11,12 @@
 
   <div class="flex w-full justify-end">
     <div class="inline-flex">
+      <% if current_user.admin? %>
       <a id="myBtn" @click="modalId('men')" class="btn btn-primary cursor-pointer fa-md">
           <%= icon('fas','plus', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
           Resolucion
       </a>
+      <% end %>
       <a id="myBtn" @click="modalId('create')" class="btn btn-primary cursor-pointer fa-md">
           <%= icon('fas','plus', "v-ripple" => "'rgba(255, 255, 255, 0.20)'")%>
           Tramite

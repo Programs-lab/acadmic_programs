@@ -2,7 +2,7 @@
   "name": "gastromed",
   "private": true,
   "engines": {
-    "node": "10.10.0"
+    "node": "10.15.3"
   },
   "dependencies": {
     "@ajoelp/json-to-formdata": "^1.1.0",

@@ -1,9 +1,6 @@
 {
   "name": "gastromed",
   "private": true,
-  "engines": {
-    "node": "10.15.3"
-  },
   "dependencies": {
     "@ajoelp/json-to-formdata": "^1.1.0",
     "@rails/actioncable": "^6.0.3",
@@ -30,11 +27,11 @@
     "vue-turbolinks": "^2.0.4",
     "vue2-dropzone": "^3.5.9",
     "vuejs-datepicker": "^1.5.4",
-    "vuelidate": "^0.7.4"
+    "vuelidate": "^0.7.4",
+    "rails-erb-loader": "^5.5.2",
   },
   "devDependencies": {
     "autoprefixer": "^9.4.10",
-    "rails-erb-loader": "^5.5.2",
     "webpack-dev-server": "^3.2.1"
   },
   "version": "1.13.0"

@@ -39,7 +39,7 @@ class ProcessAcademicProgramsController < ApplicationController
       if @process_academic_program.update(process_academic_programs_params)
         format.html { redirect_to faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @process_academic_program.academic_program.id, process_academic_program_id: @process_academic_program.id), notice: 'Resolucion agregada con exito' }
       else
-        format.html { render :edit }
+        format.html { redirect_to faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @process_academic_program.academic_program.id, process_academic_program_id: @process_academic_program.id), alert: 'Los datos de resolucion no son validos' }
       end
     end
   end

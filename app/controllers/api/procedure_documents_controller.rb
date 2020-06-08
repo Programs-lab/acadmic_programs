@@ -3,7 +3,7 @@ class Api::ProcedureDocumentsController < ApplicationController
 
   def fetch
     @procedure = Procedure.find(params[:id])
-    render json: @procedure.procedure_documents.to_json(include: {comments: {include: {user: {only: [:id, :avatar, :first_name, :last_name]}}}})
+    render json: @procedure.procedure_documents.includes(:document).order("documents.name ASC").to_json(include: {comments: {include: {user: {only: [:id, :avatar, :first_name, :last_name]}}}})
   end
 
   def update
@@ -33,6 +33,7 @@ class Api::ProcedureDocumentsController < ApplicationController
           process_academic_program_id: @pd.procedure.processes_academic_program.id,
           procedure_id: @pd.procedure.id)
         )
+      NotificationsMailer.new_notification(@user.id, @user.notifications.last.id).deliver_now()
   end
 
   def remove_comment

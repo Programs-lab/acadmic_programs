@@ -22,7 +22,7 @@ class ProceduresController < ApplicationController
   end
 
   def procedure_documents
-    @documents = @procedure.procedure_documents
+    @documents = @procedure.procedure_documents.includes(:document).order("documents.name ASC")
     @docs_json = @documents.to_json(include: {comments: {include: {user: {only: [:id, :avatar, :first_name, :last_name]}}}})
   end
 
@@ -38,6 +38,8 @@ class ProceduresController < ApplicationController
           process_academic_program_id: @pr_academic_program.id
           )
         )
+    director = @pr_academic_program.academic_program.users.last
+    NotificationsMailer.new_notification(director.id, director.notifications.last.id).deliver_now()
   end
 
   def complete_procedure
@@ -51,6 +53,8 @@ class ProceduresController < ApplicationController
           process_academic_program_id: @pr_academic_program.id
           )
         )
+    director = @pr_academic_program.academic_program.users.last
+    NotificationsMailer.new_notification(director.id, director.notifications.last.id).deliver_now()
     redirect_to faculty_academic_program_process_academic_program_procedures_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id)
   end
 
@@ -60,6 +64,7 @@ class ProceduresController < ApplicationController
         title: "Solicitud de revision",
         message: "El director de programa de #{@pr_academic_program.academic_program.name} ha solicitado la revision del tramite con fecha #{@procedure.procedure_date.strftime("%Y/%m/%d ")}",
         launch: "#{faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id)}")
+      NotificationsMailer.new_notification(u.id, u.notifications.last.id).deliver_now()
     end
     redirect_to faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), notice: 'Se solicito la revision de documentos'
   end
@@ -75,6 +80,8 @@ class ProceduresController < ApplicationController
           process_academic_program_id: @pr_academic_program.id,
           procedure_id: @procedure.id)
         )
+      director = @pr_academic_program.academic_program.users.last
+      NotificationsMailer.new_notification(director.id, director.notifications.last.id).deliver_now()
      redirect_to faculty_academic_program_process_academic_program_procedure_procedure_documents_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id, process_academic_program_id: @pr_academic_program.id, procedure_id: @procedure.id), notice: 'Se solicito el documento'
   end
 

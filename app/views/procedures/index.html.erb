@@ -1,6 +1,8 @@
 <%= render  'shared/card' do %>
 <div id=procedures_index>
-
+<%= link_to(faculty_academic_program_process_academic_programs_path(faculty_id: @faculty.id, academic_program_id: @pr_academic_program.academic_program.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'arrow-left', 'Volver') %>
+             <% end %>
   <div class="my-8 flex px-4 items-center">
     <div class="flex w-1/2">
       <h4 class="font-semibold text-g-d4 text-lg">

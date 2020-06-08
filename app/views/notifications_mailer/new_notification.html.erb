@@ -1,0 +1,11 @@
+<p>Nueva notificacion</p>
+	Hola <%= "#{@user.first_name} #{@user.last_name}" %> el presente correo es para notificarle de una nueva notificacion
+ <%= @notification.title %>
+  <br>
+  <%= @notification.message %>
+  Siga el siguiente link para mas detalles <%= link_to	"Ver", @notification.launch %>
+<p>
+  Programas academicos UFPS
+  <br>
+  <b>SGP-UFPS</b>
+</p>

@@ -39,7 +39,7 @@
       <thead>
         <tr>
           <th scope="col" width="5%"></th>
-          <th scope="col" width="5%"></th>
+          <th scope="col" width="15%"></th>
           <th scope="col" width="30%">Nombre</th>
           <th scope="col" width="25%">Vigencia SACES</th>
           <th scope="col" width="25%">Vigencia consejo academico</th>
@@ -58,7 +58,7 @@
           <td>
             <div class="py-2 hidden md:table-cell">
               <%= link_to(academic_process_documents_path(process.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
-                <%= icon('fas', 'file-word') %>
+                <%= icon('fas', 'file-word', "Docs") %>
               <% end %>
             </div>
           </td>

@@ -7,6 +7,9 @@
     documents_attributtes: @academic_process.documents.to_json(except: [:academic_process_id, :created_at, :updated_at])
   } do %>
 
+<%= link_to(academic_processes_path, class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'arrow-left', 'Volver') %>
+             <% end %>
   <div class="my-8 flex px-4 items-center">
     <div class="flex w-full">
       <h4 class="font-semibold text-g-d4 text-lg">

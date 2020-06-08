@@ -1,4 +1,7 @@
 <%= render  'shared/card' do %>
+<%= link_to(faculties_path, class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+                <%= icon('fas', 'arrow-left', 'Volver') %>
+             <% end %>
 <% if current_user.admin?  %>
   <div class="flex flex-row-reverse px-4">
     <div class="w-2/3 text-right">

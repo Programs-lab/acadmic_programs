@@ -39,7 +39,7 @@
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th scope="col" class="w-1/3 lg:w-1/4"></th>
+          <th scope="col" class="w-1/3 lg:w-1/3"></th>
           <th scope="col" width="30%">Nombre</th>
           <th scope="col" class="hidden md:table-cell" width="30%">Codigo</th>
         </tr>
@@ -55,10 +55,10 @@
               <% end %>
             <% end %>
               <%= link_to(faculty_academic_departments_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important', id: "academic_department_button") do %>
-                <%= icon('fas', 'building') %>
+                <%= icon('fas', 'building', "Dptos.") %>
               <% end %>
               <%= link_to(faculty_academic_programs_path(faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important',id: "academic_program_button") do %>
-                <%= icon('fas', 'book') %>
+                <%= icon('fas', 'book', "Prog.") %>
               <% end %>
             </div>
           </td>

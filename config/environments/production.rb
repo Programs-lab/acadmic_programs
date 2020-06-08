@@ -76,7 +76,7 @@ Rails.application.configure do
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_options = { from: "sistemas@ufps.com"}
+  config.action_mailer.default_options = { from: "sgpufpsnotifier@gmail.com"}
 
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => "programas-academicos.herokuapp.com" }

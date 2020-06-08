@@ -39,7 +39,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:3000'  }
 
-  config.action_mailer.default_options = { from: "sistemas@ufps.edu.co"}
+  config.action_mailer.default_options = { from: "sgpufpsnotifier@gmail.com"}
 
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {

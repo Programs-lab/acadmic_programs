@@ -34,7 +34,7 @@
         <div class="flex flex-wrap mx-auto" style="width: 86.666%;">
           <div  class="w-1/2 mb-6 pr-2 focus_form">
             <%= f2.label "fecha de resolucion", class: 'label_input' %>
-            <datepicker input-class="field_input rounded-t" v-model="men_date"></datepicker>
+            <datepicker input-class="field_input rounded-t" :language="es" v-model="men_date"></datepicker>
             <%= f2.hidden_field :men_date, {"v-model" => "men_date"} %>
           </div>
           <div  class="w-1/2 mb-6 pl-2 focus_form">
@@ -205,7 +205,7 @@
         <%= icon('fa', icon_alert['info'], class: 'mr-3 fa-2x') %>
         <div class="text-teal-darkest">
           <p class="font-bold">Atención.</p>
-          <p class="text-sm">Aun no hay tramites registrados, puede abrir uno con el boton "+"</i></p>
+          <p class="text-sm">Aun no hay tramites registrados, puede abrir uno con el boton "+"</p>
         </div>
       </div>
     </div>

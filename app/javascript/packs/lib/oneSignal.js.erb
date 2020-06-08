@@ -43,7 +43,7 @@ document.addEventListener("turbolinks:load", () => {
     fetchOneSignalVariable().then(value => {
       var OneSignal = value
       var userEmail = element.dataset.email
-      init()
+      if(!OneSignal.initialized) init()
       notificationPermissionChange(userEmail)
     })
   }

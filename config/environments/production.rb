@@ -83,12 +83,14 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :user_name            => "sgpufpsnotifier@gmail.com",
-    :password             => "1q2w3e4r??!!",
-    :authentication       => "plain",
-    :enable_starttls_auto => true
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            'sgpufpsnotifier@gmail.com',
+    password:             '1q2w3e4r??!!',
+    authentication:       'plain'
+    # enable_starttls_auto: true
+    # ^ ^ remove this option ^ ^
   }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.

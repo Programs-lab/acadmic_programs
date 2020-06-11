@@ -81,10 +81,16 @@ Rails.application.configure do
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => "programas-academicos.herokuapp.com" }
 
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key:  Rails.application.secrets.mailgun_api_key,
-    domain: Rails.application.secrets.mailgun_domain,
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            'sgpufpsnotifier@gmail.com',
+    password:             '1q2w3e4r??!!',
+    authentication:       'plain'
+    # enable_starttls_auto: true
+    # ^ ^ remove this option ^ ^
   }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.

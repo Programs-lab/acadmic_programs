@@ -2,9 +2,12 @@
 <div id="program_processes" data-ids-array="<%= @processes_academic_programs.select(:id).to_json %>" data-all-media="<%= @processes_academic_programs.to_json(include: :media) %>">
   <div class="flex flex-row-reverse px-4">
   </div>
-<%= link_to(faculty_academic_programs_path(faculty_id: @faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
-                <%= icon('fas', 'arrow-left', 'Volver') %>
-             <% end %>
+  <% if current_user.admin? %>
+    <%= link_to(faculty_academic_programs_path(faculty_id: @faculty.id), class: 'btn btn-secondary no-underline rounded-full:!important') do %>
+        <%= icon('fas', 'arrow-left', 'Volver') %>
+     <% end %>
+  <% end  %>
+
   <div class="my-8 flex px-4">
     <div class="w-1/2">
       <h4 class="font-semibold text-g-d4 text-lg">

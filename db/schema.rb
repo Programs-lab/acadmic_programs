@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_040942) do
+ActiveRecord::Schema.define(version: 2020_06_11_214120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_040942) do
     t.bigint "document_id"
     t.bigint "user_id"
     t.string "procedure_document_file"
+    t.date "last_uploaded_file_date"
     t.index ["document_id"], name: "index_procedure_documents_on_document_id"
     t.index ["procedure_id"], name: "index_procedure_documents_on_procedure_id"
     t.index ["user_id"], name: "index_procedure_documents_on_user_id"

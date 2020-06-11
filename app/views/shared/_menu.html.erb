@@ -16,6 +16,7 @@
   <% end %>
 <% end %>
 
+<% if current_user.admin? %>
   <%= link_to(faculties_path, class: "no-underline") do %>
     <div class="list-group-item rounded-t <%= is_faculty_path %>" >
       <div class="flex">
@@ -28,6 +29,7 @@
       </div>
     </div>
   <% end %>
+<% end %>
 
 <% if policy(AcademicProcess).index? %>
   <%= link_to(academic_processes_path, class: "no-underline") do %>

@@ -58,8 +58,8 @@
               <div class="flex w-1/2 justify-start">
                 <b class="text-black pr-2">Nombre:</b> {{ documents[<%= index %>].procedure_document_file.url.split("/")[documents[<%= index %>].procedure_document_file.url.split("/").length-1]}}
               </div>
-              <div class="w-1/2">
-                <b class="text-black pr-2">Fecha:</b> 1/1/2020
+              <div class="w-1/2 pl-4">
+                <b class="text-black pr-2">Fecha:</b> {{ $moment(documents[<%= index %>].last_uploaded_file_date).format("DD/MM/YY") }}
                </div>
               <div class="flex w-full justify-end">
                 <div class="inline-flex">

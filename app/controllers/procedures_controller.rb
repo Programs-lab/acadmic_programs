@@ -46,7 +46,7 @@ class ProceduresController < ApplicationController
     @procedure.update(state: 2, closed_date: Date.today)
     @pr_academic_program.academic_program.users.last.notifications.create(
         title: "Tramite aprobado",
-        message: "El tramite de fecha #{@procedure.strftime("%Y/%m/%d ")} del proceso #{pr_academic_program.academic_process.name} fue aprobado",
+        message: "El tramite de fecha #{@procedure.procedure_date.strftime("%Y/%m/%d ")} del proceso #{@pr_academic_program.academic_process.name} fue aprobado",
         launch: faculty_academic_program_process_academic_program_procedures_path(
           faculty_id: @faculty.id,
           academic_program_id: @pr_academic_program.academic_program.id,

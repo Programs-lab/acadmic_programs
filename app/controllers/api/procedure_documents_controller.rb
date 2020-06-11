@@ -8,7 +8,7 @@ class Api::ProcedureDocumentsController < ApplicationController
 
   def update
     @pd = ProcedureDocument.find(params[:id])
-    @pd.update(procedure_document_file: params[:file])
+    @pd.update(procedure_document_file: params[:file], last_uploaded_file_date: Time.now)
   end
 
   def remove_file

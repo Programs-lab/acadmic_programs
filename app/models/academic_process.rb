@@ -11,16 +11,20 @@ class AcademicProcess < ApplicationRecord
     if AcademicProgram.any?
       AcademicProgram.all.each do |ap|
         ap.processes_academic_programs.create(academic_process_id: self.id)
-        ap.users.last.notifications.create(
-        title: "Nuevo processo",
-        message: "El programa academico tiene un nuevo proceso de nombre: #{self.name}",
-        launch: Rails.application.routes.url_helpers.faculty_academic_program_process_academic_programs_path(
-          faculty_id: ap.faculty.id,
-          academic_program_id: ap.id
+        if ap.users.last
+          ap.users.last.notifications.create(
+          title: "Nuevo processo",
+          message: "El programa academico tiene un nuevo proceso de nombre: #{self.name}",
+          launch: Rails.application.routes.url_helpers.faculty_academic_program_process_academic_programs_path(
+            faculty_id: ap.faculty.id,
+            academic_program_id: ap.id
+            )
           )
-        )
+        end
         director = ap.users.last
-        NotificationsMailer.new_notification(director.id, director.notifications.last.id).deliver_now()
+        if director
+          NotificationsMailer.new_notification(director.id, director.notifications.last.id).deliver_now()
+        end
       end
     end
   end

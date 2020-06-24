@@ -3,7 +3,7 @@
  <%= @notification.title %>
   <br>
   <%= @notification.message %>
-  Siga el siguiente link para mas detalles <%= link_to	"Ver", @notification.launch %>
+  Siga el siguiente link para mas detalles <%= link_to	"Ver",  "https://programas-academicos.herokuapp.com/#{@notification.launch}" %>
 <p>
   Programas academicos UFPS
   <br>

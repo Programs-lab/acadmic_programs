@@ -86,8 +86,8 @@ Rails.application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'gmail.com',
-    user_name:            'sgpufpsnotifier@gmail.com',
-    password:             '1q2w3e4r??!!',
+    user_name:            ENV["SMTP_USER_NAME"],
+    password:             ENV["SMTP_PASSWORD"],
     authentication:       'plain'
     # enable_starttls_auto: true
     # ^ ^ remove this option ^ ^

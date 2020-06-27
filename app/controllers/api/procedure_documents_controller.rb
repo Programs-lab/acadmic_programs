@@ -25,7 +25,7 @@ class Api::ProcedureDocumentsController < ApplicationController
       user_id: params[:user_id]
       )
     @pd.procedure.processes_academic_program.academic_program.users.last.notifications.create(
-        title: "Nueba observacion",
+        title: "Nueva observación",
         message: "El usuario #{@user.first_name} #{@user.last_name} ha dejado una observacion en el documento: #{@pd.document.name} para el proceso de #{@pd.procedure.processes_academic_program.academic_process.name} en el tramite de #{@pd.procedure.procedure_date.strftime("%Y/%m/%d ")}",
         launch: faculty_academic_program_process_academic_program_procedure_procedure_documents_path(
           faculty_id: @pd.procedure.processes_academic_program.academic_program.faculty.id,
